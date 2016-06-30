@@ -8,6 +8,7 @@
 
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
+#import "LoginTableViewController.h"
 
 @interface SignInViewController ()
 
@@ -18,9 +19,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
-        
-    
     
 }
 
@@ -37,6 +35,7 @@
 - (IBAction)signInAction:(id)sender {
     
     // 로그인 AlertController 추가
+    /*
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"로그인" message:nil preferredStyle:UIAlertControllerStyleAlert];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -65,6 +64,11 @@
     [alertController addAction:cancelAction];
     
     [self presentViewController:alertController animated:YES completion:nil];
+     */
+    
+    LoginTableViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginPage"];
+    
+    [self presentViewController:loginView animated:YES completion:nil];
 
 }
 
