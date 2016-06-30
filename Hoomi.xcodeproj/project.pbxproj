@@ -9,10 +9,11 @@
 /* Begin PBXBuildFile section */
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
-		FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DF1D20D1ED001FC9A0 /* ViewController.m */; };
 		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
+		FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */; };
+		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +21,14 @@
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FF5904DE1D20D1ED001FC9A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FF5904DF1D20D1ED001FC9A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FF5904E21D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5904E71D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF5904E91D20D1ED001FC9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingUpTableViewController.h; sourceTree = "<group>"; };
+		FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingUpTableViewController.m; sourceTree = "<group>"; };
+		FF65A0551D24DC470013C181 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,10 +61,9 @@
 		FF5904D71D20D1EC001FC9A0 /* Hoomi */ = {
 			isa = PBXGroup;
 			children = (
+				FF65A0581D24DDE90013C181 /* SignView */,
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
-				FF5904DE1D20D1ED001FC9A0 /* ViewController.h */,
-				FF5904DF1D20D1ED001FC9A0 /* ViewController.m */,
 				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
@@ -77,6 +79,17 @@
 				FF5904D91D20D1ED001FC9A0 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		FF65A0581D24DDE90013C181 /* SignView */ = {
+			isa = PBXGroup;
+			children = (
+				FF65A0551D24DC470013C181 /* SignInViewController.h */,
+				FF65A0561D24DC470013C181 /* SignInViewController.m */,
+				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
+				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
+			);
+			name = SignView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,9 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */,
+				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
+				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +314,7 @@
 				FF5904EE1D20D1ED001FC9A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
