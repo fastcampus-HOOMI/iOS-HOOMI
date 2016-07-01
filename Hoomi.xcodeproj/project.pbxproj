@@ -14,7 +14,7 @@
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
 		FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */; };
 		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
-		FF65A0801D2501780013C181 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A07F1D2501780013C181 /* LoginTableViewController.m */; };
+		FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,8 +30,7 @@
 		FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingUpTableViewController.m; sourceTree = "<group>"; };
 		FF65A0551D24DC470013C181 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		FF65A07E1D2501770013C181 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
-		FF65A07F1D2501780013C181 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HOOMI@2X.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +70,7 @@
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
+				FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */,
 				FF5904D81D20D1EC001FC9A0 /* Supporting Files */,
 			);
 			path = Hoomi;
@@ -91,8 +91,6 @@
 				FF65A0561D24DC470013C181 /* SignInViewController.m */,
 				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
 				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
-				FF65A07E1D2501770013C181 /* LoginTableViewController.h */,
-				FF65A07F1D2501780013C181 /* LoginTableViewController.m */,
 			);
 			name = SignView;
 			sourceTree = "<group>";
@@ -156,6 +154,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
+				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,
 			);
@@ -169,7 +168,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
-				FF65A0801D2501780013C181 /* LoginTableViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
 				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,

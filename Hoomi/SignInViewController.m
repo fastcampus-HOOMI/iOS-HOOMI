@@ -6,11 +6,18 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
-#import "LoginTableViewController.h"
+
 
 @interface SignInViewController ()
+<UITextFieldDelegate>
+
+@property (nonatomic, strong) IBOutlet UITextField *userIDTextfield;
+@property (nonatomic, strong) IBOutlet UITextField *passwordTextfield;
+
+@property (nonatomic) NSNotificationCenter *notificationCenter;
 
 @end
 
@@ -20,10 +27,40 @@
     
     [super viewDidLoad];
     
+    [self.view setBackgroundColor:[UIColor lightGrayColor]];
+    
+    [self customTextField:self.userIDTextfield];
+    [self customTextField:self.passwordTextfield];
+    
+    self.userIDTextfield.delegate = self;
+    self.passwordTextfield.delegate = self;
+    
+    self.notificationCenter = [NSNotificationCenter defaultCenter];
+    [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
 }
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    
+    [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
+}
+
+- (void)keyboardWillShow:(NSNotification *) noti {
+    
+        NSLog(@"userIDTextfield");
+        [UIView animateWithDuration:0.3 animations:^{
+            [self.view setFrame:CGRectMake(0, -50, self.view.frame.size.width, self.view.frame.size.height)];
+        }];
+    
+    
+    NSLog(@"show keyboard");
     
 }
 
@@ -66,10 +103,7 @@
     [self presentViewController:alertController animated:YES completion:nil];
      */
     
-    LoginTableViewController *loginView = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginPage"];
-    
-    [self presentViewController:loginView animated:YES completion:nil];
-
+   
 }
 
 - (IBAction)signUpAction:(id)sender {
@@ -77,6 +111,18 @@
     SingUpTableViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
     
     [self presentViewController:signUpView animated:YES completion:nil];
+    
+}
+
+- (void)customTextField:(UITextField *)textField {
+    
+    [textField.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
+    [textField.layer setBorderColor: [[UIColor grayColor] CGColor]];
+    [textField.layer setBorderWidth: 1.0];
+    [textField.layer setCornerRadius:5.0f];
+    [textField.layer setMasksToBounds:YES];
+    
+    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
     
 }
 
