@@ -82,8 +82,8 @@
         [self.view addSubview:wrongView];
     } completion:^(BOOL finished) {
         
-        [UIView animateWithDuration:0.5 delay:1.0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-            [wrongView setFrame:CGRectMake(0, height,[UIScreen mainScreen].bounds.size.width, height)];
+        [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            [wrongView setFrame:CGRectMake(0, -height,[UIScreen mainScreen].bounds.size.width, height)];
             [wrongView setBackgroundColor:[UIColor clearColor]];
         } completion:^(BOOL finished) {
             [wrongView removeFromSuperview];

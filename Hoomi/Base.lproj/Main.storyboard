@@ -44,7 +44,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="아이디" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-GI-DIv">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-GI-DIv">
                                                     <rect key="frame" x="10" y="5" width="580" height="44.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -114,11 +114,6 @@
                                 <action selector="cancelSignUp:" destination="gJI-2S-i9d" id="NK5-Ti-KuF"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="가입" id="jor-Ij-o6N">
-                            <connections>
-                                <action selector="accessSignUp:" destination="gJI-2S-i9d" id="jth-Fh-Rhs"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="email" destination="7wb-Rf-vhJ" id="dbO-Tf-TBX"/>
@@ -162,17 +157,29 @@
                                     <action selector="signInAction:" destination="OJc-zG-KX2" eventType="touchUpInside" id="ZrR-Pc-owx"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="아이디" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-Xi-AgU">
+                                <rect key="frame" x="20" y="140" width="560" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Tmg-no-ZS3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="geR-Rb-64v" firstAttribute="top" secondItem="YMV-U3-gwK" secondAttribute="bottom" constant="20" id="1xO-id-fX7"/>
+                            <constraint firstItem="Waj-Xi-AgU" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="7np-kg-QYE"/>
                             <constraint firstItem="geR-Rb-64v" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="CmA-j8-nFV"/>
                             <constraint firstItem="geR-Rb-64v" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="D6l-Rg-YfK"/>
+                            <constraint firstAttribute="trailing" secondItem="Waj-Xi-AgU" secondAttribute="trailing" constant="20" id="S7e-pb-zVU"/>
                             <constraint firstAttribute="trailing" secondItem="YMV-U3-gwK" secondAttribute="trailing" constant="20" id="Xrw-0m-8xc"/>
                             <constraint firstAttribute="trailing" secondItem="geR-Rb-64v" secondAttribute="trailing" constant="20" id="gvv-C6-QbE"/>
                             <constraint firstItem="YMV-U3-gwK" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="kHH-yf-79m"/>
                             <constraint firstItem="YMV-U3-gwK" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="s7o-Ld-ipt"/>
                             <constraint firstItem="Qo6-yk-wk5" firstAttribute="top" secondItem="geR-Rb-64v" secondAttribute="bottom" constant="120" id="sRC-cI-q7x"/>
+                            <constraint firstItem="Waj-Xi-AgU" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="t7J-ec-389"/>
+                            <constraint firstItem="Waj-Xi-AgU" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="120" id="xL4-i4-Cpc"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
