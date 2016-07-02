@@ -10,7 +10,15 @@
 
 @implementation SheetOfDetailResume
 
-
-/* 루트뷰에 올렸던거 빼고, 다시 뷰 만들어서 올리기 */
+/* 이미지, 텍스트뷰 초기화 함께 */
+- (instancetype)initWithContents
+{
+    self = [super init];
+    if (self) {
+        self.imageView = [[UIImageView alloc]init];
+        self.textView = [[UITextView alloc]init];
+    }
+    return self;
+}
 
 @end

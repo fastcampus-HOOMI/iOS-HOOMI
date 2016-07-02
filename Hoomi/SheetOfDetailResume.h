@@ -10,7 +10,9 @@
 
 @interface SheetOfDetailResume : UIView
 
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) IBOutlet UITextView *textView;
+
+- (instancetype)initWithContents;
 
 @end
