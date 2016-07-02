@@ -10,9 +10,12 @@
 
 @interface SheetOfDetailResume : UIView
 
-@property (strong, nonatomic) IBOutlet UIImageView *imageView;
-@property (strong, nonatomic) IBOutlet UITextView *textView;
+/* 오토레이아웃해서 중복 객체 만들었던거 지우고 코드로 세팅 */
 
-- (instancetype)initWithContents;
+@property (strong, nonatomic) UIImageView *imageView;
+@property (strong, nonatomic) UITextView *textView;
+
+
+-(void)settingSheetOfDetailResume:(NSString *)imageName text:(NSString *)text;
 
 @end

@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Sing Up Table View Controller-->
@@ -143,57 +142,7 @@
                     <view key="view" contentMode="scaleToFill" id="xZ7-8m-6do">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zHE-jd-thY" customClass="SheetOfDetailResume">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ddk-zI-1A6">
-                                        <rect key="frame" x="0.0" y="232" width="600" height="348"/>
-                                        <subviews>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SjN-22-a00">
-                                                <rect key="frame" x="30" y="15" width="540" height="313"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</string>
-                                                <fontDescription key="fontDescription" name="HiraginoSans-W3" family="Hiragino Sans" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                            </textView>
-                                        </subviews>
-                                        <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="SjN-22-a00" secondAttribute="trailing" constant="30" id="66Q-zD-xV5"/>
-                                            <constraint firstAttribute="bottom" secondItem="SjN-22-a00" secondAttribute="bottom" constant="20" id="hah-fe-hNb"/>
-                                            <constraint firstItem="SjN-22-a00" firstAttribute="top" secondItem="ddk-zI-1A6" secondAttribute="top" constant="15" id="hkr-Ht-vAO"/>
-                                            <constraint firstItem="SjN-22-a00" firstAttribute="leading" secondItem="ddk-zI-1A6" secondAttribute="leading" constant="30" id="nVL-NG-g19"/>
-                                        </constraints>
-                                    </view>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8pU-mp-skf">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="232"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="8pU-mp-skf" secondAttribute="bottom" multiplier="5:2" id="3Yf-mi-YJF"/>
-                                    <constraint firstAttribute="trailing" secondItem="8pU-mp-skf" secondAttribute="trailing" id="7b9-jd-eE9"/>
-                                    <constraint firstItem="8pU-mp-skf" firstAttribute="leading" secondItem="zHE-jd-thY" secondAttribute="leading" id="YfE-X4-xjc"/>
-                                    <constraint firstItem="ddk-zI-1A6" firstAttribute="leading" secondItem="zHE-jd-thY" secondAttribute="leading" id="bTm-qb-69t"/>
-                                    <constraint firstAttribute="trailing" secondItem="ddk-zI-1A6" secondAttribute="trailing" id="huZ-kX-6vB"/>
-                                    <constraint firstAttribute="bottom" secondItem="ddk-zI-1A6" secondAttribute="bottom" id="lZK-AI-puE"/>
-                                    <constraint firstItem="8pU-mp-skf" firstAttribute="top" secondItem="zHE-jd-thY" secondAttribute="top" id="thb-4N-sZm"/>
-                                    <constraint firstItem="ddk-zI-1A6" firstAttribute="top" secondItem="8pU-mp-skf" secondAttribute="bottom" id="zQN-CR-NNs"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="imageView" destination="8pU-mp-skf" id="4d2-xR-OpR"/>
-                                    <outlet property="textView" destination="SjN-22-a00" id="hKS-WI-AOV"/>
-                                </connections>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="zHE-jd-thY" firstAttribute="leading" secondItem="xZ7-8m-6do" secondAttribute="leading" id="0rV-W6-bhE"/>
-                            <constraint firstAttribute="trailing" secondItem="zHE-jd-thY" secondAttribute="trailing" id="4gC-Y4-pxl"/>
-                            <constraint firstItem="cVJ-da-3gr" firstAttribute="top" secondItem="zHE-jd-thY" secondAttribute="bottom" id="hEV-6k-8tU"/>
-                            <constraint firstItem="zHE-jd-thY" firstAttribute="top" secondItem="men-gR-In7" secondAttribute="bottom" id="qzB-Vv-KuL"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGN-f0-eHK" userLabel="First Responder" sceneMemberID="firstResponder"/>

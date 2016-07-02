@@ -10,6 +10,8 @@
 
 @interface DetailResumeViewController : UIViewController
 
-@property (nonatomic) NSInteger pageNumber;
+@property (nonatomic, strong) NSArray<NSString *> *imageNameList;
+@property (nonatomic, strong) NSArray<NSString *> *textList;
+@property (nonatomic) NSInteger totalPageNumber;
 
 @end
