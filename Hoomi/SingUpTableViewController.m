@@ -163,6 +163,11 @@
     
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 10.f;
+}
+
 /**
  *  경고메시지를 뷰 상단에 띄워주는 메소드
  *

@@ -166,6 +166,13 @@
                                     <constraint firstAttribute="width" constant="100" id="gJX-Xq-1Fh"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psx-iV-OxV" customClass="FBSDKLoginButton">
+                                <rect key="frame" x="20" y="400" width="560" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="44A-Jp-Mue"/>
+                                </constraints>
+                                <state key="normal" title="Facebook Login"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -175,8 +182,12 @@
                             <constraint firstItem="yvp-01-EV7" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="Py5-Fj-Imv"/>
                             <constraint firstAttribute="trailing" secondItem="Waj-Xi-AgU" secondAttribute="trailing" constant="20" id="S7e-pb-zVU"/>
                             <constraint firstItem="yvp-01-EV7" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="20" id="T75-5Z-gve"/>
+                            <constraint firstItem="Qo6-yk-wk5" firstAttribute="top" secondItem="Psx-iV-OxV" secondAttribute="bottom" constant="150" id="a7d-pj-zLu"/>
+                            <constraint firstAttribute="trailing" secondItem="Psx-iV-OxV" secondAttribute="trailing" constant="20" id="mMB-U6-hi7"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="top" secondItem="Waj-Xi-AgU" secondAttribute="bottom" constant="5" id="rh7-rX-mKg"/>
+                            <constraint firstItem="Psx-iV-OxV" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="rrQ-HC-zvs"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="t7J-ec-389"/>
+                            <constraint firstItem="Psx-iV-OxV" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="tTM-Sa-ukW"/>
                             <constraint firstAttribute="trailing" secondItem="mXR-PY-y9M" secondAttribute="trailing" constant="20" id="v1v-hP-ysz"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="130" id="xL4-i4-Cpc"/>
                         </constraints>
@@ -194,6 +205,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="facebookLoginButton" destination="Psx-iV-OxV" id="Mei-l9-aJO"/>
                         <outlet property="passwordTextfield" destination="mXR-PY-y9M" id="0j9-JG-svQ"/>
                         <outlet property="userIDTextfield" destination="Waj-Xi-AgU" id="CSX-iu-aH6"/>
                     </connections>

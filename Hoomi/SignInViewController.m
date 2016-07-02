@@ -14,7 +14,7 @@
 
 
 @interface SignInViewController ()
-<UITextFieldDelegate, UIGestureRecognizerDelegate>
+<UITextFieldDelegate, UIGestureRecognizerDelegate, FBSDKLoginButtonDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *userIDTextfield;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextfield;
@@ -56,12 +56,13 @@
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
     
-    // 페이스북 로그인 버튼 추가
-    self.facebookLoginButton = [[FBSDKLoginButton alloc] init];
-    // Optional: Place the button in the center of your view.
-    self.facebookLoginButton.readPermissions = @[@"public_profile", @"email"];
-    self.facebookLoginButton.center = self.view.center;
-    [self.view addSubview:self.facebookLoginButton];
+    self.facebookLoginButton.delegate = self;
+    self.facebookLoginButton.readPermissions =
+    @[@"public_profile", @"email", @"user_friends"];
+    
+    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    
+    
     
 }
 
@@ -149,7 +150,6 @@
     [textField.layer setCornerRadius:8.0f];
     [textField.layer setMasksToBounds:YES];
     
-
 //    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
     textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     textField.leftViewMode = UITextFieldViewModeAlways;
@@ -193,6 +193,35 @@
     }];
     
 }
+
+- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+    
+    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:@"id,name,email" forKey:@"fields"];
+    
+    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                  id result, NSError *error) {
+//         NSLog(@"profile : %@", [[FBSDKProfile currentProfile] userID]);
+         if(!error) {
+             
+             NSLog(@"name : %@", [[result objectForKey:@"name"] stringByRemovingPercentEncoding]);
+             NSLog(@"id : %@", [result objectForKey:@"id"]);
+             NSLog(@"email : %@", [result objectForKey:@"email"]);
+             NSLog(@"expired date : %@", [[FBSDKAccessToken currentAccessToken] expirationDate]);
+         }
+     }];
+    
+}
+
+- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+    
+    
+    NSLog(@"logout");
+}
+
+
+
 
 /*
 #pragma mark - Navigation
