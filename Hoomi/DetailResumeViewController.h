@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface DetailResumeViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
+@property (nonatomic) NSInteger pageNumber;
 
 @end
