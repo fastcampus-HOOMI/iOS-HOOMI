@@ -52,7 +52,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     
-    
     [self.notificationCenter removeObserver:self name:@"keyboardToolbar" object:self.view.window];
     
 }
@@ -74,8 +73,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-    
     [textField endEditing:YES];
+    
     return YES;
 }
 
@@ -164,6 +163,11 @@
     
 }
 
+/**
+ *  경고메시지를 뷰 상단에 띄워주는 메소드
+ *
+ *  @param errorMsg 경고메시지
+ */
 - (void)errorAlert:(NSString *)errorMsg {
     
     NSInteger height = 20;

@@ -151,7 +151,7 @@
                                 </constraints>
                                 <state key="normal" title="회원가입"/>
                                 <connections>
-                                    <action selector="signUpAction:" destination="OJc-zG-KX2" eventType="touchUpInside" id="2d1-CM-ucu"/>
+                                    <action selector="signUpAction" destination="OJc-zG-KX2" eventType="touchUpInside" id="YJG-Oy-Z5b"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="아이디" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-Xi-AgU">

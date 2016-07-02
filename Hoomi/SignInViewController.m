@@ -12,12 +12,14 @@
 
 
 @interface SignInViewController ()
-<UITextFieldDelegate>
+<UITextFieldDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) IBOutlet UITextField *userIDTextfield;
 @property (nonatomic, strong) IBOutlet UITextField *passwordTextfield;
 
 @property (nonatomic) NSNotificationCenter *notificationCenter;
+
+@property (nonatomic) UITextField *currentTextField;
 
 @end
 
@@ -32,6 +34,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    // Set Custom TextField
     [self customTextField:self.userIDTextfield];
     [self customTextField:self.passwordTextfield];
     
@@ -40,9 +43,17 @@
     
     self.notificationCenter = [NSNotificationCenter defaultCenter];
     [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
+    
+    /*
+     뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
+     */
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
+    tapGesture.numberOfTapsRequired = 1;
+    tapGesture.delegate = self;
+    [tapGesture addTarget:self action:@selector(endEditingTextField)];
+    [self.view addGestureRecognizer:tapGesture];
+    
 }
-
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -51,6 +62,12 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
+    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    textField.rightViewMode = UITextFieldViewModeAlways;
+    
+    self.currentTextField = textField;
     [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
 }
 
@@ -78,7 +95,7 @@
 }
 
 /**
- *  로그인 버튼을 클릭했을 때 실행되는 메소드
+ *  로그인 버튼을 눌렀을 때 실행되는 메소드
  */
 - (void)signInUser {
 
@@ -92,7 +109,10 @@
    
 }
 
-- (IBAction)signUpAction:(id)sender {
+/**
+ *  회원가입 버튼을 눌렀을 때 실행되는 메소드
+ */
+- (IBAction)signUpAction {
     
     SingUpTableViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
     
@@ -100,6 +120,17 @@
     
 }
 
+- (void)endEditingTextField {
+    
+    [self.currentTextField endEditing:YES];
+    
+}
+
+/**
+ *  커스텀 텍스트필드를 만들어주는 메소드
+ *
+ *  @param textField 실행하고자하는 TextField
+ */
 - (void)customTextField:(UITextField *)textField {
     
     [textField.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
@@ -108,10 +139,19 @@
     [textField.layer setCornerRadius:8.0f];
     [textField.layer setMasksToBounds:YES];
     
-    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
-    
+
+//    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    textField.rightViewMode = UITextFieldViewModeAlways;
 }
 
+/**
+ *  경고메시지를 뷰 상단에 띄워주는 메소드
+ *
+ *  @param errorMsg 경고메시지
+ */
 - (void)errorAlert:(NSString *)errorMsg {
     
     NSInteger height = 20;
