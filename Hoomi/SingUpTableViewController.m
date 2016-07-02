@@ -18,6 +18,8 @@
 
 @property (nonatomic) NSNotificationCenter *notificationCenter;
 
+@property (nonatomic) UITextField *currentTextField; // current selected textfield
+
 
 @end
 
@@ -27,7 +29,7 @@
     [super viewDidLoad];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        // 화면 시작 후 0.5초뒤에 email 입력란에 키보드 나타냄
+        // 화면 시작 후 0.3초뒤에 email 입력란에 키보드 나타냄
         [self.email becomeFirstResponder];
     });
 
@@ -38,6 +40,9 @@
 
     // NavigationBar Title
     self.title = @"회원가입";
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     self.notificationCenter = [NSNotificationCenter defaultCenter];
     [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
@@ -61,31 +66,43 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
+    self.currentTextField = textField;
+    
     [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
     
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    
+    [textField endEditing:YES];
+    return YES;
+}
+
 - (void)keyboardWillShow:(NSNotification *) noti {
     
-    UIToolbar * keyboardToolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 40)];
+    UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    UIBarButtonItem *margin1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    keyboardToolBar.barStyle = UIBarStyleDefault;
-    [keyboardToolBar setItems: [NSArray arrayWithObjects:
-                                [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                [[UIBarButtonItem alloc]initWithTitle:@"가입" style:UIBarButtonItemStyleDone target:self action:@selector(accessSignUp)],
-                                [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil],
-                                nil]];
+    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"등록" style:UIBarButtonItemStylePlain target:self action:@selector(signUpUser)];
     
-    self.email.inputAccessoryView = keyboardToolBar;
-    self.userID.inputAccessoryView = keyboardToolBar;
-    self.password.inputAccessoryView = keyboardToolBar;
-    self.passwordRewrite.inputAccessoryView = keyboardToolBar;
+    UIBarButtonItem *margin2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];
+    
+    [self.email setInputAccessoryView:signUpToolbar];
+    [self.userID setInputAccessoryView:signUpToolbar];
+    [self.password setInputAccessoryView:signUpToolbar];
+    [self.passwordRewrite setInputAccessoryView:signUpToolbar];
+    
     
     NSLog(@"show keyboard");
     
 }
 
-- (void)accessSignUp {
+- (void)signUpUser {
+    
+    [self.currentTextField endEditing:YES];
     
     NSString *email = self.email.text;
     NSString *userID = self.userID.text;
@@ -137,7 +154,14 @@
 
 - (IBAction)cancelSignUp:(id)sender {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.currentTextField endEditing:YES];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        // 키보드 내려가고 0.3초후에 회원가입 페이지 종료
+        [self dismissViewControllerAnimated:YES completion:nil];
+    });
+    
+    
 }
 
 - (void)errorAlert:(NSString *)errorMsg {
@@ -145,7 +169,7 @@
     NSInteger height = 20;
     
     UIView *wrongView=[[UIView alloc] init];
-    [wrongView setFrame:CGRectMake(0, -height,[UIScreen mainScreen].bounds.size.width, height)];
+    [wrongView setFrame:CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height)];
     [wrongView setBackgroundColor:[UIColor clearColor]];
     
     UILabel *wrongLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, wrongView.frame.size.width, wrongView.frame.size.height)];
@@ -157,7 +181,7 @@
     
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[UIColor redColor]];
+        [wrongView setBackgroundColor:[UIColor colorWithRed:0.97 green:0.66 blue:0.31 alpha:1.0]];
         [self.view addSubview:wrongView];
     } completion:^(BOOL finished) {
         
@@ -166,6 +190,7 @@
             [wrongView setBackgroundColor:[UIColor clearColor]];
         } completion:^(BOOL finished) {
             [wrongView removeFromSuperview];
+            [self.currentTextField becomeFirstResponder];
         }];
         
     }];

@@ -27,7 +27,10 @@
     
     [super viewDidLoad];
     
-    [self.view setBackgroundColor:[UIColor lightGrayColor]];
+    self.title = @"HOOMI";
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
     [self customTextField:self.userIDTextfield];
     [self customTextField:self.passwordTextfield];
@@ -48,61 +51,44 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
-    
     [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
 }
 
-- (void)keyboardWillShow:(NSNotification *) noti {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
-        NSLog(@"userIDTextfield");
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.view setFrame:CGRectMake(0, -50, self.view.frame.size.width, self.view.frame.size.height)];
-        }];
+    [textField endEditing:YES];
     
+    return YES;
+}
+
+- (void)keyboardWillShow:(NSNotification *) notification {
+
+    UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+    UIBarButtonItem *margin1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    NSLog(@"show keyboard");
+    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"로그인" style:UIBarButtonItemStylePlain target:self action:@selector(signInUser)];
     
+    UIBarButtonItem *margin2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
+    [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];    
+    
+    [self.userIDTextfield setInputAccessoryView:signUpToolbar];
+    [self.passwordTextfield setInputAccessoryView:signUpToolbar];
+
 }
 
 /**
  *  로그인 버튼을 클릭했을 때 실행되는 메소드
- *
- *  @param sender nil
  */
-- (IBAction)signInAction:(id)sender {
-    
-    // 로그인 AlertController 추가
-    /*
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"로그인" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        [textField setPlaceholder:@"아이디를 입력해주세요."];
-        [textField setClearButtonMode:UITextFieldViewModeWhileEditing];
-    }];
-    
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        [textField setPlaceholder:@"비밀번호를 입력해주세요."];
-        [textField setClearButtonMode:UITextFieldViewModeWhileEditing];
-        [textField setSecureTextEntry:YES];
-    }];
-    
-    UIAlertAction *signInAction = [UIAlertAction actionWithTitle:@"로그인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+- (void)signInUser {
+
+    // 아이디 또는 비밀번호가 빈칸일 경우
+    if([self.userIDTextfield.text isEqualToString:@""] || [self.passwordTextfield.text isEqualToString:@""]) {
         
-        NSString *userID = [[alertController textFields] firstObject].text;
-        NSString *userPassword = [[alertController textFields] lastObject].text;
+        [self errorAlert:@"빈칸을 입력해주세요."];
+        NSLog(@"빈칸을 채워주세요.");
         
-        NSLog(@"userID : %@, userPassword : %@", userID, userPassword);
-        
-    }];
-    
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleCancel handler:nil];
-    
-    [alertController addAction:signInAction];
-    [alertController addAction:cancelAction];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-     */
-    
+    }
    
 }
 
@@ -119,10 +105,42 @@
     [textField.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
     [textField.layer setBorderColor: [[UIColor grayColor] CGColor]];
     [textField.layer setBorderWidth: 1.0];
-    [textField.layer setCornerRadius:5.0f];
+    [textField.layer setCornerRadius:8.0f];
     [textField.layer setMasksToBounds:YES];
     
     textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
+    
+}
+
+- (void)errorAlert:(NSString *)errorMsg {
+    
+    NSInteger height = 20;
+    
+    UIView *wrongView=[[UIView alloc] init];
+    [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
+    [wrongView setBackgroundColor:[UIColor clearColor]];
+    
+    UILabel *wrongLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, wrongView.frame.size.width, wrongView.frame.size.height)];
+    [wrongLabel setTextColor:[UIColor whiteColor]];
+    [wrongLabel setFont:[UIFont fontWithName:@"Arial" size:12.0]];
+    [wrongLabel setTextAlignment:NSTextAlignmentCenter];
+    [wrongLabel setText:errorMsg];
+    [wrongView addSubview:wrongLabel];
+    
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
+        [wrongView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20,[UIScreen mainScreen].bounds.size.width, height)];
+        [wrongView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.80 blue:0.18 alpha:1.0]];
+        [self.view addSubview:wrongView];
+    } completion:^(BOOL finished) {
+        
+        [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
+            [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
+            [wrongView setBackgroundColor:[UIColor clearColor]];
+        } completion:^(BOOL finished) {
+            [wrongView removeFromSuperview];
+        }];
+        
+    }];
     
 }
 
