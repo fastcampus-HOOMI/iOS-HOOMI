@@ -7,6 +7,8 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
 
@@ -20,6 +22,8 @@
 @property (nonatomic) NSNotificationCenter *notificationCenter;
 
 @property (nonatomic) UITextField *currentTextField;
+
+@property (strong, nonatomic) IBOutlet FBSDKLoginButton *facebookLoginButton;
 
 @end
 
@@ -44,14 +48,20 @@
     self.notificationCenter = [NSNotificationCenter defaultCenter];
     [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
-    /*
-     뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
-     */
+
+    // 뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
     tapGesture.numberOfTapsRequired = 1;
     tapGesture.delegate = self;
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
+    
+    // 페이스북 로그인 버튼 추가
+    self.facebookLoginButton = [[FBSDKLoginButton alloc] init];
+    // Optional: Place the button in the center of your view.
+    self.facebookLoginButton.readPermissions = @[@"public_profile", @"email"];
+    self.facebookLoginButton.center = self.view.center;
+    [self.view addSubview:self.facebookLoginButton];
     
 }
 

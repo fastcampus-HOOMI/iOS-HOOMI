@@ -143,17 +143,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geR-Rb-64v">
-                                <rect key="frame" x="20" y="346" width="560" height="40"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="TPz-WD-H8s"/>
-                                </constraints>
-                                <state key="normal" title="회원가입"/>
-                                <connections>
-                                    <action selector="signUpAction" destination="OJc-zG-KX2" eventType="touchUpInside" id="YJG-Oy-Z5b"/>
-                                </connections>
-                            </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="아이디" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-Xi-AgU">
                                 <rect key="frame" x="20" y="194" width="560" height="40"/>
                                 <constraints>
@@ -182,15 +171,11 @@
                         <constraints>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="3pf-Sg-5lR"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="7np-kg-QYE"/>
-                            <constraint firstItem="geR-Rb-64v" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="CmA-j8-nFV"/>
-                            <constraint firstItem="geR-Rb-64v" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="D6l-Rg-YfK"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="McQ-nQ-DgN"/>
                             <constraint firstItem="yvp-01-EV7" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="Py5-Fj-Imv"/>
                             <constraint firstAttribute="trailing" secondItem="Waj-Xi-AgU" secondAttribute="trailing" constant="20" id="S7e-pb-zVU"/>
                             <constraint firstItem="yvp-01-EV7" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="20" id="T75-5Z-gve"/>
-                            <constraint firstAttribute="trailing" secondItem="geR-Rb-64v" secondAttribute="trailing" constant="20" id="gvv-C6-QbE"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="top" secondItem="Waj-Xi-AgU" secondAttribute="bottom" constant="5" id="rh7-rX-mKg"/>
-                            <constraint firstItem="Qo6-yk-wk5" firstAttribute="top" secondItem="geR-Rb-64v" secondAttribute="bottom" constant="214" id="sRC-cI-q7x"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="t7J-ec-389"/>
                             <constraint firstAttribute="trailing" secondItem="mXR-PY-y9M" secondAttribute="trailing" constant="20" id="v1v-hP-ysz"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="130" id="xL4-i4-Cpc"/>
@@ -201,7 +186,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="로그인" id="TE8-Gb-0cn"/>
+                    <navigationItem key="navigationItem" title="로그인" id="TE8-Gb-0cn">
+                        <barButtonItem key="leftBarButtonItem" title="회원가입" id="3rl-qi-qc6">
+                            <connections>
+                                <action selector="signUpAction" destination="OJc-zG-KX2" id="cfZ-7d-C3H"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="passwordTextfield" destination="mXR-PY-y9M" id="0j9-JG-svQ"/>
                         <outlet property="userIDTextfield" destination="Waj-Xi-AgU" id="CSX-iu-aH6"/>
