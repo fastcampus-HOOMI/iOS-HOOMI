@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
 
@@ -24,6 +25,8 @@
 @property (nonatomic) UITextField *currentTextField;
 
 @property (strong, nonatomic) IBOutlet FBSDKLoginButton *facebookLoginButton;
+
+@property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton;
 
 @end
 
@@ -62,12 +65,17 @@
     
 //    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     
-    if ([FBSDKAccessToken currentAccessToken]) {
+    if([FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
-        NSLog(@"토큰있음");
+        NSLog(@"페이스북 토큰있음");
     }
     
+    if([KOSession sharedSession].accessToken) {
+        NSLog(@"카카오톡 토큰있음");
+    }
     
+    self.kakaoLoginButton = [[KOLoginButton alloc] init];
+    self.kakaoLoginButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     
 }
 
@@ -217,6 +225,34 @@
          }
      }];
     
+}
+
+- (IBAction)invokeLoginWithKakao {
+    
+    // ensure old session was closed
+    [[KOSession sharedSession] close];
+    
+    [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
+        if ([[KOSession sharedSession] isOpen]) {
+            // login success
+            NSLog(@"login succeeded.");
+            
+            NSLog(@"kakao session : %@", [KOSession sharedSession].accessToken);
+            
+            [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
+                if (result) {
+                    // success
+                    NSLog(@"userId=%@", result.ID);
+                    NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
+                } else {
+                    // failed
+                }
+            }];
+        } else {
+            // failed
+            NSLog(@"login failed.");
+        }
+    }];
 }
 
 - (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {

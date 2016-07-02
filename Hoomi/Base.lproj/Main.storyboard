@@ -173,17 +173,31 @@
                                 </constraints>
                                 <state key="normal" title="Facebook Login"/>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OY-Ge-0qi">
+                                <rect key="frame" x="20" y="455" width="560" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="YD7-Ju-98F"/>
+                                </constraints>
+                                <state key="normal" image="kakao.png"/>
+                                <connections>
+                                    <action selector="invokeLoginWithKakao" destination="OJc-zG-KX2" eventType="touchUpInside" id="1WS-Z7-gGx"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="3pf-Sg-5lR"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="7np-kg-QYE"/>
+                            <constraint firstItem="3OY-Ge-0qi" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="KF0-7R-8fX"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="McQ-nQ-DgN"/>
+                            <constraint firstAttribute="trailing" secondItem="3OY-Ge-0qi" secondAttribute="trailing" constant="20" id="NBe-aO-gAu"/>
                             <constraint firstItem="yvp-01-EV7" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="Py5-Fj-Imv"/>
                             <constraint firstAttribute="trailing" secondItem="Waj-Xi-AgU" secondAttribute="trailing" constant="20" id="S7e-pb-zVU"/>
                             <constraint firstItem="yvp-01-EV7" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="20" id="T75-5Z-gve"/>
                             <constraint firstItem="Qo6-yk-wk5" firstAttribute="top" secondItem="Psx-iV-OxV" secondAttribute="bottom" constant="150" id="a7d-pj-zLu"/>
+                            <constraint firstItem="3OY-Ge-0qi" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="lAL-c6-8Ho"/>
                             <constraint firstAttribute="trailing" secondItem="Psx-iV-OxV" secondAttribute="trailing" constant="20" id="mMB-U6-hi7"/>
+                            <constraint firstItem="3OY-Ge-0qi" firstAttribute="top" secondItem="Psx-iV-OxV" secondAttribute="bottom" constant="5" id="oYh-da-hd7"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="top" secondItem="Waj-Xi-AgU" secondAttribute="bottom" constant="5" id="rh7-rX-mKg"/>
                             <constraint firstItem="Psx-iV-OxV" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="rrQ-HC-zvs"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="t7J-ec-389"/>
@@ -206,6 +220,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="facebookLoginButton" destination="Psx-iV-OxV" id="Mei-l9-aJO"/>
+                        <outlet property="kakaoLoginButton" destination="3OY-Ge-0qi" id="5Na-sP-zuy"/>
                         <outlet property="passwordTextfield" destination="mXR-PY-y9M" id="0j9-JG-svQ"/>
                         <outlet property="userIDTextfield" destination="Waj-Xi-AgU" id="CSX-iu-aH6"/>
                     </connections>
@@ -253,5 +268,6 @@
     </scenes>
     <resources>
         <image name="HOOMI@2X.png" width="220" height="220"/>
+        <image name="kakao.png" width="16" height="16"/>
     </resources>
 </document>
