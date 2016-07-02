@@ -60,7 +60,12 @@
     self.facebookLoginButton.readPermissions =
     @[@"public_profile", @"email", @"user_friends"];
     
-    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+//    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
+    
+    if ([FBSDKAccessToken currentAccessToken]) {
+        // User is logged in, do work such as go to next view controller.
+        NSLog(@"토큰있음");
+    }
     
     
     
