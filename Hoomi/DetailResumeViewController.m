@@ -16,7 +16,9 @@
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
-@implementation DetailResumeViewController
+@implementation DetailResumeViewController {
+    UIPageControl *pageControl;
+}
 
 
 - (void)viewDidLoad {
@@ -41,7 +43,10 @@
     /* 그림 갯수 따라서 컨텐츠 사이즈 늘리고 sheetOfDetailResume을 반복하여 올려야 한다. */
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.totalPageNumber, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
+    /* 페이지처럼 넘기게 하는 효과 */
+    self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
+    
     
 }
 
@@ -66,6 +71,7 @@
     
 }
 
+#pragma mark - scrollView Delegate
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
