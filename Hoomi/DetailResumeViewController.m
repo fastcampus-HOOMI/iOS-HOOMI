@@ -11,14 +11,13 @@
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+//@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
-@implementation DetailResumeViewController {
-    UIPageControl *pageControl;
-}
+@implementation DetailResumeViewController
 
 
 - (void)viewDidLoad {
@@ -46,8 +45,6 @@
     /* 페이지처럼 넘기게 하는 효과 */
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
-    
-    
 }
 
 -(void)creatSheetOfDetailPage {
@@ -65,10 +62,7 @@
         [self.scrollView addSubview:sheetOfResume];
         
         offSetX += self.view.frame.size.width;
-        
     }
-    
-    
 }
 
 #pragma mark - scrollView Delegate

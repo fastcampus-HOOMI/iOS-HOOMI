@@ -31,17 +31,24 @@
     CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
     CGRect textViewFrame = CGRectMake(offsetX, self.imageView.frame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageView.frame.size.height - 20);
     self.textView = [[UITextView alloc] initWithFrame:textViewFrame];
-    self.textView.backgroundColor = [UIColor lightGrayColor];
-    [self.textView setFont:[UIFont systemFontOfSize:15]];
-    [self.textView setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15]];
+    //self.textView.backgroundColor = [UIColor lightGrayColor];
     self.textView.text = text;
+    NSString *textViewText = self.textView.text;
+    
+    /* 텍스트줄 간격, 폰트, 크기 */
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:textViewText];
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineSpacing = 15;
+    NSDictionary *dict = @{NSParagraphStyleAttributeName : paragraphStyle};
+    [attributedString addAttributes:dict range:NSMakeRange(0, [textViewText length])];
+    self.textView.attributedText = attributedString;
+    self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
     
     /* 편집 불가 모드 */
     self.textView.editable = NO;
     self.textView.selectable = NO;
     
     [self addSubview:self.textView];
-    
 
 }
 
