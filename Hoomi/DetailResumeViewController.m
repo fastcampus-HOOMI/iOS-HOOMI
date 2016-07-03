@@ -12,7 +12,9 @@
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-//@property (nonatomic, strong) UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
+
+
 
 @end
 
@@ -45,6 +47,8 @@
     /* 페이지처럼 넘기게 하는 효과 */
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
+    
+    self.pageControl.currentPage = 0;
 }
 
 -(void)creatSheetOfDetailPage {
@@ -64,8 +68,6 @@
         offSetX += self.view.frame.size.width;
     }
 }
-
-#pragma mark - scrollView Delegate
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
