@@ -21,7 +21,8 @@
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5)];
     /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
     [self.imageView setImage:[UIImage imageNamed:imageName]];
-    
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
     [self addSubview:self.imageView];
     
       /**************/

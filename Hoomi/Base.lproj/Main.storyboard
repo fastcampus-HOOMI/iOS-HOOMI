@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Tfb-RO-S0P">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iWh-OJ-cL3">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -143,7 +143,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oER-aW-uGe">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oER-aW-uGe">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                             </scrollView>
                         </subviews>
@@ -155,13 +155,15 @@
                             <constraint firstItem="oER-aW-uGe" firstAttribute="leading" secondItem="xZ7-8m-6do" secondAttribute="leading" id="whI-Mt-YFN"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="MK2-Xc-W7u"/>
                     <connections>
+                        <outlet property="navigationItem" destination="MK2-Xc-W7u" id="cEk-sI-wf7"/>
                         <outlet property="scrollView" destination="oER-aW-uGe" id="sV1-2D-KvQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGN-f0-eHK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2571" y="437"/>
+            <point key="canvasLocation" x="4406" y="267"/>
         </scene>
         <!--Sign In View Controller-->
         <scene sceneID="34l-kU-OnL">
@@ -334,6 +336,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wrG-kK-j6V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1351" y="-297"/>
+        </scene>
+        <!--Temp Navigation Controller-->
+        <scene sceneID="f9g-fF-dlj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iWh-OJ-cL3" customClass="tempNavigationController" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tg2-fJ-okH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <outlet property="navigationBar" destination="Tg2-fJ-okH" id="caR-ow-SlA"/>
+                        <segue destination="Tfb-RO-S0P" kind="relationship" relationship="rootViewController" id="LTZ-yl-1xq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0yu-xd-lz3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3608" y="275"/>
         </scene>
     </scenes>
 </document>

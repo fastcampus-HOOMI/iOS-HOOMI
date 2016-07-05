@@ -13,6 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 @end
 
@@ -45,6 +46,9 @@
     
     /* hiddenIndicator - 2 */
     [self showIndicatorView:YES];
+    
+    
+    
 }
 
 #pragma mark - creat scrollView
@@ -70,7 +74,9 @@
     // ----- todo
     
     /* 지금은 for문으로 한 꺼번에 creat
-       -> scrollView delegate 를 통해 page 체크 후에 다운로드 */
+       -> scrollView delegate 를 통해 page 체크 후에 다운로드
+     
+      나중에는 한 페이지 넘길 때마다 세팅 해야한다.*/
     
     for (NSInteger pageNumber = 1; pageNumber <= self.totalPageNumber; pageNumber++) {
         
@@ -84,6 +90,10 @@
         
         offSetX += self.view.frame.size.width;
     }
+}
+
+-(void)downloadDeatilContents {
+    
 }
 
 #pragma mark - Indicator
