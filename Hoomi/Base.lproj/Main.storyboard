@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iWh-OJ-cL3">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+>>>>>>> develop
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +12,7 @@
         <!--Sing Up Table View Controller-->
         <scene sceneID="Zy2-Ac-OBO">
             <objects>
+<<<<<<< HEAD
                 <tableViewController id="gJI-2S-i9d" customClass="SingUpTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="120-7S-2hH">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
@@ -169,6 +174,9 @@
         <scene sceneID="34l-kU-OnL">
             <objects>
                 <viewController id="OJc-zG-KX2" customClass="SignInViewController" sceneMemberID="viewController">
+=======
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+>>>>>>> develop
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="m6s-YL-ja7"/>
                         <viewControllerLayoutGuide type="bottom" id="Qo6-yk-wk5"/>
