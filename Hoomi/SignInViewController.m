@@ -13,6 +13,7 @@
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
 #import "UICKeyChainStore.h"
+#import "MainTableViewController.h"
 
 
 @interface SignInViewController ()
@@ -148,6 +149,9 @@
         [self errorAlert:@"빈칸을 입력해주세요."];
         NSLog(@"빈칸을 채워주세요.");
         
+    } else {
+        
+        [self finishLogin];
     }
    
 }
@@ -308,6 +312,15 @@
     // 불러올 때
 //    NSString *token = [keychain stringForKey:@"session"];
 //    NSLog(@"token : %@", token);
+}
+
+- (void)finishLogin {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
+    
+    [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+
 }
 
 

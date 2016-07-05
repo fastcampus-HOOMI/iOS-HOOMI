@@ -16,6 +16,7 @@
 		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
 		FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2161D2B683600D359D0 /* MainTableViewController.m */; };
 		FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */; };
+		FF82D21C1D2B8A2100D359D0 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21B1D2B8A2100D359D0 /* background.png */; };
 		FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */; };
 		FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */; };
 		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
@@ -41,6 +42,7 @@
 		FF82D2161D2B683600D359D0 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSelectViewController.h; sourceTree = "<group>"; };
 		FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSelectViewController.m; sourceTree = "<group>"; };
+		FF82D21B1D2B8A2100D359D0 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HOOMI@2X.png"; sourceTree = "<group>"; };
 		FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
+				FF82D21B1D2B8A2100D359D0 /* background.png */,
 				FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */,
 				FFA4D35A1D278EA80029FDB1 /* Frameworks */,
 				FF5904D81D20D1EC001FC9A0 /* Supporting Files */,
@@ -207,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
+				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
 				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,

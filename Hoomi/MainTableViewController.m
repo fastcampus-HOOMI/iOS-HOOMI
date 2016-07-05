@@ -7,6 +7,7 @@
 //
 
 #import "MainTableViewController.h"
+#import "JobSelectViewController.h"
 
 @interface MainTableViewController ()
 
@@ -17,11 +18,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.title = @"HOOMI";
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        
+        [self selectJobList];
+        
+    });
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,6 +46,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete implementation, return the number of rows
     return 0;
+}
+
+- (void)selectJobList {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    JobSelectViewController *jobSelect = [storyBoard instantiateViewControllerWithIdentifier:@"SelectJob"];
+    
+    [self presentViewController:jobSelect animated:YES completion:nil];
+    
+    
 }
 
 /*

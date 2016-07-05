@@ -8,7 +8,12 @@
 
 #import "JobSelectViewController.h"
 
-@interface JobSelectViewController ()
+@interface JobSelectViewController ()<UIPickerViewDelegate, UIPickerViewDataSource>
+
+@property (nonatomic, strong) IBOutlet UIPickerView *pickerView;
+@property (nonatomic, strong) NSArray *jobList;
+@property (nonatomic, strong) NSString *selectedJob;
+@property (nonatomic) IBOutlet UIButton *selectButton;
 
 @end
 
@@ -16,12 +21,66 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
+    self.pickerView.delegate = self;
+    self.pickerView.dataSource = self;
     // Do any additional setup after loading the view.
+    
+    [self createCustomButton];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+    
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+    
+    return [self.jobList count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    
+    
+    return [self.jobList objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    
+    self.selectedJob = [self.jobList objectAtIndex:row];
+    NSLog(@"selectedJob : %@", self.selectedJob);
+    
+}
+
+- (IBAction)userSelectJob:(id)sender {
+    // 서버로 사용자 직업 정보 전송
+    
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (void)createCustomButton {
+    
+    NSInteger cornerRadius = 3;
+    BOOL clipsToBounds = YES;
+    CGFloat buttonTitleFont = 15.f;
+    
+    
+    self.selectButton.layer.cornerRadius = cornerRadius;
+    self.selectButton.clipsToBounds = clipsToBounds;
+    [self.selectButton setBackgroundColor:[UIColor darkGrayColor]];
+    [self.selectButton setTitle:@"선택" forState:UIControlStateNormal];
+    [self.selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    
 }
 
 /*
