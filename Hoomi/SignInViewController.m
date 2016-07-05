@@ -63,16 +63,6 @@
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
     
-    
-    if([FBSDKAccessToken currentAccessToken]) {
-        // User is logged in, do work such as go to next view controller.
-        NSLog(@"페이스북 토큰있음");
-    }
-    
-    if([KOSession sharedSession].accessToken) {
-        NSLog(@"카카오톡 토큰있음");
-    }
-    
     [self createCustomButton];
 
     
