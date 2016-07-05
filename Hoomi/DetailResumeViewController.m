@@ -12,18 +12,25 @@
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-
-
+@property (strong, nonatomic) UIActivityIndicatorView *activityView;
 
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
 @implementation DetailResumeViewController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /* Indicator
+       1) 데이터 들어올 때 활성화
+       2) 데이터 세팅 완료 된 후, hidden */
+   
+    /* Indicator 세팅 */
+    [self creatIndicatorView];
+    
+    /* hiddenIndicator 1 */
+    [self showIndicatorView:NO];
     
     // 임시 이미지 파일 이름 리스트
     self.imageNameList = @[@"1.jpg", @"2.jpg", @"3.jpg"];
@@ -35,8 +42,12 @@
     
     [self creatScrollView];
     [self creatSheetOfDetailPage];
+    
+    /* hiddenIndicator - 2 */
+    [self showIndicatorView:YES];
 }
 
+#pragma mark - creat scrollView
 
 -(void)creatScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -47,13 +58,19 @@
     /* 페이지처럼 넘기게 하는 효과 */
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
-    
-    self.pageControl.currentPage = 0;
 }
+
+#pragma mark - Sheet of DetailResume
 
 -(void)creatSheetOfDetailPage {
     
     CGFloat offSetX = 0;
+    
+    
+    // ----- todo
+    
+    /* 지금은 for문으로 한 꺼번에 creat
+       -> scrollView delegate 를 통해 page 체크 후에 다운로드 */
     
     for (NSInteger pageNumber = 1; pageNumber <= self.totalPageNumber; pageNumber++) {
         
@@ -67,6 +84,40 @@
         
         offSetX += self.view.frame.size.width;
     }
+}
+
+#pragma mark - Indicator
+
+-(void)creatIndicatorView {
+    self.activityView = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityView.center = self.view.center;
+    [self.activityView startAnimating];
+    [self.view addSubview:self.activityView];
+    
+}
+
+-(void)showIndicatorView:(BOOL)activity {
+    if (activity == YES) {
+        self.activityView.hidden = YES;
+    }
+    if (activity == NO) {
+        self.activityView.hidden = NO;
+    }
+    
+}
+
+#pragma mark - scrollView delegate
+
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    /* 현재 위치 */
+    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+    
+    /* 현재 페이지 */
+    CGFloat currentX = scrollView.contentOffset.x;
+    NSInteger currentPage = currentX / scrollView.frame.size.width;
+    
+    NSLog(@"Current page : %ld", currentPage);
 }
 
 - (void)didReceiveMemoryWarning {

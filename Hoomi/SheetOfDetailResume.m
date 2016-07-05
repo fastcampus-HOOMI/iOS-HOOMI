@@ -21,6 +21,7 @@
     self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5)];
     /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
     [self.imageView setImage:[UIImage imageNamed:imageName]];
+    
     [self addSubview:self.imageView];
     
       /**************/
@@ -31,7 +32,7 @@
     CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
     CGRect textViewFrame = CGRectMake(offsetX, self.imageView.frame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageView.frame.size.height - 20);
     self.textView = [[UITextView alloc] initWithFrame:textViewFrame];
-    //self.textView.backgroundColor = [UIColor lightGrayColor];
+    self.textView.backgroundColor = [UIColor lightGrayColor];
     self.textView.text = text;
     NSString *textViewText = self.textView.text;
     

@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		030039CA1D2971440057717D /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 030039C91D2971440057717D /* PageViewController.m */; };
+		030039D11D2A228F0057717D /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 030039CF1D2A228F0057717D /* 1.jpg */; };
+		030039D41D2B8FE00057717D /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 030039D31D2B8FE00057717D /* 3.jpg */; };
 		03855ED51D26BB7100D99F8C /* DetailResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03855ED41D26BB7100D99F8C /* DetailResumeViewController.m */; };
-		03855ED91D27918300D99F8C /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03855ED61D27918300D99F8C /* 1.jpg */; };
 		03855EDA1D27918300D99F8C /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03855ED71D27918300D99F8C /* 2.jpg */; };
-		03855EDB1D27918300D99F8C /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03855ED81D27918300D99F8C /* 3.jpg */; };
 		03855EE11D27959F00D99F8C /* SheetOfDetailResume.m in Sources */ = {isa = PBXBuildFile; fileRef = 03855EE01D27959F00D99F8C /* SheetOfDetailResume.m */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
@@ -24,13 +23,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		030039C81D2971440057717D /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		030039C91D2971440057717D /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		030039CF1D2A228F0057717D /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		030039D31D2B8FE00057717D /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		03855ED31D26BB7100D99F8C /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailResumeViewController.h; sourceTree = "<group>"; };
 		03855ED41D26BB7100D99F8C /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailResumeViewController.m; sourceTree = "<group>"; };
-		03855ED61D27918300D99F8C /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		03855ED71D27918300D99F8C /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
-		03855ED81D27918300D99F8C /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
 		03855EDF1D27959F00D99F8C /* SheetOfDetailResume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfDetailResume.h; sourceTree = "<group>"; };
 		03855EE01D27959F00D99F8C /* SheetOfDetailResume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfDetailResume.m; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,6 +64,9 @@
 				03855ED41D26BB7100D99F8C /* DetailResumeViewController.m */,
 				03855EDF1D27959F00D99F8C /* SheetOfDetailResume.h */,
 				03855EE01D27959F00D99F8C /* SheetOfDetailResume.m */,
+				030039CF1D2A228F0057717D /* 1.jpg */,
+				03855ED71D27918300D99F8C /* 2.jpg */,
+				030039D31D2B8FE00057717D /* 3.jpg */,
 			);
 			name = Complete_UseScorllView;
 			sourceTree = "<group>";
@@ -75,11 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				030039CB1D29714C0057717D /* Complete_UseScorllView */,
-				030039C81D2971440057717D /* PageViewController.h */,
-				030039C91D2971440057717D /* PageViewController.m */,
-				03855ED61D27918300D99F8C /* 1.jpg */,
-				03855ED71D27918300D99F8C /* 2.jpg */,
-				03855ED81D27918300D99F8C /* 3.jpg */,
 			);
 			name = DetailResume;
 			sourceTree = "<group>";
@@ -195,9 +190,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
-				03855EDB1D27918300D99F8C /* 3.jpg in Resources */,
+				030039D11D2A228F0057717D /* 1.jpg in Resources */,
 				03855EDA1D27918300D99F8C /* 2.jpg in Resources */,
-				03855ED91D27918300D99F8C /* 1.jpg in Resources */,
+				030039D41D2B8FE00057717D /* 3.jpg in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,
 			);
@@ -213,7 +208,6 @@
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
 				FF65A0801D2501780013C181 /* LoginTableViewController.m in Sources */,
 				03855ED51D26BB7100D99F8C /* DetailResumeViewController.m in Sources */,
-				030039CA1D2971440057717D /* PageViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
 				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
