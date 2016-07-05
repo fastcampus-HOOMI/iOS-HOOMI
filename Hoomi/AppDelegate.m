@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MainTableViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
@@ -23,17 +24,28 @@
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     // 로그인되어있는지 체크
-    if([FBSDKAccessToken currentAccessToken]) {
-        // User is logged in, do work such as go to next view controller.
-        NSLog(@"페이스북 토큰있음");
-    }
-    
-    if([KOSession sharedSession].accessToken) {
-        NSLog(@"카카오톡 토큰있음");
+    if([FBSDKAccessToken currentAccessToken] || [KOSession sharedSession].accessToken) {
+        
+        [self setRootViewController];
+        NSLog(@"로그인 된 상태");
+
     }
     
     // Override point for customization after application launch.
     return YES;
+}
+
+- (void)setRootViewController {
+    
+    // User is logged in, do work such as go to next view controller.
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
+    
+//    [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+    
+    self.window.rootViewController = mainViewController;
+    [self.window makeKeyAndVisible];
+    
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

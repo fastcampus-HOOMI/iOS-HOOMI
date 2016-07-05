@@ -39,6 +39,9 @@
     [super viewDidLoad];
     
 //    [self saveSessionValue:@"abc"];
+    
+    [self.view setBackgroundColor:[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00]];
+    
     self.title = @"HOOMI";
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -266,6 +269,8 @@
                       
                   }
               }];
+             
+             [self finishLogin];
          }
      }];
     
@@ -291,6 +296,8 @@
             [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
                 if (result) {
                     // success
+                    
+                    [self finishLogin];
                     NSLog(@"userId=%@", result.ID);
                     NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
                 } else {

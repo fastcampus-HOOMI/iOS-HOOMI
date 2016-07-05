@@ -15,12 +15,21 @@
 @property (nonatomic, strong) NSString *selectedJob;
 @property (nonatomic) IBOutlet UIButton *selectButton;
 
+@property (nonatomic) NSUserDefaults *defaults;
+
 @end
 
 @implementation JobSelectViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    
+    if(![self.defaults objectForKey:@""]) {
+        
+        
+    }
     
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     self.pickerView.delegate = self;
@@ -63,6 +72,9 @@
 
 - (IBAction)userSelectJob:(id)sender {
     // 서버로 사용자 직업 정보 전송
+    
+
+    [self.defaults setObject:self.selectedJob forKey:@"userJob"];
     
     
     [self dismissViewControllerAnimated:YES completion:nil];

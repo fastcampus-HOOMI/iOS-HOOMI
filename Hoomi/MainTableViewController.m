@@ -11,8 +11,9 @@
 #import "ImageListTableViewCell.h"
 
 @interface MainTableViewController ()
-
 @property (nonatomic) NSMutableDictionary *imageData;
+
+@property (nonatomic) NSUserDefaults *defaults;
 
 @end
 
@@ -21,26 +22,35 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(loadServerData:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+    
     self.imageData = [[NSMutableDictionary alloc] init];
     
+    self.defaults = [NSUserDefaults standardUserDefaults];
     
+    if([[self.defaults objectForKey:@"userJob"] isEqualToString:@""]) {
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self selectJobList];
+            
+        });
+        
+    }
     
     [self.imageData setObject:@"nature.jpg" forKey:@"image_01"];
     [self.imageData setObject:@"nature1.jpg" forKey:@"image_02"];
     
     
     self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        
-        [self selectJobList];
-        
-    });
-
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -90,6 +100,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
 //    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void)loadServerData:(UIRefreshControl *)refreshControl {
+    
+        NSLog(@"load server data");
+    [refreshControl endRefreshing];
 }
 
 
