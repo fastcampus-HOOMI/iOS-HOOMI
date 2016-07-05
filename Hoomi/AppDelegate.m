@@ -22,9 +22,6 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
-    [FBSDKLoginButton class];
-    
-    
     // Override point for customization after application launch.
     return YES;
 }

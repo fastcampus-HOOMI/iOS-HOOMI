@@ -19,6 +19,7 @@
 		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
 		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
 		FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */; };
+		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,9 @@
 		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakao@2x.png"; sourceTree = "<group>"; };
+		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
+		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
+		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,8 @@
 		FF5904D71D20D1EC001FC9A0 /* Hoomi */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4D3711D27D8360029FDB1 /* Keychain */,
+				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
@@ -118,6 +124,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		FFA4D3711D27D8360029FDB1 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */,
+				FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */,
+			);
+			name = Keychain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,6 +165,11 @@
 					FF5904D41D20D1EC001FC9A0 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = PAFK4RNFW2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -194,6 +214,7 @@
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
+				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
 				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +331,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -326,6 +348,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

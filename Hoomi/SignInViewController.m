@@ -12,21 +12,22 @@
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
+#import "UICKeyChainStore.h"
 
 
 @interface SignInViewController ()
-<UITextFieldDelegate, UIGestureRecognizerDelegate, FBSDKLoginButtonDelegate>
+<UITextFieldDelegate, UIGestureRecognizerDelegate>
 
-@property (nonatomic, strong) IBOutlet UITextField *userIDTextfield;
-@property (nonatomic, strong) IBOutlet UITextField *passwordTextfield;
+@property (nonatomic, strong) IBOutlet UITextField *userIDTextfield; // userID
+@property (nonatomic, strong) IBOutlet UITextField *passwordTextfield; // password
 
 @property (nonatomic) NSNotificationCenter *notificationCenter;
 
-@property (nonatomic) UITextField *currentTextField;
+@property (nonatomic) UITextField *currentTextField; // 최근 선택된 TextField
 
-@property (strong, nonatomic) IBOutlet FBSDKLoginButton *facebookLoginButton;
-
-@property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton;
+@property (strong, nonatomic) IBOutlet UIButton *signUpButton; // 회원가입
+@property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton; // 페이스북 로그인
+@property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton; // 카카오톡 로그인
 
 @end
 
@@ -36,6 +37,7 @@
     
     [super viewDidLoad];
     
+//    [self saveSessionValue:@"abc"];
     self.title = @"HOOMI";
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
@@ -44,6 +46,8 @@
     // Set Custom TextField
     [self customTextField:self.userIDTextfield];
     [self customTextField:self.passwordTextfield];
+    
+//    self.facebookLoginButton.delegate = self;
     
     self.userIDTextfield.delegate = self;
     self.passwordTextfield.delegate = self;
@@ -59,11 +63,6 @@
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
     
-    self.facebookLoginButton.delegate = self;
-    self.facebookLoginButton.readPermissions =
-    @[@"public_profile", @"email", @"user_friends"];
-    
-//    [FBSDKProfile enableUpdatesOnAccessTokenChange:YES];
     
     if([FBSDKAccessToken currentAccessToken]) {
         // User is logged in, do work such as go to next view controller.
@@ -74,8 +73,38 @@
         NSLog(@"카카오톡 토큰있음");
     }
     
-    self.kakaoLoginButton = [[KOLoginButton alloc] init];
-    self.kakaoLoginButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+    [self createCustomButton];
+
+    
+}
+
+- (void)createCustomButton {
+    
+    NSInteger cornerRadius = 3;
+    BOOL clipsToBounds = YES;
+    CGFloat buttonTitleFont = 15.f;
+    
+    self.facebookLoginButton.layer.cornerRadius = cornerRadius;
+    self.facebookLoginButton.clipsToBounds = clipsToBounds;
+    [self.facebookLoginButton setBackgroundColor:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0]];
+    [self.facebookLoginButton setTitle:@"Facebook으로 로그인하기" forState:UIControlStateNormal];
+    [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.facebookLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    
+    
+    [self.kakaoLoginButton setBackgroundColor:[UIColor colorWithRed:1.00 green:0.92 blue:0.20 alpha:1.0]];
+    self.kakaoLoginButton.layer.cornerRadius = cornerRadius;
+    self.kakaoLoginButton.clipsToBounds = clipsToBounds;
+    [self.kakaoLoginButton setTitle:@"카카오톡으로 로그인하기" forState:UIControlStateNormal];
+    [self.kakaoLoginButton setTitleColor:[UIColor colorWithRed:75.0/255.0 green:24.0/255.0 blue:2.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.kakaoLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    
+    self.signUpButton.layer.cornerRadius = cornerRadius;
+    self.signUpButton.clipsToBounds = clipsToBounds;
+    [self.signUpButton setBackgroundColor:[UIColor lightGrayColor]];
+    [self.signUpButton setTitle:@"HOOMI 회원가입" forState:UIControlStateNormal];
+    [self.signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.signUpButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
 }
 
@@ -207,26 +236,50 @@
     
 }
 
-- (void)loginButton:(FBSDKLoginButton *)loginButton didCompleteWithResult:(FBSDKLoginManagerLoginResult *)result error:(NSError *)error {
+/**
+ *  페이스북 로그인
+ */
+- (IBAction)invokeLoginWithFacebook {
     
-    NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
-    [parameters setValue:@"id,name,email" forKey:@"fields"];
-    
-    [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
-     startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
-                                  id result, NSError *error) {
-//         NSLog(@"profile : %@", [[FBSDKProfile currentProfile] userID]);
-         if(!error) {
+    FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
+    [login
+     logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends"]
+     fromViewController:self
+     handler:^(FBSDKLoginManagerLoginResult *result, NSError *error) {
+         if (error) {
+             NSLog(@"Process error");
+         } else if (result.isCancelled) {
+             NSLog(@"Cancelled");
+         } else {
              
-             NSLog(@"name : %@", [[result objectForKey:@"name"] stringByRemovingPercentEncoding]);
-             NSLog(@"id : %@", [result objectForKey:@"id"]);
-             NSLog(@"email : %@", [result objectForKey:@"email"]);
-             NSLog(@"expired date : %@", [[FBSDKAccessToken currentAccessToken] expirationDate]);
+             NSMutableDictionary* parameters = [NSMutableDictionary dictionary];
+             [parameters setValue:@"id,name,email" forKey:@"fields"];
+             
+             [[[FBSDKGraphRequest alloc] initWithGraphPath:@"me" parameters:parameters]
+              startWithCompletionHandler:^(FBSDKGraphRequestConnection *connection,
+                                           id result, NSError *error) {
+                  //         NSLog(@"profile : %@", [[FBSDKProfile currentProfile] userID]);
+                  if(!error) {
+                      
+                      NSLog(@"name : %@", [[result objectForKey:@"name"] stringByRemovingPercentEncoding]);
+                      NSLog(@"id : %@", [result objectForKey:@"id"]);
+                      NSLog(@"email : %@", [result objectForKey:@"email"]);
+                      
+                      NSString *token = [[FBSDKAccessToken currentAccessToken] tokenString];
+                      NSLog(@"token : %@", token);
+                      
+                      [self saveSessionValue:token];
+                      
+                  }
+              }];
          }
      }];
     
 }
 
+/**
+ *  카카오톡 로그인
+ */
 - (IBAction)invokeLoginWithKakao {
     
     // ensure old session was closed
@@ -237,7 +290,9 @@
             // login success
             NSLog(@"login succeeded.");
             
-            NSLog(@"kakao session : %@", [KOSession sharedSession].accessToken);
+            NSString *token = [KOSession sharedSession].accessToken;
+            [self saveSessionValue:token];
+            NSLog(@"kakao session : %@", token);
             
             [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
                 if (result) {
@@ -255,10 +310,14 @@
     }];
 }
 
-- (void)loginButtonDidLogOut:(FBSDKLoginButton *)loginButton {
+- (void)saveSessionValue:(NSString *)session {
     
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+    keychain[@"session"] = session;
     
-    NSLog(@"logout");
+    // 불러올 때
+//    NSString *token = [keychain stringForKey:@"session"];
+//    NSLog(@"token : %@", token);
 }
 
 

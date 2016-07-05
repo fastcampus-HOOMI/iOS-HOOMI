@@ -23,9 +23,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7wb-Rf-vhJ">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7wb-Rf-vhJ">
                                                     <rect key="frame" x="10" y="5" width="582" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -44,9 +44,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-GI-DIv">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-GI-DIv">
                                                     <rect key="frame" x="10" y="5" width="580" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -65,9 +65,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="n1P-bF-2kW">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="n1P-bF-2kW">
                                                     <rect key="frame" x="10" y="5" width="580" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
@@ -86,9 +86,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드 확인" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mie-3i-mK7">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드 확인" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mie-3i-mK7">
                                                     <rect key="frame" x="10" y="5" width="580" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
@@ -144,19 +144,20 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="아이디" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Waj-Xi-AgU">
-                                <rect key="frame" x="20" y="194" width="560" height="40"/>
+                                <rect key="frame" x="20" y="204" width="560" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Tmg-no-ZS3"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mXR-PY-y9M">
-                                <rect key="frame" x="20" y="239" width="560" height="40"/>
+                                <rect key="frame" x="20" y="249" width="560" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="LxD-oX-n54"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HOOMI@2X.png" translatesAutoresizingMaskIntoConstraints="NO" id="yvp-01-EV7">
@@ -166,21 +167,36 @@
                                     <constraint firstAttribute="width" constant="100" id="gJX-Xq-1Fh"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psx-iV-OxV" customClass="FBSDKLoginButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psx-iV-OxV">
                                 <rect key="frame" x="20" y="400" width="560" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="44A-Jp-Mue"/>
                                 </constraints>
-                                <state key="normal" title="Facebook Login"/>
+                                <state key="normal" title=""/>
+                                <connections>
+                                    <action selector="invokeLoginWithFacebook" destination="OJc-zG-KX2" eventType="touchUpInside" id="ev1-8R-IQj"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3OY-Ge-0qi">
                                 <rect key="frame" x="20" y="455" width="560" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="YD7-Ju-98F"/>
                                 </constraints>
-                                <state key="normal" image="kakao.png"/>
+                                <state key="normal" title=""/>
                                 <connections>
                                     <action selector="invokeLoginWithKakao" destination="OJc-zG-KX2" eventType="touchUpInside" id="1WS-Z7-gGx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dln-77-Vgc">
+                                <rect key="frame" x="20" y="510" width="560" height="50"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="ebA-dh-dP7"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="signUpAction" destination="OJc-zG-KX2" eventType="touchUpInside" id="8ny-dL-ON5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -198,12 +214,15 @@
                             <constraint firstItem="3OY-Ge-0qi" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="lAL-c6-8Ho"/>
                             <constraint firstAttribute="trailing" secondItem="Psx-iV-OxV" secondAttribute="trailing" constant="20" id="mMB-U6-hi7"/>
                             <constraint firstItem="3OY-Ge-0qi" firstAttribute="top" secondItem="Psx-iV-OxV" secondAttribute="bottom" constant="5" id="oYh-da-hd7"/>
+                            <constraint firstItem="dln-77-Vgc" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="pZ4-n7-LNK"/>
                             <constraint firstItem="mXR-PY-y9M" firstAttribute="top" secondItem="Waj-Xi-AgU" secondAttribute="bottom" constant="5" id="rh7-rX-mKg"/>
                             <constraint firstItem="Psx-iV-OxV" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="rrQ-HC-zvs"/>
                             <constraint firstItem="Waj-Xi-AgU" firstAttribute="leading" secondItem="pHT-Ec-b7V" secondAttribute="leading" constant="20" id="t7J-ec-389"/>
                             <constraint firstItem="Psx-iV-OxV" firstAttribute="centerX" secondItem="pHT-Ec-b7V" secondAttribute="centerX" id="tTM-Sa-ukW"/>
+                            <constraint firstAttribute="trailing" secondItem="dln-77-Vgc" secondAttribute="trailing" constant="20" id="uDh-oz-xdC"/>
                             <constraint firstAttribute="trailing" secondItem="mXR-PY-y9M" secondAttribute="trailing" constant="20" id="v1v-hP-ysz"/>
-                            <constraint firstItem="Waj-Xi-AgU" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="130" id="xL4-i4-Cpc"/>
+                            <constraint firstItem="Waj-Xi-AgU" firstAttribute="top" secondItem="m6s-YL-ja7" secondAttribute="bottom" constant="140" id="xL4-i4-Cpc"/>
+                            <constraint firstItem="dln-77-Vgc" firstAttribute="top" secondItem="3OY-Ge-0qi" secondAttribute="bottom" constant="5" id="xza-dJ-Fe1"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
@@ -211,17 +230,12 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="로그인" id="TE8-Gb-0cn">
-                        <barButtonItem key="leftBarButtonItem" title="회원가입" id="3rl-qi-qc6">
-                            <connections>
-                                <action selector="signUpAction" destination="OJc-zG-KX2" id="cfZ-7d-C3H"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="로그인" id="TE8-Gb-0cn"/>
                     <connections>
-                        <outlet property="facebookLoginButton" destination="Psx-iV-OxV" id="Mei-l9-aJO"/>
+                        <outlet property="facebookLoginButton" destination="Psx-iV-OxV" id="i5Y-EA-bKO"/>
                         <outlet property="kakaoLoginButton" destination="3OY-Ge-0qi" id="5Na-sP-zuy"/>
                         <outlet property="passwordTextfield" destination="mXR-PY-y9M" id="0j9-JG-svQ"/>
+                        <outlet property="signUpButton" destination="dln-77-Vgc" id="gtJ-UN-Cgf"/>
                         <outlet property="userIDTextfield" destination="Waj-Xi-AgU" id="CSX-iu-aH6"/>
                     </connections>
                 </viewController>
@@ -268,6 +282,5 @@
     </scenes>
     <resources>
         <image name="HOOMI@2X.png" width="220" height="220"/>
-        <image name="kakao.png" width="16" height="16"/>
     </resources>
 </document>
