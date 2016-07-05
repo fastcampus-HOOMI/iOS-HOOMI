@@ -21,7 +21,18 @@
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
 		FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */; };
 		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
-		FF65A0801D2501780013C181 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A07F1D2501780013C181 /* LoginTableViewController.m */; };
+		FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2161D2B683600D359D0 /* MainTableViewController.m */; };
+		FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */; };
+		FF82D21C1D2B8A2100D359D0 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21B1D2B8A2100D359D0 /* background.png */; };
+		FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21D1D2B8E5800D359D0 /* nature.jpg */; };
+		FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */; };
+		FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D2221D2B917800D359D0 /* nature1.jpg */; };
+		FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */; };
+		FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */; };
+		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
+		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
+		FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */; };
+		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +59,23 @@
 		FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingUpTableViewController.m; sourceTree = "<group>"; };
 		FF65A0551D24DC470013C181 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
-		FF65A07E1D2501770013C181 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
-		FF65A07F1D2501780013C181 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
+		FF82D2151D2B683600D359D0 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
+		FF82D2161D2B683600D359D0 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSelectViewController.h; sourceTree = "<group>"; };
+		FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSelectViewController.m; sourceTree = "<group>"; };
+		FF82D21B1D2B8A2100D359D0 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		FF82D21D1D2B8E5800D359D0 /* nature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature.jpg; sourceTree = "<group>"; };
+		FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListTableViewCell.h; sourceTree = "<group>"; };
+		FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListTableViewCell.m; sourceTree = "<group>"; };
+		FF82D2221D2B917800D359D0 /* nature1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature1.jpg; sourceTree = "<group>"; };
+		FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HOOMI@2X.png"; sourceTree = "<group>"; };
+		FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakao@2x.png"; sourceTree = "<group>"; };
+		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
+		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
+		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +83,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */,
+				FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */,
+				FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +137,8 @@
 		FF5904D71D20D1EC001FC9A0 /* Hoomi */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4D3711D27D8360029FDB1 /* Keychain */,
+				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				03855ED21D26BB2000D99F8C /* DetailResume */,
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
@@ -116,6 +147,11 @@
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
+				FF82D21D1D2B8E5800D359D0 /* nature.jpg */,
+				FF82D2221D2B917800D359D0 /* nature1.jpg */,
+				FF82D21B1D2B8A2100D359D0 /* background.png */,
+				FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */,
+				FFA4D35A1D278EA80029FDB1 /* Frameworks */,
 				FF5904D81D20D1EC001FC9A0 /* Supporting Files */,
 			);
 			path = Hoomi;
@@ -136,10 +172,34 @@
 				FF65A0561D24DC470013C181 /* SignInViewController.m */,
 				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
 				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
-				FF65A07E1D2501770013C181 /* LoginTableViewController.h */,
-				FF65A07F1D2501780013C181 /* LoginTableViewController.m */,
+				FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */,
+				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
+				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
+				FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */,
+				FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */,
+				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
+				FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */,
 			);
 			name = SignView;
+			sourceTree = "<group>";
+		};
+		FFA4D35A1D278EA80029FDB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */,
+				FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */,
+				FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFA4D3711D27D8360029FDB1 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */,
+				FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */,
+			);
+			name = Keychain;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,6 +233,12 @@
 				TargetAttributes = {
 					FF5904D41D20D1EC001FC9A0 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PAFK4RNFW2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -200,11 +266,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
+<<<<<<< HEAD
 				030039D11D2A228F0057717D /* 1.jpg in Resources */,
 				03855EDA1D27918300D99F8C /* 2.jpg in Resources */,
 				030039D41D2B8FE00057717D /* 3.jpg in Resources */,
+=======
+				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
+				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
+>>>>>>> cd85a19e135b11110618ec48c29466ce7250d2de
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,
+				FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */,
+				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,11 +291,18 @@
 			files = (
 				038720C61D2BA79100BD1427 /* tempViewController.m in Sources */,
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
+<<<<<<< HEAD
 				FF65A0801D2501780013C181 /* LoginTableViewController.m in Sources */,
 				030039D71D2BA5F20057717D /* tempNavigationController.m in Sources */,
 				03855ED51D26BB7100D99F8C /* DetailResumeViewController.m in Sources */,
+=======
+				FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */,
+>>>>>>> cd85a19e135b11110618ec48c29466ce7250d2de
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
+				FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
+				FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */,
+				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
 				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
 				03855EE11D27959F00D99F8C /* SheetOfDetailResume.m in Sources */,
 			);
@@ -272,6 +353,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/najanda/Desktop/iOS-HOOMI/Hoomi/FBSDKCoreKit.framework";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -289,6 +371,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -316,6 +399,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/najanda/Desktop/iOS-HOOMI/Hoomi/FBSDKCoreKit.framework";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -326,6 +410,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -335,6 +420,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Hoomi",
+				);
 				INFOPLIST_FILE = Hoomi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
@@ -346,6 +437,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Hoomi",
+				);
 				INFOPLIST_FILE = Hoomi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
