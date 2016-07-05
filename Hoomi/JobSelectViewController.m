@@ -25,6 +25,8 @@
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    
+    [self.view setBackgroundColor:[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00]];
     // Do any additional setup after loading the view.
     
     [self createCustomButton];
@@ -72,7 +74,6 @@
     NSInteger cornerRadius = 3;
     BOOL clipsToBounds = YES;
     CGFloat buttonTitleFont = 15.f;
-    
     
     self.selectButton.layer.cornerRadius = cornerRadius;
     self.selectButton.clipsToBounds = clipsToBounds;

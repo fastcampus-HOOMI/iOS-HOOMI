@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OJc-zG-KX2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="JN4-DL-DSf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -311,18 +311,48 @@
         <scene sceneID="wxl-Pn-v9c">
             <objects>
                 <tableViewController id="NKh-kn-0M7" customClass="MainTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="I1i-tf-p6C">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="250" sectionHeaderHeight="28" sectionFooterHeight="28" id="I1i-tf-p6C">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="wCE-r3-4D5">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="250" id="wCE-r3-4D5" customClass="ImageListTableViewCell">
+                                <rect key="frame" x="0.0" y="92" width="600" height="250"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wCE-r3-4D5" id="yHN-5A-bmk">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="250"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U2J-s9-uIw">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="249.5"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cY8-Km-EAW">
+                                            <rect key="frame" x="20" y="189" width="560" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Tjt-gU-Dex"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="cY8-Km-EAW" secondAttribute="trailing" constant="20" id="EwB-KU-7ac"/>
+                                        <constraint firstAttribute="bottom" secondItem="U2J-s9-uIw" secondAttribute="bottom" id="PNd-ac-Um2"/>
+                                        <constraint firstAttribute="trailing" secondItem="U2J-s9-uIw" secondAttribute="trailing" id="QDm-bg-BhX"/>
+                                        <constraint firstItem="U2J-s9-uIw" firstAttribute="leading" secondItem="yHN-5A-bmk" secondAttribute="leading" id="W0q-Be-pyB"/>
+                                        <constraint firstItem="U2J-s9-uIw" firstAttribute="centerX" secondItem="yHN-5A-bmk" secondAttribute="centerX" id="WtH-UB-Y1l"/>
+                                        <constraint firstItem="U2J-s9-uIw" firstAttribute="top" secondItem="yHN-5A-bmk" secondAttribute="top" id="dNc-Vc-Ue1"/>
+                                        <constraint firstAttribute="bottom" secondItem="U2J-s9-uIw" secondAttribute="bottom" id="e7L-NH-Bg2"/>
+                                        <constraint firstItem="cY8-Km-EAW" firstAttribute="leading" secondItem="yHN-5A-bmk" secondAttribute="leading" constant="20" id="hf4-Lq-6L0"/>
+                                        <constraint firstAttribute="bottom" secondItem="cY8-Km-EAW" secondAttribute="bottom" constant="20" id="uwb-HD-ldK"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="image" destination="U2J-s9-uIw" id="9sY-Hc-dbx"/>
+                                    <outlet property="label" destination="cY8-Km-EAW" id="l6K-eJ-fOJ"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

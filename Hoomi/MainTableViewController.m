@@ -8,8 +8,11 @@
 
 #import "MainTableViewController.h"
 #import "JobSelectViewController.h"
+#import "ImageListTableViewCell.h"
 
 @interface MainTableViewController ()
+
+@property (nonatomic) NSMutableDictionary *imageData;
 
 @end
 
@@ -17,6 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.imageData = [[NSMutableDictionary alloc] init];
+    
+    
+    
+    [self.imageData setObject:@"nature.jpg" forKey:@"image_01"];
+    [self.imageData setObject:@"nature1.jpg" forKey:@"image_02"];
+    
     
     self.title = @"HOOMI";
     [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
@@ -39,13 +50,12 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return [self.imageData count];
 }
 
 - (void)selectJobList {
@@ -58,15 +68,30 @@
     
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    NSArray *allKey = [self.imageData allKeys];
+    NSString *key = [allKey objectAtIndex:indexPath.row];
+    
+    cell.image.image = [UIImage imageNamed:[self.imageData objectForKey:key]];
+    cell.label.text = key;
+    [cell.label setTextColor:[UIColor whiteColor]];
+    [cell setBackgroundColor:[UIColor blackColor]];
+
+    
     
     // Configure the cell...
     
     return cell;
 }
-*/
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"select cell");
+//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
 
 /*
 // Override to support conditional editing of the table view.
