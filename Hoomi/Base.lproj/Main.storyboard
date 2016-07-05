@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="OJc-zG-KX2">
+=======
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+>>>>>>> develop
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,7 +12,11 @@
         <!--Job Select View Controller-->
         <scene sceneID="WIK-15-mQw">
             <objects>
+<<<<<<< HEAD
                 <viewController storyboardIdentifier="SelectJob" id="iID-DA-aGG" customClass="JobSelectViewController" sceneMemberID="viewController">
+=======
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+>>>>>>> develop
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kdY-RV-jzU"/>
                         <viewControllerLayoutGuide type="bottom" id="jBf-wO-WB0"/>
