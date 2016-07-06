@@ -376,6 +376,10 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="search" id="W2r-Qe-dbG"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="nfe-cC-XHA"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myPage" destination="W2r-Qe-dbG" id="ei1-DV-eBh"/>
+                        <outlet property="writeCareer" destination="nfe-cC-XHA" id="Yio-a4-KgI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pO-Xy-YC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

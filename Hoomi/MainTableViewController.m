@@ -33,6 +33,9 @@
 
 @property (nonatomic) Singletone *singleTone; // 싱글톤 객체
 
+@property (nonatomic) IBOutlet UIBarButtonItem *writeCareer;
+@property (nonatomic) IBOutlet UIBarButtonItem *myPage;
+
 @end
 
 @implementation MainTableViewController
@@ -227,7 +230,6 @@
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
     
     return [self.jobList objectAtIndex:row];
 }
