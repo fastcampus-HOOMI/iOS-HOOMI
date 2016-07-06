@@ -7,21 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4133EB471D2B8409001740AC /* MyPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4133EB461D2B8409001740AC /* MyPageTableViewController.m */; };
+		4133EB4A1D2B9A91001740AC /* MyPageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4133EB491D2B9A91001740AC /* MyPageListTableViewCell.m */; };
+		4133EB4C1D2BA86C001740AC /* nature1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4133EB4B1D2BA86C001740AC /* nature1.jpg */; };
+		4133EB501D2BE1C9001740AC /* nature4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4133EB4D1D2BE1C9001740AC /* nature4.jpg */; };
+		4133EB511D2BE1C9001740AC /* nature3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4133EB4E1D2BE1C9001740AC /* nature3.jpg */; };
+		4133EB521D2BE1C9001740AC /* nature2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4133EB4F1D2BE1C9001740AC /* nature2.jpg */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
-		FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DF1D20D1ED001FC9A0 /* ViewController.m */; };
 		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4133EB451D2B8409001740AC /* MyPageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyPageTableViewController.h; path = ../MyPageTableViewController.h; sourceTree = "<group>"; };
+		4133EB461D2B8409001740AC /* MyPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyPageTableViewController.m; path = ../MyPageTableViewController.m; sourceTree = "<group>"; };
+		4133EB481D2B9A91001740AC /* MyPageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageListTableViewCell.h; sourceTree = "<group>"; };
+		4133EB491D2B9A91001740AC /* MyPageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageListTableViewCell.m; sourceTree = "<group>"; };
+		4133EB4B1D2BA86C001740AC /* nature1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature1.jpg; sourceTree = "<group>"; };
+		4133EB4D1D2BE1C9001740AC /* nature4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature4.jpg; sourceTree = "<group>"; };
+		4133EB4E1D2BE1C9001740AC /* nature3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature3.jpg; sourceTree = "<group>"; };
+		4133EB4F1D2BE1C9001740AC /* nature2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature2.jpg; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FF5904DE1D20D1ED001FC9A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FF5904DF1D20D1ED001FC9A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FF5904E21D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5904E71D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,12 +71,18 @@
 			children = (
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
-				FF5904DE1D20D1ED001FC9A0 /* ViewController.h */,
-				FF5904DF1D20D1ED001FC9A0 /* ViewController.m */,
+				4133EB451D2B8409001740AC /* MyPageTableViewController.h */,
+				4133EB461D2B8409001740AC /* MyPageTableViewController.m */,
+				4133EB481D2B9A91001740AC /* MyPageListTableViewCell.h */,
+				4133EB491D2B9A91001740AC /* MyPageListTableViewCell.m */,
 				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
+				4133EB4B1D2BA86C001740AC /* nature1.jpg */,
+				4133EB4F1D2BE1C9001740AC /* nature2.jpg */,
+				4133EB4E1D2BE1C9001740AC /* nature3.jpg */,
+				4133EB4D1D2BE1C9001740AC /* nature4.jpg */,
 				FF5904D81D20D1EC001FC9A0 /* Supporting Files */,
 			);
 			path = Hoomi;
@@ -138,7 +155,11 @@
 			files = (
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				4133EB4C1D2BA86C001740AC /* nature1.jpg in Resources */,
 				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,
+				4133EB521D2BE1C9001740AC /* nature2.jpg in Resources */,
+				4133EB511D2BE1C9001740AC /* nature3.jpg in Resources */,
+				4133EB501D2BE1C9001740AC /* nature4.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +170,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
+				4133EB4A1D2B9A91001740AC /* MyPageListTableViewCell.m in Sources */,
+				4133EB471D2B8409001740AC /* MyPageTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +322,7 @@
 				FF5904EE1D20D1ED001FC9A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "C6B788817EA8D923CA14F4EEB64D2B674B287069",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "0D05C546B64B2A0532FC4DE2E6B7A451B7D4C160" : 0,
+    "C6B788817EA8D923CA14F4EEB64D2B674B287069" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "56D5BFA4-F591-477A-930A-C566B98880CC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "0D05C546B64B2A0532FC4DE2E6B7A451B7D4C160" : "",
+    "C6B788817EA8D923CA14F4EEB64D2B674B287069" : "iOS-HOOMI\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Hoomi",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Hoomi.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/luireK\/fcips1.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "0D05C546B64B2A0532FC4DE2E6B7A451B7D4C160"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/fastcampus-HOOMI\/iOS-HOOMI.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "C6B788817EA8D923CA14F4EEB64D2B674B287069"
+    }
+  ]
+}
