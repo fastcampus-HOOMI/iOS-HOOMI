@@ -16,7 +16,9 @@
 @property (nonatomic) NSArray *jobList;
 @property (nonatomic, weak) UIPickerView *jobPicker;
 @property (nonatomic, weak) NSString *selectedJob;
+
 @property (nonatomic, strong) UIView *jobSelectCustomView;
+@property (nonatomic, strong) UIVisualEffectView *effectView;
 
 @property (nonatomic) NSUserDefaults *defaults;
 
@@ -85,12 +87,15 @@
 
 - (void)selectJobList {
     
+    NSInteger cornerRadius = 3; // 버튼 모서리
+    BOOL clipsToBounds = YES;
+    CGFloat buttonTitleFont = 15.f; // 버튼 텍스트 Title
     
     // 뷰컨트롤러 뒷배경 블러처리
-    
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
     
     effectView.frame = self.view.frame;
+    self.effectView = effectView;
     [self.view addSubview:effectView];
     
     
@@ -105,33 +110,22 @@
     
     // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
     NSInteger margin = 60;
-    UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - margin, margin * 5)];
-    [jobSelectCustomView setBackgroundColor:[UIColor whiteColor]];
+    UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(0, margin * 5, self.view.frame.size.width - margin, margin * 5)];
     [jobSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
                                                self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
-    
     jobSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     jobSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
     jobSelectCustomView.layer.borderWidth = 3.0f;
     
-    self.jobSelectCustomView = jobSelectCustomView;
-    
-    
     // jobSelectCustomView에 PickerView 추가
     UIPickerView *jobPicker = [[UIPickerView alloc] init];
     [jobPicker setFrame:CGRectMake(0, 0, jobSelectCustomView.frame.size.width, jobSelectCustomView.frame.size.height - margin * 2)];
-//    [jobPicker setBackgroundColor:[UIColor darkGrayColor]];
     [jobSelectCustomView addSubview:jobPicker];
-    self.jobPicker = jobPicker;
+    
     
     UIButton *selectButton = [[UIButton alloc] init];
     [selectButton setFrame:CGRectMake(30, jobPicker.frame.size.height + 30, jobSelectCustomView.frame.size.width - 60, 45)];
     [selectButton addTarget:self action:@selector(selectUserJob) forControlEvents:UIControlEventTouchUpInside];
-    
-    NSInteger cornerRadius = 3;
-    BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f;
-    
     selectButton.layer.cornerRadius = cornerRadius;
     selectButton.clipsToBounds = clipsToBounds;
     [selectButton setBackgroundColor:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00]];
@@ -141,7 +135,17 @@
     
     [jobSelectCustomView addSubview:selectButton];
     
-    [self.view addSubview:jobSelectCustomView];
+//    [self.view addSubview:jobSelectCustomView];
+    self.jobSelectCustomView = jobSelectCustomView;
+    self.jobPicker = jobPicker;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+       [self.jobSelectCustomView setFrame:CGRectMake(0, margin, self.view.frame.size.width - margin, margin * 5)];
+        [self.view addSubview:self.jobSelectCustomView];
+    } completion:^(BOOL finished) {
+        
+    }];
+    
     
     
 }
@@ -151,6 +155,7 @@
     [self.defaults setObject:self.selectedJob forKey:@"userJob"];
     
     [self.jobSelectCustomView removeFromSuperview];
+    [self.effectView removeFromSuperview];
     
 }
 
