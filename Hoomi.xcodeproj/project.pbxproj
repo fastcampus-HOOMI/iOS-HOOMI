@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
-		FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DF1D20D1ED001FC9A0 /* ViewController.m */; };
 		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
@@ -20,8 +19,6 @@
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FF5904DE1D20D1ED001FC9A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FF5904DF1D20D1ED001FC9A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		FF5904E21D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5904E71D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -60,8 +57,6 @@
 			children = (
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
-				FF5904DE1D20D1ED001FC9A0 /* ViewController.h */,
-				FF5904DF1D20D1ED001FC9A0 /* ViewController.m */,
 				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
@@ -149,7 +144,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
 			);
@@ -300,6 +294,7 @@
 				FF5904EE1D20D1ED001FC9A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
