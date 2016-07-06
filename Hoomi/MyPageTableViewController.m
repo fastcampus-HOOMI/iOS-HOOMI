@@ -10,8 +10,16 @@
 #import "MyPageListTableViewCell.h"
 
 @interface MyPageTableViewController ()
+<UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
+@property (nonatomic) NSArray *formList;
+@property (nonatomic, weak) UIPickerView *formPicker;
+@property (nonatomic, weak) NSString *seletedForm;
+
+@property (nonatomic, strong) UIView *formSelectCustomView;
+@property (nonatomic, strong) UIVisualEffectView *effectView;
+@property (nonatomic) NSUserDefaults *defaults;
 
 @end
 
@@ -27,6 +35,9 @@
     [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
     [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
     
+    
+
+    
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -34,39 +45,100 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
-// +버튼 누를시, alert창
+// +버튼 클릭시 커스텀 alert창
+- (IBAction)selectFormList {
+    
+    NSInteger cornerRadius = 3;
+    BOOL clipsToBounds = YES;
+    CGFloat buttonTitleFont = 15.f;
+    
+    //뒷배경 블러처리
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
+    effectView.frame = self.view.frame;
+    self.effectView = effectView;
+    [self.view addSubview:effectView];
+    
+    //form선택화면을 커스텀alert으로
+    NSInteger margin = 60;
+    UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin / 2, - margin * 5, self.view.frame.size.width - margin, margin * 5)];
+//    [formSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
+//                                               self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
+    formSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+    formSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
+    formSelectCustomView.layer.borderWidth = 3.0f;
+    
+    
+    //formSelectCustomView에 picker View 추가
+    
+    
+    UIPickerView *formPicker = [[UIPickerView alloc] init];
+    [formPicker setFrame:CGRectMake(0, 0, formSelectCustomView.frame.size.width, formSelectCustomView.frame.size.height - margin * 2)];
+    self.formPicker = formPicker;
+    
+    self.formPicker.delegate = self;
+    self.formPicker.dataSource = self;
+    
+    [formSelectCustomView addSubview:formPicker];
+    
+    
+    
+    UIButton *selectButton = [[UIButton alloc] initWithFrame:CGRectMake(30, formPicker.frame.size.height + 30, formSelectCustomView.frame.size.width - 60, 45)];
+    [selectButton addTarget:self action:@selector(selectForm) forControlEvents:UIControlEventTouchUpInside];
+    selectButton.layer.cornerRadius = cornerRadius;
+    selectButton.clipsToBounds = clipsToBounds;
+    [selectButton setBackgroundColor:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00]];
+    [selectButton setTitle:@"등록" forState:UIControlStateNormal];
+    [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    
+    [formSelectCustomView addSubview:selectButton];
+    
+    self.formSelectCustomView = formSelectCustomView;
+    self.formPicker = formPicker;
+    self.formList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Writer",nil];
+    
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        [self.formSelectCustomView setCenter:CGPointMake(self.view.frame.size.width / 2, self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
+        [self.view addSubview:self.formSelectCustomView];
+    } completion:^(BOOL finished) {
+        
+    }];
 
--(IBAction)clickAddButton:(id)sender{
+}
+
+#pragma mark - Picker view data source
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     
-    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Form 추가"
-                                                                    message:@"form을 추가 하시겠습니까"
-                                                             preferredStyle:UIAlertControllerStyleAlert];
+    return 1;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
     
-    UIAlertAction * formOneAction = [UIAlertAction actionWithTitle:@"Form 1"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                               NSLog(@"Alert Form 1");
-                                                           }];
+    return [self.formList count];
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
-    UIAlertAction * formTwoAction = [UIAlertAction actionWithTitle:@"Form 2"
-                                                             style:UIAlertActionStyleDefault
-                                                           handler:^(UIAlertAction * _Nonnull action) {
-                                                               NSLog(@"Alert Form 2");
-                                                           }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
-                                                     style:UIAlertActionStyleCancel
-                                                   handler:^(UIAlertAction * _Nonnull action) {
-                                                       NSLog(@"cancel");
-                                                   }];
     
-    [alert addAction:formOneAction];
-    [alert addAction:formTwoAction];
-    [alert addAction:cancel];
-                                                            
-    
-    [self presentViewController:alert animated:YES completion:nil];
+    return [self.formList objectAtIndex:row];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
 }
+
+
+- (void)selectForm {
+    
+    [self.defaults setObject:self.seletedForm forKey:@"myForm"];
+    
+    [self.formSelectCustomView removeFromSuperview];
+    [self.effectView removeFromSuperview];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

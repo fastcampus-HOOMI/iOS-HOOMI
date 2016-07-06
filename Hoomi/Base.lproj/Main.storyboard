@@ -548,7 +548,7 @@
                     <navigationItem key="navigationItem" title="Title" id="oXw-N0-ebd">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="iRJ-ud-oS0">
                             <connections>
-                                <action selector="clickAddButton:" destination="U1a-Dv-pmO" id="M1Z-dg-qsW"/>
+                                <action selector="selectFormList" destination="U1a-Dv-pmO" id="OBC-D0-pOC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
