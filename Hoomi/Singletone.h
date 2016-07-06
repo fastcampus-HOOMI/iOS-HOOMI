@@ -6,10 +6,12 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface Singletone : NSObject
 
 + (instancetype) requestInstance;
+
+- (UIColor *) colorKey:(NSString *) colorName;
 
 @end

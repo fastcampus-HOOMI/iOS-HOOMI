@@ -14,6 +14,7 @@
 #import "SingUpTableViewController.h"
 #import "UICKeyChainStore.h"
 #import "MainTableViewController.h"
+#import "Singletone.h"
 
 
 @interface SignInViewController ()
@@ -30,6 +31,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton; // 페이스북 로그인
 @property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton; // 카카오톡 로그인
 
+@property (nonatomic, strong) Singletone *singleTone;
+
 @end
 
 @implementation SignInViewController
@@ -40,10 +43,12 @@
     
 //    [self saveSessionValue:@"abc"];
     
-    [self.view setBackgroundColor:[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00]];
+    self.singleTone = [Singletone requestInstance];
+    
+    [self.view setBackgroundColor:[self.singleTone colorKey:@"concrete"]];
     
     self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"danube"]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
