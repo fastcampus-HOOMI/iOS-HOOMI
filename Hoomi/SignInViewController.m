@@ -327,6 +327,9 @@
     MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+    
+    [self.userIDTextfield resignFirstResponder];
+    [self.passwordTextfield resignFirstResponder];
 
 }
 

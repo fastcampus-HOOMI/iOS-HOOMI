@@ -22,12 +22,18 @@
 
 @property (nonatomic) NSUserDefaults *defaults;
 
+@property (nonatomic) CGFloat animationDuration; // 애니메이션 지속 시간
+@property (nonatomic) NSInteger margin; // 커스텀 뷰 margin
+
 @end
 
 @implementation MainTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.animationDuration = 0.7;
+    self.margin = 60;
     
     [self selectJobList];
     
@@ -98,8 +104,6 @@
     self.effectView = effectView;
     [self.view addSubview:effectView];
     
-    
-    
     // 직군선택화면을 새로운 뷰컨트롤러에서 표시
     /*
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -109,17 +113,15 @@
     */
     
     // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
-    NSInteger margin = 60;
-    UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(0, margin * 5, self.view.frame.size.width - margin, margin * 5)];
-    [jobSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
-                                               self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
+    UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(self.margin / 2, - self.margin * 5, self.view.frame.size.width - self.margin, self.margin * 5)];
+    
     jobSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     jobSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
     jobSelectCustomView.layer.borderWidth = 3.0f;
     
     // jobSelectCustomView에 PickerView 추가
     UIPickerView *jobPicker = [[UIPickerView alloc] init];
-    [jobPicker setFrame:CGRectMake(0, 0, jobSelectCustomView.frame.size.width, jobSelectCustomView.frame.size.height - margin * 2)];
+    [jobPicker setFrame:CGRectMake(0, 0, jobSelectCustomView.frame.size.width, jobSelectCustomView.frame.size.height - self.margin * 2)];
     [jobSelectCustomView addSubview:jobPicker];
     
     
@@ -139,8 +141,9 @@
     self.jobSelectCustomView = jobSelectCustomView;
     self.jobPicker = jobPicker;
     
-    [UIView animateWithDuration:0.5 animations:^{
-       [self.jobSelectCustomView setFrame:CGRectMake(0, margin, self.view.frame.size.width - margin, margin * 5)];
+    [UIView animateWithDuration:self.animationDuration animations:^{
+        [jobSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
+                                                   self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
         [self.view addSubview:self.jobSelectCustomView];
     } completion:^(BOOL finished) {
         
@@ -154,8 +157,15 @@
     
     [self.defaults setObject:self.selectedJob forKey:@"userJob"];
     
-    [self.jobSelectCustomView removeFromSuperview];
-    [self.effectView removeFromSuperview];
+    [UIView animateWithDuration:self.animationDuration animations:^{
+        self.jobSelectCustomView.frame = CGRectMake(self.margin / 2, self.view.frame.size.height, self.view.frame.size.width - self.margin, self.margin * 5);
+        [self.view addSubview:self.jobSelectCustomView];
+    } completion:^(BOOL finished) {
+        [self.jobSelectCustomView removeFromSuperview];
+        [self.effectView removeFromSuperview];
+    }];
+    
+    
     
 }
 
