@@ -34,6 +34,40 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
+// +버튼 누를시, alert창
+
+-(IBAction)clickAddButton:(id)sender{
+    
+    UIAlertController * alert = [UIAlertController alertControllerWithTitle:@"Form 추가"
+                                                                    message:@"form을 추가 하시겠습니까"
+                                                             preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction * formOneAction = [UIAlertAction actionWithTitle:@"Form 1"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               NSLog(@"Alert Form 1");
+                                                           }];
+    
+    UIAlertAction * formTwoAction = [UIAlertAction actionWithTitle:@"Form 2"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                               NSLog(@"Alert Form 2");
+                                                           }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                     style:UIAlertActionStyleCancel
+                                                   handler:^(UIAlertAction * _Nonnull action) {
+                                                       NSLog(@"cancel");
+                                                   }];
+    
+    [alert addAction:formOneAction];
+    [alert addAction:formTwoAction];
+    [alert addAction:cancel];
+                                                            
+    
+    [self presentViewController:alert animated:YES completion:nil];
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

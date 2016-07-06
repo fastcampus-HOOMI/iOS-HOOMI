@@ -252,7 +252,7 @@
                                 <rect key="frame" x="50" y="167" width="55" height="30"/>
                                 <state key="normal" title="mypage"/>
                                 <connections>
-                                    <segue destination="U1a-Dv-pmO" kind="presentation" id="SK8-pI-dck"/>
+                                    <segue destination="BVT-FC-mpc" kind="presentation" id="SK8-pI-dck"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -497,7 +497,7 @@
             </objects>
             <point key="canvasLocation" x="1212" y="545"/>
         </scene>
-        <!--My Page Table View Controller-->
+        <!--Title-->
         <scene sceneID="2BR-uu-0K8">
             <objects>
                 <tableViewController id="U1a-Dv-pmO" customClass="MyPageTableViewController" sceneMemberID="viewController">
@@ -507,7 +507,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="140" id="vDP-mF-5SK" customClass="MyPageListTableViewCell">
-                                <rect key="frame" x="0.0" y="28" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="92" width="600" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vDP-mF-5SK" id="xbJ-Im-amp">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="139.5"/>
@@ -545,8 +545,33 @@
                             <outlet property="delegate" destination="U1a-Dv-pmO" id="71o-Lv-L3p"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Title" id="oXw-N0-ebd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="iRJ-ud-oS0">
+                            <connections>
+                                <action selector="clickAddButton:" destination="U1a-Dv-pmO" id="M1Z-dg-qsW"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9PL-yC-TIb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1703" y="1352"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="BTm-AP-y43">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BVT-FC-mpc" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LeI-g2-PyB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="U1a-Dv-pmO" kind="relationship" relationship="rootViewController" id="oQ5-Qe-UPN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kwb-va-JRY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="891" y="1352"/>
         </scene>
