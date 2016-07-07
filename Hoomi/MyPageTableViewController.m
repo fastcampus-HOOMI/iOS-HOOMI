@@ -13,7 +13,9 @@
 <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
+@property (nonatomic) NSArray *myData;
 @property (nonatomic) NSArray *formList;
+
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
 
@@ -28,12 +30,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.myData = [NSArray arrayWithObjects:@"이름",@"이메일", @"직군",nil];
+    
     self.listData = [[NSMutableDictionary alloc] init];
     
     [self.listData setObject:@"nature11.jpg" forKey:@"image_01"];
     [self.listData setObject:@"nature22.jpg" forKey:@"image_02"];
     [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
     [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
+    
+    
     
     
 
@@ -69,8 +75,6 @@
     
     
     //formSelectCustomView에 picker View 추가
-    
-    
     UIPickerView *formPicker = [[UIPickerView alloc] init];
     [formPicker setFrame:CGRectMake(0, 0, formSelectCustomView.frame.size.width, formSelectCustomView.frame.size.height - margin * 2)];
     self.formPicker = formPicker;
@@ -80,8 +84,7 @@
     
     [formSelectCustomView addSubview:formPicker];
     
-    
-    
+
     UIButton *selectButton = [[UIButton alloc] initWithFrame:CGRectMake(30, formPicker.frame.size.height + 30, formSelectCustomView.frame.size.width - 60, 45)];
     [selectButton addTarget:self action:@selector(selectForm) forControlEvents:UIControlEventTouchUpInside];
     selectButton.layer.cornerRadius = cornerRadius;
@@ -107,6 +110,7 @@
 
 }
 
+
 #pragma mark - Picker view data source
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -121,12 +125,7 @@
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
     
-    
     return [self.formList objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
 }
 
 
@@ -139,21 +138,27 @@
 }
 
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 1) {
+        return 3;
+    }else{
     //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
     return [self.listData count];
+    }
 }
 
 
