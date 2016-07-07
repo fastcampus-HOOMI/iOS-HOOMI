@@ -21,6 +21,7 @@
 		03CB12A81D2CD5D1005FAAA2 /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03CB12A21D2CD5D1005FAAA2 /* nature33.jpg */; };
 		03CB12A91D2CD5D1005FAAA2 /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03CB12A31D2CD5D1005FAAA2 /* nature44.jpg */; };
 		03CB12AA1D2CD5D1005FAAA2 /* MyPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB12A41D2CD5D1005FAAA2 /* MyPageTableViewController.m */; };
+		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
 		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
@@ -65,6 +66,7 @@
 		03CB12A21D2CD5D1005FAAA2 /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
 		03CB12A31D2CD5D1005FAAA2 /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
 		03CB12A41D2CD5D1005FAAA2 /* MyPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageTableViewController.m; sourceTree = "<group>"; };
+		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
 				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
+				FF51D4F41D2DEE7600EB409B /* Uma.storyboard */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
@@ -305,6 +308,7 @@
 				03855EDA1D27918300D99F8C /* 2.jpg in Resources */,
 				030039D41D2B8FE00057717D /* 3.jpg in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				03CB12A61D2CD5D1005FAAA2 /* nature11.jpg in Resources */,
 				03CB12A81D2CD5D1005FAAA2 /* nature33.jpg in Resources */,
