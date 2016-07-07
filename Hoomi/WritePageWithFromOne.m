@@ -17,17 +17,17 @@
 
 
 /* 빈 이미지, 텍스트뷰 초기화 함께 */
--(void)settingTempFormOne {
+-(void)settingTempFormOne:(NSString *)actionName {
     
-    [self creatTempImageAndUploadIcon];
+    [self creatUploadScreen:actionName];
     [self creatTextView];
 }
 
--(void)creatTempImageAndUploadIcon {
+-(void)creatUploadScreen:(NSString *)actionName{
     
-    /******************/
-    /* temp 이미지 세팅 */
-    /****************/
+      /*****************/
+     /* temp 이미지 세팅 */
+    /*****************/
     
     self.tempImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5)];
     /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
@@ -36,13 +36,18 @@
     self.tempImage.clipsToBounds = YES;
     [self addSubview:self.tempImage];
     
+      /*************/
+     /* 업로드 버튼 */
     /************/
-    /* 업로드 버튼 */
-    /***********/
     
     // temp이미지 위로 가서 거기 위에 중간에 있어야 함
-    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 300, 200)];
-    
+    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.tempImage.frame.size.width/2 - 150, self.tempImage.frame.size.height/2 - 100, 300, 200)];
+    [self.uploadButton addTarget:self
+               action:@selector(actionName:)
+     forControlEvents:UIControlEventTouchUpInside];
+    [self.uploadButton setTitle:@"Show View" forState:UIControlStateNormal];
+    self.uploadButton.frame = CGRectMake(80.0, 210.0, 160.0, 40.0);
+    [self addSubview:self.uploadButton];
     
     
 }
