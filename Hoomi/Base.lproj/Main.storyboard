@@ -82,7 +82,7 @@
                                         <rect key="frame" x="0.0" y="99" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="udf-1J-EZQ" id="mJK-gE-I5X">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="7wb-Rf-vhJ">
@@ -103,7 +103,7 @@
                                         <rect key="frame" x="0.0" y="154" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iVE-q7-V5R" id="LfL-DU-d9V">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6vl-GI-DIv">
@@ -124,7 +124,7 @@
                                         <rect key="frame" x="0.0" y="209" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xV2-iQ-rHK" id="u0V-m1-CJN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="n1P-bF-2kW">
@@ -145,7 +145,7 @@
                                         <rect key="frame" x="0.0" y="264" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iaf-LY-Yth" id="uu1-yE-9gV">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드 확인" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mie-3i-mK7">
@@ -222,6 +222,24 @@
             </objects>
             <point key="canvasLocation" x="1924" y="565"/>
         </scene>
+        <!--Write Page View Controller-->
+        <scene sceneID="jQe-dR-I4v">
+            <objects>
+                <viewController id="TC7-le-CeH" customClass="WritePageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ygm-E2-e3o"/>
+                        <viewControllerLayoutGuide type="bottom" id="u71-zr-3RB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Azb-IX-e5h">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7Yi-DE-DMl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2647" y="565"/>
+        </scene>
         <!--Start View Controller-->
         <scene sceneID="D4G-6f-2Rq">
             <objects>
@@ -249,10 +267,17 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KZv-Ak-DfB">
-                                <rect key="frame" x="50" y="167" width="55" height="30"/>
+                                <rect key="frame" x="50" y="166" width="55" height="30"/>
                                 <state key="normal" title="mypage"/>
                                 <connections>
                                     <segue destination="U1a-Dv-pmO" kind="presentation" id="SK8-pI-dck"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oyB-fd-N63">
+                                <rect key="frame" x="43" y="249" width="69" height="30"/>
+                                <state key="normal" title="writePage"/>
+                                <connections>
+                                    <segue destination="TC7-le-CeH" kind="presentation" id="7LJ-fg-2RT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -478,10 +503,10 @@
             </objects>
             <point key="canvasLocation" x="4135" y="-209"/>
         </scene>
-        <!--Temp Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="f9g-fF-dlj">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iWh-OJ-cL3" customClass="tempNavigationController" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iWh-OJ-cL3" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Tg2-fJ-okH">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -510,7 +535,7 @@
                                 <rect key="frame" x="0.0" y="28" width="600" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vDP-mF-5SK" id="xbJ-Im-amp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="139.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="139"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="Cell" translatesAutoresizingMaskIntoConstraints="NO" id="nxn-3X-jie">
@@ -519,7 +544,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dFA-EZ-pWO">
                                             <rect key="frame" x="16" y="71" width="548" height="53"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
