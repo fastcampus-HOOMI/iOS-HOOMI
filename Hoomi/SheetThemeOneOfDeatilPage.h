@@ -13,8 +13,9 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UITextView *textView;
 
--(void)creatTempSheet;
+- (instancetype)initWithFrameThemeOne;
 
--(void)settingSheetOfDetailResume:(NSString *)imageName text:(NSString *)text;
+- (void)creatTempSheetForUpload ;
+- (void)settingSheetOfDetailResume:(NSString *)imageName text:(NSString *)text;
 
 @end
