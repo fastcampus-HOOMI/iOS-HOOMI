@@ -1,5 +1,5 @@
 //
-//  StartViewController.h
+//  WritePageViewController.h
 //  Hoomi
 //
 //  Created by 배지영 on 2016. 7. 6..
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StartViewController : UIViewController
+@interface WritePageViewController : UIViewController
+
+@property (nonatomic) NSInteger formNumber;
 
 @end

@@ -17,6 +17,7 @@
 #import "Singletone.h"
 
 
+
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -328,10 +329,15 @@
 
 - (void)finishLogin {
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
     MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+    // 모달로 띄울 경우
+    [self presentViewController:mainViewController animated:YES completion:nil];
+    // 푸쉬
+    [self.navigationController pushViewController:mainViewController animated:YES];
+    
     
     [self.userIDTextfield resignFirstResponder];
     [self.passwordTextfield resignFirstResponder];
