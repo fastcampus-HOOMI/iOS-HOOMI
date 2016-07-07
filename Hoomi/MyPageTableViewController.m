@@ -13,8 +13,9 @@
 <UIPickerViewDelegate, UIPickerViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
-@property (nonatomic) NSArray *myData;
 @property (nonatomic) NSArray *formList;
+
+@property (nonatomic, weak) UIRefreshControl *refreshControl;
 
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
@@ -30,8 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.myData = [NSArray arrayWithObjects:@"이름",@"이메일", @"직군",nil];
-    
+//    self.refreshControl = [[UIRefreshControl alloc]init];
+//    [self.view addSubview:refreshControl];
+//    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+//    
     self.listData = [[NSMutableDictionary alloc] init];
     
     [self.listData setObject:@"nature11.jpg" forKey:@"image_01"];
@@ -148,17 +151,17 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 1) {
-        return 3;
-    }else{
-    //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
+//    if (section == 0) {
+//        [
+//    }else{
+//    //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
     return [self.listData count];
-    }
+    //}
 }
 
 
