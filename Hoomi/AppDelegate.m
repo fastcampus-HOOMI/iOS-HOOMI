@@ -23,6 +23,7 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    
     // 로그인되어있는지 체크
     if([FBSDKAccessToken currentAccessToken] || [KOSession sharedSession].accessToken) {
         

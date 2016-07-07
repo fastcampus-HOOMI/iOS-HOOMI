@@ -6,67 +6,6 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Job Select View Controller-->
-        <scene sceneID="WIK-15-mQw">
-            <objects>
-                <viewController storyboardIdentifier="SelectJob" id="iID-DA-aGG" customClass="JobSelectViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kdY-RV-jzU"/>
-                        <viewControllerLayoutGuide type="bottom" id="jBf-wO-WB0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ugP-N8-HoE">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DYg-tb-Rn6">
-                                <rect key="frame" x="0.0" y="184" width="600" height="216"/>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g0y-fm-ObY">
-                                <rect key="frame" x="200" y="420" width="200" height="50"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Lub-OR-7fC"/>
-                                    <constraint firstAttribute="width" constant="200" id="Qw9-N5-8rM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="선택">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="userSelectJob:" destination="iID-DA-aGG" eventType="touchUpInside" id="cgf-kr-JNy"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="직업을 선택해주세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TFW-gc-cfO">
-                                <rect key="frame" x="20" y="120" width="560" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="g0y-fm-ObY" firstAttribute="top" secondItem="DYg-tb-Rn6" secondAttribute="bottom" constant="20" id="6AR-hu-Sc4"/>
-                            <constraint firstItem="DYg-tb-Rn6" firstAttribute="centerX" secondItem="ugP-N8-HoE" secondAttribute="centerX" id="CBp-xC-iUF"/>
-                            <constraint firstItem="DYg-tb-Rn6" firstAttribute="top" secondItem="TFW-gc-cfO" secondAttribute="bottom" constant="40" id="HDn-IH-zdV"/>
-                            <constraint firstItem="TFW-gc-cfO" firstAttribute="centerX" secondItem="ugP-N8-HoE" secondAttribute="centerX" id="Hhx-mx-V8T"/>
-                            <constraint firstItem="g0y-fm-ObY" firstAttribute="centerX" secondItem="ugP-N8-HoE" secondAttribute="centerX" id="Ve8-AR-9c9"/>
-                            <constraint firstItem="DYg-tb-Rn6" firstAttribute="leading" secondItem="ugP-N8-HoE" secondAttribute="leading" id="acl-u0-bsj"/>
-                            <constraint firstItem="TFW-gc-cfO" firstAttribute="top" secondItem="kdY-RV-jzU" secondAttribute="bottom" constant="100" id="cMv-g2-9HU"/>
-                            <constraint firstAttribute="trailing" secondItem="TFW-gc-cfO" secondAttribute="trailing" constant="20" id="reL-xd-oyZ"/>
-                            <constraint firstAttribute="trailing" secondItem="DYg-tb-Rn6" secondAttribute="trailing" id="tKp-8i-O5H"/>
-                            <constraint firstItem="TFW-gc-cfO" firstAttribute="leading" secondItem="ugP-N8-HoE" secondAttribute="leading" constant="20" id="yw4-ms-qmu"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="St4-mI-Z24"/>
-                    <connections>
-                        <outlet property="pickerView" destination="DYg-tb-Rn6" id="i9i-vW-Ebk"/>
-                        <outlet property="selectButton" destination="g0y-fm-ObY" id="DpY-7b-t2Z"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0aN-c1-G4b" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3479" y="-209"/>
-        </scene>
         <!--Sing Up Table View Controller-->
         <scene sceneID="Zy2-Ac-OBO">
             <objects>
@@ -437,6 +376,10 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="search" id="W2r-Qe-dbG"/>
                         <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="nfe-cC-XHA"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myPage" destination="W2r-Qe-dbG" id="ei1-DV-eBh"/>
+                        <outlet property="writeCareer" destination="nfe-cC-XHA" id="Yio-a4-KgI"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0pO-Xy-YC1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

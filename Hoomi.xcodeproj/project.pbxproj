@@ -21,6 +21,7 @@
 		03CB12A81D2CD5D1005FAAA2 /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03CB12A21D2CD5D1005FAAA2 /* nature33.jpg */; };
 		03CB12A91D2CD5D1005FAAA2 /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03CB12A31D2CD5D1005FAAA2 /* nature44.jpg */; };
 		03CB12AA1D2CD5D1005FAAA2 /* MyPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CB12A41D2CD5D1005FAAA2 /* MyPageTableViewController.m */; };
+		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
 		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
@@ -40,6 +41,7 @@
 		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
 		FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */; };
 		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
+		FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE36DC41D2CEDB200E157D0 /* Singletone.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,6 +66,7 @@
 		03CB12A21D2CD5D1005FAAA2 /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
 		03CB12A31D2CD5D1005FAAA2 /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
 		03CB12A41D2CD5D1005FAAA2 /* MyPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageTableViewController.m; sourceTree = "<group>"; };
+		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,6 +96,8 @@
 		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
 		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
+		FFE36DC31D2CEDB200E157D0 /* Singletone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletone.h; sourceTree = "<group>"; };
+		FFE36DC41D2CEDB200E157D0 /* Singletone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletone.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,12 +170,15 @@
 				03CB129A1D2CD046005FAAA2 /* StartViewController.m */,
 				FFA4D3711D27D8360029FDB1 /* Keychain */,
 				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
+				FFE36DC31D2CEDB200E157D0 /* Singletone.h */,
+				FFE36DC41D2CEDB200E157D0 /* Singletone.m */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				03855ED21D26BB2000D99F8C /* DetailResume */,
 				03CB129C1D2CD4AE005FAAA2 /* Mypage */,
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
 				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
+				FF51D4F41D2DEE7600EB409B /* Uma.storyboard */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
 				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
@@ -200,8 +208,8 @@
 				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
 				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
 				FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */,
-				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
 				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
+				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
 				FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */,
 				FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */,
 				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
@@ -300,6 +308,7 @@
 				03855EDA1D27918300D99F8C /* 2.jpg in Resources */,
 				030039D41D2B8FE00057717D /* 3.jpg in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				03CB12A61D2CD5D1005FAAA2 /* nature11.jpg in Resources */,
 				03CB12A81D2CD5D1005FAAA2 /* nature33.jpg in Resources */,
@@ -332,6 +341,7 @@
 				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
 				03855EE11D27959F00D99F8C /* SheetOfDetailResume.m in Sources */,
 				03CB12AA1D2CD5D1005FAAA2 /* MyPageTableViewController.m in Sources */,
+				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
