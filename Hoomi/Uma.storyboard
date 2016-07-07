@@ -20,7 +20,7 @@
                                         <rect key="frame" x="0.0" y="99" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q5s-Sb-C1V" id="Zau-dn-zOD">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4Vr-1r-kPx">
@@ -41,7 +41,7 @@
                                         <rect key="frame" x="0.0" y="154" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="utp-yn-FIr" id="DPO-0f-3kZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="wGq-Fl-kpc">
@@ -62,7 +62,7 @@
                                         <rect key="frame" x="0.0" y="209" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cJW-VH-7HK" id="tfC-hH-U4q">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9vf-g7-nmQ">
@@ -83,7 +83,7 @@
                                         <rect key="frame" x="0.0" y="264" width="600" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sIZ-1a-MkR" id="8up-4I-wXR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="54"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="패스워드 확인" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="83N-gF-PPQ">

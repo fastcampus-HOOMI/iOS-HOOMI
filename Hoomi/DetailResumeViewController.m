@@ -7,7 +7,7 @@
 //
 
 #import "DetailResumeViewController.h"
-#import "SheetOfDetailResume.h"
+#import "SheetThemeOneOfDeatilPage.h"
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
@@ -81,7 +81,7 @@
     for (NSInteger pageNumber = 1; pageNumber <= self.totalPageNumber; pageNumber++) {
         
         /* 한 장 세팅 */
-        SheetOfDetailResume *sheetOfResume = [[SheetOfDetailResume alloc]initWithFrame:CGRectMake(offSetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        SheetThemeOneOfDeatilPage *sheetOfResume = [[SheetThemeOneOfDeatilPage alloc]initWithFrame:CGRectMake(offSetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
         /* 이미지와 텍스트 세팅 */
         NSString *imageName = [self.imageNameList objectAtIndex:pageNumber-1];
         NSString *text = [self.textList objectAtIndex:pageNumber-1];

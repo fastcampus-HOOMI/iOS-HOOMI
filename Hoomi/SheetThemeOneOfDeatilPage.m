@@ -6,9 +6,76 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
-#import "SheetOfDetailResume.h"
+#import "SheetThemeOneOfDeatilPage.h"
 
-@implementation SheetOfDetailResume
+@interface SheetThemeOneOfDeatilPage ()
+
+/* 객체 크기 프로퍼티 생성 예정 */
+
+@end
+
+@implementation SheetThemeOneOfDeatilPage
+
+- (instancetype)initWithFrameTemeOne
+{
+    self = [super init];
+    if (self) {
+        
+         /* 테마 1 */
+        /* 이미지뷰, 텍스트뷰 객체 생성 및 크기 설정 
+           ---> 변경해야함 (쓰기 화면일 땐 버튼/ 읽기일 땐 뷰) 
+           ---> 템플릿 크기만 프로퍼티로 공유 */
+        
+        self.imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5)];
+        
+        CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
+        
+        CGRect textViewFrame = CGRectMake(offsetX, self.imageView.frame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageView.frame.size.height - 20);
+        
+        self.textView = [[UITextView alloc] initWithFrame:textViewFrame];
+        
+    }
+    return self;
+}
+
+
+
+  /***********************/
+ /*    빈 화면 템플릿      */
+/***********************/
+
+-(void)creatTempSheetForUpload {
+    
+    [self.imageView setImage:[UIImage imageNamed:@""]];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+    [self addSubview:self.imageView];
+    
+    /**************/
+    /* 텍스트뷰 세팅 */
+    /*************/
+    
+    //코드 방식으로 UITextView 생성
+    
+    
+    self.textView.backgroundColor = [UIColor lightGrayColor];
+    self.textView.text = text;
+    NSString *textViewText = self.textView.text;
+    
+    
+    
+    /* 편집 불가 모드 */
+    self.textView.editable = NO;
+    self.textView.selectable = NO;
+    
+    [self addSubview:self.textView];
+    
+}
+
+
+   /***********/
+  /* 상세 화면 */
+ /***********/
 
 /* 이미지, 텍스트뷰 초기화 함께 */
 

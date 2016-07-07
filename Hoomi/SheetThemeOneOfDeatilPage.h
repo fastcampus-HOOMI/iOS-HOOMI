@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SheetOfDetailResume : UIView
+@interface SheetThemeOneOfDeatilPage : UIView
 
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UITextView *textView;
+
+-(void)creatTempSheet;
 
 -(void)settingSheetOfDetailResume:(NSString *)imageName text:(NSString *)text;
 
