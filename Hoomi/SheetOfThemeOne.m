@@ -17,28 +17,18 @@
 
 @implementation SheetOfThemeOne
 
-// 초기화 -> 프레임 공유
 
+/* 초기화 -> 프레임 공유 */
 - (instancetype)initWithThemeFrame
 {
     self = [super init];
     if (self) {
         
-        /* 객체 사이즈 세팅 */
+        /* 테마1 객체 사이즈 세팅 */
         [self settingFrameOfThemeOne];
         
     }
     return self;
-}
-
--(void)settingFrameOfThemeOne {
-    
-    self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
-    
-    /* 텍스트뷰 프레임 */
-    CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
-    self.textViewFrame = CGRectMake(offsetX, self.imageFrame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageFrame.size.height - 20);
-    
 }
 
 
@@ -48,31 +38,20 @@
 
 -(void)settngUploadSheet {
     
-    /*****************/
     /* temp 이미지 세팅 */
-    /*****************/
+    NSString *tempImageName = @"grayColor.jpg";
+    [self creatImageView:tempImageName];
     
-    UIImageView *tempImage = [[UIImageView alloc]initWithFrame:self.imageFrame];
-    /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
-    [tempImage setImage:[UIImage imageNamed:@"grayColor.jpg"]];
-    tempImage.contentMode = UIViewContentModeScaleAspectFill;
-    tempImage.clipsToBounds = YES;
-    [self addSubview:tempImage];
-    
-    /*************/
     /* 업로드 버튼 */
-    /************/
-    
-    // temp이미지 위로 가서 거기 위에 중간에 있어야 함
-    
-    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - 300/2, self.imageFrame.size.height/2 - 300/2, 300, 300)];
+    [self creatUploadButton];
     
     /* 버튼 관련 함수는 쓰는 곳에서 세팅해줘야함 */
     //[self.uploadButton addTarget:self action:@selector(actionName:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateNormal];
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateHighlighted];
-    [self addSubview:self.uploadButton];
+    /* 텍스트 뷰 - 에디팅 가능 */
+    NSString *comment = @"자신을 자유롭게 표현해주세요.";
+    [self creatTextView:comment canEdit:YES];
+    
     
     
 }
@@ -91,12 +70,35 @@
  /***********/
 
 /* 이미지, 텍스트뷰 초기화 함께 */
-/* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 cheesing */
+/* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
+
 -(void)showResume:(NSString *)imageName text:(NSString *)text {
+    [self creatImageView:imageName];
+    /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
+    [self creatTextView:text canEdit:NO];
     
-      /************/
-     /* 이미지 세팅 */
-    /************/
+}
+
+
+    /*******************/
+   /* Contents Object */
+  /*******************/
+
+
+/* 사이즈 세팅 */
+-(void)settingFrameOfThemeOne {
+    
+    self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
+    
+    /* 텍스트뷰 프레임 */
+    CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
+    self.textViewFrame = CGRectMake(offsetX, self.imageFrame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageFrame.size.height - 20);
+    
+}
+
+
+/* 이미지 뷰 */
+-(void)creatImageView:(NSString *)imageName {
     
     self.imageView = [[UIImageView alloc]initWithFrame:self.imageFrame];
     /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
@@ -104,22 +106,10 @@
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     [self addSubview:self.imageView];
-    
-    /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
-    [self creatTextView:text canEdit:NO];
-    
-}
-
-
-/* 이미지 뷰 */
--(void)creatImageView:(UIImageView *)imageView {
-    
-    
 }
 
 
 /* 텍스트 뷰 */
-
 -(void)creatTextView:(NSString *)text canEdit:(BOOL)canEdit {
     //코드 방식으로 UITextView 생성
     self.textView = [[UITextView alloc] initWithFrame:self.textViewFrame];
@@ -143,6 +133,17 @@
     }
     
     [self addSubview:self.textView];
+}
+
+/* 업로드 버튼 */
+-(void)creatUploadButton {
+    
+    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - 300/2, self.imageFrame.size.height/2 - 300/2, 300, 300)];
+    
+    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateNormal];
+    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateHighlighted];
+    [self.imageView addSubview:self.uploadButton];
+
 }
 
 
