@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
 		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
 		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
@@ -48,6 +49,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
+		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
 		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -122,9 +125,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0378EDEC1D2E33A800F14DAA /* FormSheet */ = {
+		0378EDEC1D2E33A800F14DAA /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
+				03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */,
+				03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */,
 				FF51D5041D2E152B00EB409B /* SheetThemeOneOfDeatilPage.h */,
 				FF51D5051D2E152B00EB409B /* SheetThemeOneOfDeatilPage.m */,
 				FF51D4FA1D2E151B00EB409B /* WritePageWithFromOne.h */,
@@ -135,7 +140,7 @@
 				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
 				FF51D4FD1D2E151B00EB409B /* uploadIcon.png */,
 			);
-			name = FormSheet;
+			name = Sheet;
 			sourceTree = "<group>";
 		};
 		805B089F0550420D326CFC19 /* Pods */ = {
@@ -240,7 +245,7 @@
 				FF51D5221D2E1AF300EB409B /* Storyboard */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
-				0378EDEC1D2E33A800F14DAA /* FormSheet */,
+				0378EDEC1D2E33A800F14DAA /* Sheet */,
 				FF51D4F71D2E150700EB409B /* DetailResume */,
 				FF51D4F61D2E14FE00EB409B /* WritePage */,
 				FF51D5121D2E183000EB409B /* MyPage */,
@@ -455,6 +460,7 @@
 				FF51D4FF1D2E151B00EB409B /* WritePageWithFromOne.m in Sources */,
 				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
 				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
+				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
