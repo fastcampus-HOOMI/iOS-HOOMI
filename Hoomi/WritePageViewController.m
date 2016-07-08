@@ -7,7 +7,7 @@
 //
 
 #import "WritePageViewController.h"
-#import "SheetThemeOneOfDeatilPage.h"
+#import "SheetOfThemeOne.h"
 
 @interface WritePageViewController ()
 
@@ -35,10 +35,10 @@
 
 -(void)creatWriteWithFormOne {
     
-    // ----todo
-    SheetThemeOneOfDeatilPage *themeOne = [[SheetThemeOneOfDeatilPage alloc]initWithFrameThemeOne];
-    [themeOne creatTempSheetForUpload];
-    
+//    // ----todo
+//    SheetThemeOneOfDeatilPage *themeOne = [[SheetThemeOneOfDeatilPage alloc]initWithFrameThemeOne];
+//    [themeOne creatTempSheetForUpload];
+//    
 }
 
 

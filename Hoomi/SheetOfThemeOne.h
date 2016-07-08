@@ -15,8 +15,9 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UITextView *textView;
 
-- (instancetype)initWithThemeFrame;
+- (instancetype)initWithFrame:(CGRect)frame;
 
--(void)settngUploadSheet;
-
+-(void)settingUploadResume;
+-(void)settingEditResume;
+-(void)settingDetailResume:(NSString *)imageName text:(NSString *)text;
 @end

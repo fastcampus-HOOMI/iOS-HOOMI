@@ -53,12 +53,12 @@
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
 		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
-		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePageViewController.h; sourceTree = "<group>"; };
-		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritePageViewController.m; sourceTree = "<group>"; };
+		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePageViewController.h; path = Hoomi/WritePageViewController.h; sourceTree = "<group>"; };
+		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePageViewController.m; path = Hoomi/WritePageViewController.m; sourceTree = "<group>"; };
 		FF51D4FC1D2E151B00EB409B /* grayColor.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grayColor.jpg; sourceTree = "<group>"; };
 		FF51D4FD1D2E151B00EB409B /* uploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon.png; sourceTree = "<group>"; };
-		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailResumeViewController.h; sourceTree = "<group>"; };
-		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailResumeViewController.m; sourceTree = "<group>"; };
+		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailResumeViewController.h; path = Hoomi/DetailResumeViewController.h; sourceTree = "<group>"; };
+		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailResumeViewController.m; path = Hoomi/DetailResumeViewController.m; sourceTree = "<group>"; };
 		FF51D5061D2E152B00EB409B /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		FF51D5071D2E152B00EB409B /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		FF51D5081D2E152B00EB409B /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
@@ -133,6 +133,18 @@
 			name = Sheet;
 			sourceTree = "<group>";
 		};
+		03DCAC551D2F7B700012CA65 /* ContentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
+				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
+				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
+				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
+			);
+			name = ContentsViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		805B089F0550420D326CFC19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,24 +160,6 @@
 				32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FF51D4F61D2E14FE00EB409B /* WritePage */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
-				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
-			);
-			name = WritePage;
-			sourceTree = "<group>";
-		};
-		FF51D4F71D2E150700EB409B /* DetailResume */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
-				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
-			);
-			name = DetailResume;
 			sourceTree = "<group>";
 		};
 		FF51D5121D2E183000EB409B /* MyPage */ = {
@@ -236,8 +230,7 @@
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
 				0378EDEC1D2E33A800F14DAA /* Sheet */,
-				FF51D4F71D2E150700EB409B /* DetailResume */,
-				FF51D4F61D2E14FE00EB409B /* WritePage */,
+				03DCAC551D2F7B700012CA65 /* ContentsViewController */,
 				FF51D5121D2E183000EB409B /* MyPage */,
 				FFA4D3711D27D8360029FDB1 /* Keychain */,
 				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,

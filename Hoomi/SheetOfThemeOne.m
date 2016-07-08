@@ -19,14 +19,13 @@
 
 
 /* 초기화 -> 프레임 공유 */
-- (instancetype)initWithThemeFrame
+
+- (instancetype)initWithFrame:(CGRect)frame
 {
-    self = [super init];
+    self = [super initWithFrame:frame];
     if (self) {
-        
         /* 테마1 객체 사이즈 세팅 */
         [self settingFrameOfThemeOne];
-        
     }
     return self;
 }
@@ -36,7 +35,7 @@
  /*    빈 화면 템플릿      */
 /***********************/
 
--(void)settngUploadSheet {
+-(void)settingUploadResume {
     
     /* temp 이미지 세팅 */
     NSString *tempImageName = @"grayColor.jpg";
@@ -60,7 +59,7 @@
   /* 수정 화면 */
  /***********/
 
--(void)editResume {
+-(void)settingEditResume {
     
 }
 
@@ -72,7 +71,7 @@
 /* 이미지, 텍스트뷰 초기화 함께 */
 /* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
 
--(void)showResume:(NSString *)imageName text:(NSString *)text {
+-(void)settingDetailResume:(NSString *)imageName text:(NSString *)text {
     [self creatImageView:imageName];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
