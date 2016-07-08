@@ -9,17 +9,17 @@
 #import "SingUpTableViewController.h"
 #import "Singletone.h"
 #import "AFNetworking.h"
+#import "NetworkObject.h"
+
 @interface SingUpTableViewController ()
 <UITextFieldDelegate>
 
-@property (nonatomic, strong) IBOutlet UITextField *email;
 @property (nonatomic, strong) IBOutlet UITextField *userID;
+@property (nonatomic, strong) IBOutlet UITextField *name;
 @property (nonatomic, strong) IBOutlet UITextField *password;
 @property (nonatomic, strong) IBOutlet UITextField *passwordRewrite;
 
 @property (nonatomic) Singletone *singleTone;
-
-@property (nonatomic) NSNotificationCenter *notificationCenter;
 
 @property (nonatomic) UITextField *currentTextField; // current selected textfield
 
@@ -35,11 +35,11 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 화면 시작 후 0.3초뒤에 email 입력란에 키보드 나타냄
-        [self.email becomeFirstResponder];
+        [self.userID becomeFirstResponder];
     });
 
-    self.email.delegate = self;
     self.userID.delegate = self;
+    self.name.delegate = self;
     self.password.delegate = self;
     self.passwordRewrite.delegate = self;
 
@@ -49,15 +49,16 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    self.notificationCenter = [NSNotificationCenter defaultCenter];
-    [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failSignUp) name:SignUpFailNotification object:nil];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
     
-    [self.notificationCenter removeObserver:self name:@"keyboardToolbar" object:self.view.window];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"keyboardToolbar" object:self.view.window];
     
 }
 
@@ -72,7 +73,7 @@
     
     self.currentTextField = textField;
     
-    [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
     
 }
 
@@ -94,8 +95,8 @@
     
     [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];
     
-    [self.email setInputAccessoryView:signUpToolbar];
     [self.userID setInputAccessoryView:signUpToolbar];
+    [self.name setInputAccessoryView:signUpToolbar];
     [self.password setInputAccessoryView:signUpToolbar];
     [self.passwordRewrite setInputAccessoryView:signUpToolbar];
     
@@ -108,15 +109,15 @@
     
     [self.currentTextField endEditing:YES];
     
-    NSString *email = self.email.text;
     NSString *userID = self.userID.text;
+    NSString *name = self.name.text;
     NSString *firstPassword = self.password.text;
     NSString *secondPassword = self.passwordRewrite.text;
     
     /*
      4개 필드 빈칸 여부
      */
-    if([email isEqualToString:@""] || [userID isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
+    if([userID isEqualToString:@""] || [name isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
         
         [self errorAlert:@"빈칸을 입력해주세요."];
         return;
@@ -129,51 +130,30 @@
     // 일치
     if([firstPassword isEqualToString:secondPassword]) {
         
-        // DataCenter에 데이터 전송
-        NSString *url = @"https://hoomi.work/api/mobile/signup/";
+        NetworkObject *networkObj = [[NetworkObject alloc] init];
+        [networkObj initSignUpUserID:userID name:name password:secondPassword];
+        [networkObj requestSignUp];
+       
         
-        NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-        [bodyParams setObject:email forKey:@"email"];
-        [bodyParams setObject:secondPassword forKey:@"password"];
-        [bodyParams setObject:userID forKey:@"name"];
-        
-        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            
-        } error:nil];
-        
-        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-        
-        NSURLSessionUploadTask *uploadTask;
-        uploadTask = [manager
-                      uploadTaskWithStreamedRequest:request
-                      progress:^(NSProgress * _Nonnull uploadProgress) {
-                          // This is not called back on the main queue.
-                          // You are responsible for dispatching to the main queue for UI updates
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              //Update the progress view
-                              
-                          });
-                      }
-                      completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                          if (error) {
-                              NSLog(@"Error: %@", error);
-                              [self errorAlert:@"이미 존재하는 이메일입니다."];
-                          } else {
-                              
-                              NSLog(@"회원가입완료");
-                              
-                          }
-                      }];
-        
-        [uploadTask resume];
-        
-        } else { // 불일치
+    } else { // 불일치
         
         [self errorAlert:@"비밀번호가 맞지않습니다."];
             
         return;
         
     }
+}
+
+- (void)successSignUp {
+    
+    
+    
+}
+
+- (void)failSignUp {
+    
+    [self errorAlert:@"이미 존재하는 이메일입니다."];
+    
 }
 
 - (IBAction)cancelSignUp:(id)sender {

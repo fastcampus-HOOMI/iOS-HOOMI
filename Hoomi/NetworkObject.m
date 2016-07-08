@@ -70,6 +70,7 @@
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
                           // 회원가입 유도
+                          NSLog(@"error : %@", error);
                           NSLog(@"가입되어있지 않습니다.");
                           [[NSNotificationCenter defaultCenter] postNotificationName:LoginFailNotification object:nil];
                           
@@ -94,7 +95,42 @@
 
 - (void)requestSignUp {
     
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:self.userID forKey:@"email"];
+    [bodyParams setObject:self.password forKey:@"password"];
+    [bodyParams setObject:self.name forKey:@"name"];
     
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"Error: %@", error);
+                          
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
+                          
+                      } else {
+                          
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
+                          
+                      }
+                  }];
+    
+    [uploadTask resume];
     
 }
 
