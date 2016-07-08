@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Title-->
+        <!--마이페이지-->
         <scene sceneID="rfp-ta-eSn">
             <objects>
                 <tableViewController storyboardIdentifier="MyPage" id="Lv1-CZ-5O6" customClass="MyPageTableViewController" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="Cell" translatesAutoresizingMaskIntoConstraints="NO" id="yld-1P-HWw">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="139.5"/>
+                                            <rect key="frame" x="10" y="0.0" width="580" height="139.5"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7f-4L-7Jz">
                                             <rect key="frame" x="16" y="71" width="548" height="53"/>
@@ -35,10 +35,10 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="yld-1P-HWw" secondAttribute="bottom" id="6UW-X4-iXz"/>
                                         <constraint firstItem="c7f-4L-7Jz" firstAttribute="top" secondItem="ev5-96-hgg" secondAttribute="topMargin" constant="63" id="KYP-zR-mOT"/>
-                                        <constraint firstItem="yld-1P-HWw" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leading" id="KkF-hy-AOD"/>
+                                        <constraint firstItem="yld-1P-HWw" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leading" constant="10" id="KkF-hy-AOD"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="c7f-4L-7Jz" secondAttribute="bottom" constant="7.5" id="Ujz-um-DIp"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="c7f-4L-7Jz" secondAttribute="trailing" constant="28" id="e3N-zk-7WO"/>
-                                        <constraint firstAttribute="trailing" secondItem="yld-1P-HWw" secondAttribute="trailing" id="lTc-7q-Xz4"/>
+                                        <constraint firstAttribute="trailing" secondItem="yld-1P-HWw" secondAttribute="trailing" constant="10" id="lTc-7q-Xz4"/>
                                         <constraint firstItem="c7f-4L-7Jz" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leadingMargin" constant="8" id="ogp-2s-zLE"/>
                                         <constraint firstItem="yld-1P-HWw" firstAttribute="top" secondItem="ev5-96-hgg" secondAttribute="top" id="teZ-Va-F5d"/>
                                     </constraints>
@@ -54,7 +54,7 @@
                             <outlet property="delegate" destination="Lv1-CZ-5O6" id="7Ro-1P-K4Z"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Title" id="FiS-W1-x6r">
+                    <navigationItem key="navigationItem" title="마이페이지" id="FiS-W1-x6r">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="2Nj-a6-kpD">
                             <connections>
                                 <action selector="selectFormList" destination="Lv1-CZ-5O6" id="zAH-Pw-SoK"/>
@@ -64,12 +64,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aP-Nn-1Cb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1703" y="1352"/>
+            <point key="canvasLocation" x="1545" y="1363"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QCh-l4-B6m">
             <objects>
-                <navigationController storyboardIdentifier="MyPage" automaticallyAdjustsScrollViewInsets="NO" id="7xx-J9-gNd" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7xx-J9-gNd" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6gG-hE-bXE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

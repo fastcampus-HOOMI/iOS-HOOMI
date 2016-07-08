@@ -15,7 +15,7 @@
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
 
-@property (nonatomic, weak) UIRefreshControl *refreshControl;
+@property (nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
@@ -31,10 +31,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    self.refreshControl = [[UIRefreshControl alloc]init];
-//    [self.view addSubview:refreshControl];
-//    [refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
-//    
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.view addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
+    
     self.listData = [[NSMutableDictionary alloc] init];
     
     [self.listData setObject:@"nature11.jpg" forKey:@"image_01"];
@@ -42,16 +42,21 @@
     [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
     [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
     
+    //my info view가 보여질 부분
+    UIView *headerView = self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 300)];
+    [self.tableView addSubview:headerView];
     
+    UILabel *infoLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-20, 280)];
+    [infoLable setBackgroundColor:[UIColor grayColor]];
+    [self.tableView addSubview:infoLable];
     
-    
+}
 
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+-(void) refreshTable {
+    //TODO: refresh your data
+    [self.refreshControl endRefreshing];
+    //[self.view reloadData];
 }
 
 // +버튼 클릭시 커스텀 alert창
@@ -95,7 +100,7 @@
     [selectButton setBackgroundColor:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00]];
     [selectButton setTitle:@"등록" forState:UIControlStateNormal];
     [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    //[selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
     [formSelectCustomView addSubview:selectButton];
     
@@ -156,13 +161,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-//    if (section == 0) {
-//        [
-//    }else{
-//    //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
+  //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
     return [self.listData count];
-    //}
 }
+
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -174,7 +176,7 @@
     cell.image.image = [UIImage imageNamed:[self.listData objectForKey:key]];
     cell.label.text = key;
     [cell.label setTextColor:[UIColor whiteColor]];
-    [cell setBackgroundColor:[UIColor blackColor]];
+    [cell setBackgroundColor:[UIColor whiteColor]];
     
     return cell;
 }
