@@ -12,6 +12,8 @@ static NSString *LoginSuccessNotifiaction = @"LoginSuccess";
 static NSString *LoginFailNotification = @"LoginFail";
 static NSString *SignUpSuccessNotification = @"SignUpSuccess";
 static NSString *SignUpFailNotification = @"SignUpFail";
+static NSString *LoadMainView = @"MainTableView";
+
 static NSString *LoginUrl = @"https://hoomi.work/api/mobile/login/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/mobile/signup/";
 

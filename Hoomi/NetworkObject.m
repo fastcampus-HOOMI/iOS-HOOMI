@@ -9,6 +9,8 @@
 #import "NetworkObject.h"
 #import "AFNetworking.h"
 #import "Singletone.h"
+#import "UICKeyChainStore.h"
+
 
 @interface NetworkObject()
 
@@ -18,20 +20,16 @@
 
 @property (nonatomic) Singletone *singleTone;
 
+
 @end
 
 @implementation NetworkObject
 
-- (void)requestSingleTone {
-    
-    self.singleTone = [Singletone requestInstance];
-}
 
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password {
     
     self.userID = userID;
     self.password = password;
-    [self requestSingleTone];
     
 }
 
@@ -40,11 +38,13 @@
     self.userID = userID;
     self.password = password;
     self.name = name;
-    [self requestSingleTone];
 
 }
 
 - (void)requestSignIn {
+    
+    self.singleTone = [Singletone requestInstance];
+
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:self.userID forKey:@"email"];
@@ -78,9 +78,13 @@
                           
                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                           NSInteger statusCode = (long)httpResponse.statusCode;
-                          
-                          if (statusCode == 200) {
+                          NSLog(@"%ld", statusCode);
+                          if (statusCode == 201) {
                               NSLog(@"로그인 성공");
+                              
+                              NSString *token = [responseObject objectForKey:@"token"];
+                              NSLog(@"token : %@", token);
+                              [self saveSessionValue:token];
                               
                               [[NSNotificationCenter defaultCenter] postNotificationName:LoginSuccessNotifiaction object:nil];
                               
@@ -124,13 +128,34 @@
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
                           
                       } else {
-                          
+                          NSLog(@"token : %@", responseObject);
+//                          [self saveSessionValue:responseObject];
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
                           
                       }
                   }];
     
     [uploadTask resume];
+    
+}
+
+
+- (void)saveSessionValue:(NSString *)session {
+    
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+    keychain[@"session"] = session;
+    
+   
+}
+
+- (NSString *)loadSessionValue {
+    
+    // 불러올 때
+    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+    NSString *token = [keychain stringForKey:@"session"];
+    NSLog(@"token : %@", token);
+    
+    return token;
     
 }
 

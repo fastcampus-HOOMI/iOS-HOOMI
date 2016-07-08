@@ -16,5 +16,7 @@
 - (void)requestSignIn;
 - (void)requestSignUp;
 
+- (void)saveSessionValue:(NSString *)session;
+- (NSString *)loadSessionValue;
 
 @end

@@ -39,7 +39,7 @@
 - (void)setRootViewController {
     
     // User is logged in, do work such as go to next view controller.
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
     MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
 //    [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];

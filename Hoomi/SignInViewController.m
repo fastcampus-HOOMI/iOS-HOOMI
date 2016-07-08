@@ -12,7 +12,6 @@
 #import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
-#import "UICKeyChainStore.h"
 #import "MainTableViewController.h"
 #import "Singletone.h"
 
@@ -65,8 +64,7 @@
     self.userIDTextfield.delegate = self;
     self.passwordTextfield.delegate = self;
     
-    self.notificationCenter = [NSNotificationCenter defaultCenter];
-    [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
 
     // 뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
@@ -83,12 +81,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin) name:LoginFailNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
-    
-    
-
-    
 }
+
+
 
 - (void)createCustomButton {
     
@@ -104,11 +99,11 @@
     [self.facebookLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
     
-    [self.kakaoLoginButton setBackgroundColor:[UIColor colorWithRed:1.00 green:0.92 blue:0.20 alpha:1.0]];
+    [self.kakaoLoginButton setBackgroundColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.23 alpha:1.0]];
     self.kakaoLoginButton.layer.cornerRadius = cornerRadius;
     self.kakaoLoginButton.clipsToBounds = clipsToBounds;
-    [self.kakaoLoginButton setTitle:@"카카오톡으로 로그인하기" forState:UIControlStateNormal];
-    [self.kakaoLoginButton setTitleColor:[UIColor colorWithRed:75.0/255.0 green:24.0/255.0 blue:2.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.kakaoLoginButton setTitle:@"Google로 로그인하기" forState:UIControlStateNormal];
+    [self.kakaoLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.kakaoLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
     self.signUpButton.layer.cornerRadius = cornerRadius;
@@ -133,7 +128,7 @@
     textField.rightViewMode = UITextFieldViewModeAlways;
     
     self.currentTextField = textField;
-    [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -163,18 +158,20 @@
  *  로그인 버튼을 눌렀을 때 실행되는 메소드
  */
 - (void)signInUser {
+    
+    NSString *userID = self.userIDTextfield.text;
+    NSString *password = self.passwordTextfield.text;
 
     // 아이디 또는 비밀번호가 빈칸일 경우
-    if([self.userIDTextfield.text isEqualToString:@""] || [self.passwordTextfield.text isEqualToString:@""]) {
+    if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
         
         [self errorAlert:@"빈칸을 입력해주세요."];
-        NSLog(@"빈칸을 채워주세요.");
         
     } else {
         NSLog(@"request login");
         // NetworkObject로 요청
         NetworkObject *networkObj = [[NetworkObject alloc] init];
-        [networkObj initSignInUserID:self.userIDTextfield.text password:self.passwordTextfield.text];
+        [networkObj initSignInUserID:userID password:password];
         [networkObj requestSignIn];
         
         
@@ -184,8 +181,8 @@
 
 - (void)successLogin {
     
-//    [self saveSessionValue:[responseObject objectForKey:@"token"]];
     [self finishLogin];
+    [self endEditingTextField];
     
 }
 
@@ -300,8 +297,8 @@
                       
                       NSString *token = [[FBSDKAccessToken currentAccessToken] tokenString];
                       NSLog(@"token : %@", token);
-                      
-                      [self saveSessionValue:token];
+                      NetworkObject *networkObject = [[NetworkObject alloc] init];
+                      [networkObject saveSessionValue:token];
                       
                   }
               }];
@@ -312,50 +309,52 @@
     
 }
 
+- (IBAction)invokeLoginWithGoogle {
+    
+    
+    
+    
+}
+
 /**
  *  카카오톡 로그인
  */
-- (IBAction)invokeLoginWithKakao {
-    
-    // ensure old session was closed
-    [[KOSession sharedSession] close];
-    
-    [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
-        if ([[KOSession sharedSession] isOpen]) {
-            // login success
-            NSLog(@"login succeeded.");
-            
-            NSString *token = [KOSession sharedSession].accessToken;
-            [self saveSessionValue:token];
-            NSLog(@"kakao session : %@", token);
-            
-            [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
-                if (result) {
-                    // success
-                    
-                    [self finishLogin];
-                    NSLog(@"userId=%@", result.ID);
-                    NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
-                } else {
-                    // failed
-                }
-            }];
-        } else {
-            // failed
-            NSLog(@"login failed.");
-        }
-    }];
-}
+//- (IBAction)invokeLoginWithKakao {
+//    
+//    NSLog(@"show kakaotalk login");
+//    // ensure old session was closed
+//    [[KOSession sharedSession] close];
+//    
+//    [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
+//        
+//        NSLog(@"open kakaotalk login");
+//        if ([[KOSession sharedSession] isOpen]) {
+//            // login success
+//            NSLog(@"login succeeded.");
+//            
+//            NSString *token = [KOSession sharedSession].accessToken;
+//            NetworkObject *networkObject = [[NetworkObject alloc] init];
+//            [networkObject saveSessionValue:token];
+//            NSLog(@"kakao session : %@", token);
+//            
+//            [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
+//                if (result) {
+//                    // success
+//                    
+//                    [self finishLogin];
+//                    NSLog(@"userId=%@", result.ID);
+//                    NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
+//                } else {
+//                    // failed
+//                }
+//            }];
+//        } else {
+//            // failed
+//            NSLog(@"login failed.");
+//        }
+//    }];
+//}
 
-- (void)saveSessionValue:(NSString *)session {
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    keychain[@"session"] = session;
-    
-    // 불러올 때
-//    NSString *token = [keychain stringForKey:@"session"];
-//    NSLog(@"token : %@", token);
-}
 
 - (void)finishLogin {
     
@@ -363,19 +362,10 @@
     MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
-    // 모달로 띄울 경우
-//    [self presentViewController:mainViewController animated:YES completion:nil];
-    // 푸쉬
-//    [self.navigationController pushViewController:mainViewController animated:YES];
+
     
-    
-    [self.userIDTextfield resignFirstResponder];
-    [self.passwordTextfield resignFirstResponder];
 
 }
-
-
-
 
 /*
 #pragma mark - Navigation

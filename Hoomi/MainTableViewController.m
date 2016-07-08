@@ -9,6 +9,7 @@
 #import "MainTableViewController.h"
 #import "ImageListTableViewCell.h"
 #import "Singletone.h"
+#import "NetworkObject.h"
 #import "MyPageTableViewController.h"
 
 @interface MainTableViewController ()
@@ -32,6 +33,7 @@
 @property (nonatomic) NSInteger margin; // 커스텀 뷰 margin
 
 @property (nonatomic) Singletone *singleTone; // 싱글톤 객체
+@property (nonatomic) NetworkObject *networkObject;
 
 @property (nonatomic) IBOutlet UIBarButtonItem *writeCareer;
 @property (nonatomic) IBOutlet UIBarButtonItem *myPage;
@@ -43,6 +45,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    self.networkObject = [[NetworkObject alloc] init];
+    NSString *token = [self.networkObject loadSessionValue];
+    NSLog(@"main token : %@", token);
     
     self.animationDuration = 0.7;
     self.margin = 60;

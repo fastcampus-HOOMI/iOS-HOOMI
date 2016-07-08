@@ -9,6 +9,7 @@
 #import "SingUpTableViewController.h"
 #import "Singletone.h"
 #import "AFNetworking.h"
+#import "MainTableViewController.h"
 #import "NetworkObject.h"
 
 @interface SingUpTableViewController ()
@@ -45,7 +46,7 @@
 
     // NavigationBar Title
     self.title = @"회원가입";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"danube"]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"salmon"]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -133,7 +134,7 @@
         NetworkObject *networkObj = [[NetworkObject alloc] init];
         [networkObj initSignUpUserID:userID name:name password:secondPassword];
         [networkObj requestSignUp];
-       
+        
         
     } else { // 불일치
         
@@ -146,7 +147,7 @@
 
 - (void)successSignUp {
     
-    
+    [self dismissViewControllerAnimated:YES completion:nil];
     
 }
 
