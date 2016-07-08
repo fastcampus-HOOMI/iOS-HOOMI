@@ -33,7 +33,6 @@
 		FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */; };
 		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
 		FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2161D2B683600D359D0 /* MainTableViewController.m */; };
-		FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */; };
 		FF82D21C1D2B8A2100D359D0 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21B1D2B8A2100D359D0 /* background.png */; };
 		FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21D1D2B8E5800D359D0 /* nature.jpg */; };
 		FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */; };
@@ -42,7 +41,6 @@
 		FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */; };
 		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
 		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
-		FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */; };
 		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
 		FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE36DC41D2CEDB200E157D0 /* Singletone.m */; };
 /* End PBXBuildFile section */
@@ -88,8 +86,6 @@
 		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		FF82D2151D2B683600D359D0 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		FF82D2161D2B683600D359D0 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
-		FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSelectViewController.h; sourceTree = "<group>"; };
-		FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSelectViewController.m; sourceTree = "<group>"; };
 		FF82D21B1D2B8A2100D359D0 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		FF82D21D1D2B8E5800D359D0 /* nature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature.jpg; sourceTree = "<group>"; };
 		FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListTableViewCell.h; sourceTree = "<group>"; };
@@ -99,7 +95,6 @@
 		FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
-		FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakao@2x.png"; sourceTree = "<group>"; };
 		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
 		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -186,8 +181,6 @@
 			children = (
 				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
 				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
-				FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */,
-				FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */,
 				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
 				FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */,
 			);
@@ -265,7 +258,6 @@
 				FF65A0561D24DC470013C181 /* SignInViewController.m */,
 				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
 				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
-				FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */,
 			);
 			name = SignView;
 			sourceTree = "<group>";
@@ -371,7 +363,6 @@
 				FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */,
 				FF51D5201D2E184700EB409B /* nature44.jpg in Resources */,
 				FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */,
-				FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */,
 				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
 				FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */,
 			);
@@ -435,7 +426,6 @@
 				FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */,
 				FF51D50A1D2E152B00EB409B /* SheetOfDetailResume.m in Sources */,
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
-				FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */,
 				FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
 				FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */,

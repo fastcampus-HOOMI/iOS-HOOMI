@@ -16,6 +16,8 @@
 #import "MainTableViewController.h"
 #import "Singletone.h"
 
+#import "AFNetworking.h"
+
 
 
 @interface SignInViewController ()
@@ -160,7 +162,56 @@
         
     } else {
         
-        [self finishLogin];
+        NSString *url = @"https://hoomi.work/api/mobile/login/";
+        
+        NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+        [bodyParams setObject:self.userIDTextfield.text forKey:@"email"];
+        [bodyParams setObject:self.passwordTextfield.text forKey:@"password"];
+        
+        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+        } error:nil];
+        
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        
+        NSURLSessionUploadTask *uploadTask;
+        uploadTask = [manager
+                      uploadTaskWithStreamedRequest:request
+                      progress:^(NSProgress * _Nonnull uploadProgress) {
+                          // This is not called back on the main queue.
+                          // You are responsible for dispatching to the main queue for UI updates
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              //Update the progress view
+                              
+                          });
+                      }
+                      completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                          if (error) {
+                              NSLog(@"Errocr: %@", error);
+//                              NSLog(@"가입되어있지 않습니다.");
+                          } else {
+                              
+                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+                              NSInteger statusCode = (long)httpResponse.statusCode;
+                              
+                              if (statusCode == 200) {
+                                  
+                                  NSLog(@"respone : %@", response);
+                                  NSLog(@"session : %@", [responseObject objectForKey:@"token"]);
+                                  [self saveSessionValue:[responseObject objectForKey:@"token"]];
+                                  [self finishLogin];
+                              } else {
+                                  // 회원가입 유도
+                                  NSLog(@"가입되어있지 않습니다.");
+                              }
+
+                          }
+                      }];
+        
+        [uploadTask resume];
+        
+        
+
     }
    
 }
@@ -334,9 +385,9 @@
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
     // 모달로 띄울 경우
-    [self presentViewController:mainViewController animated:YES completion:nil];
+//    [self presentViewController:mainViewController animated:YES completion:nil];
     // 푸쉬
-    [self.navigationController pushViewController:mainViewController animated:YES];
+//    [self.navigationController pushViewController:mainViewController animated:YES];
     
     
     [self.userIDTextfield resignFirstResponder];

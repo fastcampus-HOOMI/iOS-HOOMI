@@ -7,7 +7,8 @@
 //
 
 #import "SingUpTableViewController.h"
-
+#import "Singletone.h"
+#import "AFNetworking.h"
 @interface SingUpTableViewController ()
 <UITextFieldDelegate>
 
@@ -15,6 +16,8 @@
 @property (nonatomic, strong) IBOutlet UITextField *userID;
 @property (nonatomic, strong) IBOutlet UITextField *password;
 @property (nonatomic, strong) IBOutlet UITextField *passwordRewrite;
+
+@property (nonatomic) Singletone *singleTone;
 
 @property (nonatomic) NSNotificationCenter *notificationCenter;
 
@@ -28,6 +31,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.singleTone = [Singletone requestInstance];
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         // 화면 시작 후 0.3초뒤에 email 입력란에 키보드 나타냄
         [self.email becomeFirstResponder];
@@ -40,7 +45,7 @@
 
     // NavigationBar Title
     self.title = @"회원가입";
-    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:0.36 green:0.59 blue:0.80 alpha:1.00]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"danube"]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -125,27 +130,47 @@
     if([firstPassword isEqualToString:secondPassword]) {
         
         // DataCenter에 데이터 전송
-        NSLog(@"email : %@, userID : %@", email, userID);
+        NSString *url = @"https://hoomi.work/api/mobile/signup/";
         
+        NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+        [bodyParams setObject:email forKey:@"email"];
+        [bodyParams setObject:secondPassword forKey:@"password"];
+        [bodyParams setObject:userID forKey:@"name"];
         
-        // 로그인 코드
-        NSInteger loginCode = 400;
-        
-        // 이미 서버 데이터베이스에 아이디가 존재하는 경우 
-        if(loginCode == 400) {
+        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
             
-            [self errorAlert:@"이메일이나 아이디가 이미 존재합니다."];
-            return;
-            
-        } else {
-           
-            // 회원가입 완료 메시지 이후 메인 페이지로 이동
-            
-        }
+        } error:nil];
         
-    } else { // 불일치
+        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+        
+        NSURLSessionUploadTask *uploadTask;
+        uploadTask = [manager
+                      uploadTaskWithStreamedRequest:request
+                      progress:^(NSProgress * _Nonnull uploadProgress) {
+                          // This is not called back on the main queue.
+                          // You are responsible for dispatching to the main queue for UI updates
+                          dispatch_async(dispatch_get_main_queue(), ^{
+                              //Update the progress view
+                              
+                          });
+                      }
+                      completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                          if (error) {
+                              NSLog(@"Error: %@", error);
+                              [self errorAlert:@"이미 존재하는 이메일입니다."];
+                          } else {
+                              
+                              NSLog(@"회원가입완료");
+                              
+                          }
+                      }];
+        
+        [uploadTask resume];
+        
+        } else { // 불일치
         
         [self errorAlert:@"비밀번호가 맞지않습니다."];
+            
         return;
         
     }

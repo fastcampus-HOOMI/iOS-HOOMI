@@ -7,9 +7,9 @@
 //
 
 #import "MainTableViewController.h"
-#import "JobSelectViewController.h"
 #import "ImageListTableViewCell.h"
 #import "Singletone.h"
+#import "MyPageTableViewController.h"
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -117,6 +117,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)showMyPage:(id)sender {
+    
+    UIStoryboard *storyBaord = [UIStoryboard storyboardWithName:@"EK" bundle:nil];
+    MyPageTableViewController *myPage = [storyBaord instantiateViewControllerWithIdentifier:@"MyPage"];
+    
+    [self presentViewController:myPage animated:YES completion:nil];
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -151,8 +160,8 @@
 #pragma mark - Select Job List Custom View
 - (void)selectJobList {
     
-    // 직군을 선택하는동안은 스크롤 안됨
-    [self.tableView setScrollEnabled:NO];
+    // 테이블뷰 스크롤 및 버튼 활성화
+    [self scrollAndButtonEnable:NO];
     
     NSInteger cornerRadius = 3; // 버튼 모서리
     BOOL clipsToBounds = YES;
@@ -210,8 +219,8 @@
         [self.effectView removeFromSuperview];
         [self.jobSelectCustomView removeFromSuperview];
         
-        // 테이블뷰 스크롤 가능
-        [self.tableView setScrollEnabled:YES];
+        // 테이블뷰 스크롤 및 버튼 활성화
+        [self scrollAndButtonEnable:YES];
         
     }];
     
@@ -242,6 +251,18 @@
     
 }
 
+/**
+ *  직군선택하는 커스텀뷰가 실행되면 테이블뷰 스크롤과 버튼을 비활성화시키는 메소드
+ *
+ *  @param enable 활성화 YES, 비활성화 NO
+ */
+- (void)scrollAndButtonEnable:(BOOL) enable {
+    
+    [self.tableView setScrollEnabled:enable];
+    [self.writeCareer setEnabled:enable];
+    [self.myPage setEnabled:enable];
+    
+}
 
 /*
  // Override to support conditional editing of the table view.
