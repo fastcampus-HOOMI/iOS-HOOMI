@@ -17,6 +17,7 @@
 #import "Singletone.h"
 
 #import "AFNetworking.h"
+#import "NetworkObject.h"
 
 
 
@@ -76,6 +77,15 @@
     [self.view addGestureRecognizer:tapGesture];
     
     [self createCustomButton];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successLogin) name:LoginSuccessNotifiaction object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin) name:LoginFailNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
+    
+    
 
     
 }
@@ -161,59 +171,28 @@
         NSLog(@"빈칸을 채워주세요.");
         
     } else {
-        
-        NSString *url = @"https://hoomi.work/api/mobile/login/";
-        
-        NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-        [bodyParams setObject:self.userIDTextfield.text forKey:@"email"];
-        [bodyParams setObject:self.passwordTextfield.text forKey:@"password"];
-        
-        NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-            
-        } error:nil];
-        
-        AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-        
-        NSURLSessionUploadTask *uploadTask;
-        uploadTask = [manager
-                      uploadTaskWithStreamedRequest:request
-                      progress:^(NSProgress * _Nonnull uploadProgress) {
-                          // This is not called back on the main queue.
-                          // You are responsible for dispatching to the main queue for UI updates
-                          dispatch_async(dispatch_get_main_queue(), ^{
-                              //Update the progress view
-                              
-                          });
-                      }
-                      completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                          if (error) {
-                              NSLog(@"Errocr: %@", error);
-//                              NSLog(@"가입되어있지 않습니다.");
-                          } else {
-                              
-                              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-                              NSInteger statusCode = (long)httpResponse.statusCode;
-                              
-                              if (statusCode == 200) {
-                                  
-                                  NSLog(@"respone : %@", response);
-                                  NSLog(@"session : %@", [responseObject objectForKey:@"token"]);
-                                  [self saveSessionValue:[responseObject objectForKey:@"token"]];
-                                  [self finishLogin];
-                              } else {
-                                  // 회원가입 유도
-                                  NSLog(@"가입되어있지 않습니다.");
-                              }
-
-                          }
-                      }];
-        
-        [uploadTask resume];
+        NSLog(@"request login");
+        // NetworkObject로 요청
+        NetworkObject *networkObj = [[NetworkObject alloc] init];
+        [networkObj initSignInUserID:self.userIDTextfield.text password:self.passwordTextfield.text];
+        [networkObj requestSignIn];
         
         
-
     }
    
+}
+
+- (void)successLogin {
+    
+//    [self saveSessionValue:[responseObject objectForKey:@"token"]];
+    [self finishLogin];
+    
+}
+
+- (void)failLogin {
+    
+    [self errorAlert:@"회원정보가 없습니다."];
+    
 }
 
 /**

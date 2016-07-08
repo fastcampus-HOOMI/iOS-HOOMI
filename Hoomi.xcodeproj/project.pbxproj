@@ -26,6 +26,7 @@
 		FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5181D2E184700EB409B /* nature22.jpg */; };
 		FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5191D2E184700EB409B /* nature33.jpg */; };
 		FF51D5201D2E184700EB409B /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D51A1D2E184700EB409B /* nature44.jpg */; };
+		FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5241D2F497F00EB409B /* NetworkObject.m */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
@@ -73,6 +74,8 @@
 		FF51D5181D2E184700EB409B /* nature22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature22.jpg; sourceTree = "<group>"; };
 		FF51D5191D2E184700EB409B /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
 		FF51D51A1D2E184700EB409B /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
+		FF51D5231D2F497F00EB409B /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkObject.h; sourceTree = "<group>"; };
+		FF51D5241D2F497F00EB409B /* NetworkObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkObject.m; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
 				FFE36DC31D2CEDB200E157D0 /* Singletone.h */,
 				FFE36DC41D2CEDB200E157D0 /* Singletone.m */,
+				FF51D5231D2F497F00EB409B /* NetworkObject.h */,
+				FF51D5241D2F497F00EB409B /* NetworkObject.m */,
 				FF51D5221D2E1AF300EB409B /* Storyboard */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
@@ -424,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */,
+				FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */,
 				FF51D50A1D2E152B00EB409B /* SheetOfDetailResume.m in Sources */,
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
 				FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */,
