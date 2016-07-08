@@ -10,7 +10,6 @@
 #import "MainTableViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 
 @interface AppDelegate ()
 
@@ -25,7 +24,7 @@
     
     
     // 로그인되어있는지 체크
-    if([FBSDKAccessToken currentAccessToken] || [KOSession sharedSession].accessToken) {
+    if([FBSDKAccessToken currentAccessToken]) {
         
         [self setRootViewController];
         NSLog(@"로그인 된 상태");
@@ -51,19 +50,11 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    
-    if ([KOSession isKakaoAccountLoginCallback:url]) {
-        return [KOSession handleOpenURL:url];
-    }
-    else {
-        
-
-        return [[FBSDKApplicationDelegate sharedInstance] application:application
+           return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation
-                ];
-    }
+                   ];
 }
 
 
@@ -87,7 +78,6 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [FBSDKAppEvents activateApp];
-    [KOSession handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

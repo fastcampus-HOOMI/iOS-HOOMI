@@ -9,7 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import "SignInViewController.h"
 #import "SingUpTableViewController.h"
 #import "MainTableViewController.h"
@@ -32,7 +31,8 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *signUpButton; // 회원가입
 @property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton; // 페이스북 로그인
-@property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton; // 카카오톡 로그인
+@property (strong, nonatomic) IBOutlet UIButton *defaultsLoginButton; // 기본 로그인
+@property (strong, nonatomic) IBOutlet UIButton *findUserPasswordButton; // 패스워드 찾기
 
 @property (nonatomic, strong) Singletone *singleTone;
 
@@ -55,11 +55,14 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    [self.view setBackgroundColor:[UIColor colorWithRed:0.20 green:0.21 blue:0.26 alpha:1.00]];
+    
+    
+    
+    
     // Set Custom TextField
     [self customTextField:self.userIDTextfield];
     [self customTextField:self.passwordTextfield];
-    
-//    self.facebookLoginButton.delegate = self;
     
     self.userIDTextfield.delegate = self;
     self.passwordTextfield.delegate = self;
@@ -89,29 +92,32 @@
     
     NSInteger cornerRadius = 3;
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f;
+    
+    self.defaultsLoginButton.layer.cornerRadius = cornerRadius;
+    self.defaultsLoginButton.clipsToBounds = clipsToBounds;
+    [self.defaultsLoginButton setBackgroundColor:[UIColor colorWithRed:0.97 green:0.40 blue:0.18 alpha:1.0]];
+    [self.defaultsLoginButton setTitle:@"로그인" forState:UIControlStateNormal];
+    [self.defaultsLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     self.facebookLoginButton.layer.cornerRadius = cornerRadius;
     self.facebookLoginButton.clipsToBounds = clipsToBounds;
     [self.facebookLoginButton setBackgroundColor:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0]];
-    [self.facebookLoginButton setTitle:@"Facebook으로 로그인하기" forState:UIControlStateNormal];
+    [self.facebookLoginButton setTitle:@"Facebook 로그인" forState:UIControlStateNormal];
     [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.facebookLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    
+//    self.signUpButton.layer.cornerRadius = cornerRadius;
+//    self.signUpButton.clipsToBounds = clipsToBounds;
+    [self.signUpButton setBackgroundColor:[UIColor clearColor]];
+    [self.signUpButton setTitle:@"New here? Sign Up" forState:UIControlStateNormal];
+    [self.signUpButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    
+    [self.findUserPasswordButton setBackgroundColor:[UIColor clearColor]];
+    [self.findUserPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+    [self.findUserPasswordButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+
+
     
     
-    [self.kakaoLoginButton setBackgroundColor:[UIColor colorWithRed:0.87 green:0.29 blue:0.23 alpha:1.0]];
-    self.kakaoLoginButton.layer.cornerRadius = cornerRadius;
-    self.kakaoLoginButton.clipsToBounds = clipsToBounds;
-    [self.kakaoLoginButton setTitle:@"Google로 로그인하기" forState:UIControlStateNormal];
-    [self.kakaoLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.kakaoLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
-    
-    self.signUpButton.layer.cornerRadius = cornerRadius;
-    self.signUpButton.clipsToBounds = clipsToBounds;
-    [self.signUpButton setBackgroundColor:[UIColor lightGrayColor]];
-    [self.signUpButton setTitle:@"HOOMI 회원가입" forState:UIControlStateNormal];
-    [self.signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.signUpButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
 }
 
@@ -121,11 +127,6 @@
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    
-    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.rightViewMode = UITextFieldViewModeAlways;
     
     self.currentTextField = textField;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
@@ -216,17 +217,40 @@
  */
 - (void)customTextField:(UITextField *)textField {
     
-    [textField.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
-    [textField.layer setBorderColor: [[UIColor grayColor] CGColor]];
-    [textField.layer setBorderWidth: 1.0];
-    [textField.layer setCornerRadius:8.0f];
+    NSString *placeholderText = @"";
+    UIImage *leftImage = nil;
+    [textField setBackgroundColor:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00]];
+    
+    
+    
+    if(textField == self.userIDTextfield) {
+        placeholderText = @"E-mail address";
+        
+        
+    } else {
+        placeholderText = @"password";
+        
+    }
+    
+    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(textField.frame.origin.x
+                                                               , textField.frame.origin.y
+                                                                , 25.0, 25.0)];
+    UIImageView *leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25.0, 25.0)];
+    
+    [leftImageView setImage:leftImage];
+    [leftImageView setCenter:leftView.center];
+    [leftView addSubview:leftImageView];
+    
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.leftView = leftView;
+    
+    
+    [textField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:placeholderText attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}]];
+    
     [textField.layer setMasksToBounds:YES];
     
-//    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
-    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.rightViewMode = UITextFieldViewModeAlways;
+    [textField setTextColor:[UIColor whiteColor]];
+
 }
 
 /**
@@ -309,53 +333,6 @@
     
 }
 
-- (IBAction)invokeLoginWithGoogle {
-    
-    
-    
-    
-}
-
-/**
- *  카카오톡 로그인
- */
-//- (IBAction)invokeLoginWithKakao {
-//    
-//    NSLog(@"show kakaotalk login");
-//    // ensure old session was closed
-//    [[KOSession sharedSession] close];
-//    
-//    [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
-//        
-//        NSLog(@"open kakaotalk login");
-//        if ([[KOSession sharedSession] isOpen]) {
-//            // login success
-//            NSLog(@"login succeeded.");
-//            
-//            NSString *token = [KOSession sharedSession].accessToken;
-//            NetworkObject *networkObject = [[NetworkObject alloc] init];
-//            [networkObject saveSessionValue:token];
-//            NSLog(@"kakao session : %@", token);
-//            
-//            [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
-//                if (result) {
-//                    // success
-//                    
-//                    [self finishLogin];
-//                    NSLog(@"userId=%@", result.ID);
-//                    NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
-//                } else {
-//                    // failed
-//                }
-//            }];
-//        } else {
-//            // failed
-//            NSLog(@"login failed.");
-//        }
-//    }];
-//}
-
-
 - (void)finishLogin {
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
@@ -366,15 +343,5 @@
     
 
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
