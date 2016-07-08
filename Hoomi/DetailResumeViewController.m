@@ -16,7 +16,6 @@
 @property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 @property (nonatomic) CGFloat offsetX;
-@property (nonatomic) CGRect bounds;
 
 @end
 
@@ -48,6 +47,7 @@
     
 }
 
+/* 네비게이션 탭했을 때 숨기는 것 --  cheesing */
 
    /********************************/
   /*   임시 데이터 및 공동 프레임 수치   */
@@ -66,14 +66,13 @@
 -(void)settingFrameSize {
     
     self.offsetX = 0;
-    self.bounds = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
 }
 
 
-    /*************************************/
-   /*   상세 페이지 세팅 - 스크롤뷰, 컨텐츠     */
-  /*************************************/
+   /*************************************/
+  /*   상세 페이지 세팅 - 스크롤뷰, 컨텐츠     */
+ /*************************************/
 
 #pragma mark - Sheet of DetailResume
 
@@ -110,7 +109,7 @@
 
 -(void)creatContentsSheet:(NSInteger)pageNumber {
     /* 한 장 세팅 */
-    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:self.bounds];
+    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
     /* 이미지와 텍스트 세팅
      - 현재는 배열로 세팅을 시켰지만, 나중에는 서버 데이터를 불러오는 걸로 세팅해야함 cheesing -> downLoadDeatilContents */
     NSString *imageName = [self.imageNameList objectAtIndex:pageNumber-1];
@@ -160,7 +159,7 @@
     CGFloat currentX = scrollView.contentOffset.x;
     NSInteger currentPage = currentX / scrollView.frame.size.width;
     
-    NSLog(@"Current page : %ld", currentPage);
+    NSLog(@"Current page : %ld (인덱스값)", currentPage);
 }
 
 - (void)didReceiveMemoryWarning {

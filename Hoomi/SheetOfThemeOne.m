@@ -25,15 +25,15 @@
     self = [super initWithFrame:frame];
     if (self) {
         /* 테마1 객체 사이즈 세팅 */
-        [self settingFrameOfThemeOne];
+        [self settingObjectFrameOfThemeOne];
     }
     return self;
 }
 
 
-  /***********************/
- /*    빈 화면 템플릿      */
-/***********************/
+   /******************************/
+  /*    업로드 전 빈 화면 템플릿      */
+ /******************************/
 
 -(void)settingUploadResume {
     
@@ -55,9 +55,9 @@
     
 }
 
-   /***********/
-  /* 수정 화면 */
- /***********/
+   /****************/
+  /*   수정 화면    */
+ /****************/
 
 -(void)settingEditResume {
     
@@ -85,7 +85,7 @@
 
 
 /* 사이즈 세팅 */
--(void)settingFrameOfThemeOne {
+-(void)settingObjectFrameOfThemeOne {
     
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
     
@@ -104,6 +104,8 @@
     [self.imageView setImage:[UIImage imageNamed:imageName]];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
+    // 이미지뷰 터치 가능하도록 설정
+    [self.imageView setUserInteractionEnabled:YES];
     [self addSubview:self.imageView];
 }
 
@@ -137,10 +139,12 @@
 /* 업로드 버튼 */
 -(void)creatUploadButton {
     
-    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - 300/2, self.imageFrame.size.height/2 - 300/2, 300, 300)];
+    CGFloat buttonSize = 50;
     
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateNormal];
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateHighlighted];
+    self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
+    
+    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon1"] forState:UIControlStateNormal];
+    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon2"] forState:UIControlStateHighlighted];
     [self.imageView addSubview:self.uploadButton];
 
 }

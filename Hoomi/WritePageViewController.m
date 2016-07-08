@@ -11,6 +11,8 @@
 
 @interface WritePageViewController ()
 
+@property (nonatomic) CGFloat offsetX;
+
 @end
 
 @implementation WritePageViewController
@@ -21,24 +23,33 @@
     /* 임시 form 데이터
        네트워크 연결 후에는 헤더 파일에 있는
        외부 프로퍼티를 통해 form 데이터 받아서 연결*/
-    [self seletFromView:1];
-    
+    [self selectTheme:1];
+    //[self selectTheme:self.formNumber];
 }
 
--(void)seletFromView:(NSInteger)formNumber {
+-(void)selectTheme:(NSInteger)formNumber {
     
     if (formNumber == 1) {
-        [self creatWriteWithFormOne];
+        [self creatWriteSheet];
     }
     
 }
 
--(void)creatWriteWithFormOne {
+-(void)creatWriteSheet {
     
-//    // ----todo
-//    SheetThemeOneOfDeatilPage *themeOne = [[SheetThemeOneOfDeatilPage alloc]initWithFrameThemeOne];
-//    [themeOne creatTempSheetForUpload];
-//    
+    CGFloat navigationMargin = 40;
+    CGFloat margin = 40;
+    CGRect writeSheetSize = CGRectMake(self.offsetX + margin/2, navigationMargin + margin/2, self.view.frame.size.width - margin, self.view.frame.size.height - navigationMargin - margin);
+    
+    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
+    [themeOneSheet settingUploadResume];
+    [themeOneSheet.uploadButton addTarget:self action:@selector(onTouchUpInsideUploadButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:themeOneSheet];
+}
+
+// ** 델리게이트로 바꾸기
+-(void)onTouchUpInsideUploadButton:(UIButton *)button {
+    NSLog(@"업로드 버튼");
 }
 
 
