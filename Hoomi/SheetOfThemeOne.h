@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SheetOfThemeOneDelegate <NSObject>
+
+-(void)onTouchUpInsideUploadButton;
+
+@end
+
+
 @interface SheetOfThemeOne : UIView
 
 @property (strong, nonatomic) UIButton *uploadButton;
-
 @property (strong, nonatomic) UIImageView *imageView;
 @property (strong, nonatomic) UITextView *textView;
 
@@ -20,4 +26,8 @@
 -(void)settingUploadResume;
 -(void)settingEditResume;
 -(void)settingDetailResume:(NSString *)imageName text:(NSString *)text;
+
+/* delegate */
+@property (weak, nonatomic) id<SheetOfThemeOneDelegate> delegate;
+
 @end

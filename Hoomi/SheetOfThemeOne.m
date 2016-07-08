@@ -142,12 +142,24 @@
     CGFloat buttonSize = 50;
     
     self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
-    
+    [self.uploadButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon1"] forState:UIControlStateNormal];
     [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon2"] forState:UIControlStateHighlighted];
     [self.imageView addSubview:self.uploadButton];
 
 }
 
+    /*******************/
+   /*    delegate     */
+  /*******************/
+
+/* 델리게이트 실행 */
+- (void)buttonAction
+{
+    if ([self.delegate respondsToSelector:@selector(onTouchUpInsideUploadButton)]) {
+        [self.delegate onTouchUpInsideUploadButton];
+    }
+    
+}
 
 @end
