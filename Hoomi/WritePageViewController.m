@@ -28,6 +28,10 @@
     //[self selectTheme:self.formNumber];
 }
 
+/* 네비게이션 바에 저장, 카드 추가, 공개 비공개여부 설정으로 넘어가는 버튼 추가하기 (네이버 포스트 참고) -- cheesing */
+
+
+
 -(void)selectTheme:(NSInteger)formNumber {
     
     if (formNumber == 1) {

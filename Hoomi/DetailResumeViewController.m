@@ -27,23 +27,24 @@
     
     /* Indicator
        1) 데이터 들어올 때 활성화
-       2) 데이터 세팅 완료 된 후, hidden */
+       2) 데이터 세팅 완료 된 후, hidden
+        --> 서버 데이터 교류 연결 후에 수정해야함 cheesing */
    
     /* Indicator 세팅 */
     [self creatIndicatorView];
     
     /* hiddenIndicator 1 */
-    [self showIndicatorView:NO];
+    [self showIndicatorView:NO];//추후 수정
     
     /* 임시 데이터 및 공동 프레임 수치*/
-    [self settingTempData];
+    [self settingTempData];//추후 삭제
     [self settingFrameSize];
     
     /* Page Setting */
     [self settingSheetOfDetailPage];
     
     /* hiddenIndicator - 2 */
-    [self showIndicatorView:YES];
+    [self showIndicatorView:YES];//추후 수정
     
 }
 
@@ -79,6 +80,8 @@
 -(void)settingSheetOfDetailPage {
     
     [self creatScrollView];
+    [self customButtonInNavigationBar];
+    
     
     /* 지금은 for문으로 한 꺼번에 creat
      -> scrollView delegate 를 통해 page 체크 후에 다운로드
@@ -94,7 +97,7 @@
     }
 }
 
-#pragma mark - creat scrollView
+#pragma mark - setting frame & contents
 
 -(void)creatScrollView {
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -107,6 +110,13 @@
     [self.view addSubview:self.scrollView];
 }
 
+-(void)customButtonInNavigationBar {
+    
+    self.navigationController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pulsAction:)];
+    
+}
+
+
 -(void)creatContentsSheet:(NSInteger)pageNumber {
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
@@ -118,11 +128,6 @@
     [self.scrollView addSubview:themeOneSheet];
 }
 
--(void)downLoadDeatilContents {
-    
-    // 페이지마다 로드 되도록 하는 작업
-    
-}
 
 #pragma mark - Indicator
 
@@ -144,6 +149,30 @@
     
 }
 
+    /************************/
+   /*    Button Action     */
+  /************************/
+
+-(void)pulsAction:(id)sender  {
+    
+    NSLog(@"+ 버튼 클릭");
+}
+
+
+    /******************************/
+   /*        컨텐츠 로드 관련        */
+  /******************************/
+
+
+#pragma mark - lazyLoad
+
+-(void)lazyLoadDeatilContents {
+    
+    // 페이지마다 로드 되도록 하는 작업
+    
+}
+
+
     /*************************/
    /*       delegate        */
   /*************************/
@@ -160,7 +189,12 @@
     NSInteger currentPage = currentX / scrollView.frame.size.width;
     
     NSLog(@"Current page : %ld (인덱스값)", currentPage);
+    
+    /* 한 페이지 당 로드되도록 하는 이슈 해당 메소드 이용할 것
+       - cheesing */
+    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
