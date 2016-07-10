@@ -22,5 +22,6 @@ static NSString *SignUpUrl = @"https://hoomi.work/api/mobile/signup/";
 + (instancetype) requestInstance;
 
 - (UIColor *) colorKey:(NSString *) colorName;
+- (NSString *) errorMsg:(NSString *) msg;
 
 @end

@@ -34,11 +34,19 @@
     [colorDic setObject:[UIColor colorWithRed:0.20 green:0.21 blue:0.26 alpha:1.00] forKey:@"tuna"];
     [colorDic setObject:[UIColor colorWithRed:0.97 green:0.40 blue:0.18 alpha:1.0] forKey:@"outrageous orange"];
     [colorDic setObject:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0] forKey:@"mariner"];
+    [colorDic setObject:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00] forKey:@"maco"];
     
     
     return [colorDic objectForKey:colorName];
     
     
+}
+
+- (NSString *) errorMsg:(NSString *) msg {
+    NSMutableDictionary *msgDic = [[NSMutableDictionary alloc] initWithCapacity:1];
+    [msgDic setObject:@"빈칸을a 입력해주세요." forKey:@"EmptyError"];
+    
+    return [msgDic objectForKey:msg];
 }
 
 

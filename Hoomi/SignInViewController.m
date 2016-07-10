@@ -16,6 +16,8 @@
 #import "AFNetworking.h"
 #import "NetworkObject.h"
 
+#define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
+
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -114,6 +116,30 @@
 
 }
 
+-(void)textFieldDidChange :(UITextField *) textField{
+    NSLog(@"change passwordTextfield");
+    
+    UIColor *leftColor = nil;
+    if (textField == self.userIDTextfield) {
+        
+        if([self checkValidEmail:textField.text]) {
+            leftColor = [UIColor greenColor];
+        } else {
+            leftColor = [UIColor redColor];
+        }
+        
+    } else if(textField == self.passwordTextfield) {
+        
+        if(self.passwordTextfield.text.length < MIN_PASSWORD_LENGTH) {
+            leftColor = [UIColor redColor];
+        } else if(self.passwordTextfield.text.length >= MIN_PASSWORD_LENGTH) {
+            leftColor = [UIColor greenColor];
+        }
+    }
+    
+    [self leftViewInTextField:textField Color:leftColor];
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [textField endEditing:YES];
@@ -132,7 +158,7 @@
     // 아이디 또는 비밀번호가 빈칸일 경우
     if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
         
-        [self errorAlert:@"빈칸을 입력해주세요."];
+        [self errorAlert:[self.singleTone errorMsg:@"EmptyError"]];
         
     } else {
         NSLog(@"request login");
@@ -192,24 +218,41 @@
         textField.delegate = self;
         
         NSString *placeholderText = @"";
-        [textField setBackgroundColor:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00]];
+        [textField setBackgroundColor:[self.singleTone colorKey:@"maco"]];
         
         if(textField == self.userIDTextfield) {
             placeholderText = @"E-mail address";
         } else {
-            placeholderText = @"password";
+            placeholderText = @"Password";
         }
         
-        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(textField.frame.origin.x
-                                                                    , textField.frame.origin.y
-                                                                    , 25.0, 25.0)];
-        textField.leftViewMode = UITextFieldViewModeAlways;
-        textField.leftView = leftView;
+        [self leftViewInTextField:textField Color:[UIColor redColor]];
+        
         [textField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:placeholderText attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}]];
         [textField.layer setMasksToBounds:YES];
         [textField setTextColor:[UIColor whiteColor]];
+        
+        [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
 
+}
+
+- (void)leftViewInTextField:(UITextField *)textField Color:(UIColor *)color {
+    
+    // Textfield의 왼쪽에 1:1로 뷰를 하나 채워넣음
+    // 정상적인 데이터가 들어가 있는지를 판단하기 위해서
+    UIView *allView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 40)];
+    UIView *firstLeftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 40)];
+    [firstLeftView setBackgroundColor:color];
+    UIView *lastLeftView = [[UIView alloc] initWithFrame:CGRectMake(4, 0, 4, 40)];
+    [lastLeftView setBackgroundColor:[UIColor clearColor]];
+    
+    [allView addSubview:firstLeftView];
+    [allView addSubview:lastLeftView];
+    
+    textField.leftViewMode = UITextFieldViewModeAlways;
+    textField.leftView = allView;
+    
 }
 
 /**
@@ -302,6 +345,29 @@
     } else {
         [self.loginLoadIndicator stopAnimating];
     }
+}
+
+/**
+ *  userIDTextfield에서 메일주소를 받아 정상적인 메일주소인지 체크 (메일을 수정할때마다 호출)
+ *
+ *  @param Email 체크할 Email 주소
+ *
+ *  @return 정상 Email - YES, 비정상 Email - NO
+ */
+
+- (BOOL)checkValidEmail:(NSString *)email {
+    
+    NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
+    
+    if ([emailTest evaluateWithObject:email] == NO) {
+        NSLog(@"email이 아닙니다.");
+        return NO;
+    }else {
+        NSLog(@"email이 맞습니다.");
+        return YES;
+    }
+    
 }
 
 - (void)finishLogin {

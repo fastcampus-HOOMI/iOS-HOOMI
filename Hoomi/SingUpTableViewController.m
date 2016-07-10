@@ -19,11 +19,8 @@
 @property (nonatomic, strong) IBOutlet UITextField *name;
 @property (nonatomic, strong) IBOutlet UITextField *password;
 @property (nonatomic, strong) IBOutlet UITextField *passwordRewrite;
-
 @property (nonatomic) Singletone *singleTone;
-
 @property (nonatomic) UITextField *currentTextField; // current selected textfield
-
 
 @end
 
@@ -39,30 +36,28 @@
         [self.userID becomeFirstResponder];
     });
 
-    self.userID.delegate = self;
-    self.name.delegate = self;
-    self.password.delegate = self;
-    self.passwordRewrite.delegate = self;
+    // Textfield delegate 설정
+    NSMutableArray *textFields = [[NSMutableArray alloc] initWithObjects:self.userID, self.name, self.password, self.passwordRewrite, nil];
+    [self textFieldDelegate:textFields];
 
     // NavigationBar Title
     self.title = @"회원가입";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"salmon"]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"tuna"]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failSignUp) name:SignUpFailNotification object:nil];
 }
 
-- (void)viewDidDisappear:(BOOL)animated {
+- (void)textFieldDelegate:(NSMutableArray *)textFields {
     
-//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"keyboardToolbar" object:self.view.window];
+    for (UITextField *textField in textFields) {
+        textField.delegate = self;
+    }
     
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -74,8 +69,6 @@
     
     self.currentTextField = textField;
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -85,29 +78,6 @@
     return YES;
 }
 
-/*
-- (void)keyboardWillShow:(NSNotification *) noti {
-    
-    UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    UIBarButtonItem *margin1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"등록" style:UIBarButtonItemStylePlain target:self action:@selector(signUpUser)];
-    
-    UIBarButtonItem *margin2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];
-    
-    [self.userID setInputAccessoryView:signUpToolbar];
-    [self.name setInputAccessoryView:signUpToolbar];
-    [self.password setInputAccessoryView:signUpToolbar];
-    [self.passwordRewrite setInputAccessoryView:signUpToolbar];
-    
-    
-    NSLog(@"show keyboard");
-    
-}
-*/
- 
 - (void)signUpUser {
     
     [self.currentTextField endEditing:YES];
@@ -141,7 +111,6 @@
     } else { // 불일치
         
         [self errorAlert:@"비밀번호가 맞지않습니다."];
-            
         return;
         
     }
@@ -198,7 +167,7 @@
     
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[UIColor colorWithRed:0.97 green:0.66 blue:0.31 alpha:1.0]];
+        [wrongView setBackgroundColor:[UIColor clearColor]];
         [self.view addSubview:wrongView];
     } completion:^(BOOL finished) {
         
