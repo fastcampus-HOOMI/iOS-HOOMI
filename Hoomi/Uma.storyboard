@@ -162,12 +162,15 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OAo-OD-ZaT">
-                                <rect key="frame" x="20" y="430" width="560" height="50"/>
+                                <rect key="frame" x="20" y="380" width="560" height="50"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8zD-2M-tPd"/>
                                 </constraints>
                                 <state key="normal" title=""/>
+                                <connections>
+                                    <action selector="signInDefault" destination="vH2-U8-aJt" eventType="touchUpInside" id="lKo-7C-H8M"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to HOOMI!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mq1-zJ-PrK">
                                 <rect key="frame" x="20" y="60" width="560" height="30"/>
@@ -201,10 +204,10 @@
                                     </mask>
                                 </variation>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ILF-NJ-e3B">
-                                <rect key="frame" x="20" y="300" width="560" height="35"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail address" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ILF-NJ-e3B">
+                                <rect key="frame" x="20" y="270" width="560" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="U5Z-ky-WIh"/>
+                                    <constraint firstAttribute="height" constant="40" id="U5Z-ky-WIh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -216,13 +219,13 @@
                                     <constraint firstAttribute="height" constant="100" id="7Iu-4C-fT7"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vgY-oc-HYo">
-                                <rect key="frame" x="20" y="345" width="560" height="35"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vgY-oc-HYo">
+                                <rect key="frame" x="20" y="320" width="560" height="40"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="MC4-h0-mvc"/>
+                                    <constraint firstAttribute="height" constant="40" id="MC4-h0-mvc"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -241,7 +244,6 @@
                             <constraint firstItem="ILF-NJ-e3B" firstAttribute="leading" secondItem="6Ao-ld-14c" secondAttribute="leading" constant="20" id="Ozd-n4-ire"/>
                             <constraint firstItem="vgY-oc-HYo" firstAttribute="width" secondItem="ILF-NJ-e3B" secondAttribute="width" id="PCj-zc-l6B"/>
                             <constraint firstItem="B65-PQ-5Ld" firstAttribute="top" secondItem="BfW-lX-qVA" secondAttribute="bottom" constant="30" id="QsF-uH-rl9"/>
-                            <constraint firstItem="7kD-1q-UHU" firstAttribute="top" secondItem="OAo-OD-ZaT" secondAttribute="bottom" constant="10" id="RaL-bm-fsE"/>
                             <constraint firstItem="ILF-NJ-e3B" firstAttribute="width" secondItem="vgY-oc-HYo" secondAttribute="width" id="bHl-va-RsQ"/>
                             <constraint firstItem="ILF-NJ-e3B" firstAttribute="centerX" secondItem="vgY-oc-HYo" secondAttribute="centerX" id="cpI-LE-i70"/>
                             <constraint firstAttribute="trailing" secondItem="mq1-zJ-PrK" secondAttribute="trailing" constant="20" id="d17-ab-EWg"/>
@@ -255,10 +257,11 @@
                             <constraint firstAttribute="trailing" secondItem="ILF-NJ-e3B" secondAttribute="trailing" constant="20" id="jZQ-qE-IKt"/>
                             <constraint firstAttribute="trailing" secondItem="ILF-NJ-e3B" secondAttribute="trailing" constant="20" symbolic="YES" id="kHf-ww-qns"/>
                             <constraint firstItem="B65-PQ-5Ld" firstAttribute="top" secondItem="EDv-tE-5Sd" secondAttribute="bottom" constant="30" id="lPw-Ga-eAU"/>
+                            <constraint firstItem="OAo-OD-ZaT" firstAttribute="top" secondItem="vgY-oc-HYo" secondAttribute="bottom" constant="20" id="lRz-pz-O4F"/>
                             <constraint firstItem="vgY-oc-HYo" firstAttribute="leading" secondItem="6Ao-ld-14c" secondAttribute="leadingMargin" id="nex-12-2L2"/>
-                            <constraint firstItem="OAo-OD-ZaT" firstAttribute="top" secondItem="vgY-oc-HYo" secondAttribute="bottom" constant="50" id="pXC-JQ-FTt"/>
                             <constraint firstAttribute="trailing" secondItem="BfW-lX-qVA" secondAttribute="trailing" constant="20" id="r6o-qh-Y8f"/>
                             <constraint firstItem="NM6-SB-sRW" firstAttribute="leading" secondItem="6Ao-ld-14c" secondAttribute="leading" constant="20" id="sPq-Ok-WKT"/>
+                            <constraint firstItem="ILF-NJ-e3B" firstAttribute="top" secondItem="woy-9y-liz" secondAttribute="bottom" constant="30" id="uHl-DX-vCL"/>
                             <constraint firstItem="EDv-tE-5Sd" firstAttribute="leading" secondItem="6Ao-ld-14c" secondAttribute="leading" constant="20" id="uMC-fI-yqT"/>
                             <constraint firstItem="EDv-tE-5Sd" firstAttribute="width" secondItem="BfW-lX-qVA" secondAttribute="width" id="uRI-MB-mj1"/>
                             <constraint firstAttribute="trailing" secondItem="NM6-SB-sRW" secondAttribute="trailing" constant="20" id="ujE-OF-7Er"/>

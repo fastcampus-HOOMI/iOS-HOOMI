@@ -31,6 +31,7 @@
     [colorDic setObject:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00] forKey:@"salmon"];
     [colorDic setObject:[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00] forKey:@"concrete"];
     [colorDic setObject:[UIColor colorWithRed:0.36 green:0.50 blue:0.89 alpha:1.00] forKey:@"danube"];
+    [colorDic setObject:[UIColor colorWithRed:0.20 green:0.21 blue:0.26 alpha:1.00] forKey:@"tuna"];
     
     
     return [colorDic objectForKey:colorName];

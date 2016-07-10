@@ -13,7 +13,6 @@
 #import "SingUpTableViewController.h"
 #import "MainTableViewController.h"
 #import "Singletone.h"
-
 #import "AFNetworking.h"
 #import "NetworkObject.h"
 
@@ -34,6 +33,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *defaultsLoginButton; // 기본 로그인
 @property (strong, nonatomic) IBOutlet UIButton *findUserPasswordButton; // 패스워드 찾기
 
+@property (nonatomic) UIActivityIndicatorView *loginLoadIndicator;
+
 @property (nonatomic, strong) Singletone *singleTone;
 
 @end
@@ -44,20 +45,17 @@
     
     [super viewDidLoad];
     
-//    [self saveSessionValue:@"abc"];
-    
     self.singleTone = [Singletone requestInstance];
     
-    [self.view setBackgroundColor:[self.singleTone colorKey:@"concrete"]];
+    // 로그인 Indicator 추가
+    UIActivityIndicatorView *loginLoadIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    loginLoadIndicator.center = self.view.center;
+    [loginLoadIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [loginLoadIndicator setHidden:YES];
+    [self.view addSubview:loginLoadIndicator];
+    self.loginLoadIndicator = loginLoadIndicator;
     
-    self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"danube"]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-    [self.view setBackgroundColor:[UIColor colorWithRed:0.20 green:0.21 blue:0.26 alpha:1.00]];
-    
-    
+    [self.view setBackgroundColor:[self.singleTone colorKey:@"tuna"]];
     
     
     // Set Custom TextField
@@ -67,7 +65,7 @@
     self.userIDTextfield.delegate = self;
     self.passwordTextfield.delegate = self;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
 
     // 뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
@@ -104,9 +102,7 @@
     [self.facebookLoginButton setBackgroundColor:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0]];
     [self.facebookLoginButton setTitle:@"Facebook 로그인" forState:UIControlStateNormal];
     [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
-//    self.signUpButton.layer.cornerRadius = cornerRadius;
-//    self.signUpButton.clipsToBounds = clipsToBounds;
+
     [self.signUpButton setBackgroundColor:[UIColor clearColor]];
     [self.signUpButton setTitle:@"New here? Sign Up" forState:UIControlStateNormal];
     [self.signUpButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -129,7 +125,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
     self.currentTextField = textField;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -139,6 +135,7 @@
     return YES;
 }
 
+/*
 - (void)keyboardWillShow:(NSNotification *) notification {
 
     UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -154,11 +151,11 @@
     [self.passwordTextfield setInputAccessoryView:signUpToolbar];
 
 }
-
+*/
 /**
  *  로그인 버튼을 눌렀을 때 실행되는 메소드
  */
-- (void)signInUser {
+- (IBAction)signInDefault {
     
     NSString *userID = self.userIDTextfield.text;
     NSString *password = self.passwordTextfield.text;
@@ -169,6 +166,10 @@
         [self errorAlert:@"빈칸을 입력해주세요."];
         
     } else {
+        
+       
+        [self.loginLoadIndicator setHidden:NO];
+        [self.loginLoadIndicator startAnimating];
         NSLog(@"request login");
         // NetworkObject로 요청
         NetworkObject *networkObj = [[NetworkObject alloc] init];
@@ -182,14 +183,25 @@
 
 - (void)successLogin {
     
-    [self finishLogin];
-    [self endEditingTextField];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.loginLoadIndicator stopAnimating];
+        [self endEditingTextField];
+        [self finishLogin];
+    });
+    
+    
+    
     
 }
 
 - (void)failLogin {
     
-    [self errorAlert:@"회원정보가 없습니다."];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self.loginLoadIndicator stopAnimating];
+        [self errorAlert:@"회원정보가 없습니다."];
+    });
+
+    
     
 }
 
@@ -218,7 +230,6 @@
 - (void)customTextField:(UITextField *)textField {
     
     NSString *placeholderText = @"";
-    UIImage *leftImage = nil;
     [textField setBackgroundColor:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00]];
     
     
@@ -235,13 +246,8 @@
     UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(textField.frame.origin.x
                                                                , textField.frame.origin.y
                                                                 , 25.0, 25.0)];
-    UIImageView *leftImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25.0, 25.0)];
-    
-    [leftImageView setImage:leftImage];
-    [leftImageView setCenter:leftView.center];
-    [leftView addSubview:leftImageView];
-    
     textField.leftViewMode = UITextFieldViewModeAlways;
+    
     textField.leftView = leftView;
     
     

@@ -50,7 +50,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
     
@@ -59,7 +59,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"keyboardToolbar" object:self.view.window];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"keyboardToolbar" object:self.view.window];
     
 }
 
@@ -74,7 +74,7 @@
     
     self.currentTextField = textField;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
     
 }
 
@@ -85,6 +85,7 @@
     return YES;
 }
 
+/*
 - (void)keyboardWillShow:(NSNotification *) noti {
     
     UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
@@ -105,7 +106,8 @@
     NSLog(@"show keyboard");
     
 }
-
+*/
+ 
 - (void)signUpUser {
     
     [self.currentTextField endEditing:YES];
