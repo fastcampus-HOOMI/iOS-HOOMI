@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
 		03DCAC571D2F90890012CA65 /* uploadIcon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC561D2F90890012CA65 /* uploadIcon1.png */; };
+		03DCAC961D325F6E0012CA65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC941D325F6E0012CA65 /* pageAdd.png */; };
+		03DCAC971D325F6E0012CA65 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC951D325F6E0012CA65 /* save.png */; };
 		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
 		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
@@ -51,6 +53,8 @@
 		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
 		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
 		03DCAC561D2F90890012CA65 /* uploadIcon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon1.png; sourceTree = "<group>"; };
+		03DCAC941D325F6E0012CA65 /* pageAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageAdd.png; sourceTree = "<group>"; };
+		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +136,8 @@
 				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
 				03DCAC561D2F90890012CA65 /* uploadIcon1.png */,
 				FF51D4FD1D2E151B00EB409B /* uploadIcon2.png */,
+				03DCAC941D325F6E0012CA65 /* pageAdd.png */,
+				03DCAC951D325F6E0012CA65 /* save.png */,
 			);
 			name = Sheet;
 			sourceTree = "<group>";
@@ -360,11 +366,13 @@
 				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				03DCAC571D2F90890012CA65 /* uploadIcon1.png in Resources */,
+				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
 				FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */,
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
 				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
+				03DCAC961D325F6E0012CA65 /* pageAdd.png in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon2.png in Resources */,
 				FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,

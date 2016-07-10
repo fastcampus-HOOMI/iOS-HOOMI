@@ -112,7 +112,7 @@
 
 -(void)customButtonInNavigationBar {
     
-    self.navigationController.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(pulsAction:)];
+    // customButton 세팅
     
 }
 
