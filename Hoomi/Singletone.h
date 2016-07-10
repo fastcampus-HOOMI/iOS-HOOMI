@@ -13,15 +13,39 @@ static NSString *LoginFailNotification = @"LoginFail";
 static NSString *SignUpSuccessNotification = @"SignUpSuccess";
 static NSString *SignUpFailNotification = @"SignUpFail";
 static NSString *LoadMainView = @"MainTableView";
-
 static NSString *LoginUrl = @"https://hoomi.work/api/mobile/login/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/mobile/signup/";
+
+#define colorAlpha 1.00 // 색상 투명도
+#define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
+
+typedef NS_ENUM(NSInteger, ErrorMsg) {
+
+    EmptyLoginData,
+    WrongLoginData,
+    ExistEmailAddress,
+    WrongEmail,
+    ShortPassword,
+
+};
+
+typedef NS_ENUM(NSInteger, Color) {
+    
+    Salmon,
+    Concrete,
+    Danube,
+    Tuna,
+    OutrageousOrange,
+    Mariner,
+    Maco,
+    
+};
 
 @interface Singletone : NSObject
 
 + (instancetype) requestInstance;
 
-- (UIColor *) colorKey:(NSString *) colorName;
-- (NSString *) errorMsg:(NSString *) msg;
+- (UIColor *) colorName:(Color) name;
+- (NSString *) errorMsg:(ErrorMsg) msg;
 
 @end

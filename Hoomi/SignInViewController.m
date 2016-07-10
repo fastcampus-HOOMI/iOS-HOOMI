@@ -16,7 +16,7 @@
 #import "AFNetworking.h"
 #import "NetworkObject.h"
 
-#define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
+
 
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
@@ -37,6 +37,10 @@
 
 @property (nonatomic, strong) Singletone *singleTone;
 
+@property (nonatomic) BOOL isRightEmail;
+@property (nonatomic) BOOL isRightLengthPassword;
+@property (nonatomic) BOOL isLogin;
+
 @end
 
 @implementation SignInViewController
@@ -50,7 +54,7 @@
     // 로그인 Indicator 설정
     [self indicatorRunStatus:NO];
     
-    [self.view setBackgroundColor:[self.singleTone colorKey:@"tuna"]];
+    [self.view setBackgroundColor:[self.singleTone colorName:Tuna]];
     
     // Set Custom TextField
     NSMutableArray *textfields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.passwordTextfield, nil];
@@ -75,7 +79,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successLogin) name:LoginSuccessNotifiaction object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin) name:LoginFailNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin)
+                                                 name:LoginFailNotification object:nil];
     
 }
 
@@ -86,13 +91,13 @@
     
     self.defaultsLoginButton.layer.cornerRadius = cornerRadius;
     self.defaultsLoginButton.clipsToBounds = clipsToBounds;
-    [self.defaultsLoginButton setBackgroundColor:[self.singleTone colorKey:@"outrageous orange"]];
+    [self.defaultsLoginButton setBackgroundColor:[self.singleTone colorName:OutrageousOrange]];
     [self.defaultsLoginButton setTitle:@"로그인" forState:UIControlStateNormal];
     [self.defaultsLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     self.facebookLoginButton.layer.cornerRadius = cornerRadius;
     self.facebookLoginButton.clipsToBounds = clipsToBounds;
-    [self.facebookLoginButton setBackgroundColor:[self.singleTone colorKey:@"mariner"]];
+    [self.facebookLoginButton setBackgroundColor:[self.singleTone colorName:Mariner]];
     [self.facebookLoginButton setTitle:@"Facebook 로그인" forState:UIControlStateNormal];
     [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
@@ -124,16 +129,20 @@
         
         if([self checkValidEmail:textField.text]) {
             leftColor = [UIColor greenColor];
+            self.isRightEmail = YES;
         } else {
             leftColor = [UIColor redColor];
+            self.isRightEmail = NO;
         }
         
     } else if(textField == self.passwordTextfield) {
         
         if(self.passwordTextfield.text.length < MIN_PASSWORD_LENGTH) {
             leftColor = [UIColor redColor];
+            self.isRightLengthPassword = NO;
         } else if(self.passwordTextfield.text.length >= MIN_PASSWORD_LENGTH) {
             leftColor = [UIColor greenColor];
+            self.isRightLengthPassword = YES;
         }
     }
     
@@ -157,12 +166,14 @@
 
     // 아이디 또는 비밀번호가 빈칸일 경우
     if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
-        
-        [self errorAlert:[self.singleTone errorMsg:@"EmptyError"]];
-        
+        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+    } else if(!self.isRightEmail) {
+        [self errorAlert:[self.singleTone errorMsg:WrongEmail]];
+    } else if(!self.isRightLengthPassword) {
+        [self errorAlert:[self.singleTone errorMsg:ShortPassword]];
     } else {
         NSLog(@"request login");
-        [self indicatorRunStatus:NO];
+        [self indicatorRunStatus:YES];
         // NetworkObject로 요청
         NetworkObject *networkObj = [[NetworkObject alloc] init];
         [networkObj initSignInUserID:userID password:password];
@@ -174,7 +185,7 @@
 - (void)successLogin {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self indicatorRunStatus:YES];
+        [self indicatorRunStatus:NO];
         [self endEditingTextField];
         [self finishLogin];
     });
@@ -183,8 +194,8 @@
 - (void)failLogin {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self indicatorRunStatus:YES];
-        [self errorAlert:@"아이디 또는 패스워드를 확인해주세요."];
+        [self indicatorRunStatus:NO];
+        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
     });
 }
 
@@ -218,7 +229,7 @@
         textField.delegate = self;
         
         NSString *placeholderText = @"";
-        [textField setBackgroundColor:[self.singleTone colorKey:@"maco"]];
+        [textField setBackgroundColor:[self.singleTone colorName:Maco]];
         
         if(textField == self.userIDTextfield) {
             placeholderText = @"E-mail address";
@@ -277,7 +288,7 @@
     
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [wrongView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[self.singleTone colorKey:@"tuna"]];
+        [wrongView setBackgroundColor:[self.singleTone colorName:Tuna]];
         [self.view addSubview:wrongView];
         
     } completion:^(BOOL finished) {
@@ -372,9 +383,14 @@
 
 - (void)finishLogin {
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"isLogin"];
+    
     MainTableViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+    
+    
 
 }
 

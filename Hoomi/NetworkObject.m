@@ -45,7 +45,6 @@
     
     self.singleTone = [Singletone requestInstance];
 
-    
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:self.userID forKey:@"email"];
     [bodyParams setObject:self.password forKey:@"password"];

@@ -114,6 +114,11 @@
                                 <action selector="cancelSignUp:" destination="k68-fz-6wX" id="qRx-c2-b87"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="가입" id="0MB-sy-GRf">
+                            <connections>
+                                <action selector="signUpUser" destination="k68-fz-6wX" id="NTz-zD-Uec"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="name" destination="wGq-Fl-kpc" id="GUe-JD-Vab"/>

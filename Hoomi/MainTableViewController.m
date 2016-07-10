@@ -105,7 +105,7 @@
     /* 네비게이션바 데이터 변경 */
     /**********************/
     self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"salmon"]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -146,7 +146,10 @@
 #pragma mark - Table view delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    static NSString *Cell = @"Cell";
+    
+    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
     
     NSArray *allKey = [self.imageData allKeys];
     NSString *key = [allKey objectAtIndex:indexPath.row];
@@ -176,7 +179,7 @@
     // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
     UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(self.margin / 2, - self.margin * 5, self.view.frame.size.width - self.margin, self.margin * 5)];
     jobSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    jobSelectCustomView.backgroundColor = [self.singleTone colorKey:@"concrete"];
+    jobSelectCustomView.backgroundColor = [self.singleTone colorName:Concrete];
     jobSelectCustomView.layer.borderWidth = 2.0f;
     
     // jobSelectCustomView에 PickerView 추가
@@ -190,10 +193,9 @@
     [selectButton addTarget:self action:@selector(selectUserJob) forControlEvents:UIControlEventTouchUpInside];
     selectButton.layer.cornerRadius = cornerRadius;
     selectButton.clipsToBounds = clipsToBounds;
-    [selectButton setBackgroundColor:[self.singleTone colorKey:@"salmon"]];
+    [selectButton setBackgroundColor:[self.singleTone colorName:Tuna]];
     [selectButton setTitle:@"등록" forState:UIControlStateNormal];
     [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     [jobSelectCustomView addSubview:selectButton];
     
     self.jobSelectCustomView = jobSelectCustomView;

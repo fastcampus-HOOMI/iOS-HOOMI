@@ -31,6 +31,14 @@
 
     }
     
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL isLogin = [defaults boolForKey:@"isLogin"];
+    
+    if (isLogin) {
+        [self setRootViewController];
+        NSLog(@"로그인 된 상태");
+    }
+    
     // Override point for customization after application launch.
     return YES;
 }

@@ -12,6 +12,8 @@
 #import "MainTableViewController.h"
 #import "NetworkObject.h"
 
+#define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
+
 @interface SingUpTableViewController ()
 <UITextFieldDelegate>
 
@@ -42,7 +44,7 @@
 
     // NavigationBar Title
     self.title = @"회원가입";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"tuna"]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
@@ -78,7 +80,7 @@
     return YES;
 }
 
-- (void)signUpUser {
+- (IBAction)signUpUser {
     
     [self.currentTextField endEditing:YES];
     
@@ -92,7 +94,7 @@
      */
     if([userID isEqualToString:@""] || [name isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
         
-        [self errorAlert:@"빈칸을 입력해주세요."];
+        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
         return;
     }
     
@@ -110,7 +112,7 @@
         
     } else { // 불일치
         
-        [self errorAlert:@"비밀번호가 맞지않습니다."];
+        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
         return;
         
     }
@@ -124,7 +126,7 @@
 
 - (void)failSignUp {
     
-    [self errorAlert:@"이미 존재하는 이메일입니다."];
+    [self errorAlert:[self.singleTone errorMsg:ExistEmailAddress]];
     
 }
 
