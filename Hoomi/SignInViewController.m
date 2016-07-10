@@ -16,8 +16,6 @@
 #import "AFNetworking.h"
 #import "NetworkObject.h"
 
-
-
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -33,7 +31,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *defaultsLoginButton; // 기본 로그인
 @property (strong, nonatomic) IBOutlet UIButton *findUserPasswordButton; // 패스워드 찾기
 
-@property (nonatomic) UIActivityIndicatorView *loginLoadIndicator;
+@property (nonatomic) IBOutlet UIActivityIndicatorView *loginLoadIndicator;
 
 @property (nonatomic, strong) Singletone *singleTone;
 
@@ -47,26 +45,14 @@
     
     self.singleTone = [Singletone requestInstance];
     
-    // 로그인 Indicator 추가
-    UIActivityIndicatorView *loginLoadIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    loginLoadIndicator.center = self.view.center;
-    [loginLoadIndicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
-    [loginLoadIndicator setHidden:YES];
-    [self.view addSubview:loginLoadIndicator];
-    self.loginLoadIndicator = loginLoadIndicator;
+    // 로그인 Indicator 설정
+    [self indicatorRunStatus:NO];
     
     [self.view setBackgroundColor:[self.singleTone colorKey:@"tuna"]];
     
-    
     // Set Custom TextField
-    [self customTextField:self.userIDTextfield];
-    [self customTextField:self.passwordTextfield];
-    
-    self.userIDTextfield.delegate = self;
-    self.passwordTextfield.delegate = self;
-    
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
-    
+    NSMutableArray *textfields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.passwordTextfield, nil];
+    [self customTextFields:textfields];
 
     // 뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -75,16 +61,21 @@
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
     
+    // 로그인, 회원가입, 소셜로그인 커스텀 버튼 생성
     [self createCustomButton];
     
+    // 노티피케이션 센터 등록
+    [self notificationObserver];
+    
+}
+
+- (void)notificationObserver {
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successLogin) name:LoginSuccessNotifiaction object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin) name:LoginFailNotification object:nil];
     
 }
-
-
 
 - (void)createCustomButton {
     
@@ -93,16 +84,16 @@
     
     self.defaultsLoginButton.layer.cornerRadius = cornerRadius;
     self.defaultsLoginButton.clipsToBounds = clipsToBounds;
-    [self.defaultsLoginButton setBackgroundColor:[UIColor colorWithRed:0.97 green:0.40 blue:0.18 alpha:1.0]];
+    [self.defaultsLoginButton setBackgroundColor:[self.singleTone colorKey:@"outrageous orange"]];
     [self.defaultsLoginButton setTitle:@"로그인" forState:UIControlStateNormal];
     [self.defaultsLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     self.facebookLoginButton.layer.cornerRadius = cornerRadius;
     self.facebookLoginButton.clipsToBounds = clipsToBounds;
-    [self.facebookLoginButton setBackgroundColor:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0]];
+    [self.facebookLoginButton setBackgroundColor:[self.singleTone colorKey:@"mariner"]];
     [self.facebookLoginButton setTitle:@"Facebook 로그인" forState:UIControlStateNormal];
     [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-
+    
     [self.signUpButton setBackgroundColor:[UIColor clearColor]];
     [self.signUpButton setTitle:@"New here? Sign Up" forState:UIControlStateNormal];
     [self.signUpButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
@@ -111,21 +102,16 @@
     [self.findUserPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
     [self.findUserPasswordButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
 
-
-    
-    
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
     self.currentTextField = textField;
-//    [[NSNotificationCenter defaultCenter] postNotificationName:@"keyboardToolbar" object:self.view.window];
+
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -135,23 +121,6 @@
     return YES;
 }
 
-/*
-- (void)keyboardWillShow:(NSNotification *) notification {
-
-    UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    UIBarButtonItem *margin1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"로그인" style:UIBarButtonItemStylePlain target:self action:@selector(signInUser)];
-    
-    UIBarButtonItem *margin2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];    
-    
-    [self.userIDTextfield setInputAccessoryView:signUpToolbar];
-    [self.passwordTextfield setInputAccessoryView:signUpToolbar];
-
-}
-*/
 /**
  *  로그인 버튼을 눌렀을 때 실행되는 메소드
  */
@@ -166,44 +135,34 @@
         [self errorAlert:@"빈칸을 입력해주세요."];
         
     } else {
-        
-       
-        [self.loginLoadIndicator setHidden:NO];
-        [self.loginLoadIndicator startAnimating];
         NSLog(@"request login");
+        [self indicatorRunStatus:NO];
         // NetworkObject로 요청
         NetworkObject *networkObj = [[NetworkObject alloc] init];
         [networkObj initSignInUserID:userID password:password];
         [networkObj requestSignIn];
         
-        
     }
-   
 }
 
 - (void)successLogin {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self.loginLoadIndicator stopAnimating];
+        [self indicatorRunStatus:YES];
         [self endEditingTextField];
         [self finishLogin];
     });
-    
-    
-    
-    
 }
 
 - (void)failLogin {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        [self.loginLoadIndicator stopAnimating];
-        [self errorAlert:@"회원정보가 없습니다."];
+        [self indicatorRunStatus:YES];
+        [self errorAlert:@"아이디 또는 패스워드를 확인해주세요."];
     });
-
-    
-    
 }
+
+
 
 /**
  *  회원가입 버튼을 눌렀을 때 실행되는 메소드
@@ -211,7 +170,6 @@
 - (IBAction)signUpAction {
     
     SingUpTableViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
-    
     [self presentViewController:signUpView animated:YES completion:nil];
     
 }
@@ -227,35 +185,30 @@
  *
  *  @param textField 실행하고자하는 TextField
  */
-- (void)customTextField:(UITextField *)textField {
+- (void)customTextFields:(NSMutableArray *)textFields {
     
-    NSString *placeholderText = @"";
-    [textField setBackgroundColor:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00]];
-    
-    
-    
-    if(textField == self.userIDTextfield) {
-        placeholderText = @"E-mail address";
+    for (UITextField *textField in textFields) {
         
+        textField.delegate = self;
         
-    } else {
-        placeholderText = @"password";
+        NSString *placeholderText = @"";
+        [textField setBackgroundColor:[UIColor colorWithRed:0.28 green:0.29 blue:0.33 alpha:1.00]];
         
+        if(textField == self.userIDTextfield) {
+            placeholderText = @"E-mail address";
+        } else {
+            placeholderText = @"password";
+        }
+        
+        UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(textField.frame.origin.x
+                                                                    , textField.frame.origin.y
+                                                                    , 25.0, 25.0)];
+        textField.leftViewMode = UITextFieldViewModeAlways;
+        textField.leftView = leftView;
+        [textField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:placeholderText attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}]];
+        [textField.layer setMasksToBounds:YES];
+        [textField setTextColor:[UIColor whiteColor]];
     }
-    
-    UIView *leftView = [[UIView alloc] initWithFrame:CGRectMake(textField.frame.origin.x
-                                                               , textField.frame.origin.y
-                                                                , 25.0, 25.0)];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    
-    textField.leftView = leftView;
-    
-    
-    [textField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:placeholderText attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}]];
-    
-    [textField.layer setMasksToBounds:YES];
-    
-    [textField setTextColor:[UIColor whiteColor]];
 
 }
 
@@ -281,8 +234,9 @@
     
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [wrongView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.80 blue:0.18 alpha:1.0]];
+        [wrongView setBackgroundColor:[self.singleTone colorKey:@"tuna"]];
         [self.view addSubview:wrongView];
+        
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
@@ -339,14 +293,22 @@
     
 }
 
+- (void)indicatorRunStatus:(BOOL)runStatus {
+    
+    [self.loginLoadIndicator setHidden:!runStatus];
+    
+    if(runStatus) {
+        [self.loginLoadIndicator startAnimating];
+    } else {
+        [self.loginLoadIndicator stopAnimating];
+    }
+}
+
 - (void)finishLogin {
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
-    MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
+    MainTableViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
-
-    
 
 }
 
