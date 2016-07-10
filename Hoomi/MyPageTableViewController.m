@@ -44,12 +44,48 @@
     
     //my info view가 보여질 부분
     UIView *headerView = self.tableView.tableHeaderView;
-    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 300)];
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
     [self.tableView addSubview:headerView];
     
-    UILabel *infoLable = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, self.view.frame.size.width-20, 280)];
-    [infoLable setBackgroundColor:[UIColor grayColor]];
-    [self.tableView addSubview:infoLable];
+    UIImageView *infoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 75, 50, 50)];
+    UIImage *infoImage = [UIImage imageNamed:@"EmployeeCard.png"];
+    infoImageView.image = infoImage;
+    [self.view addSubview:infoImageView];
+    
+    UILabel *infoLable = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, self.view.frame.size.width-100, 60)];
+    CAShapeLayer *lineLayer = [CAShapeLayer layer];
+    lineLayer.frame = infoLable.bounds;
+    lineLayer.strokeColor = [UIColor grayColor].CGColor;
+    CGRect rect = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
+    lineLayer.path = [UIBezierPath bezierPathWithRect:rect].CGPath;
+    [infoLable.layer addSublayer:lineLayer];
+    
+    UILabel *infoLableTwo = [[UILabel alloc] initWithFrame:CGRectMake(90, 75, self.view.frame.size.width-100, 60)];
+    CAShapeLayer *lineLayerTwo = [CAShapeLayer layer];
+    lineLayerTwo.frame = infoLableTwo.bounds;
+    lineLayerTwo.strokeColor = [UIColor grayColor].CGColor;
+    CGRect rectTwo = CGRectMake(0, CGRectGetMaxY(lineLayerTwo.bounds), lineLayerTwo.bounds.size.width, 0.5f);
+    lineLayerTwo.path = [UIBezierPath bezierPathWithRect:rectTwo].CGPath;
+    [infoLableTwo.layer addSublayer:lineLayerTwo];
+
+    UILabel *infoLableThree = [[UILabel alloc] initWithFrame:CGRectMake(90, 140, self.view.frame.size.width-100, 60)];
+    CAShapeLayer *lineLayerThree = [CAShapeLayer layer];
+    lineLayer.frame = infoLable.bounds;
+    lineLayer.strokeColor = [UIColor grayColor].CGColor;
+    CGRect rectThree = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
+    lineLayerThree.path = [UIBezierPath bezierPathWithRect:rectThree].CGPath;
+    [infoLableThree.layer addSublayer:lineLayerThree];
+    
+    [self.view addSubview:infoLable];
+    [self.view addSubview:infoLableTwo];
+    [self.view addSubview:infoLableThree];
+
+    //테이블뷰를 함수없이 생성하는것이 가능?
+//    UITableView *infoTable =[[UITableView alloc] initWithFrame:CGRectMake(70, 10, self.view.frame.size.width-80, 230)];
+//    UITableViewCell *infoCell = [[UITableViewCell alloc] initWithFrame:CGRectMake(5, 5, self.view.frame.size.width-70, 40)];
+//    [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+//    infoTable.separatorColor = [UIColor colorWithRed:132.0f/255.0f green:132.0f/255.0f blue:131.0f/255.0f alpha:1.0f];
+//    [self.view addSubview:infoCell];
     
 }
 
@@ -64,7 +100,7 @@
     
     NSInteger cornerRadius = 3;
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f;
+    //CGFloat buttonTitleFont = 15.f;
     
     //뒷배경 블러처리
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
@@ -75,8 +111,7 @@
     //form선택화면을 커스텀alert으로
     NSInteger margin = 60;
     UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin / 2, - margin * 5, self.view.frame.size.width - margin, margin * 5)];
-//    [formSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
-//                                               self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
+
     formSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     formSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
     formSelectCustomView.layer.borderWidth = 3.0f;
@@ -104,6 +139,7 @@
     
     [formSelectCustomView addSubview:selectButton];
     
+    // form picker
     self.formSelectCustomView = formSelectCustomView;
     self.formPicker = formPicker;
     self.formList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Writer",nil];
