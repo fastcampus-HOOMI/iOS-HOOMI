@@ -7,16 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03B149AF1D33444C00262E65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B149AE1D33444C00262E65 /* pageAdd.png */; };
+		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
+		03DCAC571D2F90890012CA65 /* uploadIcon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC561D2F90890012CA65 /* uploadIcon1.png */; };
+		03DCAC971D325F6E0012CA65 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC951D325F6E0012CA65 /* save.png */; };
 		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
 		FF0756771D2FDC1400690662 /* career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0756761D2FDC1400690662 /* career@2x.png */; };
 		FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF07569B1D333E0F00690662 /* SignUpViewController.m */; };
 		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
-		FF51D4FF1D2E151B00EB409B /* WritePageWithFromOne.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */; };
 		FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FC1D2E151B00EB409B /* grayColor.jpg */; };
-		FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FD1D2E151B00EB409B /* uploadIcon.png */; };
+		FF51D5011D2E151B00EB409B /* uploadIcon2.png in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FD1D2E151B00EB409B /* uploadIcon2.png */; };
 		FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */; };
-		FF51D50A1D2E152B00EB409B /* SheetOfDetailResume.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */; };
 		FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5061D2E152B00EB409B /* 1.jpg */; };
 		FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5071D2E152B00EB409B /* 2.jpg */; };
 		FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5081D2E152B00EB409B /* 3.jpg */; };
@@ -48,6 +50,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		03B149AE1D33444C00262E65 /* pageAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageAdd.png; sourceTree = "<group>"; };
+		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
+		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
+		03DCAC561D2F90890012CA65 /* uploadIcon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon1.png; sourceTree = "<group>"; };
+		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
@@ -55,16 +62,12 @@
 		FF07569A1D333E0F00690662 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		FF07569B1D333E0F00690662 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
-		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePageViewController.h; sourceTree = "<group>"; };
-		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritePageViewController.m; sourceTree = "<group>"; };
-		FF51D4FA1D2E151B00EB409B /* WritePageWithFromOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePageWithFromOne.h; sourceTree = "<group>"; };
-		FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritePageWithFromOne.m; sourceTree = "<group>"; };
+		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePageViewController.h; path = Hoomi/WritePageViewController.h; sourceTree = "<group>"; };
+		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePageViewController.m; path = Hoomi/WritePageViewController.m; sourceTree = "<group>"; };
 		FF51D4FC1D2E151B00EB409B /* grayColor.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grayColor.jpg; sourceTree = "<group>"; };
-		FF51D4FD1D2E151B00EB409B /* uploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon.png; sourceTree = "<group>"; };
-		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailResumeViewController.h; sourceTree = "<group>"; };
-		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailResumeViewController.m; sourceTree = "<group>"; };
-		FF51D5041D2E152B00EB409B /* SheetOfDetailResume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfDetailResume.h; sourceTree = "<group>"; };
-		FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfDetailResume.m; sourceTree = "<group>"; };
+		FF51D4FD1D2E151B00EB409B /* uploadIcon2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon2.png; sourceTree = "<group>"; };
+		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailResumeViewController.h; path = Hoomi/DetailResumeViewController.h; sourceTree = "<group>"; };
+		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailResumeViewController.m; path = Hoomi/DetailResumeViewController.m; sourceTree = "<group>"; };
 		FF51D5061D2E152B00EB409B /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		FF51D5071D2E152B00EB409B /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		FF51D5081D2E152B00EB409B /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
@@ -122,6 +125,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0378EDEC1D2E33A800F14DAA /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */,
+				03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */,
+				FF51D5061D2E152B00EB409B /* 1.jpg */,
+				FF51D5071D2E152B00EB409B /* 2.jpg */,
+				FF51D5081D2E152B00EB409B /* 3.jpg */,
+				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
+				03DCAC561D2F90890012CA65 /* uploadIcon1.png */,
+				FF51D4FD1D2E151B00EB409B /* uploadIcon2.png */,
+				03B149AE1D33444C00262E65 /* pageAdd.png */,
+				03DCAC951D325F6E0012CA65 /* save.png */,
+			);
+			name = Sheet;
+			sourceTree = "<group>";
+		};
+		03DCAC551D2F7B700012CA65 /* ContentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
+				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
+				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
+				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
+			);
+			name = ContentsViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		805B089F0550420D326CFC19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -137,33 +169,6 @@
 				32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FF51D4F61D2E14FE00EB409B /* WritePage */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
-				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
-				FF51D4FA1D2E151B00EB409B /* WritePageWithFromOne.h */,
-				FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */,
-				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
-				FF51D4FD1D2E151B00EB409B /* uploadIcon.png */,
-			);
-			name = WritePage;
-			sourceTree = "<group>";
-		};
-		FF51D4F71D2E150700EB409B /* DetailResume */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
-				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
-				FF51D5041D2E152B00EB409B /* SheetOfDetailResume.h */,
-				FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */,
-				FF51D5061D2E152B00EB409B /* 1.jpg */,
-				FF51D5071D2E152B00EB409B /* 2.jpg */,
-				FF51D5081D2E152B00EB409B /* 3.jpg */,
-			);
-			name = DetailResume;
 			sourceTree = "<group>";
 		};
 		FF51D5121D2E183000EB409B /* MyPage */ = {
@@ -233,8 +238,8 @@
 				FF51D5221D2E1AF300EB409B /* Storyboard */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
-				FF51D4F71D2E150700EB409B /* DetailResume */,
-				FF51D4F61D2E14FE00EB409B /* WritePage */,
+				0378EDEC1D2E33A800F14DAA /* Sheet */,
+				03DCAC551D2F7B700012CA65 /* ContentsViewController */,
 				FF51D5121D2E183000EB409B /* MyPage */,
 				FFA4D3711D27D8360029FDB1 /* Keychain */,
 				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
@@ -359,7 +364,10 @@
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
 				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
 				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
+				03B149AF1D33444C00262E65 /* pageAdd.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				03DCAC571D2F90890012CA65 /* uploadIcon1.png in Resources */,
+				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
 				FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */,
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
@@ -367,6 +375,7 @@
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
 				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
+				FF51D5011D2E151B00EB409B /* uploadIcon2.png in Resources */,
 				FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */,
@@ -445,8 +454,10 @@
 				FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */,
 				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
 				FF51D4FF1D2E151B00EB409B /* WritePageWithFromOne.m in Sources */,
+				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
 				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
 				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
+				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

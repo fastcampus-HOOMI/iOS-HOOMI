@@ -10,6 +10,10 @@
 
 @interface WritePageViewController : UIViewController
 
-@property (nonatomic) NSInteger formNumber;
+@property (nonatomic) NSInteger formThemeNumber;
+
+@property (nonatomic, strong) NSMutableArray *contentsArray;
+@property (nonatomic, strong) NSMutableArray *imageArray;
+@property (nonatomic, strong) NSMutableArray <UITextView *> *textArray;
 
 @end
