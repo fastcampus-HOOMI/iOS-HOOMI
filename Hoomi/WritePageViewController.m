@@ -95,11 +95,17 @@
 
 -(void)creatWriteSheet:(NSInteger)pageNumber {
     
-    CGFloat navigationMargin = 10;
+    //CGFloat navigationMargin = 10;
     CGFloat margin = 60;
     
-    CGFloat sheetWidth = self.view.frame.size.width - margin;
-    CGRect writeSheetSize = CGRectMake(self.view.frame.size.width/2 - sheetWidth/2, navigationMargin + margin/2, self.view.frame.size.width - margin, self.view.frame.size.height - navigationMargin - margin - 30);
+    CGFloat writeSheetOriginWidth = self.view.frame.size.width - margin;
+    
+    CGFloat writeSheetOriginX = self.view.frame.size.width/2.0f - writeSheetOriginWidth/2.0f;
+    
+    CGFloat writeSheetOriginY = margin/2;
+    CGFloat writeSheetOriginHeight = self.view.frame.size.height - margin - 30;
+    
+    CGRect writeSheetSize = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, self.view.frame.size.height - margin - 30);
     
     self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
     //self.themeOneSheet.backgroundColor = [UIColor redColor];
@@ -120,7 +126,7 @@
   /*    Button Action     */
  /************************/
 
--(void)onTouchUpInsideSave:(id)sender {
+-(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
     for (NSInteger i=0; i<=self.sheetCount-1; i++) {
         UITextView *textView = [self.textArray objectAtIndex:i];
@@ -130,7 +136,7 @@
     
 }
 
--(void)onTouchUpInsidePageAddButton:(id)sender {
+-(IBAction)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
     // 삭제 기능 추가

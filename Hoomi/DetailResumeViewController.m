@@ -105,9 +105,10 @@
     /* 그림 갯수 따라서 컨텐츠 사이즈 늘리고 sheetOfDetailResume을 반복하여 올려야 한다. */
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.totalPageNumber, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
+    //self.scrollView.backgroundColor = [UIColor redColor];
     /* 페이지처럼 넘기게 하는 효과 */
-//    self.scrollView.pagingEnabled = YES;
-//    [self.view addSubview:self.scrollView];
+    self.scrollView.pagingEnabled = YES;
+    [self.view addSubview:self.scrollView];
 }
 
 -(void)customButtonInNavigationBar {

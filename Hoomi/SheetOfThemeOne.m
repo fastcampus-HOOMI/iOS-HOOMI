@@ -91,7 +91,8 @@
     
     /* 텍스트뷰 프레임 */
     //CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
-    self.textViewFrame = CGRectMake(0, self.imageFrame.size.height + 10, self.frame.size.width, self.frame.size.height - self.imageFrame.size.height - 20);
+    CGFloat margin = 20;
+    self.textViewFrame = CGRectMake(margin, self.imageFrame.size.height + 10, self.frame.size.width - margin*2, self.frame.size.height - self.imageFrame.size.height - 20);
     
 }
 
@@ -114,7 +115,8 @@
 -(void)creatTextView:(NSString *)text canEdit:(BOOL)canEdit {
     //코드 방식으로 UITextView 생성
     self.textView = [[UITextView alloc] initWithFrame:self.textViewFrame];
-    self.textView.backgroundColor = [UIColor lightGrayColor];
+    //self.textView.backgroundColor = [UIColor lightGrayColor];
+    self.textView.backgroundColor = [UIColor clearColor];
     self.textView.text = text;
     //placeholder 추가 (- cheesing)
     NSString *textViewText = self.textView.text;
