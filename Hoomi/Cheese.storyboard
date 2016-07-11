@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iiv-jQ-Zk4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -42,7 +42,6 @@
         <!--Navigation Controller-->
         <scene sceneID="lpy-mB-dpp">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Yp-mM-y90" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="DetailResume" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnTap="YES" id="HDU-tx-1e6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t2S-yB-WSB">
@@ -55,6 +54,7 @@
                         <segue destination="1f5-Oo-1YI" kind="relationship" relationship="rootViewController" id="EJp-hG-T0s"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Yp-mM-y90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1207" y="485"/>
         </scene>
