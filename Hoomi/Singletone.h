@@ -47,5 +47,6 @@ typedef NS_ENUM(NSInteger, Color) {
 
 - (UIColor *) colorName:(Color) name;
 - (NSString *) errorMsg:(ErrorMsg) msg;
+- (BOOL) isCorrectEmail:(NSString *) email;
 
 @end

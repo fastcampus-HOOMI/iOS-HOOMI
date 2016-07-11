@@ -59,6 +59,7 @@
     /**********************/
     /* 테스트를 위한 임시데이터 */
     /**********************/
+    // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     
     self.imageData = [[NSMutableDictionary alloc] initWithCapacity:1];

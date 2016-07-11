@@ -10,7 +10,7 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import "SignInViewController.h"
-#import "SingUpTableViewController.h"
+#import "SignUpViewController.h"
 #import "MainTableViewController.h"
 #import "Singletone.h"
 #import "AFNetworking.h"
@@ -127,7 +127,7 @@
     UIColor *leftColor = nil;
     if (textField == self.userIDTextfield) {
         
-        if([self checkValidEmail:textField.text]) {
+        if([self.singleTone isCorrectEmail:textField.text]) {
             leftColor = [UIColor greenColor];
             self.isRightEmail = YES;
         } else {
@@ -206,7 +206,7 @@
  */
 - (IBAction)signUpAction {
     
-    SingUpTableViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
+    SignUpViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
     [self presentViewController:signUpView animated:YES completion:nil];
     
 }
@@ -358,29 +358,6 @@
     }
 }
 
-/**
- *  userIDTextfield에서 메일주소를 받아 정상적인 메일주소인지 체크 (메일을 수정할때마다 호출)
- *
- *  @param Email 체크할 Email 주소
- *
- *  @return 정상 Email - YES, 비정상 Email - NO
- */
-
-- (BOOL)checkValidEmail:(NSString *)email {
-    
-    NSString *emailRegEx = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
-    
-    if ([emailTest evaluateWithObject:email] == NO) {
-        NSLog(@"email이 아닙니다.");
-        return NO;
-    }else {
-        NSLog(@"email이 맞습니다.");
-        return YES;
-    }
-    
-}
-
 - (void)finishLogin {
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -390,8 +367,6 @@
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
     
-    
-
 }
 
 @end
