@@ -12,6 +12,8 @@
 @interface WritePageViewController () <SheetOfThemeOneDelegate>
 
 @property (nonatomic) CGFloat offsetX;
+@property (nonatomic, strong) NSMutableArray *leftBarButtonArray;
+@property (nonatomic, strong) NSMutableArray *rightBarButtonArray;
 
 @end
 
@@ -20,6 +22,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    /* bar 버튼 array 세팅 */
+    self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
+    
     /* 임시 form 데이터
      네트워크 연결 후에는 헤더 파일에 있는
      외부 프로퍼티를 통해 form 데이터 받아서 연결*/
@@ -27,38 +32,41 @@
     
     //[self selectTheme:self.formNumber];
     
+    // 오른쪽 바버튼
+    [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
+    [self settingCustomButtonInNavigationBar:@"save.png" action:@selector(onTouchUpInsideSave:) isLeft:NO];
     
-    [self settingCustomButtonInNavigationBar:@"uploadIcon2" action:@selector(onTouchUpInsideUploadButton:) isLeft:NO];
     
 }
+
+   /**************************************/
+  /*      페이지 구성 세팅 - 테마별 프레임     */
+ /**************************************/
+
+-(void)selectTheme:(NSInteger)formNumber {
+    
+    if (formNumber == 1) {
+        [self creatWriteSheet];
+    }
+    
+}
+
+
 
 /* 네비게이션 바에 저장, 카드 추가, 공개 비공개여부 설정으로 넘어가는 버튼 추가하기 (네이버 포스트 참고) -- cheesing */
 
 -(void)settingCustomButtonInNavigationBar:(NSString *)buttonImageName action:(SEL)action isLeft:(BOOL)isLeft {
     
     UIImage *buttonImage = [UIImage imageNamed:buttonImageName];
+    UIBarButtonItem *someButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:action];
     
-    CGRect frameimg = CGRectMake(15, 5, 25, 25);
-    UIButton *someButton = [[UIButton alloc] initWithFrame:frameimg];
-    [someButton setBackgroundImage:buttonImage forState:UIControlStateNormal];
-    [someButton addTarget:self action:action
-         forControlEvents:UIControlEventTouchUpInside];
-    [someButton setShowsTouchWhenHighlighted:YES];
-    
-    UIBarButtonItem *barButtonItem =[[UIBarButtonItem alloc] initWithCustomView:someButton];
     if (isLeft == YES) {
-        self.navigationItem.leftBarButtonItem = barButtonItem;
+        [self.leftBarButtonArray addObject:someButton];
+        self.navigationItem.rightBarButtonItems = self.leftBarButtonArray;
     }
     else {
-        self.navigationItem.rightBarButtonItem = barButtonItem;
-    }
-    
-}
-
--(void)selectTheme:(NSInteger)formNumber {
-    
-    if (formNumber == 1) {
-        [self creatWriteSheet];
+        [self.rightBarButtonArray addObject:someButton];
+        self.navigationItem.leftBarButtonItems = self.rightBarButtonArray;
     }
     
 }
@@ -75,10 +83,17 @@
     [self.view addSubview:themeOneSheet];
 }
 
--(void)onTouchUpInsideUploadButton:(id)sender {
-    NSLog(@"업로드 버튼");
+   /************************/
+  /*    Button Action     */
+ /************************/
+
+-(void)onTouchUpInsideSave:(id)sender {
+    NSLog(@"저장 버튼");
 }
 
+-(void)onTouchUpInsidePageAddButton:(id)sender {
+    NSLog(@"page 추가 버튼");
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
