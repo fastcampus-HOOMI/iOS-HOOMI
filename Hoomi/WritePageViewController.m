@@ -54,7 +54,6 @@
  /**************************************/
 
 -(void)creatScrollView {
-    
     self.scrollView.delegate = self;
     /* 페이지처럼 넘기게 하는 효과 -> 스토리보드 */
 //    self.scrollView.pagingEnabled = YES;

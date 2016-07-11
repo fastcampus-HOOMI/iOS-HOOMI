@@ -77,23 +77,9 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4cA-zg-4bx" firstAttribute="top" secondItem="6Hb-28-qvI" secondAttribute="bottom" id="1bD-KT-SzG"/>
-                            <constraint firstItem="4cA-zg-4bx" firstAttribute="width" secondItem="Zzy-Ml-M1e" secondAttribute="width" id="D7D-bg-EE6"/>
-                            <constraint firstItem="4cA-zg-4bx" firstAttribute="height" secondItem="Zzy-Ml-M1e" secondAttribute="height" id="Jis-v0-fEX"/>
-                            <constraint firstAttribute="trailing" secondItem="4cA-zg-4bx" secondAttribute="trailing" id="Ktg-JV-Ok9"/>
-                            <constraint firstItem="Ptr-TB-rL0" firstAttribute="top" secondItem="4cA-zg-4bx" secondAttribute="bottom" id="a6R-tz-9Mr"/>
-                            <constraint firstItem="4cA-zg-4bx" firstAttribute="leading" secondItem="Zzy-Ml-M1e" secondAttribute="leading" id="jPT-Pi-KGB"/>
+                            <constraint firstItem="4cA-zg-4bx" firstAttribute="width" secondItem="Zzy-Ml-M1e" secondAttribute="width" id="RyI-Ia-CTu"/>
+                            <constraint firstItem="4cA-zg-4bx" firstAttribute="height" secondItem="Zzy-Ml-M1e" secondAttribute="height" id="amf-GR-wxB"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="1bD-KT-SzG"/>
-                                <exclude reference="D7D-bg-EE6"/>
-                                <exclude reference="Jis-v0-fEX"/>
-                                <exclude reference="Ktg-JV-Ok9"/>
-                                <exclude reference="jPT-Pi-KGB"/>
-                                <exclude reference="a6R-tz-9Mr"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="6hf-MJ-fc2"/>
                     <connections>
