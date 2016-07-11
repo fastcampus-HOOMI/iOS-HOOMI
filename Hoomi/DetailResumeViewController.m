@@ -106,8 +106,8 @@
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.totalPageNumber, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
     /* 페이지처럼 넘기게 하는 효과 */
-    self.scrollView.pagingEnabled = YES;
-    [self.view addSubview:self.scrollView];
+//    self.scrollView.pagingEnabled = YES;
+//    [self.view addSubview:self.scrollView];
 }
 
 -(void)customButtonInNavigationBar {

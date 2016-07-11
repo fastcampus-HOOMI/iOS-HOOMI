@@ -9,11 +9,17 @@
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
 
-@interface WritePageViewController () <SheetOfThemeOneDelegate>
+@interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic) CGFloat offsetX;
+@property (nonatomic) CGFloat offsetWidth;
 @property (nonatomic, strong) NSMutableArray *leftBarButtonArray;
 @property (nonatomic, strong) NSMutableArray *rightBarButtonArray;
+
+@property (nonatomic) NSInteger sheetCount;
+
+@property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic, strong) SheetOfThemeOne *themeOneSheet;
 
 @end
 
@@ -32,6 +38,10 @@
     
     //[self selectTheme:self.formNumber];
     
+    /* 스크롤뷰 생성 */
+    [self creatScrollView];
+    
+    
     // 오른쪽 바버튼
     [self settingCustomButtonInNavigationBar:@"save.png" action:@selector(onTouchUpInsideSave:) isLeft:NO];
     [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
@@ -43,10 +53,21 @@
   /*      페이지 구성 세팅 - 테마별 프레임     */
  /**************************************/
 
+-(void)creatScrollView {
+    self.scrollView.delegate = self;
+    /* 페이지처럼 넘기게 하는 효과 -> 스토리보드 */
+//    self.scrollView.pagingEnabled = YES;
+//    [self.view addSubview:self.scrollView];
+}
+
+
+
 -(void)selectTheme:(NSInteger)formNumber {
     
+    self.sheetCount = 1;
+    
     if (formNumber == 1) {
-        [self creatWriteSheet];
+        [self creatWriteSheet:self.sheetCount];
     }
     
 }
@@ -72,21 +93,35 @@
     
 }
 
--(void)creatWriteSheet {
+-(void)creatWriteSheet:(NSInteger)pageNumber {
     
-    CGFloat navigationMargin = 40;
+    CGFloat navigationMargin = 10;
     CGFloat margin = 60;
-    CGRect writeSheetSize = CGRectMake(self.offsetX + margin/2, navigationMargin + margin/2, self.view.frame.size.width - margin, self.view.frame.size.height - navigationMargin - margin);
     
-    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
-    themeOneSheet.delegate = self;
-    [themeOneSheet settingUploadResume];
-    [self.view addSubview:themeOneSheet];
+    CGFloat sheetWidth = self.view.frame.size.width - margin;
+    CGRect writeSheetSize = CGRectMake(self.view.frame.size.width/2 - sheetWidth/2, navigationMargin + margin/2, self.view.frame.size.width - margin, self.view.frame.size.height - navigationMargin - margin - 30);
+    
+    self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
+    //self.themeOneSheet.backgroundColor = [UIColor redColor];
+    self.themeOneSheet.delegate = self;
+    [self.themeOneSheet settingUploadResume];
+    
+    CGRect cardFrame = CGRectMake(self.view.frame.size.width * (self.sheetCount - 1), 0, self.view.frame.size.width, self.view.frame.size.height);
+    UIView *card = [[UIView alloc]initWithFrame:cardFrame];
+    
+    [card addSubview:self.themeOneSheet];
+    [self.scrollView addSubview:card];
 }
 
    /************************/
   /*    Button Action     */
  /************************/
+-(void)onTouchUpInsideUploadButton {
+    NSLog(@"업로드 버튼");
+    [self showActionSheet];
+}
+
+
 
 -(void)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
@@ -94,7 +129,101 @@
 
 -(void)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
+    
+    //alert창 추가
+    
+    self.sheetCount++;
+    NSLog(@"page %ld 장", self.sheetCount);
+    
+    [self creatWriteSheet:self.sheetCount];
+    
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.sheetCount, self.view.frame.size.height)];
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.sheetCount - 1), -self.navigationController.navigationBar.frame.size.height-24) animated:YES];
 }
+
+/* 사진 업로드 기능 */
+
+
+-(void)showActionSheet
+{
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"라이브러리" message:@"사진을 어디서 가져올까요?" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    
+    UIAlertAction *carmera = [UIAlertAction actionWithTitle:@"카메라" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        /* 이미지 피커 */
+        [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypeCamera];
+        NSLog(@"카메라 선택");
+    }];
+    
+    UIAlertAction *abum = [UIAlertAction actionWithTitle:@"앨범" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        /* 이미지 피커 */
+        [self showImagePickerWithSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+        NSLog(@"앨범 선택");
+    }];
+    
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"취소");
+    }];
+    
+    [alert addAction:carmera];
+    [alert addAction:abum];
+    [alert addAction:cancel];
+    
+    [self presentViewController:alert animated:YES completion:^{
+        NSLog(@"이건 뭐지");
+    }];
+}
+
+
+/* 이미지 피커 관련 소스 함수 */
+-(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
+{
+    /* 소스타입 사용 가능한 상황인지 ex 시뮬레이터는 카메라 안됨 */
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO)
+    {
+        // 사용자에겐 allert 띄워주기
+        // 난 로그를 볼 거다
+        NSLog(@"이 소스는 못쓰낟");
+    }
+    else
+    {
+        UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
+        
+        [pickerController setSourceType:sourceType];
+        [pickerController setDelegate:self];
+        
+        // picker를 통한 이미지 수정 허용
+        pickerController.allowsEditing = YES;
+        
+        //picker를 모달로 보여준다.
+        [self presentViewController:pickerController animated:YES completion:nil];
+    }
+}
+
+#pragma mark - UIImagePicker Controller Delegate
+
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    //picker를 모달로 내려준다.
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    NSLog(@"선택");
+    
+    UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
+    
+    self.themeOneSheet.imageView.image = eiditedImage;
+    
+    self.themeOneSheet.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
