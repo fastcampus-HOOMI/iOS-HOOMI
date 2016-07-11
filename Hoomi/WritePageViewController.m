@@ -34,6 +34,7 @@
     
     /* bar 버튼 array 세팅 */
     self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
+    self.contentsArray = [NSMutableArray arrayWithCapacity:1];
     
     /* 임시 form 데이터
      네트워크 연결 후에는 헤더 파일에 있는
@@ -241,20 +242,14 @@
     
     UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    /* 뷰에 선택 이미지 세팅 */
+    /* 선택 이미지 컨텐츠 array에 세팅 
+     -----------------------------------------  세팅 불규칙 버그 수정 cheesing*/
     
     SheetOfThemeOne *currentContents = [self.contentsArray objectAtIndex:self.currentPage];
-    
-    currentContents.imageView.image = eiditedImage;
+    [currentContents.imageView setImage:eiditedImage];
     currentContents.uploadButton.alpha = 0;
     currentContents.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    /* 선택 이미지 데이터 array 추가 */
-    // (해당 사항 지우고, 시트가 생성될 때 index 별로 배열에 add)
-    // ---- 여기서는 클릭 이미지 인덱스 별로 접근 (현재 페이지 번호로 접근 -> Detail페이지 참고)------- cheesing
-    [self.imageArray addObject:eiditedImage];
-    
-    
+    [self.contentsArray insertObject:currentContents atIndex:self.currentPage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
