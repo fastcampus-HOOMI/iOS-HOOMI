@@ -87,6 +87,8 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="1bD-KT-SzG"/>
+                                <exclude reference="D7D-bg-EE6"/>
+                                <exclude reference="Jis-v0-fEX"/>
                                 <exclude reference="Ktg-JV-Ok9"/>
                                 <exclude reference="jPT-Pi-KGB"/>
                                 <exclude reference="a6R-tz-9Mr"/>
@@ -105,7 +107,7 @@
         <!--Navigation Controller-->
         <scene sceneID="8XQ-uG-BvQ">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnTap="YES" hidesBarsWhenKeyboardAppears="YES" id="hnC-OJ-8fa" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hnC-OJ-8fa" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BSw-Sl-6dk">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

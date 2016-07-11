@@ -28,6 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.textArray = [NSMutableArray new];
+    
     /* bar 버튼 array 세팅 */
     self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
     
@@ -45,8 +47,6 @@
     // 오른쪽 바버튼
     [self settingCustomButtonInNavigationBar:@"save.png" action:@selector(onTouchUpInsideSave:) isLeft:NO];
     [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
-    
-    
 }
 
    /**************************************/
@@ -54,12 +54,12 @@
  /**************************************/
 
 -(void)creatScrollView {
+    
     self.scrollView.delegate = self;
     /* 페이지처럼 넘기게 하는 효과 -> 스토리보드 */
 //    self.scrollView.pagingEnabled = YES;
 //    [self.view addSubview:self.scrollView];
 }
-
 
 
 -(void)selectTheme:(NSInteger)formNumber {
@@ -68,6 +68,7 @@
     
     if (formNumber == 1) {
         [self creatWriteSheet:self.sheetCount];
+        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
     }
     
 }
@@ -109,6 +110,9 @@
     CGRect cardFrame = CGRectMake(self.view.frame.size.width * (self.sheetCount - 1), 0, self.view.frame.size.width, self.view.frame.size.height);
     UIView *card = [[UIView alloc]initWithFrame:cardFrame];
     
+    /* 텍스트뷰 array */
+    [self.textArray addObject:self.themeOneSheet.textView];
+    NSLog(@"%@ %@", self.textArray, self.themeOneSheet.textView);
     [card addSubview:self.themeOneSheet];
     [self.scrollView addSubview:card];
 }
@@ -116,39 +120,47 @@
    /************************/
   /*    Button Action     */
  /************************/
--(void)onTouchUpInsideUploadButton {
-    NSLog(@"업로드 버튼");
-    [self showActionSheet];
-}
-
-
 
 -(void)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
+    for (NSInteger i=0; i<=self.sheetCount-1; i++) {
+        UITextView *textView = [self.textArray objectAtIndex:i];
+        NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, textView.text);
+    }
+    
+    
 }
 
 -(void)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
-    //alert창 추가
+    // 삭제 기능 추가
+    //alert창 추가 --  cheesing
     
     self.sheetCount++;
     NSLog(@"page %ld 장", self.sheetCount);
     
     [self creatWriteSheet:self.sheetCount];
     
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.sheetCount, self.view.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.sheetCount, self.scrollView.frame.size.height)];
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.sheetCount - 1), -self.navigationController.navigationBar.frame.size.height-24) animated:YES];
 }
 
-/* 사진 업로드 기능 */
+/* upload button delegate */
+-(void)onTouchUpInsideUploadButton {
+    NSLog(@"업로드 버튼");
+    [self showActionSheet];
+}
 
+
+    /************************/
+   /*     사진 업로드 기능     */
+  /*  - 액션시트, 이미지피커   */
+ /************************/
 
 -(void)showActionSheet
 {
-    
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"라이브러리" message:@"사진을 어디서 가져올까요?" preferredStyle:UIAlertControllerStyleActionSheet];
-    
     
     UIAlertAction *carmera = [UIAlertAction actionWithTitle:@"카메라" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         /* 이미지 피커 */
@@ -170,24 +182,19 @@
     [alert addAction:abum];
     [alert addAction:cancel];
     
-    [self presentViewController:alert animated:YES completion:^{
-        NSLog(@"이건 뭐지");
-    }];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 
 /* 이미지 피커 관련 소스 함수 */
--(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType
-{
+-(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType {
     /* 소스타입 사용 가능한 상황인지 ex 시뮬레이터는 카메라 안됨 */
-    if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO)
-    {
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO) {
         // 사용자에겐 allert 띄워주기
         // 난 로그를 볼 거다
         NSLog(@"이 소스는 못쓰낟");
     }
-    else
-    {
+    else {
         UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
         
         [pickerController setSourceType:sourceType];
@@ -215,9 +222,14 @@
     
     UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
+    /* 뷰에 선택 이미지 세팅 */
     self.themeOneSheet.imageView.image = eiditedImage;
+    self.themeOneSheet.uploadButton.alpha = 0;
     
     self.themeOneSheet.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    /* 선택 이미지 데이터 array 추가 */
+    [self.imageArray addObject:eiditedImage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
