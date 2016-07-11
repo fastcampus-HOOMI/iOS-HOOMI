@@ -10,7 +10,7 @@
 #import "MyPageListTableViewCell.h"
 
 @interface MyPageTableViewController ()
-<UIPickerViewDelegate, UIPickerViewDataSource>
+<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
@@ -51,41 +51,40 @@
     UIImage *infoImage = [UIImage imageNamed:@"EmployeeCard.png"];
     infoImageView.image = infoImage;
     [self.view addSubview:infoImageView];
-    
-    UILabel *infoLable = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, self.view.frame.size.width-100, 60)];
-    CAShapeLayer *lineLayer = [CAShapeLayer layer];
-    lineLayer.frame = infoLable.bounds;
-    lineLayer.strokeColor = [UIColor grayColor].CGColor;
-    CGRect rect = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
-    lineLayer.path = [UIBezierPath bezierPathWithRect:rect].CGPath;
-    [infoLable.layer addSublayer:lineLayer];
-    
-    UILabel *infoLableTwo = [[UILabel alloc] initWithFrame:CGRectMake(90, 75, self.view.frame.size.width-100, 60)];
-    CAShapeLayer *lineLayerTwo = [CAShapeLayer layer];
-    lineLayerTwo.frame = infoLableTwo.bounds;
-    lineLayerTwo.strokeColor = [UIColor grayColor].CGColor;
-    CGRect rectTwo = CGRectMake(0, CGRectGetMaxY(lineLayerTwo.bounds), lineLayerTwo.bounds.size.width, 0.5f);
-    lineLayerTwo.path = [UIBezierPath bezierPathWithRect:rectTwo].CGPath;
-    [infoLableTwo.layer addSublayer:lineLayerTwo];
 
-    UILabel *infoLableThree = [[UILabel alloc] initWithFrame:CGRectMake(90, 140, self.view.frame.size.width-100, 60)];
-    CAShapeLayer *lineLayerThree = [CAShapeLayer layer];
-    lineLayer.frame = infoLable.bounds;
-    lineLayer.strokeColor = [UIColor grayColor].CGColor;
-    CGRect rectThree = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
-    lineLayerThree.path = [UIBezierPath bezierPathWithRect:rectThree].CGPath;
-    [infoLableThree.layer addSublayer:lineLayerThree];
-    
-    [self.view addSubview:infoLable];
-    [self.view addSubview:infoLableTwo];
-    [self.view addSubview:infoLableThree];
+//    UILabel *infoLable = [[UILabel alloc] initWithFrame:CGRectMake(90, 10, self.view.frame.size.width-100, 60)];
+//    CAShapeLayer *lineLayer = [CAShapeLayer layer];
+//    lineLayer.frame = infoLable.bounds;
+//    lineLayer.strokeColor = [UIColor grayColor].CGColor;
+//    CGRect rect = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
+//    lineLayer.path = [UIBezierPath bezierPathWithRect:rect].CGPath;
+//    [infoLable.layer addSublayer:lineLayer];
+//    
+//    UILabel *infoLableTwo = [[UILabel alloc] initWithFrame:CGRectMake(90, 75, self.view.frame.size.width-100, 60)];
+//    CAShapeLayer *lineLayerTwo = [CAShapeLayer layer];
+//    lineLayerTwo.frame = infoLableTwo.bounds;
+//    lineLayerTwo.strokeColor = [UIColor grayColor].CGColor;
+//    CGRect rectTwo = CGRectMake(0, CGRectGetMaxY(lineLayerTwo.bounds), lineLayerTwo.bounds.size.width, 0.5f);
+//    lineLayerTwo.path = [UIBezierPath bezierPathWithRect:rectTwo].CGPath;
+//    [infoLableTwo.layer addSublayer:lineLayerTwo];
+//
+//    UILabel *infoLableThree = [[UILabel alloc] initWithFrame:CGRectMake(90, 140, self.view.frame.size.width-100, 60)];
+//    CAShapeLayer *lineLayerThree = [CAShapeLayer layer];
+//    lineLayer.frame = infoLable.bounds;
+//    lineLayer.strokeColor = [UIColor grayColor].CGColor;
+//    CGRect rectThree = CGRectMake(0, CGRectGetMaxY(lineLayer.bounds), lineLayer.bounds.size.width, 0.5f);
+//    lineLayerThree.path = [UIBezierPath bezierPathWithRect:rectThree].CGPath;
+//    [infoLableThree.layer addSublayer:lineLayerThree];
+//    
+//    [self.view addSubview:infoLable];
+//    [self.view addSubview:infoLableTwo];
+//    [self.view addSubview:infoLableThree];
 
     //테이블뷰를 함수없이 생성하는것이 가능?
-//    UITableView *infoTable =[[UITableView alloc] initWithFrame:CGRectMake(70, 10, self.view.frame.size.width-80, 230)];
-//    UITableViewCell *infoCell = [[UITableViewCell alloc] initWithFrame:CGRectMake(5, 5, self.view.frame.size.width-70, 40)];
-//    [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
-//    infoTable.separatorColor = [UIColor colorWithRed:132.0f/255.0f green:132.0f/255.0f blue:131.0f/255.0f alpha:1.0f];
-//    [self.view addSubview:infoCell];
+    UITableView *infoTable =[[UITableView alloc] initWithFrame:CGRectMake(70, 10, self.view.frame.size.width-60, 180)];
+    [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [infoTable numberOfRowsInSection:3];
+    [self.view addSubview:infoTable];
     
 }
 
