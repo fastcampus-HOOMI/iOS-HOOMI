@@ -13,8 +13,15 @@
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
 - (void)initSignUpUserID:(NSString *)userID name:(NSString *)name password:(NSString *)password;
 
+// Default
 - (void)requestSignIn;
 - (void)requestSignUp;
+
+// Social
+- (void)requestFacebookSignUpToken:(NSString *)token;
+- (void)requestFacebookSignInToken:(NSString *)token;
+
+// Save Job
 - (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
 
 - (void)saveSessionValue:(NSString *)session;

@@ -328,14 +328,12 @@
                                            id result, NSError *error) {
                   //         NSLog(@"profile : %@", [[FBSDKProfile currentProfile] userID]);
                   if(!error) {
-                      
-                      NSLog(@"name : %@", [[result objectForKey:@"name"] stringByRemovingPercentEncoding]);
-                      NSLog(@"id : %@", [result objectForKey:@"id"]);
-                      NSLog(@"email : %@", [result objectForKey:@"email"]);
-                      
+                    
+                      // 사용자 정보는 result에 다 들어있음
                       NSString *token = [[FBSDKAccessToken currentAccessToken] tokenString];
-                      NSLog(@"token : %@", token);
+                      NSLog(@"facebook token : %@", token);
                       NetworkObject *networkObject = [[NetworkObject alloc] init];
+                      [networkObject requestFacebookSignUpToken:token];
                       [networkObject saveSessionValue:token];
                       
                   }

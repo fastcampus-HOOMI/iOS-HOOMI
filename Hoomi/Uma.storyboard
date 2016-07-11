@@ -304,7 +304,11 @@
                                 <action selector="showMyPage:" destination="Pu6-W3-64P" id="5Ob-Sf-rKf"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="q4s-gv-69B"/>
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="q4s-gv-69B">
+                            <connections>
+                                <action selector="writeCareerPage:" destination="Pu6-W3-64P" id="tps-X2-eqd"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="myPage" destination="Kxl-2N-OeG" id="gnD-4G-pNP"/>

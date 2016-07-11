@@ -55,6 +55,7 @@
     
     // 싱글톤 객체 생성
     self.singleTone = [Singletone requestInstance];
+    self.selectedJob = @"Photograper"; // Default Job
     
     /**********************/
     /* 테스트를 위한 임시데이터 */
@@ -68,8 +69,6 @@
     
     self.defaults = [NSUserDefaults standardUserDefaults];
     
-    NSLog(@"userJob : %@", [self.defaults objectForKey:@"userJob"]);
-    [self.defaults setObject:nil forKey:@"userJob"];
     /* 유저가 선택한 직군의 데이터가 없으면 직군 선택화면을 띄움 */
     if([self.defaults objectForKey:@"userJob"] == nil) {
         
@@ -126,10 +125,16 @@
 
 - (IBAction)showMyPage:(id)sender {
     
-    UIStoryboard *storyBaord = [UIStoryboard storyboardWithName:@"EK" bundle:nil];
-    MyPageTableViewController *myPage = [storyBaord instantiateViewControllerWithIdentifier:@"MyPage"];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"EK" bundle:nil];
+    MyPageTableViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"MyPage"];
     
     [self presentViewController:myPage animated:YES completion:nil];
+    
+}
+
+- (IBAction)writeCareerPage:(id)sender {
+    
+    NSLog(@"Move Write Career Page");
     
 }
 
@@ -216,7 +221,8 @@
 - (void)selectUserJob {
     
     [self.defaults setObject:self.selectedJob forKey:@"userJob"];
-    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
+    NSLog(@"userJob : %@", self.selectedJob);
+//    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
     
     // 커스텀뷰 사라지는 애니메이션
     [UIView animateWithDuration:self.animationDuration animations:^{
