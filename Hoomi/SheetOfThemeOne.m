@@ -90,8 +90,8 @@
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
     
     /* 텍스트뷰 프레임 */
-    CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
-    self.textViewFrame = CGRectMake(offsetX, self.imageFrame.size.height + 10, self.frame.size.width - 40, self.frame.size.height - self.imageFrame.size.height - 20);
+    //CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
+    self.textViewFrame = CGRectMake(0, self.imageFrame.size.height + 10, self.frame.size.width, self.frame.size.height - self.imageFrame.size.height - 20);
     
 }
 
@@ -116,6 +116,7 @@
     self.textView = [[UITextView alloc] initWithFrame:self.textViewFrame];
     self.textView.backgroundColor = [UIColor lightGrayColor];
     self.textView.text = text;
+    //placeholder 추가 (- cheesing)
     NSString *textViewText = self.textView.text;
     
     /* 텍스트줄 간격, 폰트, 크기 */

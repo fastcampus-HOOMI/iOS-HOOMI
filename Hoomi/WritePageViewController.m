@@ -33,8 +33,8 @@
     //[self selectTheme:self.formNumber];
     
     // 오른쪽 바버튼
-    [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
     [self settingCustomButtonInNavigationBar:@"save.png" action:@selector(onTouchUpInsideSave:) isLeft:NO];
+    [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
     
     
 }
@@ -59,14 +59,15 @@
     
     UIImage *buttonImage = [UIImage imageNamed:buttonImageName];
     UIBarButtonItem *someButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:action];
+    someButton.tintColor = [UIColor blackColor];
     
     if (isLeft == YES) {
         [self.leftBarButtonArray addObject:someButton];
-        self.navigationItem.rightBarButtonItems = self.leftBarButtonArray;
+        self.navigationItem.leftBarButtonItems = self.leftBarButtonArray;
     }
     else {
         [self.rightBarButtonArray addObject:someButton];
-        self.navigationItem.leftBarButtonItems = self.rightBarButtonArray;
+        self.navigationItem.rightBarButtonItems = self.rightBarButtonArray;
     }
     
 }
@@ -74,7 +75,7 @@
 -(void)creatWriteSheet {
     
     CGFloat navigationMargin = 40;
-    CGFloat margin = 40;
+    CGFloat margin = 60;
     CGRect writeSheetSize = CGRectMake(self.offsetX + margin/2, navigationMargin + margin/2, self.view.frame.size.width - margin, self.view.frame.size.height - navigationMargin - margin);
     
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
