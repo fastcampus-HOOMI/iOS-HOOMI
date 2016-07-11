@@ -18,8 +18,9 @@
 @property (nonatomic) NSInteger sheetCount;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-
 @property (nonatomic, strong) SheetOfThemeOne *themeOneSheet;
+
+@property (nonatomic) NSInteger currentPage;
 
 @end
 
@@ -97,6 +98,14 @@
     [card addSubview:self.themeOneSheet];//시트는 카드 위에
     
     // ---- 페이지별로 세팅하는거
+    
+    [self.contentsArray addObject:self.themeOneSheet];
+    
+    //////////////////////////////////// 컨텐츠 세팅 문제로 이미지, 텍스트뷰 아마도 삭제될 것
+    /////////////////////////////////// 컨텐츠 관련 객체 프로퍼티들은 다 지워야 하지 않을까? ------ cheesing
+    
+    /* 이미지뷰 array에 세팅 */
+    [self.imageArray addObject:self.themeOneSheet.imageView.image];
     
     /* 텍스트뷰를 array에 세팅*/
     [self.textViewArray addObject:self.themeOneSheet.textView];
@@ -233,19 +242,44 @@
     UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
     /* 뷰에 선택 이미지 세팅 */
-    self.themeOneSheet.imageView.image = eiditedImage;
-    self.themeOneSheet.uploadButton.alpha = 0;
     
-    self.themeOneSheet.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    SheetOfThemeOne *currentContents = [self.contentsArray objectAtIndex:self.currentPage];
+    
+    currentContents.imageView.image = eiditedImage;
+    currentContents.uploadButton.alpha = 0;
+    currentContents.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     /* 선택 이미지 데이터 array 추가 */
     // (해당 사항 지우고, 시트가 생성될 때 index 별로 배열에 add)
     // ---- 여기서는 클릭 이미지 인덱스 별로 접근 (현재 페이지 번호로 접근 -> Detail페이지 참고)------- cheesing
     [self.imageArray addObject:eiditedImage];
     
+    
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+   /*************************/
+  /*       delegate        */
+ /*************************/
+
+
+#pragma mark - scrollView delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    /* 현재 위치 */
+    NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
+    
+    /* 현재 페이지 */
+    CGFloat currentX = scrollView.contentOffset.x;
+    self.currentPage = currentX / scrollView.frame.size.width;
+    
+    NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
+    
+    /* 한 페이지 당 로드되도록 하는 이슈 해당 메소드 이용할 것
+     - cheesing */
+    
+}
 
 
 

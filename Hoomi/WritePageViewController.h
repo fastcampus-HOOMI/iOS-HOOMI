@@ -13,7 +13,7 @@
 @property (nonatomic) NSInteger formThemeNumber;
 
 @property (nonatomic, strong) NSMutableArray *contentsArray;
-@property (nonatomic, strong) NSMutableArray *imageArray;
+@property (nonatomic, strong) NSMutableArray<UIImage *> *imageArray;
 @property (nonatomic, strong) NSMutableArray <UITextView *> *textViewArray;
 
 @end
