@@ -9,12 +9,12 @@
 #import <QuartzCore/QuartzCore.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 #import "SignInViewController.h"
-#import "SingUpTableViewController.h"
-#import "UICKeyChainStore.h"
+#import "SignUpViewController.h"
 #import "MainTableViewController.h"
 #import "Singletone.h"
+#import "AFNetworking.h"
+#import "NetworkObject.h"
 
 
 
@@ -30,9 +30,16 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *signUpButton; // 회원가입
 @property (strong, nonatomic) IBOutlet UIButton *facebookLoginButton; // 페이스북 로그인
-@property (strong, nonatomic) IBOutlet UIButton *kakaoLoginButton; // 카카오톡 로그인
+@property (strong, nonatomic) IBOutlet UIButton *defaultsLoginButton; // 기본 로그인
+@property (strong, nonatomic) IBOutlet UIButton *findUserPasswordButton; // 패스워드 찾기
+
+@property (nonatomic) IBOutlet UIActivityIndicatorView *loginLoadIndicator;
 
 @property (nonatomic, strong) Singletone *singleTone;
+
+@property (nonatomic) BOOL isRightEmail;
+@property (nonatomic) BOOL isRightLengthPassword;
+@property (nonatomic) BOOL isLogin;
 
 @end
 
@@ -42,29 +49,16 @@
     
     [super viewDidLoad];
     
-//    [self saveSessionValue:@"abc"];
-    
     self.singleTone = [Singletone requestInstance];
     
-    [self.view setBackgroundColor:[self.singleTone colorKey:@"concrete"]];
+    // 로그인 Indicator 설정
+    [self indicatorRunStatus:NO];
     
-    self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"danube"]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.view setBackgroundColor:[self.singleTone colorName:Tuna]];
     
     // Set Custom TextField
-    [self customTextField:self.userIDTextfield];
-    [self customTextField:self.passwordTextfield];
-    
-//    self.facebookLoginButton.delegate = self;
-    
-    self.userIDTextfield.delegate = self;
-    self.passwordTextfield.delegate = self;
-    
-    self.notificationCenter = [NSNotificationCenter defaultCenter];
-    [self.notificationCenter addObserver:self selector:@selector(keyboardWillShow:) name:@"keyboardToolbar" object:self.view.window];
-    
+    NSMutableArray *textfields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.passwordTextfield, nil];
+    [self customTextFields:textfields];
 
     // 뷰를 클릭시 선택되어 있는 TextField의 키보드를 내리는 메소드 호출
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] init];
@@ -73,8 +67,20 @@
     [tapGesture addTarget:self action:@selector(endEditingTextField)];
     [self.view addGestureRecognizer:tapGesture];
     
+    // 로그인, 회원가입, 소셜로그인 커스텀 버튼 생성
     [self createCustomButton];
+    
+    // 노티피케이션 센터 등록
+    [self notificationObserver];
+    
+}
 
+- (void)notificationObserver {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successLogin) name:LoginSuccessNotifiaction object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin)
+                                                 name:LoginFailNotification object:nil];
     
 }
 
@@ -82,46 +88,65 @@
     
     NSInteger cornerRadius = 3;
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f;
+    
+    self.defaultsLoginButton.layer.cornerRadius = cornerRadius;
+    self.defaultsLoginButton.clipsToBounds = clipsToBounds;
+    [self.defaultsLoginButton setBackgroundColor:[self.singleTone colorName:OutrageousOrange]];
+    [self.defaultsLoginButton setTitle:@"로그인" forState:UIControlStateNormal];
+    [self.defaultsLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     self.facebookLoginButton.layer.cornerRadius = cornerRadius;
     self.facebookLoginButton.clipsToBounds = clipsToBounds;
-    [self.facebookLoginButton setBackgroundColor:[UIColor colorWithRed:0.25 green:0.36 blue:0.59 alpha:1.0]];
-    [self.facebookLoginButton setTitle:@"Facebook으로 로그인하기" forState:UIControlStateNormal];
+    [self.facebookLoginButton setBackgroundColor:[self.singleTone colorName:Mariner]];
+    [self.facebookLoginButton setTitle:@"Facebook 로그인" forState:UIControlStateNormal];
     [self.facebookLoginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.facebookLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
+    [self.signUpButton setBackgroundColor:[UIColor clearColor]];
+    [self.signUpButton setTitle:@"New here? Sign Up" forState:UIControlStateNormal];
+    [self.signUpButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
     
-    [self.kakaoLoginButton setBackgroundColor:[UIColor colorWithRed:1.00 green:0.92 blue:0.20 alpha:1.0]];
-    self.kakaoLoginButton.layer.cornerRadius = cornerRadius;
-    self.kakaoLoginButton.clipsToBounds = clipsToBounds;
-    [self.kakaoLoginButton setTitle:@"카카오톡으로 로그인하기" forState:UIControlStateNormal];
-    [self.kakaoLoginButton setTitleColor:[UIColor colorWithRed:75.0/255.0 green:24.0/255.0 blue:2.0/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [self.kakaoLoginButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
-    
-    self.signUpButton.layer.cornerRadius = cornerRadius;
-    self.signUpButton.clipsToBounds = clipsToBounds;
-    [self.signUpButton setBackgroundColor:[UIColor lightGrayColor]];
-    [self.signUpButton setTitle:@"HOOMI 회원가입" forState:UIControlStateNormal];
-    [self.signUpButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.signUpButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
-    
+    [self.findUserPasswordButton setBackgroundColor:[UIColor clearColor]];
+    [self.findUserPasswordButton setTitle:@"Forgot password?" forState:UIControlStateNormal];
+    [self.findUserPasswordButton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     
-    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.rightViewMode = UITextFieldViewModeAlways;
-    
     self.currentTextField = textField;
-    [self.notificationCenter postNotificationName:@"keyboardToolbar" object:self.view.window];
+
+}
+
+-(void)textFieldDidChange :(UITextField *) textField{
+    NSLog(@"change passwordTextfield");
+    
+    UIColor *leftColor = nil;
+    if (textField == self.userIDTextfield) {
+        
+        if([self.singleTone isCorrectEmail:textField.text]) {
+            leftColor = [UIColor greenColor];
+            self.isRightEmail = YES;
+        } else {
+            leftColor = [UIColor redColor];
+            self.isRightEmail = NO;
+        }
+        
+    } else if(textField == self.passwordTextfield) {
+        
+        if(self.passwordTextfield.text.length < MIN_PASSWORD_LENGTH) {
+            leftColor = [UIColor redColor];
+            self.isRightLengthPassword = NO;
+        } else if(self.passwordTextfield.text.length >= MIN_PASSWORD_LENGTH) {
+            leftColor = [UIColor greenColor];
+            self.isRightLengthPassword = YES;
+        }
+    }
+    
+    [self leftViewInTextField:textField Color:leftColor];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -131,47 +156,57 @@
     return YES;
 }
 
-- (void)keyboardWillShow:(NSNotification *) notification {
-
-    UIToolbar *signUpToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
-    UIBarButtonItem *margin1 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    UIBarButtonItem *signUpButton = [[UIBarButtonItem alloc] initWithTitle:@"로그인" style:UIBarButtonItemStylePlain target:self action:@selector(signInUser)];
-    
-    UIBarButtonItem *margin2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
-    
-    [signUpToolbar setItems:[NSArray arrayWithObjects:margin1, signUpButton, margin2, nil]];    
-    
-    [self.userIDTextfield setInputAccessoryView:signUpToolbar];
-    [self.passwordTextfield setInputAccessoryView:signUpToolbar];
-
-}
-
 /**
  *  로그인 버튼을 눌렀을 때 실행되는 메소드
  */
-- (void)signInUser {
+- (IBAction)signInDefault {
+    
+    NSString *userID = self.userIDTextfield.text;
+    NSString *password = self.passwordTextfield.text;
 
     // 아이디 또는 비밀번호가 빈칸일 경우
-    if([self.userIDTextfield.text isEqualToString:@""] || [self.passwordTextfield.text isEqualToString:@""]) {
-        
-        [self errorAlert:@"빈칸을 입력해주세요."];
-        NSLog(@"빈칸을 채워주세요.");
-        
+    if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
+        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+    } else if(!self.isRightEmail) {
+        [self errorAlert:[self.singleTone errorMsg:WrongEmail]];
+    } else if(!self.isRightLengthPassword) {
+        [self errorAlert:[self.singleTone errorMsg:ShortPassword]];
     } else {
+        NSLog(@"request login");
+        [self indicatorRunStatus:YES];
+        // NetworkObject로 요청
+        NetworkObject *networkObj = [[NetworkObject alloc] init];
+        [networkObj initSignInUserID:userID password:password];
+        [networkObj requestSignIn];
         
-        [self finishLogin];
     }
-   
 }
+
+- (void)successLogin {
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self indicatorRunStatus:NO];
+        [self endEditingTextField];
+        [self finishLogin];
+    });
+}
+
+- (void)failLogin {
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        [self indicatorRunStatus:NO];
+        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
+    });
+}
+
+
 
 /**
  *  회원가입 버튼을 눌렀을 때 실행되는 메소드
  */
 - (IBAction)signUpAction {
     
-    SingUpTableViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
-    
+    SignUpViewController *signUpView = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpPage"];
     [self presentViewController:signUpView animated:YES completion:nil];
     
 }
@@ -187,19 +222,48 @@
  *
  *  @param textField 실행하고자하는 TextField
  */
-- (void)customTextField:(UITextField *)textField {
+- (void)customTextFields:(NSMutableArray *)textFields {
     
-    [textField.layer setBackgroundColor: [[UIColor whiteColor] CGColor]];
-    [textField.layer setBorderColor: [[UIColor grayColor] CGColor]];
-    [textField.layer setBorderWidth: 1.0];
-    [textField.layer setCornerRadius:8.0f];
-    [textField.layer setMasksToBounds:YES];
+    for (UITextField *textField in textFields) {
+        
+        textField.delegate = self;
+        
+        NSString *placeholderText = @"";
+        [textField setBackgroundColor:[self.singleTone colorName:Maco]];
+        
+        if(textField == self.userIDTextfield) {
+            placeholderText = @"E-mail address";
+        } else {
+            placeholderText = @"Password";
+        }
+        
+        [self leftViewInTextField:textField Color:[UIColor redColor]];
+        
+        [textField setAttributedPlaceholder:[[NSAttributedString alloc] initWithString:placeholderText attributes:@{ NSForegroundColorAttributeName : [UIColor whiteColor]}]];
+        [textField.layer setMasksToBounds:YES];
+        [textField setTextColor:[UIColor whiteColor]];
+        
+        [textField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    }
+
+}
+
+- (void)leftViewInTextField:(UITextField *)textField Color:(UIColor *)color {
     
-//    textField.layer.sublayerTransform = CATransform3DMakeTranslation(5, 0, 0);
-    textField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+    // Textfield의 왼쪽에 1:1로 뷰를 하나 채워넣음
+    // 정상적인 데이터가 들어가 있는지를 판단하기 위해서
+    UIView *allView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 8, 40)];
+    UIView *firstLeftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 4, 40)];
+    [firstLeftView setBackgroundColor:color];
+    UIView *lastLeftView = [[UIView alloc] initWithFrame:CGRectMake(4, 0, 4, 40)];
+    [lastLeftView setBackgroundColor:[UIColor clearColor]];
+    
+    [allView addSubview:firstLeftView];
+    [allView addSubview:lastLeftView];
+    
     textField.leftViewMode = UITextFieldViewModeAlways;
-    textField.rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
-    textField.rightViewMode = UITextFieldViewModeAlways;
+    textField.leftView = allView;
+    
 }
 
 /**
@@ -224,8 +288,9 @@
     
     [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
         [wrongView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[UIColor colorWithRed:1.00 green:0.80 blue:0.18 alpha:1.0]];
+        [wrongView setBackgroundColor:[self.singleTone colorName:Tuna]];
         [self.view addSubview:wrongView];
+        
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
@@ -263,15 +328,13 @@
                                            id result, NSError *error) {
                   //         NSLog(@"profile : %@", [[FBSDKProfile currentProfile] userID]);
                   if(!error) {
-                      
-                      NSLog(@"name : %@", [[result objectForKey:@"name"] stringByRemovingPercentEncoding]);
-                      NSLog(@"id : %@", [result objectForKey:@"id"]);
-                      NSLog(@"email : %@", [result objectForKey:@"email"]);
-                      
+                    
+                      // 사용자 정보는 result에 다 들어있음
                       NSString *token = [[FBSDKAccessToken currentAccessToken] tokenString];
-                      NSLog(@"token : %@", token);
-                      
-                      [self saveSessionValue:token];
+                      NSLog(@"facebook token : %@", token);
+                      NetworkObject *networkObject = [[NetworkObject alloc] init];
+                      [networkObject requestFacebookSignUpToken:token];
+                      [networkObject saveSessionValue:token];
                       
                   }
               }];
@@ -282,79 +345,26 @@
     
 }
 
-/**
- *  카카오톡 로그인
- */
-- (IBAction)invokeLoginWithKakao {
+- (void)indicatorRunStatus:(BOOL)runStatus {
     
-    // ensure old session was closed
-    [[KOSession sharedSession] close];
+    [self.loginLoadIndicator setHidden:!runStatus];
     
-    [[KOSession sharedSession] openWithCompletionHandler:^(NSError *error) {
-        if ([[KOSession sharedSession] isOpen]) {
-            // login success
-            NSLog(@"login succeeded.");
-            
-            NSString *token = [KOSession sharedSession].accessToken;
-            [self saveSessionValue:token];
-            NSLog(@"kakao session : %@", token);
-            
-            [KOSessionTask meTaskWithCompletionHandler:^(KOUser* result, NSError *error) {
-                if (result) {
-                    // success
-                    
-                    [self finishLogin];
-                    NSLog(@"userId=%@", result.ID);
-                    NSLog(@"nickName=%@", [result propertyForKey:@"nickname"]);
-                } else {
-                    // failed
-                }
-            }];
-        } else {
-            // failed
-            NSLog(@"login failed.");
-        }
-    }];
-}
-
-- (void)saveSessionValue:(NSString *)session {
-    
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    keychain[@"session"] = session;
-    
-    // 불러올 때
-//    NSString *token = [keychain stringForKey:@"session"];
-//    NSLog(@"token : %@", token);
+    if(runStatus) {
+        [self.loginLoadIndicator startAnimating];
+    } else {
+        [self.loginLoadIndicator stopAnimating];
+    }
 }
 
 - (void)finishLogin {
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
-    MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:YES forKey:@"isLogin"];
+    
+    MainTableViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
-    // 모달로 띄울 경우
-    [self presentViewController:mainViewController animated:YES completion:nil];
-    // 푸쉬
-    [self.navigationController pushViewController:mainViewController animated:YES];
     
-    
-    [self.userIDTextfield resignFirstResponder];
-    [self.passwordTextfield resignFirstResponder];
-
 }
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
