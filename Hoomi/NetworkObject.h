@@ -15,6 +15,7 @@
 
 - (void)requestSignIn;
 - (void)requestSignUp;
+- (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
 
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;

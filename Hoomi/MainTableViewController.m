@@ -34,6 +34,7 @@
 
 @property (nonatomic) Singletone *singleTone; // 싱글톤 객체
 @property (nonatomic) NetworkObject *networkObject;
+@property (nonatomic, weak) NSString *token;
 
 @property (nonatomic) IBOutlet UIBarButtonItem *writeCareer;
 @property (nonatomic) IBOutlet UIBarButtonItem *myPage;
@@ -47,8 +48,7 @@
     [super viewDidLoad];
     
     self.networkObject = [[NetworkObject alloc] init];
-    NSString *token = [self.networkObject loadSessionValue];
-    NSLog(@"main token : %@", token);
+    self.token = [self.networkObject loadSessionValue];
     
     self.animationDuration = 0.7;
     self.margin = 60;
@@ -175,7 +175,6 @@
     
     NSInteger cornerRadius = 3; // 버튼 모서리
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f; // 버튼 텍스트 Title
     
     // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
     UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(self.margin / 2, - self.margin * 5, self.view.frame.size.width - self.margin, self.margin * 5)];
@@ -217,6 +216,7 @@
 - (void)selectUserJob {
     
     [self.defaults setObject:self.selectedJob forKey:@"userJob"];
+    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
     
     // 커스텀뷰 사라지는 애니메이션
     [UIView animateWithDuration:self.animationDuration animations:^{

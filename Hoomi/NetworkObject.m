@@ -39,6 +39,7 @@
     self.password = password;
     self.name = name;
 
+    NSLog(@"%@, %@, %@", self.userID, self.password, self.name);
 }
 
 - (void)requestSignIn {
@@ -77,7 +78,7 @@
                           
                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                           NSInteger statusCode = (long)httpResponse.statusCode;
-                          NSLog(@"%ld", statusCode);
+                          NSLog(@"%ld", (long)statusCode);
                           if (statusCode == 201) {
                               NSLog(@"로그인 성공");
                               
@@ -129,6 +130,46 @@
                       } else {
                           NSLog(@"token : %@", responseObject);
 //                          [self saveSessionValue:responseObject];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
+                          
+                      }
+                  }];
+    
+    [uploadTask resume];
+    
+}
+
+- (void)requestSaveJob:(NSString *)job Token:(NSString *)token {
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:job forKey:@"job"];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"Error: %@", error);
+                          
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
+                          
+                      } else {
+                          NSLog(@"token : %@", responseObject);
+                          //                          [self saveSessionValue:responseObject];
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
                           
                       }
