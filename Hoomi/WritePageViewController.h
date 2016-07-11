@@ -14,6 +14,6 @@
 
 @property (nonatomic, strong) NSMutableArray *contentsArray;
 @property (nonatomic, strong) NSMutableArray *imageArray;
-@property (nonatomic, strong) NSMutableArray <UITextView *> *textArray;
+@property (nonatomic, strong) NSMutableArray <UITextView *> *textViewArray;
 
 @end

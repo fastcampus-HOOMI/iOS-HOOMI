@@ -5,11 +5,11 @@
 //  Created by 배지영 on 2016. 7. 6..
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
-
+#import "QuartzCore/QuartzCore.h"
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
 
-@interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
 @property (nonatomic) CGFloat offsetWidth;
 @property (nonatomic, strong) NSMutableArray *leftBarButtonArray;
@@ -28,7 +28,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.textArray = [NSMutableArray new];
+    
+    self.textViewArray = [NSMutableArray new];
     
     /* bar 버튼 array 세팅 */
     self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
@@ -43,23 +44,16 @@
     /* 스크롤뷰 생성 */
     [self creatScrollView];
     
-    
-    // 오른쪽 바버튼
-    [self settingCustomButtonInNavigationBar:@"save.png" action:@selector(onTouchUpInsideSave:) isLeft:NO];
-    [self settingCustomButtonInNavigationBar:@"pageAdd.png" action:@selector(onTouchUpInsidePageAddButton:) isLeft:NO];
 }
 
-   /**************************************/
-  /*      페이지 구성 세팅 - 테마별 프레임     */
- /**************************************/
+/**************************************/
+/*      페이지 구성 세팅 - 테마별 프레임     */
+/**************************************/
 
 -(void)creatScrollView {
     self.scrollView.delegate = self;
-    /* 페이지처럼 넘기게 하는 효과 -> 스토리보드 */
-//    self.scrollView.pagingEnabled = YES;
-//    [self.view addSubview:self.scrollView];
+    [self settingTapGestureRecognizerOnScrollView];
 }
-
 
 -(void)selectTheme:(NSInteger)formNumber {
     
@@ -69,77 +63,86 @@
         [self creatWriteSheet:self.sheetCount];
         //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
     }
-    
 }
 
-
-
-/* 네비게이션 바에 저장, 카드 추가, 공개 비공개여부 설정으로 넘어가는 버튼 추가하기 (네이버 포스트 참고) -- cheesing */
-
--(void)settingCustomButtonInNavigationBar:(NSString *)buttonImageName action:(SEL)action isLeft:(BOOL)isLeft {
-    
-    UIImage *buttonImage = [UIImage imageNamed:buttonImageName];
-    UIBarButtonItem *someButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:action];
-    someButton.tintColor = [UIColor blackColor];
-    
-    if (isLeft == YES) {
-        [self.leftBarButtonArray addObject:someButton];
-        self.navigationItem.leftBarButtonItems = self.leftBarButtonArray;
-    }
-    else {
-        [self.rightBarButtonArray addObject:someButton];
-        self.navigationItem.rightBarButtonItems = self.rightBarButtonArray;
-    }
-    
-}
 
 -(void)creatWriteSheet:(NSInteger)pageNumber {
     
-    //CGFloat navigationMargin = 10;
-    CGFloat margin = 60;
+    /* 시트 올려놓을 카드 생성, frame 세팅 */
+    CGFloat margin = 50;
     
-    CGFloat writeSheetOriginWidth = self.view.frame.size.width - margin;
+    CGFloat cardOriginWidth = self.view.frame.size.width;
+    CGFloat cardOriginX = (self.view.frame.size.width) * (self.sheetCount - 1);
+    CGFloat cardOriginY = margin/2;
+    CGFloat cardOriginHeight = self.view.frame.size.height - margin * 2;
+    CGRect cardFrame = CGRectMake(cardOriginX, cardOriginY, cardOriginWidth, cardOriginHeight);
+    UIView *card = [[UIView alloc]initWithFrame:cardFrame];
+    //card.backgroundColor = [UIColor redColor];
     
-    CGFloat writeSheetOriginX = self.view.frame.size.width/2.0f - writeSheetOriginWidth/2.0f;
-    
+    /* 시트 크기 세팅 */
+    CGFloat writeSheetOriginWidth = cardOriginWidth - margin;
+    CGFloat writeSheetOriginX = cardOriginWidth/2.0f - writeSheetOriginWidth/2.0f;
     CGFloat writeSheetOriginY = margin/2;
-    CGFloat writeSheetOriginHeight = self.view.frame.size.height - margin - 30;
+    CGFloat writeSheetOriginHeight = cardOriginHeight;
+    CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
     
-    CGRect writeSheetSize = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, self.view.frame.size.height - margin - 30);
-    
-    self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetSize];
-    //self.themeOneSheet.backgroundColor = [UIColor redColor];
+    /* 시트 생성 */
+    self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
+    //self.themeOneSheet.backgroundColor = [UIColor blueColor];
     self.themeOneSheet.delegate = self;
     [self.themeOneSheet settingUploadResume];
+    self.themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
+    self.themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.themeOneSheet.layer.borderWidth = 2.0;
+    [card addSubview:self.themeOneSheet];//시트는 카드 위에
     
-    CGRect cardFrame = CGRectMake(self.view.frame.size.width * (self.sheetCount - 1), 0, self.view.frame.size.width, self.view.frame.size.height);
-    UIView *card = [[UIView alloc]initWithFrame:cardFrame];
+    // ---- 페이지별로 세팅하는거
     
-    /* 텍스트뷰 array */
-    [self.textArray addObject:self.themeOneSheet.textView];
-    NSLog(@"%@ %@", self.textArray, self.themeOneSheet.textView);
-    [card addSubview:self.themeOneSheet];
+    /* 텍스트뷰를 array에 세팅*/
+    [self.textViewArray addObject:self.themeOneSheet.textView];
+    NSLog(@"%@ %@", self.textViewArray, self.themeOneSheet.textView);
+    
+    /* 스크롤뷰 위에 card addSubView */
     [self.scrollView addSubview:card];
 }
 
-   /************************/
-  /*    Button Action     */
- /************************/
+
+/************************/
+/*   Tap action 관련     */
+/************************/
+
+#pragma mark - TapGestureRecognizer
+
+-(void) settingTapGestureRecognizerOnScrollView {
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard)];
+    
+    [self.scrollView addGestureRecognizer:tap];
+}
+
+-(void) dismissKeyboard {
+    [self.themeOneSheet.textView endEditing:YES];
+}
+
+
+/************************/
+/*    Button Action     */
+/************************/
+
+#pragma mark - Button Action
 
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
     for (NSInteger i=0; i<=self.sheetCount-1; i++) {
-        UITextView *textView = [self.textArray objectAtIndex:i];
+        UITextView *textView = [self.textViewArray objectAtIndex:i];
         NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, textView.text);
     }
-    
-    
 }
 
 -(IBAction)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
-    // 삭제 기능 추가
+    // 삭제 기능 추가 (추후)
+    
     //alert창 추가 --  cheesing
     
     self.sheetCount++;
@@ -148,7 +151,7 @@
     [self creatWriteSheet:self.sheetCount];
     
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.sheetCount, self.scrollView.frame.size.height)];
-    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.sheetCount - 1), -self.navigationController.navigationBar.frame.size.height-24) animated:YES];
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.sheetCount - 1), 0) animated:YES];
 }
 
 /* upload button delegate */
@@ -158,10 +161,12 @@
 }
 
 
-    /************************/
-   /*     사진 업로드 기능     */
-  /*  - 액션시트, 이미지피커   */
- /************************/
+/************************/
+/*     사진 업로드 기능     */
+/*  - 액션시트, 이미지피커   */
+/************************/
+
+#pragma mark - ActionSheet, UIImagePickerController
 
 -(void)showActionSheet
 {
@@ -234,6 +239,8 @@
     self.themeOneSheet.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     /* 선택 이미지 데이터 array 추가 */
+    // (해당 사항 지우고, 시트가 생성될 때 index 별로 배열에 add)
+    // ---- 여기서는 클릭 이미지 인덱스 별로 접근 (현재 페이지 번호로 접근 -> Detail페이지 참고)------- cheesing
     [self.imageArray addObject:eiditedImage];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -247,14 +254,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 /*
- #pragma mark - Navigation
+ #pragma mark - Navigation 관련
  
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
+ -(void)settingCustomButtonInNavigationBar:(NSString *)buttonImageName action:(SEL)action isLeft:(BOOL)isLeft {
+ 
+ UIImage *buttonImage = [UIImage imageNamed:buttonImageName];
+ UIBarButtonItem *someButton = [[UIBarButtonItem alloc] initWithImage:buttonImage style:UIBarButtonItemStylePlain target:self action:action];
+ someButton.tintColor = [UIColor blackColor];
+ 
+ if (isLeft == YES) {
+ [self.leftBarButtonArray addObject:someButton];
+ self.navigationItem.leftBarButtonItems = self.leftBarButtonArray;
  }
+ else {
+ [self.rightBarButtonArray addObject:someButton];
+ self.navigationItem.rightBarButtonItems = self.rightBarButtonArray;
+ }
+ 
+ }
+ 
  */
 
 @end

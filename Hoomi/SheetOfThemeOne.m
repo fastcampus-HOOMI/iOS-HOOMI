@@ -146,8 +146,7 @@
     
     self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
     [self.uploadButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon1"] forState:UIControlStateNormal];
-    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon2"] forState:UIControlStateHighlighted];
+    [self.uploadButton setBackgroundImage:[UIImage imageNamed:@"uploadIcon"] forState:UIControlStateNormal];
     [self.imageView addSubview:self.uploadButton];
 
 }
