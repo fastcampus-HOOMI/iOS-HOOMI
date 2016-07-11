@@ -11,6 +11,7 @@
 #import "Singletone.h"
 #import "NetworkObject.h"
 #import "MyPageTableViewController.h"
+#import "WritePageViewController.h"
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -135,6 +136,11 @@
 - (IBAction)writeCareerPage:(id)sender {
     
     NSLog(@"Move Write Career Page");
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    WritePageViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"WritePage"];
+    
+    [self presentViewController:myPage animated:YES completion:nil];
     
 }
 

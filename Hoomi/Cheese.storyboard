@@ -61,7 +61,7 @@
         <!--Write Page View Controller-->
         <scene sceneID="nJB-BU-GXy">
             <objects>
-                <viewController id="iiv-jQ-Zk4" customClass="WritePageViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WritePage" id="iiv-jQ-Zk4" customClass="WritePageViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6Hb-28-qvI"/>
                         <viewControllerLayoutGuide type="bottom" id="Ptr-TB-rL0"/>
