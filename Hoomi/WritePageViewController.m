@@ -273,6 +273,8 @@
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;
+    
+    NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 현재 위치 컨텐츠 프로퍼티 세팅 */
@@ -284,8 +286,8 @@
 }
 
 -(void)changePageNotice {
+    self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage+1];
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%ld", self.totalPage];
-    self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage];
 }
 
    /************************************/
