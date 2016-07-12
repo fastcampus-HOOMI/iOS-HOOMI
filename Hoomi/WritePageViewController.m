@@ -18,7 +18,7 @@
 @property (nonatomic) NSInteger sheetCount;
 
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
-@property (nonatomic, strong) SheetOfThemeOne *themeOneSheet;
+@property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 
 @property (nonatomic) NSInteger currentPage;
 
@@ -29,11 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    self.textViewArray = [NSMutableArray new];
-    
     /* bar 버튼 array 세팅 */
     self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
+    
+    /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
     
     /* 임시 form 데이터
@@ -48,9 +47,9 @@
     
 }
 
-/**************************************/
-/*      페이지 구성 세팅 - 테마별 프레임     */
-/**************************************/
+   /**************************************/
+  /*      페이지 구성 세팅 - 테마별 프레임     */
+ /**************************************/
 
 -(void)creatScrollView {
     self.scrollView.delegate = self;
@@ -88,7 +87,7 @@
     CGFloat writeSheetOriginHeight = cardOriginHeight;
     CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
     
-    /* 시트 생성 */
+    /*
     self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
     //self.themeOneSheet.backgroundColor = [UIColor blueColor];
     self.themeOneSheet.delegate = self;
@@ -96,30 +95,36 @@
     self.themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
     self.themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.themeOneSheet.layer.borderWidth = 2.0;
-    [card addSubview:self.themeOneSheet];//시트는 카드 위에
-    
-    // ---- 페이지별로 세팅하는거
-    
+      시트 생성 */
+
+    /*
     [self.contentsArray addObject:self.themeOneSheet];
+    [card addSubview:self.themeOneSheet];//시트는 카드 위에
+    */
     
-    //////////////////////////////////// 컨텐츠 세팅 문제로 이미지, 텍스트뷰 아마도 삭제될 것
-    /////////////////////////////////// 컨텐츠 관련 객체 프로퍼티들은 다 지워야 하지 않을까? ------ cheesing
     
-    /* 이미지뷰 array에 세팅 */
-    [self.imageArray addObject:self.themeOneSheet.imageView.image];
+    //--------------------------- 변경
+    /* 내부 시트 생성 */
+    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
+    //self.themeOneSheet.backgroundColor = [UIColor blueColor];
+    themeOneSheet.delegate = self;
+    [themeOneSheet settingUploadResume];
+    themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
+    themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    themeOneSheet.layer.borderWidth = 2.0;
     
-    /* 텍스트뷰를 array에 세팅*/
-    [self.textViewArray addObject:self.themeOneSheet.textView];
-    NSLog(@"%@ %@", self.textViewArray, self.themeOneSheet.textView);
+    /*  */
+    [self.contentsArray addObject:themeOneSheet];
+    [card addSubview:themeOneSheet];//시트는 카드 위에
     
     /* 스크롤뷰 위에 card addSubView */
     [self.scrollView addSubview:card];
 }
 
 
-/************************/
-/*   Tap action 관련     */
-/************************/
+   /************************/
+  /*   Tap action 관련     */
+ /************************/
 
 #pragma mark - TapGestureRecognizer
 
@@ -130,21 +135,22 @@
 }
 
 -(void) dismissKeyboard {
-    [self.themeOneSheet.textView endEditing:YES];
+    [self.currentSheet.textView endEditing:YES];
 }
 
 
-/************************/
-/*    Button Action     */
-/************************/
+   /************************/
+  /*    Button Action     */
+ /************************/
 
 #pragma mark - Button Action
 
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
     for (NSInteger i=0; i<=self.sheetCount-1; i++) {
-        UITextView *textView = [self.textViewArray objectAtIndex:i];
-        NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, textView.text);
+        SheetOfThemeOne *view = [self.contentsArray objectAtIndex:i];
+        NSString *text = view.textView.text;
+        NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, text);
     }
 }
 
@@ -242,14 +248,20 @@
     
     UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    /* 선택 이미지 컨텐츠 array에 세팅 
-     -----------------------------------------  세팅 불규칙 버그 수정 cheesing*/
-    
+    /* 선택 이미지 컨텐츠 array에 세팅 ----------  세팅 불규칙 버그 수정 cheesing*/
+    /*
     SheetOfThemeOne *currentContents = [self.contentsArray objectAtIndex:self.currentPage];
     [currentContents.imageView setImage:eiditedImage];
     currentContents.uploadButton.alpha = 0;
     currentContents.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.contentsArray insertObject:currentContents atIndex:self.currentPage];
+     */
+    /* 선택된 이미지 */
+    //[self.contentsArray insertObject:currentContents atIndex:self.currentPage];
+    
+    self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
+    [self.currentSheet.imageView setImage:eiditedImage];
+    self.currentSheet.uploadButton.alpha = 0;
+    
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
@@ -271,9 +283,18 @@
     
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
-    /* 한 페이지 당 로드되도록 하는 이슈 해당 메소드 이용할 것
-     - cheesing */
+    /* 현재 위치 컨텐츠 프로퍼티 세팅 */
+    [self selectCurrentContents];
     
+}
+
+   /************************************/
+  /*       배열 객체 프로퍼티로 활용         */
+ /*************************************/
+
+/* 현재 페이지의 컨텐츠를 배열에서 꺼내오기 -> 프로퍼티로 세팅 */
+-(void)selectCurrentContents {
+    self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
 }
 
 
