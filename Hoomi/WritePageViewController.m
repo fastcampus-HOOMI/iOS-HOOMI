@@ -74,7 +74,7 @@
     
     CGFloat cardOriginWidth = self.view.frame.size.width;
     CGFloat cardOriginX = (self.view.frame.size.width) * (self.sheetCount - 1);
-    CGFloat cardOriginY = margin/2;
+    CGFloat cardOriginY = margin/2 - 10;
     CGFloat cardOriginHeight = self.view.frame.size.height - margin * 2;
     CGRect cardFrame = CGRectMake(cardOriginX, cardOriginY, cardOriginWidth, cardOriginHeight);
     UIView *card = [[UIView alloc]initWithFrame:cardFrame];
@@ -86,24 +86,6 @@
     CGFloat writeSheetOriginY = margin/2;
     CGFloat writeSheetOriginHeight = cardOriginHeight;
     CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
-    
-    /*
-    self.themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
-    //self.themeOneSheet.backgroundColor = [UIColor blueColor];
-    self.themeOneSheet.delegate = self;
-    [self.themeOneSheet settingUploadResume];
-    self.themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
-    self.themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.themeOneSheet.layer.borderWidth = 2.0;
-      시트 생성 */
-
-    /*
-    [self.contentsArray addObject:self.themeOneSheet];
-    [card addSubview:self.themeOneSheet];//시트는 카드 위에
-    */
-    
-    
-    //--------------------------- 변경
     /* 내부 시트 생성 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
     //self.themeOneSheet.backgroundColor = [UIColor blueColor];
@@ -111,7 +93,7 @@
     [themeOneSheet settingUploadResume];
     themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
     themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    themeOneSheet.layer.borderWidth = 2.0;
+    themeOneSheet.layer.borderWidth = 2.5;
     
     /*  */
     [self.contentsArray addObject:themeOneSheet];
@@ -184,8 +166,7 @@
 
 #pragma mark - ActionSheet, UIImagePickerController
 
--(void)showActionSheet
-{
+-(void)showActionSheet {
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"라이브러리" message:@"사진을 어디서 가져올까요?" preferredStyle:UIAlertControllerStyleActionSheet];
     
     UIAlertAction *carmera = [UIAlertAction actionWithTitle:@"카메라" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -236,32 +217,20 @@
 
 #pragma mark - UIImagePicker Controller Delegate
 
--(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     //picker를 모달로 내려준다.
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
-{
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
     NSLog(@"선택");
     
     UIImage *eiditedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
-    /* 선택 이미지 컨텐츠 array에 세팅 ----------  세팅 불규칙 버그 수정 cheesing*/
-    /*
-    SheetOfThemeOne *currentContents = [self.contentsArray objectAtIndex:self.currentPage];
-    [currentContents.imageView setImage:eiditedImage];
-    currentContents.uploadButton.alpha = 0;
-    currentContents.imageView.contentMode = UIViewContentModeScaleAspectFit;
-     */
-    /* 선택된 이미지 */
-    //[self.contentsArray insertObject:currentContents atIndex:self.currentPage];
-    
+    /* 프로퍼티로 세팅된 해당 페이지 객체에 이미지 세팅 */
     self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
     [self.currentSheet.imageView setImage:eiditedImage];
     self.currentSheet.uploadButton.alpha = 0;
-    
     
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

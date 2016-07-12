@@ -6,6 +6,7 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
+#import "QuartzCore/QuartzCore.h"
 #import "SheetOfThemeOne.h"
 
 @interface SheetOfThemeOne ()
@@ -43,9 +44,6 @@
     
     /* 업로드 버튼 */
     [self creatUploadButton];
-    
-    /* 버튼 관련 함수는 쓰는 곳에서 세팅해줘야함 */
-    //[self.uploadButton addTarget:self action:@selector(actionName:) forControlEvents:UIControlEventTouchUpInside];
     
     /* 텍스트 뷰 - 에디팅 가능 */
     NSString *comment = @"자신을 자유롭게 표현해주세요.";
@@ -105,6 +103,7 @@
     [self.imageView setImage:[UIImage imageNamed:imageName]];
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
+    self.imageView.layer.cornerRadius = 10.0;//곡선
     // 이미지뷰 터치 가능하도록 설정
     [self.imageView setUserInteractionEnabled:YES];
     [self addSubview:self.imageView];
@@ -142,7 +141,7 @@
 /* 업로드 버튼 */
 -(void)creatUploadButton {
     
-    CGFloat buttonSize = 50;
+    CGFloat buttonSize = 30;
     
     self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
     [self.uploadButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
