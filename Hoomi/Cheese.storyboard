@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="iiv-jQ-Zk4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -96,6 +96,10 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="asE-Kg-JUq"/>
+                                    <barButtonItem title="1" style="plain" id="crO-Pg-IRn"/>
+                                    <barButtonItem title="/" style="plain" id="zcs-8N-y4j"/>
+                                    <barButtonItem title="1" style="plain" id="z9p-kO-Kza"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="MFy-St-pj1"/>
                                     <barButtonItem image="pageAdd.png" id="WLA-Af-RPY">
                                         <connections>
                                             <action selector="onTouchUpInsidePageAddButton:" destination="iiv-jQ-Zk4" id="TFM-U4-Ixp"/>
@@ -118,7 +122,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="6hf-MJ-fc2"/>
                     <connections>
+                        <outlet property="currentPageNumberItem" destination="crO-Pg-IRn" id="z1h-Ib-SsU"/>
                         <outlet property="scrollView" destination="4cA-zg-4bx" id="pQG-0N-4aX"/>
+                        <outlet property="totalPageNumeItem" destination="z9p-kO-Kza" id="l1s-iy-Bke"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poS-qx-Yoo" userLabel="First Responder" sceneMemberID="firstResponder"/>

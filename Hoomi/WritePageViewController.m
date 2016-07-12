@@ -8,19 +8,22 @@
 #import "QuartzCore/QuartzCore.h"
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
+#import "NetworkObject.h"
 
 @interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
-@property (nonatomic) CGFloat offsetWidth;
-@property (nonatomic, strong) NSMutableArray *leftBarButtonArray;
-@property (nonatomic, strong) NSMutableArray *rightBarButtonArray;
-
-@property (nonatomic) NSInteger sheetCount;
-
+/* 화면 세팅 관련 */
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
+@property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
 
-@property (nonatomic) NSInteger currentPage;
+/* 컨텐츠 세팅 관련 */
+@property (nonatomic) NSInteger currentPage;//현재 페이지
+@property (nonatomic) NSInteger totalPage;//총 페이지
+
+/* toolbar 페이지 알림 설정 */
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeItem;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
 
 @end
 
@@ -29,21 +32,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    /* bar 버튼 array 세팅 */
-    self.rightBarButtonArray = [NSMutableArray arrayWithCapacity:1];
-    
     /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
     
-    /* 임시 form 데이터
-     네트워크 연결 후에는 헤더 파일에 있는
-     외부 프로퍼티를 통해 form 데이터 받아서 연결*/
-    [self selectTheme:1];
-    
-    //[self selectTheme:self.formNumber];
-    
     /* 스크롤뷰 생성 */
     [self creatScrollView];
+    
+    /* 임시 form 데이터
+     ->     네트워크 연결 후에는 헤더 파일에 있는
+     외부 프로퍼티를 통해 form 데이터 받아서 연결*/
+    [self creatWriteSheetByTheme:1];
+    //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
+    
     
 }
 
@@ -56,24 +56,27 @@
     [self settingTapGestureRecognizerOnScrollView];
 }
 
--(void)selectTheme:(NSInteger)formNumber {
+-(void)creatWriteSheetByTheme:(NSInteger)formNumber {
     
-    self.sheetCount = 1;
+    self.totalPage++;
     
     if (formNumber == 1) {
-        [self creatWriteSheet:self.sheetCount];
+        [self creatThemeOneSheet:self.totalPage];
+    }
+    if (formNumber == 2) {
         //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
+    }
+    else {
+        NSLog(@"준비된 테마가 아닙니다.");
     }
 }
 
-
--(void)creatWriteSheet:(NSInteger)pageNumber {
-    
+-(void)creatThemeOneSheet:(NSInteger)totalPage {
     /* 시트 올려놓을 카드 생성, frame 세팅 */
     CGFloat margin = 50;
     
     CGFloat cardOriginWidth = self.view.frame.size.width;
-    CGFloat cardOriginX = (self.view.frame.size.width) * (self.sheetCount - 1);
+    CGFloat cardOriginX = (self.view.frame.size.width) * (totalPage - 1);
     CGFloat cardOriginY = margin/2 - 10;
     CGFloat cardOriginHeight = self.view.frame.size.height - margin * 2;
     CGRect cardFrame = CGRectMake(cardOriginX, cardOriginY, cardOriginWidth, cardOriginHeight);
@@ -94,10 +97,10 @@
     themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
     themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
     themeOneSheet.layer.borderWidth = 2.5;
-    
-    /*  */
-    [self.contentsArray addObject:themeOneSheet];
     [card addSubview:themeOneSheet];//시트는 카드 위에
+    
+    /* 시트 생성시, 컨텐츠 array에 추가 */
+    [self.contentsArray addObject:themeOneSheet];
     
     /* 스크롤뷰 위에 card addSubView */
     [self.scrollView addSubview:card];
@@ -129,11 +132,23 @@
 
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
-    for (NSInteger i=0; i<=self.sheetCount-1; i++) {
+    
+    // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함) cheesing
+    NetworkObject *userToken = [[NetworkObject alloc]init];
+    NSString *aa = network.loadSessionValue;
+    
+    NSLog(@"--- 토큰 테스트 %@", aa);
+    
+    
+    for (NSInteger i=0; i<=self.totalPage-1; i++) {
         SheetOfThemeOne *view = [self.contentsArray objectAtIndex:i];
         NSString *text = view.textView.text;
         NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, text);
     }
+    
+    
+    
+    
 }
 
 -(IBAction)onTouchUpInsidePageAddButton:(id)sender {
@@ -143,13 +158,15 @@
     
     //alert창 추가 --  cheesing
     
-    self.sheetCount++;
-    NSLog(@"page %ld 장", self.sheetCount);
+    /* 스크롤뷰 컨텐츠 사이즈 증가 */
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.totalPage, self.scrollView.frame.size.height)];
     
-    [self creatWriteSheet:self.sheetCount];
+    // -------- 테마 임시데이터 cheesing
+    [self creatWriteSheetByTheme:1];
+    //[self selectTheme:self.formNumber];
     
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.sheetCount, self.scrollView.frame.size.height)];
-    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.sheetCount - 1), 0) animated:YES];
+    /* 스크롤 위치 이동 */
+    [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
 }
 
 /* upload button delegate */
@@ -159,10 +176,10 @@
 }
 
 
-/************************/
-/*     사진 업로드 기능     */
-/*  - 액션시트, 이미지피커   */
-/************************/
+    /************************/
+   /*     사진 업로드 기능     */
+  /*  - 액션시트, 이미지피커   */
+ /************************/
 
 #pragma mark - ActionSheet, UIImagePickerController
 
@@ -191,7 +208,6 @@
     
     [self presentViewController:alert animated:YES completion:nil];
 }
-
 
 /* 이미지 피커 관련 소스 함수 */
 -(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType {
@@ -239,7 +255,6 @@
   /*       delegate        */
  /*************************/
 
-
 #pragma mark - scrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -249,17 +264,27 @@
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;
-    
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 현재 위치 컨텐츠 프로퍼티 세팅 */
     [self selectCurrentContents];
     
+    /* toolbar 페이지 알림 텍스트 세팅 */
+    [self changePageNotice];
+    
+}
+
+-(void)changePageNotice {
+    self.totalPageNumeItem.title = [NSString stringWithFormat:@"%ld", self.totalPage];
+    self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage];
+    
 }
 
    /************************************/
-  /*       배열 객체 프로퍼티로 활용         */
- /*************************************/
+  /*       배열 객체 프로퍼티로 활용        */
+ /************************************/
+     
+#pragma mark - select contents in contentsArray
 
 /* 현재 페이지의 컨텐츠를 배열에서 꺼내오기 -> 프로퍼티로 세팅 */
 -(void)selectCurrentContents {
