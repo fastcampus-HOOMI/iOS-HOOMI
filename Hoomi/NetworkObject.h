@@ -11,7 +11,7 @@
 @interface NetworkObject : NSObject
 
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
-- (void)initSignUpUserID:(NSString *)userID name:(NSString *)name password:(NSString *)password;
+- (void)initSignUpUserID:(NSString *)userID lastName:(NSString *)lastName firstName:(NSString *)firstName password:(NSString *)password;
 
 // Default
 - (void)requestSignIn;

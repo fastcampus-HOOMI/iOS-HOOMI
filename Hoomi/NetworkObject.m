@@ -16,7 +16,8 @@
 
 @property (nonatomic) NSString *userID;
 @property (nonatomic) NSString *password;
-@property (nonatomic) NSString *name;
+@property (nonatomic) NSString *lastName;
+@property (nonatomic) NSString *firstName;
 
 @property (nonatomic) Singletone *singleTone;
 
@@ -33,13 +34,13 @@
     
 }
 
-- (void)initSignUpUserID:(NSString *)userID name:(NSString *)name password:(NSString *)password {
+- (void)initSignUpUserID:(NSString *)userID lastName:(NSString *)lastName firstName:(NSString *)firstName password:(NSString *)password {
     
     self.userID = userID;
     self.password = password;
-    self.name = name;
+    self.lastName = lastName;
+    self.firstName = firstName;
 
-    NSLog(@"%@, %@, %@", self.userID, self.password, self.name);
 }
 
 - (void)requestSignIn {
@@ -47,7 +48,7 @@
     self.singleTone = [Singletone requestInstance];
 
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"email"];
+    [bodyParams setObject:self.userID forKey:@"username"];
     [bodyParams setObject:self.password forKey:@"password"];
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:LoginUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -100,9 +101,10 @@
 - (void)requestSignUp {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"email"];
+    [bodyParams setObject:self.userID forKey:@"username"];
+    [bodyParams setObject:self.firstName forKey:@"first_name"];
+    [bodyParams setObject:self.lastName forKey:@"last_name"];
     [bodyParams setObject:self.password forKey:@"password"];
-    [bodyParams setObject:self.name forKey:@"name"];
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
@@ -129,7 +131,6 @@
                           
                       } else {
                           NSLog(@"token : %@", responseObject);
-                          [self saveSessionValue:responseObject];
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
                           
                       }

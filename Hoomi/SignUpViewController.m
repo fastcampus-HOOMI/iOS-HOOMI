@@ -16,7 +16,8 @@
 @property (nonatomic) Singletone *singleTone;
 
 @property (nonatomic, weak) IBOutlet UITextField *userIDTextfield;
-@property (nonatomic, weak) IBOutlet UITextField *nameTextfield;
+@property (nonatomic, weak) IBOutlet UITextField *lastNameTextfield;
+@property (nonatomic, weak) IBOutlet UITextField *firstNameTextfield;
 @property (nonatomic, weak) IBOutlet UITextField *passwordTextfield;
 @property (nonatomic, weak) IBOutlet UITextField *rePasswordTextfield;
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
@@ -49,7 +50,7 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    NSMutableArray *textFields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.nameTextfield, self.passwordTextfield, self.rePasswordTextfield, nil];
+    NSMutableArray *textFields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.lastNameTextfield, self.firstNameTextfield, self.passwordTextfield, self.rePasswordTextfield, nil];
     [self customTextFields:textFields];
     [self textFieldDelegate:textFields];
     
@@ -97,8 +98,10 @@
         
         if(textField == self.userIDTextfield) {
             placeholderText = @"E-mail address";
-        } else if(textField == self.nameTextfield) {
-            placeholderText = @"Name";
+        } else if(textField == self.lastNameTextfield) {
+            placeholderText = @"Last Name";
+        } else if(textField == self.firstNameTextfield) {
+            placeholderText = @"First Name";
         } else if(textField == self.passwordTextfield) {
             placeholderText = @"Password";
         } else if(textField == self.rePasswordTextfield) {
@@ -131,9 +134,19 @@
             self.isRightEmail = NO;
         }
         
-    } else if(textField == self.nameTextfield) {
+    } else if(textField == self.lastNameTextfield) {
       
-        if(self.nameTextfield.text.length > 0) {
+        if(self.lastNameTextfield.text.length > 0) {
+            leftColor = [UIColor greenColor];
+            self.isRightName = YES;
+        } else {
+            leftColor = [UIColor redColor];
+            self.isRightName = NO;
+        }
+        
+    } else if(textField == self.firstNameTextfield) {
+        
+        if(self.firstNameTextfield.text.length > 0) {
             leftColor = [UIColor greenColor];
             self.isRightName = YES;
         } else {
@@ -204,14 +217,15 @@
     [self.currentTextField endEditing:YES];
     
     NSString *userID = self.userIDTextfield.text;
-    NSString *name = self.nameTextfield.text;
+    NSString *lastName = self.lastNameTextfield.text;
+    NSString *firstName = self.firstNameTextfield.text;
     NSString *firstPassword = self.passwordTextfield.text;
     NSString *secondPassword = self.rePasswordTextfield.text;
     
     /*
      4개 필드 빈칸 여부
      */
-    if([userID isEqualToString:@""] || [name isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
+    if([userID isEqualToString:@""] || [lastName isEqualToString:@""] || [firstName isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
         
         [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
         return;
@@ -225,7 +239,7 @@
     if([firstPassword isEqualToString:secondPassword]) {
         
         NetworkObject *networkObj = [[NetworkObject alloc] init];
-        [networkObj initSignUpUserID:userID name:name password:secondPassword];
+        [networkObj initSignUpUserID:userID lastName:lastName firstName:firstName password:secondPassword];
         [networkObj requestSignUp];
         
         
