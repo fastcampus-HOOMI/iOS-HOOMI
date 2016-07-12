@@ -14,6 +14,7 @@
 
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
+@property (nonatomic) NSMutableDictionary *infoImages;
 
 @property (nonatomic) UIRefreshControl *refreshControl;
 
@@ -58,12 +59,30 @@
     [infoTable numberOfRowsInSection:3];
     [self.view addSubview:infoTable];
     
+    //info cell에 이미지 추가
+    
+    self.infoImages = [[NSMutableDictionary alloc] init];
+    [self.infoImages setValue:@"NewPost.png" forKey:@"email"];
+    [self.infoImages setValue:@"NeutralUser.png" forKey:@"name"];
+    [self.infoImages setValue:@"ContractJob.png" forKey:@"job"];
+    
+    UITableViewCell *infoCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"infoCell"];
+    NSArray *allImageKey = [self.infoImages allKeys];
+    NSString *imageKey = [allImageKey objectAtIndex:0];
+    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKey]];
+//    NSString *imageKeyTwo = [allImageKey objectAtIndex:1];
+//    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyTwo]];
+//    NSString *imageKeyThree = [allImageKey objectAtIndex:2];
+//    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyThree]];
+//    [infoTable addSubview:infoCell];
+    
 }
 
 -(void) refreshTable {
     //TODO: refresh your data
+    [self.tableView reloadData];
     [self.refreshControl endRefreshing];
-    //[self.view reloadData];
+    
 }
 
 // +버튼 클릭시 커스텀 alert창
@@ -81,7 +100,7 @@
     
     //form선택화면을 커스텀alert으로
     NSInteger margin = 60;
-    UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin / 2, - margin * 5, self.view.frame.size.width - margin, margin * 5)];
+    UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin /2, - margin *5, self.view.frame.size.width - margin, margin *5)];
 
     formSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     formSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
