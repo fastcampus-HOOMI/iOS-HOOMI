@@ -36,6 +36,7 @@
 @property (nonatomic) IBOutlet UIActivityIndicatorView *loginLoadIndicator;
 
 @property (nonatomic, strong) Singletone *singleTone;
+@property (nonatomic, strong) NetworkObject *networkObject;
 
 @property (nonatomic) BOOL isRightEmail;
 @property (nonatomic) BOOL isRightLengthPassword;
@@ -50,7 +51,7 @@
     [super viewDidLoad];
     
     self.singleTone = [Singletone requestInstance];
-    
+    self.networkObject = [NetworkObject requestInstance];
     // 로그인 Indicator 설정
     [self indicatorRunStatus:NO];
     
@@ -175,9 +176,8 @@
         NSLog(@"request login");
         [self indicatorRunStatus:YES];
         // NetworkObject로 요청
-        NetworkObject *networkObj = [[NetworkObject alloc] init];
-        [networkObj initSignInUserID:userID password:password];
-        [networkObj requestSignIn];
+        [self.networkObject initSignInUserID:userID password:password];
+        [self.networkObject requestSignIn];
         
     }
 }
@@ -195,7 +195,20 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
-        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
+//        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Fail" message:@"등록되어있지 않은 회원입니다.\n회원가입을 누르시면 가입이 진행됩니다." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *signUp = [UIAlertAction actionWithTitle:@"회원가입" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
+        
+        [alertController addAction:signUp];
+        [alertController addAction:ok];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        
     });
 }
 
@@ -308,7 +321,7 @@
  *  페이스북 로그인
  */
 - (IBAction)invokeLoginWithFacebook {
-    
+    [self indicatorRunStatus:YES];
     FBSDKLoginManager *login = [[FBSDKLoginManager alloc] init];
     [login
      logInWithReadPermissions:@[@"public_profile", @"email", @"user_friends"]
@@ -332,14 +345,13 @@
                       // 사용자 정보는 result에 다 들어있음
                       NSString *token = [[FBSDKAccessToken currentAccessToken] tokenString];
                       NSLog(@"facebook token : %@", token);
-                      NetworkObject *networkObject = [[NetworkObject alloc] init];
-                      [networkObject requestFacebookSignUpToken:token];
-                      [networkObject saveSessionValue:token];
+                      
+                      [self.networkObject requestFacebookSignUpToken:token];
                       
                   }
               }];
              
-             [self finishLogin];
+             [self successLogin];
          }
      }];
     

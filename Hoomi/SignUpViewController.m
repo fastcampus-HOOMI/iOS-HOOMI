@@ -14,6 +14,7 @@
 <UITextFieldDelegate>
 
 @property (nonatomic) Singletone *singleTone;
+@property (nonatomic) NetworkObject *networkObject;
 
 @property (nonatomic, weak) IBOutlet UITextField *userIDTextfield;
 @property (nonatomic, weak) IBOutlet UITextField *lastNameTextfield;
@@ -37,6 +38,7 @@
     [super viewDidLoad];
     
     self.singleTone = [Singletone requestInstance];
+    self.networkObject = [NetworkObject requestInstance];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self.userIDTextfield becomeFirstResponder];
@@ -238,9 +240,8 @@
     // 일치
     if([firstPassword isEqualToString:secondPassword]) {
         
-        NetworkObject *networkObj = [[NetworkObject alloc] init];
-        [networkObj initSignUpUserID:userID lastName:lastName firstName:firstName password:secondPassword];
-        [networkObj requestSignUp];
+        [self.networkObject initSignUpUserID:userID lastName:lastName firstName:firstName password:secondPassword];
+        [self.networkObject requestSignUp];
         
         
     } else { // 불일치
@@ -312,18 +313,5 @@
     }];
     
 }
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
