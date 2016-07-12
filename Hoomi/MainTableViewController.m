@@ -12,6 +12,7 @@
 #import "NetworkObject.h"
 #import "MyPageTableViewController.h"
 #import "WritePageViewController.h"
+#import "DetailResumeViewController.h"
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -176,6 +177,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
+    
+    [self presentViewController:detailResume animated:YES completion:nil];
+    
+    
 }
 
 #pragma mark - Select Job List Custom View

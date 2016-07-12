@@ -80,7 +80,7 @@
                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                           NSInteger statusCode = (long)httpResponse.statusCode;
                           NSLog(@"%ld", (long)statusCode);
-                          if (statusCode == 201) {
+                          if (statusCode == 200) {
                               NSLog(@"로그인 성공");
                               
                               NSString *token = [responseObject objectForKey:@"token"];

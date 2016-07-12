@@ -42,6 +42,7 @@
         <!--Navigation Controller-->
         <scene sceneID="lpy-mB-dpp">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Yp-mM-y90" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="DetailResume" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnTap="YES" id="HDU-tx-1e6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t2S-yB-WSB">
@@ -54,7 +55,6 @@
                         <segue destination="1f5-Oo-1YI" kind="relationship" relationship="rootViewController" id="EJp-hG-T0s"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Yp-mM-y90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1207" y="485"/>
         </scene>
