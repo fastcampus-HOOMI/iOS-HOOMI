@@ -7,11 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "NetworkObject.h"
 #import "MainTableViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) NetworkObject *networkObject;
 
 @end
 
@@ -22,22 +25,23 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    NSString *jtwToken = [self.networkObject loadSessionValue];
     
     // 로그인되어있는지 체크
-    if([FBSDKAccessToken currentAccessToken]) {
+    if(jtwToken != nil) {
         
         [self setRootViewController];
         NSLog(@"로그인 된 상태");
 
     }
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL isLogin = [defaults boolForKey:@"isLogin"];
-    
-    if (isLogin) {
-        [self setRootViewController];
-        NSLog(@"로그인 된 상태");
-    }
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    BOOL isLogin = [defaults boolForKey:@"isLogin"];
+//    
+//    if (isLogin) {
+//        [self setRootViewController];
+//        NSLog(@"로그인 된 상태");
+//    }
     
     // Override point for customization after application launch.
     return YES;

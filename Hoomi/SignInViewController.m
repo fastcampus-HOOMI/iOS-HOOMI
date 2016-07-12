@@ -40,7 +40,6 @@
 
 @property (nonatomic) BOOL isRightEmail;
 @property (nonatomic) BOOL isRightLengthPassword;
-@property (nonatomic) BOOL isLogin;
 
 @end
 
@@ -196,18 +195,20 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
 //        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
-        
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Fail" message:@"등록되어있지 않은 회원입니다.\n회원가입을 누르시면 가입이 진행됩니다." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *signUp = [UIAlertAction actionWithTitle:@"회원가입" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        /*
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"가입요청" message:@"등록되어있지 않은 회원입니다.\n회원가입을 누르시면 가입이 진행됩니다." preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *signUp = [UIAlertAction actionWithTitle:@"회원가입" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self signUpAction];
             
         }];
         UIAlertAction *ok = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
         
-        [alertController addAction:signUp];
         [alertController addAction:ok];
+        [alertController addAction:signUp];
         
         [self presentViewController:alertController animated:YES completion:nil];
-        
+        */
         
     });
 }
@@ -369,9 +370,6 @@
 }
 
 - (void)finishLogin {
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:YES forKey:@"isLogin"];
     
     MainTableViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
