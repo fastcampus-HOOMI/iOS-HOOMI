@@ -135,7 +135,7 @@
     
     // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함) cheesing
     NetworkObject *userToken = [[NetworkObject alloc]init];
-    NSString *aa = network.loadSessionValue;
+    NSString *aa = userToken.loadSessionValue;
     
     NSLog(@"--- 토큰 테스트 %@", aa);
     
