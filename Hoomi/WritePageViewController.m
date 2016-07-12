@@ -22,7 +22,7 @@
 @property (nonatomic) NSInteger totalPage;//총 페이지
 
 /* toolbar 페이지 알림 설정 */
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeItem;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
 
 @end
@@ -32,18 +32,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.currentPage = 1;
+    self.totalPage = 0;
+    
     /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
     
     /* 스크롤뷰 생성 */
     [self creatScrollView];
     
+    /* 초기 페이지 세팅 */
+    self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
+    self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
+    
     /* 임시 form 데이터
      ->     네트워크 연결 후에는 헤더 파일에 있는
      외부 프로퍼티를 통해 form 데이터 받아서 연결*/
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
-    
+
     
 }
 
@@ -58,17 +65,17 @@
 
 -(void)creatWriteSheetByTheme:(NSInteger)formNumber {
     
-    self.totalPage++;
+    self.totalPage += 1;
     
     if (formNumber == 1) {
         [self creatThemeOneSheet:self.totalPage];
     }
-    if (formNumber == 2) {
-        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
-    }
-    else {
-        NSLog(@"준비된 테마가 아닙니다.");
-    }
+//    if (formNumber == 2) {
+//        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
+//    }
+//    else {
+//        NSLog(@"준비된 테마가 아닙니다.");
+//    }
 }
 
 -(void)creatThemeOneSheet:(NSInteger)totalPage {
@@ -135,7 +142,7 @@
     
     // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함) cheesing
     NetworkObject *userToken = [[NetworkObject alloc]init];
-    NSString *aa = network.loadSessionValue;
+    NSString *aa = userToken.loadSessionValue;
     
     NSLog(@"--- 토큰 테스트 %@", aa);
     
@@ -158,12 +165,14 @@
     
     //alert창 추가 --  cheesing
     
-    /* 스크롤뷰 컨텐츠 사이즈 증가 */
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.totalPage, self.scrollView.frame.size.height)];
-    
     // -------- 테마 임시데이터 cheesing
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber];
+    
+    NSLog(@"총 페이지 %ld", self.totalPage);
+    
+    /* 스크롤뷰 컨텐츠 사이즈 증가 */
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.totalPage - 1, self.scrollView.frame.size.height)];
     
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
@@ -275,9 +284,8 @@
 }
 
 -(void)changePageNotice {
-    self.totalPageNumeItem.title = [NSString stringWithFormat:@"%ld", self.totalPage];
+    self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%ld", self.totalPage];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage];
-    
 }
 
    /************************************/
