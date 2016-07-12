@@ -19,12 +19,23 @@
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *firstName;
 
-@property (nonatomic) Singletone *singleTone;
-
-
 @end
 
 @implementation NetworkObject
+
++ (instancetype) requestInstance {
+    
+    static NetworkObject *networkObject = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        networkObject = [[NetworkObject alloc] init];
+        
+    });
+    
+    return networkObject;
+    
+}
 
 
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password {
@@ -44,8 +55,6 @@
 }
 
 - (void)requestSignIn {
-    
-    self.singleTone = [Singletone requestInstance];
 
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:self.userID forKey:@"username"];
@@ -167,13 +176,14 @@
                       if (error) {
                           NSLog(@"Facebook Error: %@", error);
                         
-//                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
                           
                       } else {
-                          NSLog(@"facebook token : %@", responseObject);
-                          [self saveSessionValue:responseObject];
+                          NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
+
+                          [self saveSessionValue:[responseObject objectForKey:@"token"]];
                           
-//                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
                           
                       }
                   }];
@@ -236,7 +246,6 @@
     // 불러올 때
     UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
     NSString *token = [keychain stringForKey:@"session"];
-//    NSLog(@"token : %@", token);
     
     return token;
     

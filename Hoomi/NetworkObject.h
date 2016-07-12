@@ -10,6 +10,8 @@
 
 @interface NetworkObject : NSObject
 
++ (instancetype) requestInstance;
+
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
 - (void)initSignUpUserID:(NSString *)userID lastName:(NSString *)lastName firstName:(NSString *)firstName password:(NSString *)password;
 
@@ -19,7 +21,6 @@
 
 // Social
 - (void)requestFacebookSignUpToken:(NSString *)token;
-- (void)requestFacebookSignInToken:(NSString *)token;
 
 // Save Job
 - (void)requestSaveJob:(NSString *)job Token:(NSString *)token;

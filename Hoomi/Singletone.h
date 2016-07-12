@@ -14,7 +14,7 @@ static NSString *SignUpSuccessNotification = @"SignUpSuccess";
 static NSString *SignUpFailNotification = @"SignUpFail";
 static NSString *LoadMainView = @"MainTableView";
 static NSString *LoginUrl = @"https://hoomi.work/api/login/";
-static NSString *FacebookLoginUrl = @"https://hoomi.work/api/mobile/signup/facebook/";
+static NSString *FacebookLoginUrl = @"https://hoomi.work/api/oauth/facebook/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
 
 #define colorAlpha 1.00 // 색상 투명도
