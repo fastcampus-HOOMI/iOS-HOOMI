@@ -91,8 +91,8 @@
     CGFloat cardOriginHeight = self.view.frame.size.height - margin * 2;
     CGRect cardFrame = CGRectMake(cardOriginX, cardOriginY, cardOriginWidth, cardOriginHeight);
     UIView *card = [[UIView alloc]initWithFrame:cardFrame];
-    card.backgroundColor = [UIColor redColor];
-    card.alpha = 0.5;
+    //card.backgroundColor = [UIColor redColor];
+    //card.alpha = 0.5;
     
     /* 시트 크기 세팅 */
     CGFloat writeSheetOriginWidth = cardOriginWidth - margin;
@@ -150,15 +150,11 @@
     
     NSLog(@"--- 토큰 테스트 %@", aa);
     
-    
     for (NSInteger i=0; i<=self.totalPage-1; i++) {
         SheetOfThemeOne *view = [self.contentsArray objectAtIndex:i];
         NSString *text = view.textView.text;
         NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, text);
     }
-    
-    
-    
     
 }
 
@@ -176,7 +172,7 @@
     NSLog(@"총 페이지 %ld", self.totalPage);
     
     /* 스크롤뷰 컨텐츠 사이즈 증가 */
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * (self.totalPage - 1), self.scrollView.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * (self.totalPage), self.scrollView.frame.size.height)];
     
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
