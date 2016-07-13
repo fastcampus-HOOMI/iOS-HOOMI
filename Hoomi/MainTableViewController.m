@@ -49,7 +49,7 @@
     
     [super viewDidLoad];
     
-    self.networkObject = [[NetworkObject alloc] init];
+    self.networkObject = [NetworkObject requestInstance];
     self.token = [self.networkObject loadSessionValue];
     
     self.animationDuration = 0.7;
