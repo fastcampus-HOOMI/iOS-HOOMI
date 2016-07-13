@@ -103,6 +103,8 @@
         
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
     /**********************/
     /* 네비게이션바 데이터 변경 */
     /**********************/
@@ -110,6 +112,12 @@
     [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+}
+
+- (void)LoadHitContentSuccess {
+    
+    NSLog(@"load hit content : %@", self.networkObject.hitContentDic);
     
 }
 

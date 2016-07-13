@@ -176,14 +176,14 @@
                       if (error) {
                           NSLog(@"Facebook Error: %@", error);
                         
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoginFailNotification object:nil];
                           
                       } else {
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
 
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
                           
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoginSuccessNotifiaction object:nil];
                           
                       }
                   }];
@@ -231,6 +231,37 @@
     [uploadTask resume];
     
 }
+
+- (void)requestHitContent {
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:LoadHitContentUrl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            
+            
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
+            
+        } else {
+            
+            NSLog(@"%@ %@", response, responseObject);
+            
+            self.hitContentDic = responseObject;
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+        }
+    }];
+    [dataTask resume];
+    
+    
+}
+
+
 
 
 - (void)saveSessionValue:(NSString *)session {

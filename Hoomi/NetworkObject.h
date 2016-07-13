@@ -10,6 +10,8 @@
 
 @interface NetworkObject : NSObject
 
+@property (nonatomic) NSDictionary *hitContentDic;
+
 + (instancetype) requestInstance;
 
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
