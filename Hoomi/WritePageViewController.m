@@ -17,11 +17,15 @@
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
 
+/* 페이지 변화 여부 */
+@property (nonatomic) NSInteger beforePage;
+
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
 @property (nonatomic) NSInteger totalPage;//총 페이지
 
 /* toolbar 페이지 알림 설정 */
+@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
 
@@ -32,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.currentPage = 1;
     self.totalPage = 0;
     
     /* contentsArray 세팅 */
@@ -50,7 +53,6 @@
      외부 프로퍼티를 통해 form 데이터 받아서 연결*/
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
-
     
 }
 
@@ -68,11 +70,12 @@
     self.totalPage += 1;
     
     if (formNumber == 1) {
+        NSLog(@"테마1 입니다.");
         [self creatThemeOneSheet:self.totalPage];
     }
-//    if (formNumber == 2) {
-//        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
-//    }
+    if (formNumber == 2) {
+        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
+    }
 //    else {
 //        NSLog(@"준비된 테마가 아닙니다.");
 //    }
@@ -88,12 +91,13 @@
     CGFloat cardOriginHeight = self.view.frame.size.height - margin * 2;
     CGRect cardFrame = CGRectMake(cardOriginX, cardOriginY, cardOriginWidth, cardOriginHeight);
     UIView *card = [[UIView alloc]initWithFrame:cardFrame];
-    //card.backgroundColor = [UIColor redColor];
+    card.backgroundColor = [UIColor redColor];
+    card.alpha = 0.5;
     
     /* 시트 크기 세팅 */
     CGFloat writeSheetOriginWidth = cardOriginWidth - margin;
     CGFloat writeSheetOriginX = cardOriginWidth/2.0f - writeSheetOriginWidth/2.0f;
-    CGFloat writeSheetOriginY = margin/2;
+    CGFloat writeSheetOriginY = 0;
     CGFloat writeSheetOriginHeight = cardOriginHeight;
     CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
     /* 내부 시트 생성 */
@@ -172,7 +176,7 @@
     NSLog(@"총 페이지 %ld", self.totalPage);
     
     /* 스크롤뷰 컨텐츠 사이즈 증가 */
-    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.totalPage - 1, self.scrollView.frame.size.height)];
+    [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * (self.totalPage - 1), self.scrollView.frame.size.height)];
     
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
@@ -266,7 +270,9 @@
 
 #pragma mark - scrollView delegate
 
+/* 스크롤 위치 (페이지) 추적 */
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     /* 현재 위치 */
     NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
     
