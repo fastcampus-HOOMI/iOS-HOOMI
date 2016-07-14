@@ -59,6 +59,7 @@
     self.singleTone = [Singletone requestInstance];
     self.selectedJob = @"Photograper"; // Default Job
     
+    // 메인화면으로 인기글 로드
     [self.networkObject requestHitContent];
     
     /**********************/
