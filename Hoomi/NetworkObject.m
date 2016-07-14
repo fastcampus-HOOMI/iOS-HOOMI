@@ -312,30 +312,27 @@
 
 // 이미지 리스트 받아오기 cheesing
 -(void)requestjobHistory {
-    
     NSLog(@"requestjobHistory");
-    
-    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
-    NSLog(@"%@", tokenParam);
-    
-    NSURL *URL = [NSURL URLWithString:JobHistoryURL];
-    
-    /* URLRquest로 요청서 작성 (어떤 contents 타입 원하는지 설정) */
-    // create request
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    
-    [request setHTTPMethod:@"GET"];
-    [request setURL:URL];
-    [request addValue:tokenParam forHTTPHeaderField: @"Authorization"];
-    
-    NSLog(@"request : %@", request);
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* URLRquest로 요청서 작성 (어떤 contents 타입 원하는지 설정) */
+//    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+//    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"GET"];
+    
+    [request setURL:[NSURL URLWithString:JobHistoryURL]];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"%@", error);
-        
         if (responseObject) {
             
             if ([responseObject[@"code"] isEqualToNumber:@200]) {
@@ -347,6 +344,7 @@
                 // 노티피게이션 보내기
                 [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListUpdataNotification object:nil];
             } else {
+                NSLog(@"%@", error);
                 [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
             }
             

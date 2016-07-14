@@ -22,7 +22,7 @@ static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/";
 
 
 /* 컨텐츠 관련 */
-static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history";
+static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history/";
 static NSString *ContentsListUpdataNotification = @"ImageListUpdataed";
 static NSString *ContentsListFailNotification = @"ImageListFail";
 
