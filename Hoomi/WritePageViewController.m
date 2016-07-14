@@ -183,6 +183,7 @@
 
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
+    
     if ([self isContentsNil] == YES) {
         [self creatAlert:@"경고" message:@"컨텐츠를 빠짐없이 기입해주세요" haveCancelButton:NO defaultHandler:nil];
     }

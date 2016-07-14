@@ -12,10 +12,14 @@ static NSString *LoginSuccessNotifiaction = @"LoginSuccess";
 static NSString *LoginFailNotification = @"LoginFail";
 static NSString *SignUpSuccessNotification = @"SignUpSuccess";
 static NSString *SignUpFailNotification = @"SignUpFail";
-static NSString *LoadMainView = @"MainTableView";
+static NSString *LoadHitContentSuccessNotification = @"LoadHitContentSuccess";
+static NSString *LoadHitContentFailNotification = @"LoadHitContentFail";
+
 static NSString *LoginUrl = @"https://hoomi.work/api/login/";
 static NSString *FacebookLoginUrl = @"https://hoomi.work/api/oauth/facebook/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
+static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/";
+
 
 /* 이미지 관련 */
 static NSString *ImageListUpdataNotification = @"ImageListUpdataed";

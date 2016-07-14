@@ -25,8 +25,9 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    self.networkObject = [NetworkObject requestInstance];
     NSString *jtwToken = [self.networkObject loadSessionValue];
-    
+    NSLog(@"AppDelegate jtwToken : %@", jtwToken);
     // 로그인되어있는지 체크
     if(jtwToken != nil) {
         
