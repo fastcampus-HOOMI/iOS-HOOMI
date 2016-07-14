@@ -13,7 +13,6 @@
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 @property (nonatomic) CGFloat offsetX;
 
@@ -152,6 +151,9 @@
    /*    Button Action     */
   /************************/
 
+- (IBAction)onTouchUpInsideCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
     /******************************/
    /*        컨텐츠 로드 관련        */

@@ -55,29 +55,23 @@
     
     
     /* 안내 애니메이션 */
-    [self animation];
+    [self startNoticeAnimation];
 }
 
--(void)animation {
+-(void)startNoticeAnimation {
     
     CGFloat rootViewWith = self.view.frame.size.width;
     CGFloat rootViewHeight = self.view.frame.size.height;
     
-    CGFloat labelWidth = rootViewWith - 40;
-    CGFloat labelHeghit = 40;
+    UIImageView *noticeImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rootViewWith, rootViewHeight)];
+    [noticeImage setImage:[UIImage imageNamed:@"notice"]];
+    [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
+    [self.scrollView addSubview:noticeImage];
     
-    CGFloat centerX = rootViewWith/2 - labelWidth/2;
-    CGFloat centerY = rootViewHeight/2 - labelHeghit/2;
-    
-    UIView *noticeLabel = [[UIView alloc]initWithFrame:CGRectMake(centerX, centerY, labelWidth, labelHeghit)];
-    noticeLabel.backgroundColor = [UIColor blueColor];
-    [self.scrollView addSubview:noticeLabel];
-    
-    [UIView animateWithDuration:3.0                 // 1.0초 동안
-                     animations:^{noticeLabel.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
+    [UIView animateWithDuration:5.0// 3.0초 동안
+                     animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
                      completion:^(BOOL finished){
-                         NSLog(@"test");
-                         [noticeLabel removeFromSuperview]; }];
+                         [noticeImage removeFromSuperview];}];
 }
 
    /**************************************/
@@ -168,30 +162,28 @@
 
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
-    
-    // --- alert 창 띄우기 ---cheesing
-    
-    // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함) cheesing
-    NetworkObject *userToken = [[NetworkObject alloc]init];
-    NSString *userTokenString = userToken.loadSessionValue;
-    NSLog(@"--- 토큰 테스트 userTokenString %@", userTokenString);
-    
-    // 저장 데이터 확인 테스트
-    for (NSInteger i=0; i<=self.totalPage-1; i++) {
-        SheetOfThemeOne *content = [self.contentsArray objectAtIndex:i];
-        UIImage *image = content.imageView.image;
-        NSString *text = content.textView.text;
-        NSLog(@"%ld번째 페이지 < 이미지: [%@] / 글 : [%@] > ", i+1, image ,text);
+    if ([self isContentsNil] == YES) {
+        [self creatAlert:@"경고" message:@"컨텐츠를 빠짐없이 기입해주세요" haveCancelButton:NO defaultHandler:nil];
     }
-    
+    else {
+        [self creatAlert:@"확인" message:@"저장하시겠습니까?" haveCancelButton:YES defaultHandler:^ {
+            
+            // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함)
+            NetworkObject *userToken = [[NetworkObject alloc]init];
+            NSString *userTokenString = userToken.loadSessionValue;
+            NSLog(@"--- 토큰 테스트 userTokenString %@", userTokenString);
+            NSLog(@"네트워킹 코드 짜야함");
+            
+            //close 기능
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 }
 
 -(IBAction)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
     // 삭제 기능 추가 (추후)
-    
-    //alert창 추가 --  cheesing
     
     // -------- 테마 임시데이터 cheesing
     [self creatWriteSheetByTheme:1];
@@ -215,6 +207,12 @@
     NSLog(@"업로드 버튼");
     [self showActionSheet];
 }
+
+/* close 기능 */
+- (IBAction)onTouchUpInsideCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 
     /************************/
@@ -254,8 +252,7 @@
 -(void)showImagePickerWithSourceType:(UIImagePickerControllerSourceType)sourceType {
     /* 소스타입 사용 가능한 상황인지 ex 시뮬레이터는 카메라 안됨 */
     if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO) {
-        // 사용자에겐 allert 띄워주기
-        // 난 로그를 볼 거다
+        [self creatAlert:@"알림" message:@"이용할 수 없는 파일 형식입니다." haveCancelButton:NO defaultHandler:nil];
         NSLog(@"이 소스는 못쓰낟");
     }
     else {
@@ -334,6 +331,49 @@
 -(void)selectCurrentContents {
     self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
 }
+
+/* 저장 컨텐츠 nil 확인 */
+-(BOOL)isContentsNil{
+    // 저장 데이터 확인
+    for (NSInteger i=0; i<=self.totalPage-1; i++) {
+        
+        SheetOfThemeOne *content = [self.contentsArray objectAtIndex:i];
+        UIImage *image = content.imageView.image;
+        NSString *text = content.textView.text;
+        NSLog(@"%ld번째 페이지 < 이미지: [%@] / 글 : [%@] > ", i+1, image ,text);
+        
+        if ((nil == image) || (0 == text.length)) {
+            return YES;
+        }
+    }
+    NSLog(@"컨텐츠가 빠짐없이 기입되어있습니다. 저장해도 좋습니다.");
+    return NO;
+}
+
+
+  /***************************/
+ /*         alert           */
+/***************************/
+
+-(void)creatAlert:(NSString *)title message:(NSString *) message haveCancelButton:(BOOL)haveCancelButton defaultHandler:(void (^)(void))handler {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        //블럭함수
+        handler();
+        
+    }];
+    [alert addAction:okButton];
+    
+    if (haveCancelButton == YES) {
+        UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:cancelButton];
+    }
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 
 
 
