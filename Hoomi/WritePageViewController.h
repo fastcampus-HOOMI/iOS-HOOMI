@@ -12,6 +12,4 @@
 
 @property (nonatomic) NSInteger formThemeNumber;
 
-@property (nonatomic, strong) NSMutableArray *contentsArray;
-
 @end

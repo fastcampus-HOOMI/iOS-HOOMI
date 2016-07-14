@@ -8,22 +8,34 @@
 
 #import "DetailResumeViewController.h"
 #import "SheetOfThemeOne.h"
+#import "NetworkObject.h"
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
-@property (weak, nonatomic) IBOutlet UINavigationItem *navigationItem;
 
 @property (nonatomic) CGFloat offsetX;
+
+/* 페이지 변화 인지 */
+@property (nonatomic) NSInteger beforePage;
+@property (nonatomic) NSInteger currentPage;
 
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
 @implementation DetailResumeViewController
 
+-(void)viewWillAppear:(BOOL)animated {
+    // 네트워크를 통한 데이터 세팅
+    [self LoadDetailResumeData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    //처음 페이지 (인덱스로)
+    self.beforePage = 0;
     
     /* Indicator
        1) 데이터 들어올 때 활성화
@@ -78,8 +90,6 @@
 -(void)settingSheetOfDetailPage {
     
     [self creatScrollView];
-    [self customButtonInNavigationBar];
-    
     
     /* 지금은 for문으로 한 꺼번에 creat
      -> scrollView delegate 를 통해 page 체크 후에 다운로드
@@ -109,21 +119,23 @@
     [self.view addSubview:self.scrollView];
 }
 
--(void)customButtonInNavigationBar {
-    
-    // customButton 세팅
-    
-}
-
-
 -(void)creatContentsSheet:(NSInteger)pageNumber {
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
     /* 이미지와 텍스트 세팅
-     - 현재는 배열로 세팅을 시켰지만, 나중에는 서버 데이터를 불러오는 걸로 세팅해야함 cheesing -> downLoadDeatilContents */
+     - 현재는 배열로 세팅을 시켰지만, 나중에는 서버 데이터를 불러오는 걸로 세팅해야함 cheesing ->
+     
+     downLoadDeatilContents ---- cheesing */
+    
+    /////
+    
+    
     NSString *imageName = [self.imageNameList objectAtIndex:pageNumber-1];
     NSString *text = [self.textList objectAtIndex:pageNumber-1];
     [themeOneSheet settingDetailResume:imageName text:text];
+    
+    ////////
+    
     [self.scrollView addSubview:themeOneSheet];
 }
 
@@ -152,18 +164,8 @@
    /*    Button Action     */
   /************************/
 
-
-    /******************************/
-   /*        컨텐츠 로드 관련        */
-  /******************************/
-
-
-#pragma mark - lazyLoad
-
--(void)lazyLoadDeatilContents {
-    
-    // 페이지마다 로드 되도록 하는 작업
-    
+- (IBAction)onTouchUpInsideCancelButton:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
@@ -175,19 +177,65 @@
 #pragma mark - scrollView delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
     /* 현재 위치 */
-    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+    //NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
     
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
-    NSInteger currentPage = currentX / scrollView.frame.size.width;
+    self.currentPage = currentX / scrollView.frame.size.width;//현재페이지 인식
     
-    NSLog(@"Current page : %ld (인덱스값)", currentPage);
+    NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
+    NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
-    /* 한 페이지 당 로드되도록 하는 이슈 해당 메소드 이용할 것
-       - cheesing */
+    /* 페이지 변화 감지 */
+    /* ------paging load 관련 인지 (cheesing)
+    if ([self isChangePage]==YES) {
+        [self LoadDetailResumeData];
+    }
+    */
+}
+
+   /************************************/
+  /*     network & load data 관련      */
+ /************************************/
+
+#pragma mark - network & load data
+
+-(BOOL)isChangePage {
+    if (self.beforePage == self.currentPage) {
+        return NO;
+    }
+    else {
+        // 변화했으니 비교할 페이지 변수 변경
+        self.beforePage = self.currentPage;
+        return YES;
+    }
     
 }
+
+/* 한 이력서 전체 페이지 한꺼번에 불러 오기 
+  --> 추후 lazy load로 변경 */
+-(void)LoadDetailResumeData {
+    [[NetworkObject requestInstance] requestImageList];
+}
+
+
+
+/* 현재 페이지의 컨텐츠를 배열에서 꺼내오기 -> 프로퍼티로 세팅 */
+-(void)selectCurrentContents {
+    //self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
+}
+
+
+#pragma mark - lazyLoad
+
+-(void)lazyLoadDeatilContents {
+    
+    // 페이지마다 로드 되도록 하는 작업
+    
+}
+
 
 
 - (void)didReceiveMemoryWarning {
