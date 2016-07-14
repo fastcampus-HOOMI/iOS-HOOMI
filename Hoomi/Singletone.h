@@ -12,10 +12,14 @@ static NSString *LoginSuccessNotifiaction = @"LoginSuccess";
 static NSString *LoginFailNotification = @"LoginFail";
 static NSString *SignUpSuccessNotification = @"SignUpSuccess";
 static NSString *SignUpFailNotification = @"SignUpFail";
-static NSString *LoadMainView = @"MainTableView";
+static NSString *LoadHitContentSuccessNotification = @"LoadHitContentSuccess";
+static NSString *LoadHitContentFailNotification = @"LoadHitContentFail";
+
 static NSString *LoginUrl = @"https://hoomi.work/api/login/";
 static NSString *FacebookLoginUrl = @"https://hoomi.work/api/oauth/facebook/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
+static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/";
+
 
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이

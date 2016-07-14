@@ -10,6 +10,8 @@
 
 @interface NetworkObject : NSObject
 
+@property (nonatomic) NSDictionary *hitContentDic;
+
 + (instancetype) requestInstance;
 
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
@@ -24,6 +26,9 @@
 
 // Save Job
 - (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
+
+// Load Main
+- (void)requestHitContent;
 
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;

@@ -49,7 +49,7 @@
     
     [super viewDidLoad];
     
-    self.networkObject = [[NetworkObject alloc] init];
+    self.networkObject = [NetworkObject requestInstance];
     self.token = [self.networkObject loadSessionValue];
     
     self.animationDuration = 0.7;
@@ -58,6 +58,9 @@
     // 싱글톤 객체 생성
     self.singleTone = [Singletone requestInstance];
     self.selectedJob = @"Photograper"; // Default Job
+    
+    // 메인화면으로 인기글 로드
+    [self.networkObject requestHitContent];
     
     /**********************/
     /* 테스트를 위한 임시데이터 */
@@ -103,6 +106,8 @@
         
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
     /**********************/
     /* 네비게이션바 데이터 변경 */
     /**********************/
@@ -110,6 +115,12 @@
     [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+}
+
+- (void)LoadHitContentSuccess {
+    
+    NSLog(@"load hit content : %@", self.networkObject.hitContentDic);
     
 }
 

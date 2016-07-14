@@ -72,7 +72,6 @@
     
     // 노티피케이션 센터 등록
     [self notificationObserver];
-    
 }
 
 - (void)notificationObserver {
@@ -352,7 +351,7 @@
                   }
               }];
              
-             [self successLogin];
+             
          }
      }];
     

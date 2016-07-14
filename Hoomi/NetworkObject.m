@@ -176,14 +176,14 @@
                       if (error) {
                           NSLog(@"Facebook Error: %@", error);
                         
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoginFailNotification object:nil];
                           
                       } else {
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
 
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
                           
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoginSuccessNotifiaction object:nil];
                           
                       }
                   }];
@@ -232,11 +232,62 @@
     
 }
 
+- (void)requestHitContent {
+    
+    NSLog(@"requestHitcontent");
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    
+    NSLog(@"%@", tokenParam)
+    ;
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:tokenParam forKey:@"Authorization"];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:LoadHitContentUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"Error: %@", error);
+                          
+                      } else {
+                          NSLog(@"data : %@", responseObject);
+                          
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+                          
+                      }
+                  }];
+    
+    [uploadTask resume];
+    
+    
+}
+
+
+
 
 - (void)saveSessionValue:(NSString *)session {
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    keychain[@"session"] = session;
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+//    keychain[@"session"] = session;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:session forKey:@"session"];
     
    
 }
@@ -244,8 +295,11 @@
 - (NSString *)loadSessionValue {
     
     // 불러올 때
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    NSString *token = [keychain stringForKey:@"session"];
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+//    NSString *token = [keychain stringForKey:@"session"];
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:@"session"];
     
     return token;
     
