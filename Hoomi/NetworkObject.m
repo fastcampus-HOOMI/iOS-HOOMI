@@ -283,8 +283,11 @@
 
 - (void)saveSessionValue:(NSString *)session {
     
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    keychain[@"session"] = session;
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+//    keychain[@"session"] = session;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:session forKey:@"session"];
     
    
 }
@@ -292,8 +295,11 @@
 - (NSString *)loadSessionValue {
     
     // 불러올 때
-    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-    NSString *token = [keychain stringForKey:@"session"];
+//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+//    NSString *token = [keychain stringForKey:@"session"];
+
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *token = [userDefaults objectForKey:@"session"];
     
     return token;
     
