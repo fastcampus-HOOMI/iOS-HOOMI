@@ -35,8 +35,8 @@
 
 
 /* contents Load 관련 */
-@property (nonatomic, strong) NSArray *imageInforJSONArray;
+@property (nonatomic, strong) NSArray *jobHistoryInforJSONArray;
 
--(void)requestImageList;
+-(void)requestjobHistory;
 
 @end

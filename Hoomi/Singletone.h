@@ -21,10 +21,10 @@ static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
 static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/";
 
 
-/* 이미지 관련 */
-static NSString *ImageListUpdataNotification = @"ImageListUpdataed";
+/* 컨텐츠 관련 */
 static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history";
-static NSString *ImageListFailNotification = @"ImageListFail";
+static NSString *ContentsListUpdataNotification = @"ImageListUpdataed";
+static NSString *ContentsListFailNotification = @"ImageListFail";
 
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이

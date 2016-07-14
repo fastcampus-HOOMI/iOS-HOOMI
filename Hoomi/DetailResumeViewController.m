@@ -217,7 +217,7 @@
 /* 한 이력서 전체 페이지 한꺼번에 불러 오기 
   --> 추후 lazy load로 변경 */
 -(void)LoadDetailResumeData {
-    [[NetworkObject requestInstance] requestImageList];
+    [[NetworkObject requestInstance] requestjobHistory];
 }
 
 
