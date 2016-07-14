@@ -101,7 +101,6 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.71570592420000001" blue="0.50341518600000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="4cA-zg-4bx" secondAttribute="trailing" id="9OT-l9-f62"/>
                                     <constraint firstItem="4cA-zg-4bx" firstAttribute="top" secondItem="RZU-GW-Lxx" secondAttribute="top" id="LDX-8k-TFN"/>
@@ -131,7 +130,6 @@
                     <connections>
                         <outlet property="currentPageNumberItem" destination="crO-Pg-IRn" id="z1h-Ib-SsU"/>
                         <outlet property="scrollView" destination="4cA-zg-4bx" id="pQG-0N-4aX"/>
-                        <outlet property="toolBar" destination="dRX-Yg-pP6" id="oX6-FZ-Def"/>
                         <outlet property="totalPageNumeberItem" destination="z9p-kO-Kza" id="4Nw-Ym-InT"/>
                     </connections>
                 </viewController>

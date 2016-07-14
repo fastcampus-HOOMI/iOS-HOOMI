@@ -17,15 +17,14 @@
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
 
-/* 페이지 변화 여부 */
-@property (nonatomic) NSInteger beforePage;
-
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
 @property (nonatomic) NSInteger totalPage;//총 페이지
 
+/* 데이터 보관 */
+@property (nonatomic, strong) NSMutableArray *contentsArray;
+
 /* toolbar 페이지 알림 설정 */
-@property (strong, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
 
@@ -50,10 +49,35 @@
     
     /* 임시 form 데이터
      ->     네트워크 연결 후에는 헤더 파일에 있는
-     외부 프로퍼티를 통해 form 데이터 받아서 연결*/
+     외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
     
+    
+    /* 안내 애니메이션 */
+    [self animation];
+}
+
+-(void)animation {
+    
+    CGFloat rootViewWith = self.view.frame.size.width;
+    CGFloat rootViewHeight = self.view.frame.size.height;
+    
+    CGFloat labelWidth = rootViewWith - 40;
+    CGFloat labelHeghit = 40;
+    
+    CGFloat centerX = rootViewWith/2 - labelWidth/2;
+    CGFloat centerY = rootViewHeight/2 - labelHeghit/2;
+    
+    UIView *noticeLabel = [[UIView alloc]initWithFrame:CGRectMake(centerX, centerY, labelWidth, labelHeghit)];
+    noticeLabel.backgroundColor = [UIColor blueColor];
+    [self.scrollView addSubview:noticeLabel];
+    
+    [UIView animateWithDuration:3.0                 // 1.0초 동안
+                     animations:^{noticeLabel.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
+                     completion:^(BOOL finished){
+                         NSLog(@"test");
+                         [noticeLabel removeFromSuperview]; }];
 }
 
    /**************************************/
@@ -68,6 +92,7 @@
 -(void)creatWriteSheetByTheme:(NSInteger)formNumber {
     
     self.totalPage += 1;
+    NSLog(@"총 페이지 ------ %ld", self.totalPage);
     
     if (formNumber == 1) {
         NSLog(@"테마1 입니다.");
@@ -94,7 +119,7 @@
     //card.backgroundColor = [UIColor redColor];
     //card.alpha = 0.5;
     
-    /* 시트 크기 세팅 */
+    /* 시트 frame 세팅 */
     CGFloat writeSheetOriginWidth = cardOriginWidth - margin;
     CGFloat writeSheetOriginX = cardOriginWidth/2.0f - writeSheetOriginWidth/2.0f;
     CGFloat writeSheetOriginY = 0;
@@ -108,7 +133,7 @@
     themeOneSheet.layer.cornerRadius = 10.0;//시트 카드모양으로
     themeOneSheet.layer.borderColor = [UIColor lightGrayColor].CGColor;
     themeOneSheet.layer.borderWidth = 2.5;
-    [card addSubview:themeOneSheet];//시트는 카드 위에
+    [card addSubview:themeOneSheet];//시트는 카드 위에 addSubView
     
     /* 시트 생성시, 컨텐츠 array에 추가 */
     [self.contentsArray addObject:themeOneSheet];
@@ -144,16 +169,19 @@
 -(IBAction)onTouchUpInsideSave:(id)sender {
     NSLog(@"저장 버튼");
     
+    // --- alert 창 띄우기 ---cheesing
+    
     // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함) cheesing
     NetworkObject *userToken = [[NetworkObject alloc]init];
-    NSString *aa = userToken.loadSessionValue;
+    NSString *userTokenString = userToken.loadSessionValue;
+    NSLog(@"--- 토큰 테스트 userTokenString %@", userTokenString);
     
-    NSLog(@"--- 토큰 테스트 %@", aa);
-    
+    // 저장 데이터 확인 테스트
     for (NSInteger i=0; i<=self.totalPage-1; i++) {
-        SheetOfThemeOne *view = [self.contentsArray objectAtIndex:i];
-        NSString *text = view.textView.text;
-        NSLog(@"%ld번째 페이지 글 : [%@] ", i+1, text);
+        SheetOfThemeOne *content = [self.contentsArray objectAtIndex:i];
+        UIImage *image = content.imageView.image;
+        NSString *text = content.textView.text;
+        NSLog(@"%ld번째 페이지 < 이미지: [%@] / 글 : [%@] > ", i+1, image ,text);
     }
     
 }
@@ -176,6 +204,10 @@
     
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
+    
+    /* 맨 뒷 페이지를 기준으로 
+       컨텐츠 사이즈 증가는 맨 뒷페이지 가장 뒷부분까지를 (페이지 전체니까)
+       스크롤 위치 이동은 맨 뒷페이지의 가장 앞부분으로 가야한다. (x 좌표) */
 }
 
 /* upload button delegate */
