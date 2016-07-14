@@ -79,8 +79,8 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRX-Yg-pP6">
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
-                                    <barButtonItem width="12" style="plain" systemItem="fixedSpace" id="ewG-cW-xKv"/>
-                                    <barButtonItem title="작성 취소" id="EDT-Jh-YDg">
+                                    <barButtonItem width="5" style="plain" systemItem="fixedSpace" id="ewG-cW-xKv"/>
+                                    <barButtonItem title="작성 취소" style="plain" id="EDT-Jh-YDg">
                                         <connections>
                                             <action selector="onTouchUpInsideCancelButton:" destination="iiv-jQ-Zk4" id="Hyn-vx-V5L"/>
                                         </connections>
@@ -101,7 +101,6 @@
                                             <action selector="onTouchUpInsideSave:" destination="iiv-jQ-Zk4" id="EEa-Vj-mtn"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem width="13" style="plain" systemItem="fixedSpace" id="ZWc-zf-zSx"/>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-GW-Lxx">
@@ -142,6 +141,7 @@
                         <outlet property="currentPageNumberItem" destination="crO-Pg-IRn" id="z1h-Ib-SsU"/>
                         <outlet property="scrollView" destination="4cA-zg-4bx" id="pQG-0N-4aX"/>
                         <outlet property="totalPageNumeberItem" destination="z9p-kO-Kza" id="4Nw-Ym-InT"/>
+                        <outlet property="writeCancelButton" destination="EDT-Jh-YDg" id="rs5-dw-Cu1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="poS-qx-Yoo" userLabel="First Responder" sceneMemberID="firstResponder"/>

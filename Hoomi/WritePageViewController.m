@@ -16,6 +16,8 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
+
 
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
@@ -43,6 +45,9 @@
     /* 스크롤뷰 생성 */
     [self creatScrollView];
     
+    /* 작성 취소 버튼 폰트 및 글자 크기 세팅 */
+    [self settingWriteCancelButtonFont];
+    
     /* 초기 페이지 세팅 */
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
@@ -53,25 +58,8 @@
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
     
-    
     /* 안내 애니메이션 */
     [self startNoticeAnimation];
-}
-
--(void)startNoticeAnimation {
-    
-    CGFloat rootViewWith = self.view.frame.size.width;
-    CGFloat rootViewHeight = self.view.frame.size.height;
-    
-    UIImageView *noticeImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rootViewWith, rootViewHeight)];
-    [noticeImage setImage:[UIImage imageNamed:@"notice"]];
-    [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
-    [self.scrollView addSubview:noticeImage];
-    
-    [UIView animateWithDuration:5.0// 3.0초 동안
-                     animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
-                     completion:^(BOOL finished){
-                         [noticeImage removeFromSuperview];}];
 }
 
    /**************************************/
@@ -135,6 +123,36 @@
     /* 스크롤뷰 위에 card addSubView */
     [self.scrollView addSubview:card];
 }
+
+   /************************/
+  /*      화면 효과 관련     */
+ /************************/
+
+#pragma mark - UI effect
+
+/* 작성취소 버튼 폰트/글자크기 세팅 */
+-(void)settingWriteCancelButtonFont {
+    [self.writeCancelButton setTitleTextAttributes:@{
+                                                     NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:15.0]} forState:UIControlStateNormal];
+}
+
+/* 시작시 안내 애니메이션 */
+-(void)startNoticeAnimation {
+    
+    CGFloat rootViewWith = self.view.frame.size.width;
+    CGFloat rootViewHeight = self.view.frame.size.height;
+    
+    UIImageView *noticeImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rootViewWith, rootViewHeight)];
+    [noticeImage setImage:[UIImage imageNamed:@"notice"]];
+    [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
+    [self.scrollView addSubview:noticeImage];
+    
+    [UIView animateWithDuration:5.0// 3.0초 동안
+                     animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
+                     completion:^(BOOL finished){
+                         [noticeImage removeFromSuperview];}];
+}
+
 
 
    /************************/
@@ -212,8 +230,6 @@
 - (IBAction)onTouchUpInsideCancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
     /************************/
    /*     사진 업로드 기능     */
