@@ -234,29 +234,46 @@
 
 - (void)requestHitContent {
     
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    NSLog(@"requestHitcontent");
     
-    NSURL *URL = [NSURL URLWithString:LoadHitContentUrl];
-    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
     
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-            
-            
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
-            
-        } else {
-            
-            NSLog(@"%@ %@", response, responseObject);
-            
-            self.hitContentDic = responseObject;
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
-        }
-    }];
-    [dataTask resume];
+    NSLog(@"%@", tokenParam)
+    ;
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:tokenParam forKey:@"Authorization"];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:LoadHitContentUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionUploadTask *uploadTask;
+    uploadTask = [manager
+                  uploadTaskWithStreamedRequest:request
+                  progress:^(NSProgress * _Nonnull uploadProgress) {
+                      // This is not called back on the main queue.
+                      // You are responsible for dispatching to the main queue for UI updates
+                      dispatch_async(dispatch_get_main_queue(), ^{
+                          //Update the progress view
+                          
+                      });
+                  }
+                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+                      if (error) {
+                          NSLog(@"Error: %@", error);
+                          
+                      } else {
+                          NSLog(@"data : %@", responseObject);
+                          
+                          [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+                          
+                      }
+                  }];
+    
+    [uploadTask resume];
     
     
 }

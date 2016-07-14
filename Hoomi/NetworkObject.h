@@ -27,6 +27,9 @@
 // Save Job
 - (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
 
+// Load Main
+- (void)requestHitContent;
+
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;
 

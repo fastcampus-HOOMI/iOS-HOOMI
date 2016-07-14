@@ -59,6 +59,8 @@
     self.singleTone = [Singletone requestInstance];
     self.selectedJob = @"Photograper"; // Default Job
     
+    [self.networkObject requestHitContent];
+    
     /**********************/
     /* 테스트를 위한 임시데이터 */
     /**********************/

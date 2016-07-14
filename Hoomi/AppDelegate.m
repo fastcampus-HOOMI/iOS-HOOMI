@@ -31,7 +31,7 @@
     // 로그인되어있는지 체크
     if(jtwToken != nil) {
         
-//        [self setRootViewController];
+        [self setRootViewController];
         NSLog(@"로그인 된 상태");
 
     }
