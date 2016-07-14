@@ -19,7 +19,7 @@ static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
 
 /* 이미지 관련 */
 static NSString *ImageListUpdataNotification = @"ImageListUpdataed";
-static NSString *JobHistoryDetailURL = @"https://hoomi.work/api/job-history/%ld";
+static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history";
 static NSString *ImageListFailNotification = @"ImageListFail";
 
 #define colorAlpha 1.00 // 색상 투명도
