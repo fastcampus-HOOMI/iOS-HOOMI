@@ -28,4 +28,10 @@
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;
 
+
+/* contents Load 관련 */
+@property (nonatomic, strong) NSArray *imageInforJSONArray;
+
+-(void)requestImageList;
+
 @end

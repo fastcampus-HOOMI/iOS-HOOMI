@@ -57,10 +57,13 @@
      외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
     [self creatWriteSheetByTheme:1];
     //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
-    
+}
+
+-(void)viewDidLayoutSubviews {
     /* 안내 애니메이션 */
     [self startNoticeAnimation];
 }
+
 
    /**************************************/
   /*      페이지 구성 세팅 - 테마별 프레임     */
@@ -136,7 +139,7 @@
                                                      NSFontAttributeName: [UIFont fontWithName:@"Helvetica" size:15.0]} forState:UIControlStateNormal];
 }
 
-/* 시작시 안내 애니메이션 */
+/* 시작 시 안내 애니메이션 */
 -(void)startNoticeAnimation {
     
     CGFloat rootViewWith = self.view.frame.size.width;
@@ -327,7 +330,7 @@
     /* 현재 위치 컨텐츠 프로퍼티 세팅 */
     [self selectCurrentContents];
     
-    /* toolbar 페이지 알림 텍스트 세팅 */
+    /* toolbar 페이지 텍스트 세팅 */
     [self changePageNotice];
     
 }

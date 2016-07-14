@@ -12,6 +12,11 @@
 
 @property (nonatomic, strong) NSArray<NSString *> *imageNameList;
 @property (nonatomic, strong) NSArray<NSString *> *textList;
+
+/* 데이터 보관 */
+@property (nonatomic, strong) NSMutableArray *contentsArray;
+
+/* 총 장수 */
 @property (nonatomic) NSInteger totalPageNumber;
 
 @end
