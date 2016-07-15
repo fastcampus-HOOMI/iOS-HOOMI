@@ -14,7 +14,7 @@
 
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
-@property (nonatomic) NSMutableDictionary *infoImages;
+@property (nonatomic) NSArray *infoImageNames;
 
 @property (nonatomic) UIRefreshControl *refreshControl;
 
@@ -43,6 +43,12 @@
     [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
     [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
     
+    
+    
+    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
+    
+    
+    /*
     //my info view가 보여질 부분
     UIView *headerView = self.tableView.tableHeaderView;
     self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
@@ -52,6 +58,11 @@
     UIImage *infoImage = [UIImage imageNamed:@"EmployeeCard.png"];
     infoImageView.image = infoImage;
     [self.view addSubview:infoImageView];
+    
+    self.infoImages = [[NSMutableDictionary alloc] init];
+    [self.infoImages setValue:@"NewPost.png" forKey:@"email"];
+    [self.infoImages setValue:@"NeutralUser.png" forKey:@"name"];
+    [self.infoImages setValue:@"ContractJob.png" forKey:@"job"];
 
     //테이블뷰로 user info 정보 받을 화면 구현
     UITableView *infoTable =[[UITableView alloc] initWithFrame:CGRectMake(70, 10, self.view.frame.size.width-60, 180)];
@@ -74,8 +85,8 @@
 //    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyTwo]];
 //    NSString *imageKeyThree = [allImageKey objectAtIndex:2];
 //    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyThree]];
-//    [infoTable addSubview:infoCell];
-    
+    [infoTable addSubview:infoCell];
+    */
 }
 
 -(void) refreshTable {
@@ -182,18 +193,32 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
+    if (section == 0) {
+        return 3;
+    }
   //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
     return [self.listData count];
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+        
+        NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:imageName];
+        
+        cell.textLabel.text = @"ABC";
+        
+        return cell;
+    }
+    
+    
     MyPageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     NSArray *allKey = [self.listData allKeys];
@@ -215,6 +240,13 @@
     }
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 44.f;
+    }
+    return 140.f;
+}
 
 /*
 // Override to support conditional editing of the table view.
