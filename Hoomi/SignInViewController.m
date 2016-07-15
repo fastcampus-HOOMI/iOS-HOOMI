@@ -121,7 +121,7 @@
 }
 
 -(void)textFieldDidChange :(UITextField *) textField{
-    NSLog(@"change passwordTextfield");
+//    NSLog(@"change passwordTextfield");
     
     UIColor *leftColor = nil;
     if (textField == self.userIDTextfield) {

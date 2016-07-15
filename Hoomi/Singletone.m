@@ -96,7 +96,7 @@
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegEx];
     
     if ([emailTest evaluateWithObject:email] == NO) {
-        NSLog(@"email이 아닙니다.");
+//        NSLog(@"email이 아닙니다.");
         return NO;
     }else {
         NSLog(@"email이 맞습니다.");
