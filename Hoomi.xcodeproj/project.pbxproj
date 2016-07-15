@@ -11,14 +11,19 @@
 		418328711D37EFCE006B2268 /* NewPost-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286E1D37EFCE006B2268 /* NewPost-1.png */; };
 		418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286F1D37EFCE006B2268 /* NeutralUser-1.png */; };
 		418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 418328701D37EFCE006B2268 /* EmployeeCard-1.png */; };
+		030C2C5E1D374A43001AF242 /* notice.png in Resources */ = {isa = PBXBuildFile; fileRef = 030C2C5D1D374A43001AF242 /* notice.png */; };
+		03B149AF1D33444C00262E65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B149AE1D33444C00262E65 /* pageAdd.png */; };
+		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
+		03DCAC971D325F6E0012CA65 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC951D325F6E0012CA65 /* save.png */; };
 		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
+		FF0756771D2FDC1400690662 /* career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0756761D2FDC1400690662 /* career@2x.png */; };
+		FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF07569B1D333E0F00690662 /* SignUpViewController.m */; };
+		FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF084D6D1D36357800A7F51A /* HitContentViewController.m */; };
 		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
-		FF51D4FF1D2E151B00EB409B /* WritePageWithFromOne.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */; };
 		FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FC1D2E151B00EB409B /* grayColor.jpg */; };
 		FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FD1D2E151B00EB409B /* uploadIcon.png */; };
 		FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */; };
-		FF51D50A1D2E152B00EB409B /* SheetOfDetailResume.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */; };
 		FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5061D2E152B00EB409B /* 1.jpg */; };
 		FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5071D2E152B00EB409B /* 2.jpg */; };
 		FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5081D2E152B00EB409B /* 3.jpg */; };
@@ -30,14 +35,13 @@
 		FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5181D2E184700EB409B /* nature22.jpg */; };
 		FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5191D2E184700EB409B /* nature33.jpg */; };
 		FF51D5201D2E184700EB409B /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D51A1D2E184700EB409B /* nature44.jpg */; };
+		FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5241D2F497F00EB409B /* NetworkObject.m */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
-		FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */; };
 		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
 		FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2161D2B683600D359D0 /* MainTableViewController.m */; };
-		FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */; };
 		FF82D21C1D2B8A2100D359D0 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21B1D2B8A2100D359D0 /* background.png */; };
 		FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21D1D2B8E5800D359D0 /* nature.jpg */; };
 		FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */; };
@@ -46,12 +50,16 @@
 		FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */; };
 		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
 		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
-		FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */; };
 		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
 		FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE36DC41D2CEDB200E157D0 /* Singletone.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030C2C5D1D374A43001AF242 /* notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notice.png; sourceTree = "<group>"; };
+		03B149AE1D33444C00262E65 /* pageAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageAdd.png; sourceTree = "<group>"; };
+		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
+		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
+		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4183286B1D375B06006B2268 /* RequestUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestUserInfo.h; sourceTree = "<group>"; };
@@ -60,17 +68,18 @@
 		4183286F1D37EFCE006B2268 /* NeutralUser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NeutralUser-1.png"; sourceTree = "<group>"; };
 		418328701D37EFCE006B2268 /* EmployeeCard-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmployeeCard-1.png"; sourceTree = "<group>"; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
+		FF0756761D2FDC1400690662 /* career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career@2x.png"; sourceTree = "<group>"; };
+		FF07569A1D333E0F00690662 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		FF07569B1D333E0F00690662 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		FF084D6C1D36357800A7F51A /* HitContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitContentViewController.h; sourceTree = "<group>"; };
+		FF084D6D1D36357800A7F51A /* HitContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitContentViewController.m; sourceTree = "<group>"; };
 		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
-		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePageViewController.h; sourceTree = "<group>"; };
-		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritePageViewController.m; sourceTree = "<group>"; };
-		FF51D4FA1D2E151B00EB409B /* WritePageWithFromOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePageWithFromOne.h; sourceTree = "<group>"; };
-		FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WritePageWithFromOne.m; sourceTree = "<group>"; };
+		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePageViewController.h; path = Hoomi/WritePageViewController.h; sourceTree = "<group>"; };
+		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePageViewController.m; path = Hoomi/WritePageViewController.m; sourceTree = "<group>"; };
 		FF51D4FC1D2E151B00EB409B /* grayColor.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grayColor.jpg; sourceTree = "<group>"; };
 		FF51D4FD1D2E151B00EB409B /* uploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon.png; sourceTree = "<group>"; };
-		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailResumeViewController.h; sourceTree = "<group>"; };
-		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailResumeViewController.m; sourceTree = "<group>"; };
-		FF51D5041D2E152B00EB409B /* SheetOfDetailResume.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfDetailResume.h; sourceTree = "<group>"; };
-		FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfDetailResume.m; sourceTree = "<group>"; };
+		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailResumeViewController.h; path = Hoomi/DetailResumeViewController.h; sourceTree = "<group>"; };
+		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailResumeViewController.m; path = Hoomi/DetailResumeViewController.m; sourceTree = "<group>"; };
 		FF51D5061D2E152B00EB409B /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
 		FF51D5071D2E152B00EB409B /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
 		FF51D5081D2E152B00EB409B /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
@@ -84,6 +93,8 @@
 		FF51D5181D2E184700EB409B /* nature22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature22.jpg; sourceTree = "<group>"; };
 		FF51D5191D2E184700EB409B /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
 		FF51D51A1D2E184700EB409B /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
+		FF51D5231D2F497F00EB409B /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkObject.h; sourceTree = "<group>"; };
+		FF51D5241D2F497F00EB409B /* NetworkObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkObject.m; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,14 +102,10 @@
 		FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5904E71D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF5904E91D20D1ED001FC9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingUpTableViewController.h; sourceTree = "<group>"; };
-		FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingUpTableViewController.m; sourceTree = "<group>"; };
 		FF65A0551D24DC470013C181 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
 		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
 		FF82D2151D2B683600D359D0 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
 		FF82D2161D2B683600D359D0 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
-		FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobSelectViewController.h; sourceTree = "<group>"; };
-		FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobSelectViewController.m; sourceTree = "<group>"; };
 		FF82D21B1D2B8A2100D359D0 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		FF82D21D1D2B8E5800D359D0 /* nature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature.jpg; sourceTree = "<group>"; };
 		FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListTableViewCell.h; sourceTree = "<group>"; };
@@ -108,7 +115,6 @@
 		FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
-		FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "kakao@2x.png"; sourceTree = "<group>"; };
 		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
 		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
 		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
@@ -131,6 +137,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0378EDEC1D2E33A800F14DAA /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */,
+				03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */,
+				FF51D5061D2E152B00EB409B /* 1.jpg */,
+				FF51D5071D2E152B00EB409B /* 2.jpg */,
+				FF51D5081D2E152B00EB409B /* 3.jpg */,
+				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
+				FF51D4FD1D2E151B00EB409B /* uploadIcon.png */,
+				03B149AE1D33444C00262E65 /* pageAdd.png */,
+				03DCAC951D325F6E0012CA65 /* save.png */,
+			);
+			name = Sheet;
+			sourceTree = "<group>";
+		};
+		03DCAC551D2F7B700012CA65 /* ContentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
+				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
+				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
+				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
+				030C2C5D1D374A43001AF242 /* notice.png */,
+			);
+			name = ContentsViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		805B089F0550420D326CFC19 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,33 +181,6 @@
 				32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FF51D4F61D2E14FE00EB409B /* WritePage */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
-				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
-				FF51D4FA1D2E151B00EB409B /* WritePageWithFromOne.h */,
-				FF51D4FB1D2E151B00EB409B /* WritePageWithFromOne.m */,
-				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
-				FF51D4FD1D2E151B00EB409B /* uploadIcon.png */,
-			);
-			name = WritePage;
-			sourceTree = "<group>";
-		};
-		FF51D4F71D2E150700EB409B /* DetailResume */ = {
-			isa = PBXGroup;
-			children = (
-				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
-				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
-				FF51D5041D2E152B00EB409B /* SheetOfDetailResume.h */,
-				FF51D5051D2E152B00EB409B /* SheetOfDetailResume.m */,
-				FF51D5061D2E152B00EB409B /* 1.jpg */,
-				FF51D5071D2E152B00EB409B /* 2.jpg */,
-				FF51D5081D2E152B00EB409B /* 3.jpg */,
-			);
-			name = DetailResume;
 			sourceTree = "<group>";
 		};
 		FF51D5121D2E183000EB409B /* MyPage */ = {
@@ -200,10 +208,10 @@
 			children = (
 				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
 				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
-				FF82D2181D2B7C4900D359D0 /* JobSelectViewController.h */,
-				FF82D2191D2B7C4900D359D0 /* JobSelectViewController.m */,
 				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
 				FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */,
+				FF084D6C1D36357800A7F51A /* HitContentViewController.h */,
+				FF084D6D1D36357800A7F51A /* HitContentViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -244,11 +252,13 @@
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
 				FFE36DC31D2CEDB200E157D0 /* Singletone.h */,
 				FFE36DC41D2CEDB200E157D0 /* Singletone.m */,
+				FF51D5231D2F497F00EB409B /* NetworkObject.h */,
+				FF51D5241D2F497F00EB409B /* NetworkObject.m */,
 				FF51D5221D2E1AF300EB409B /* Storyboard */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
-				FF51D4F71D2E150700EB409B /* DetailResume */,
-				FF51D4F61D2E14FE00EB409B /* WritePage */,
+				0378EDEC1D2E33A800F14DAA /* Sheet */,
+				03DCAC551D2F7B700012CA65 /* ContentsViewController */,
 				FF51D5121D2E183000EB409B /* MyPage */,
 				FFA4D3711D27D8360029FDB1 /* Keychain */,
 				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
@@ -275,11 +285,11 @@
 				FF82D2221D2B917800D359D0 /* nature1.jpg */,
 				FF82D21B1D2B8A2100D359D0 /* background.png */,
 				FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */,
+				FF0756761D2FDC1400690662 /* career@2x.png */,
 				FF65A0551D24DC470013C181 /* SignInViewController.h */,
 				FF65A0561D24DC470013C181 /* SignInViewController.m */,
-				FF65A04F1D24D93C0013C181 /* SingUpTableViewController.h */,
-				FF65A0501D24D93C0013C181 /* SingUpTableViewController.m */,
-				FFA4D36E1D27D5270029FDB1 /* kakao@2x.png */,
+				FF07569A1D333E0F00690662 /* SignUpViewController.h */,
+				FF07569B1D333E0F00690662 /* SignUpViewController.m */,
 			);
 			name = SignView;
 			sourceTree = "<group>";
@@ -337,7 +347,7 @@
 				TargetAttributes = {
 					FF5904D41D20D1EC001FC9A0 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = PAFK4RNFW2;
+						DevelopmentTeam = 3Z5E8777P2;
 						SystemCapabilities = {
 							com.apple.Keychain = {
 								enabled = 1;
@@ -373,24 +383,28 @@
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
 				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
 				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
+				03B149AF1D33444C00262E65 /* pageAdd.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
+				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
 				FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */,
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
 				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
 				418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */,
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
+				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
+				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
 				FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */,
 				FF51D5201D2E184700EB409B /* nature44.jpg in Resources */,
 				FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */,
-				FFA4D36F1D27D5270029FDB1 /* kakao@2x.png in Resources */,
 				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
 				418328711D37EFCE006B2268 /* NewPost-1.png in Resources */,
 				FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */,
 				418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */,
+				030C2C5E1D374A43001AF242 /* notice.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,20 +465,20 @@
 			files = (
 				4183286D1D375B06006B2268 /* RequestUserInfo.m in Sources */,
 				FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */,
-				FF51D50A1D2E152B00EB409B /* SheetOfDetailResume.m in Sources */,
+				FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */,
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
-				FF82D21A1D2B7C4900D359D0 /* JobSelectViewController.m in Sources */,
 				FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
+				FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */,
 				FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
 				FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */,
 				FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */,
 				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
-				FF65A0511D24D93C0013C181 /* SingUpTableViewController.m in Sources */,
-				FF51D4FF1D2E151B00EB409B /* WritePageWithFromOne.m in Sources */,
 				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
 				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
+				FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */,
+				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +589,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Hoomi",
@@ -583,6 +598,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -593,6 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Hoomi",
@@ -601,6 +618,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

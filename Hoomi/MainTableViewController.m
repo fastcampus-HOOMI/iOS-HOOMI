@@ -7,9 +7,12 @@
 //
 
 #import "MainTableViewController.h"
-#import "JobSelectViewController.h"
 #import "ImageListTableViewCell.h"
 #import "Singletone.h"
+#import "NetworkObject.h"
+#import "MyPageTableViewController.h"
+#import "WritePageViewController.h"
+#import "DetailResumeViewController.h"
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -32,6 +35,8 @@
 @property (nonatomic) NSInteger margin; // 커스텀 뷰 margin
 
 @property (nonatomic) Singletone *singleTone; // 싱글톤 객체
+@property (nonatomic) NetworkObject *networkObject;
+@property (nonatomic, weak) NSString *token;
 
 @property (nonatomic) IBOutlet UIBarButtonItem *writeCareer;
 @property (nonatomic) IBOutlet UIBarButtonItem *myPage;
@@ -44,15 +49,23 @@
     
     [super viewDidLoad];
     
+    self.networkObject = [NetworkObject requestInstance];
+    self.token = [self.networkObject loadSessionValue];
+    
     self.animationDuration = 0.7;
     self.margin = 60;
     
     // 싱글톤 객체 생성
     self.singleTone = [Singletone requestInstance];
+    self.selectedJob = @"Photograper"; // Default Job
+    
+    // 메인화면으로 인기글 로드
+    [self.networkObject requestHitContent];
     
     /**********************/
     /* 테스트를 위한 임시데이터 */
     /**********************/
+    // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     
     self.imageData = [[NSMutableDictionary alloc] initWithCapacity:1];
@@ -61,8 +74,6 @@
     
     self.defaults = [NSUserDefaults standardUserDefaults];
     
-    NSLog(@"userJob : %@", [self.defaults objectForKey:@"userJob"]);
-    [self.defaults setObject:nil forKey:@"userJob"];
     /* 유저가 선택한 직군의 데이터가 없으면 직군 선택화면을 띄움 */
     if([self.defaults objectForKey:@"userJob"] == nil) {
         
@@ -95,13 +106,21 @@
         
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
     /**********************/
     /* 네비게이션바 데이터 변경 */
     /**********************/
     self.title = @"HOOMI";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorKey:@"salmon"]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+}
+
+- (void)LoadHitContentSuccess {
+    
+    NSLog(@"load hit content : %@", self.networkObject.hitContentDic);
     
 }
 
@@ -115,6 +134,26 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)showMyPage:(id)sender {
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"EK" bundle:nil];
+    MyPageTableViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"MyPage"];
+    
+    [self presentViewController:myPage animated:YES completion:nil];
+    
+}
+
+- (IBAction)writeCareerPage:(id)sender {
+    
+    NSLog(@"Move Write Career Page");
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    WritePageViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"WritePage"];
+    
+    [self presentViewController:myPage animated:YES completion:nil];
+    
 }
 
 #pragma mark - Table view data source
@@ -131,7 +170,10 @@
 #pragma mark - Table view delegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
+    
+    static NSString *Cell = @"Cell";
+    
+    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
     
     NSArray *allKey = [self.imageData allKeys];
     NSString *key = [allKey objectAtIndex:indexPath.row];
@@ -146,22 +188,28 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
+    
+    [self presentViewController:detailResume animated:YES completion:nil];
+    
+    
 }
 
 #pragma mark - Select Job List Custom View
 - (void)selectJobList {
     
-    // 직군을 선택하는동안은 스크롤 안됨
-    [self.tableView setScrollEnabled:NO];
+    // 테이블뷰 스크롤 및 버튼 활성화
+    [self scrollAndButtonEnable:NO];
     
     NSInteger cornerRadius = 3; // 버튼 모서리
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f; // 버튼 텍스트 Title
     
     // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
     UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(self.margin / 2, - self.margin * 5, self.view.frame.size.width - self.margin, self.margin * 5)];
     jobSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    jobSelectCustomView.backgroundColor = [self.singleTone colorKey:@"concrete"];
+    jobSelectCustomView.backgroundColor = [self.singleTone colorName:Concrete];
     jobSelectCustomView.layer.borderWidth = 2.0f;
     
     // jobSelectCustomView에 PickerView 추가
@@ -175,10 +223,9 @@
     [selectButton addTarget:self action:@selector(selectUserJob) forControlEvents:UIControlEventTouchUpInside];
     selectButton.layer.cornerRadius = cornerRadius;
     selectButton.clipsToBounds = clipsToBounds;
-    [selectButton setBackgroundColor:[self.singleTone colorKey:@"salmon"]];
+    [selectButton setBackgroundColor:[self.singleTone colorName:Tuna]];
     [selectButton setTitle:@"등록" forState:UIControlStateNormal];
     [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     [jobSelectCustomView addSubview:selectButton];
     
     self.jobSelectCustomView = jobSelectCustomView;
@@ -199,6 +246,8 @@
 - (void)selectUserJob {
     
     [self.defaults setObject:self.selectedJob forKey:@"userJob"];
+    NSLog(@"userJob : %@", self.selectedJob);
+//    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
     
     // 커스텀뷰 사라지는 애니메이션
     [UIView animateWithDuration:self.animationDuration animations:^{
@@ -210,8 +259,8 @@
         [self.effectView removeFromSuperview];
         [self.jobSelectCustomView removeFromSuperview];
         
-        // 테이블뷰 스크롤 가능
-        [self.tableView setScrollEnabled:YES];
+        // 테이블뷰 스크롤 및 버튼 활성화
+        [self scrollAndButtonEnable:YES];
         
     }];
     
@@ -242,6 +291,18 @@
     
 }
 
+/**
+ *  직군선택하는 커스텀뷰가 실행되면 테이블뷰 스크롤과 버튼을 비활성화시키는 메소드
+ *
+ *  @param enable 활성화 YES, 비활성화 NO
+ */
+- (void)scrollAndButtonEnable:(BOOL) enable {
+    
+    [self.tableView setScrollEnabled:enable];
+    [self.writeCareer setEnabled:enable];
+    [self.myPage setEnabled:enable];
+    
+}
 
 /*
  // Override to support conditional editing of the table view.

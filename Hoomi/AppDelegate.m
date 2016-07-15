@@ -7,12 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "NetworkObject.h"
 #import "MainTableViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <KakaoOpenSDK/KakaoOpenSDK.h>
 
 @interface AppDelegate ()
+
+@property (nonatomic, strong) NetworkObject *networkObject;
 
 @end
 
@@ -23,14 +25,24 @@
     
     [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
-    
+    self.networkObject = [NetworkObject requestInstance];
+    NSString *jtwToken = [self.networkObject loadSessionValue];
+    NSLog(@"AppDelegate jtwToken : %@", jtwToken);
     // 로그인되어있는지 체크
-    if([FBSDKAccessToken currentAccessToken] || [KOSession sharedSession].accessToken) {
+    if(jtwToken != nil) {
         
         [self setRootViewController];
         NSLog(@"로그인 된 상태");
 
     }
+    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    BOOL isLogin = [defaults boolForKey:@"isLogin"];
+//    
+//    if (isLogin) {
+//        [self setRootViewController];
+//        NSLog(@"로그인 된 상태");
+//    }
     
     // Override point for customization after application launch.
     return YES;
@@ -39,7 +51,7 @@
 - (void)setRootViewController {
     
     // User is logged in, do work such as go to next view controller.
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Uma" bundle:nil];
     MainTableViewController *mainViewController = [storyBoard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
 //    [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
@@ -51,19 +63,11 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     
-    
-    if ([KOSession isKakaoAccountLoginCallback:url]) {
-        return [KOSession handleOpenURL:url];
-    }
-    else {
-        
-
-        return [[FBSDKApplicationDelegate sharedInstance] application:application
+           return [[FBSDKApplicationDelegate sharedInstance] application:application
                                                           openURL:url
                                                 sourceApplication:sourceApplication
                                                        annotation:annotation
-                ];
-    }
+                   ];
 }
 
 
@@ -87,7 +91,6 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     
     [FBSDKAppEvents activateApp];
-    [KOSession handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

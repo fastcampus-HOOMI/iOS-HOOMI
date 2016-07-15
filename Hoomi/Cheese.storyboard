@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Detail Resume View Controller-->
@@ -17,8 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4FL-1I-Wnk">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4FL-1I-Wnk">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -29,20 +30,25 @@
                             <constraint firstItem="4FL-1I-Wnk" firstAttribute="top" secondItem="3mK-uI-r1r" secondAttribute="bottom" id="jX9-hD-Neo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="usV-Bk-Bxt"/>
+                    <navigationItem key="navigationItem" id="AJ6-LE-aoA">
+                        <barButtonItem key="leftBarButtonItem" title="Close" style="plain" id="MfM-lN-BsV">
+                            <connections>
+                                <action selector="onTouchUpInsideCancelButton:" destination="1f5-Oo-1YI" id="RXp-nB-Tao"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="navigationItem" destination="usV-Bk-Bxt" id="rKX-B5-t59"/>
                         <outlet property="scrollView" destination="4FL-1I-Wnk" id="hIm-d8-OY7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ImH-Kc-eYb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1924" y="565"/>
+            <point key="canvasLocation" x="2019" y="485"/>
         </scene>
-        <!--Temp Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="lpy-mB-dpp">
             <objects>
-                <navigationController storyboardIdentifier="DetailResume" automaticallyAdjustsScrollViewInsets="NO" id="HDU-tx-1e6" customClass="tempNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DetailResume" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnTap="YES" id="HDU-tx-1e6" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="t2S-yB-WSB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -56,7 +62,96 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Yp-mM-y90" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1212" y="545"/>
+            <point key="canvasLocation" x="1207" y="485"/>
+        </scene>
+        <!--Write Page View Controller-->
+        <scene sceneID="nJB-BU-GXy">
+            <objects>
+                <viewController storyboardIdentifier="WritePage" id="iiv-jQ-Zk4" customClass="WritePageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6Hb-28-qvI"/>
+                        <viewControllerLayoutGuide type="bottom" id="Ptr-TB-rL0"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zzy-Ml-M1e">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dRX-Yg-pP6">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem width="5" style="plain" systemItem="fixedSpace" id="ewG-cW-xKv"/>
+                                    <barButtonItem title="작성 취소" style="plain" id="EDT-Jh-YDg">
+                                        <connections>
+                                            <action selector="onTouchUpInsideCancelButton:" destination="iiv-jQ-Zk4" id="Hyn-vx-V5L"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="asE-Kg-JUq"/>
+                                    <barButtonItem title="1" style="plain" id="crO-Pg-IRn"/>
+                                    <barButtonItem title="/" style="plain" id="zcs-8N-y4j"/>
+                                    <barButtonItem title="1" style="plain" id="z9p-kO-Kza"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="MFy-St-pj1"/>
+                                    <barButtonItem image="pageAdd.png" id="WLA-Af-RPY">
+                                        <connections>
+                                            <action selector="onTouchUpInsidePageAddButton:" destination="iiv-jQ-Zk4" id="TFM-U4-Ixp"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="13" style="plain" systemItem="fixedSpace" id="viq-EX-q4U"/>
+                                    <barButtonItem image="save.png" id="V4c-pY-Dqo">
+                                        <connections>
+                                            <action selector="onTouchUpInsideSave:" destination="iiv-jQ-Zk4" id="EEa-Vj-mtn"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RZU-GW-Lxx">
+                                <rect key="frame" x="0.0" y="20" width="600" height="536"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4cA-zg-4bx">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </scrollView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="4cA-zg-4bx" secondAttribute="trailing" id="9OT-l9-f62"/>
+                                    <constraint firstItem="4cA-zg-4bx" firstAttribute="top" secondItem="RZU-GW-Lxx" secondAttribute="top" id="LDX-8k-TFN"/>
+                                    <constraint firstAttribute="bottom" secondItem="4cA-zg-4bx" secondAttribute="bottom" id="ZjR-vD-Xfm"/>
+                                    <constraint firstItem="4cA-zg-4bx" firstAttribute="leading" secondItem="RZU-GW-Lxx" secondAttribute="leading" id="gE1-bh-Bes"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="dRX-Yg-pP6" secondAttribute="trailing" id="8tK-MQ-FaR"/>
+                            <constraint firstItem="Ptr-TB-rL0" firstAttribute="top" secondItem="dRX-Yg-pP6" secondAttribute="bottom" id="Fme-fg-nEO"/>
+                            <constraint firstItem="RZU-GW-Lxx" firstAttribute="top" secondItem="6Hb-28-qvI" secondAttribute="bottom" id="Oxc-oq-LxV"/>
+                            <constraint firstItem="RZU-GW-Lxx" firstAttribute="leading" secondItem="Zzy-Ml-M1e" secondAttribute="leadingMargin" constant="23" id="dph-ks-8xg"/>
+                            <constraint firstItem="RZU-GW-Lxx" firstAttribute="width" secondItem="Zzy-Ml-M1e" secondAttribute="width" id="j5p-gf-rwI"/>
+                            <constraint firstItem="dRX-Yg-pP6" firstAttribute="leading" secondItem="Zzy-Ml-M1e" secondAttribute="leading" id="jQS-GU-6bT"/>
+                            <constraint firstItem="dRX-Yg-pP6" firstAttribute="top" secondItem="RZU-GW-Lxx" secondAttribute="bottom" id="nuR-ev-txn"/>
+                            <constraint firstItem="RZU-GW-Lxx" firstAttribute="leading" secondItem="Zzy-Ml-M1e" secondAttribute="leading" id="wZj-Ra-atg"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dph-ks-8xg"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" id="6hf-MJ-fc2"/>
+                    <connections>
+                        <outlet property="currentPageNumberItem" destination="crO-Pg-IRn" id="z1h-Ib-SsU"/>
+                        <outlet property="scrollView" destination="4cA-zg-4bx" id="pQG-0N-4aX"/>
+                        <outlet property="totalPageNumeberItem" destination="z9p-kO-Kza" id="4Nw-Ym-InT"/>
+                        <outlet property="writeCancelButton" destination="EDT-Jh-YDg" id="rs5-dw-Cu1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="poS-qx-Yoo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2019" y="1237"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="pageAdd.png" width="22" height="24"/>
+        <image name="save.png" width="22" height="22"/>
+    </resources>
+    <color key="tintColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>

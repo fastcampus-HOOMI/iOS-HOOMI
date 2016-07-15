@@ -10,6 +10,6 @@
 
 @interface WritePageViewController : UIViewController
 
-@property (nonatomic) NSInteger formNumber;
+@property (nonatomic) NSInteger formThemeNumber;
 
 @end
