@@ -169,7 +169,7 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"EK" bundle:nil];
     MyPageTableViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"MyPage"];
     
-    [self presentViewController:myPage animated:YES completion:nil];
+    [self.navigationController pushViewController:myPage animated:YES];
     
 }
 

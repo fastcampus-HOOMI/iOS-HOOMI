@@ -376,10 +376,11 @@
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSLog(@"re : %@", responseObject);
         if (responseObject) {
-            NSArray *userInfoArray = [responseObject objectForKey:@"results"];
-            
-            self.userInfoJSONArray = userInfoArray;
+//            NSMutableDictionary *userInfoArray = [[responseObject objectAtIndex:0] objectForKey:@"first_name"];
+//            
+//            self.userInfoJSONArray = userInfoArray;
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
             
             // 노티피게이션 보내기
@@ -393,7 +394,7 @@
             
         }
         
-        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+//        NSLog(@"dic : %@", [responseObject objectForKey:@"experiences"]);
     }];
     
     [downloadTask resume];

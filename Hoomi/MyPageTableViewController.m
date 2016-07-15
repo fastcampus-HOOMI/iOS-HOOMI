@@ -103,6 +103,7 @@
 }
 
 // +버튼 클릭시 커스텀 alert창
+/*
 - (IBAction)selectFormList {
     
     NSInteger cornerRadius = 3;
@@ -160,6 +161,7 @@
     }];
 
 }
+ */
 
 
 #pragma mark - Picker view data source
@@ -220,6 +222,17 @@
         cell.imageView.image = [UIImage imageNamed:imageName];
         
         cell.textLabel.text = @"ABC";
+        
+        if(indexPath.section == 0) {
+            if(indexPath.row == 0) {
+                cell.textLabel.text = @"지호";
+            } else if(indexPath.row == 1) {
+                cell.textLabel.text = @"najanda89@gmail.com";
+            } else if(indexPath.row == 2) {
+                cell.textLabel.text = @"Photographer";
+            }
+            
+        }
         
         return cell;
     }

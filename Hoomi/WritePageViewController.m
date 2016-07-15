@@ -61,7 +61,7 @@
 
 -(void)viewDidLayoutSubviews {
     /* 안내 애니메이션 */
-    [self startNoticeAnimation];
+//    [self startNoticeAnimation];
 }
 
 
