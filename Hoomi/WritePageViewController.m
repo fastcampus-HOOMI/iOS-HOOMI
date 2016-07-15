@@ -150,7 +150,7 @@
     [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:noticeImage];
     
-    [UIView animateWithDuration:5.0// 3.0초 동안
+    [UIView animateWithDuration:3.0// 3.0초 동안
                      animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
                      completion:^(BOOL finished){
                          [noticeImage removeFromSuperview];}];

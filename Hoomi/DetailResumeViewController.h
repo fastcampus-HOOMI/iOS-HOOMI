@@ -10,6 +10,8 @@
 
 @interface DetailResumeViewController : UIViewController
 
+@property (nonatomic, strong) NSString *hashID;
+
 @property (nonatomic, strong) NSArray<NSString *> *imageNameList;
 @property (nonatomic, strong) NSArray<NSString *> *textList;
 

@@ -9,6 +9,7 @@
 #import "DetailResumeViewController.h"
 #import "SheetOfThemeOne.h"
 #import "NetworkObject.h"
+#import "Singletone.h"
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
@@ -58,6 +59,9 @@
     /* hiddenIndicator - 2 */
     [self showIndicatorView:YES];//추후 수정
     
+    /* 네비게이션 바 버튼 색깔 */
+    Singletone *singletone = [Singletone requestInstance];
+    self.navigationController.navigationBar.barTintColor = [singletone colorName:Tuna];
 }
 
    /********************************/
