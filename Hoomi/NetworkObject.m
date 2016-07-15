@@ -51,11 +51,11 @@
     self.password = password;
     self.lastName = lastName;
     self.firstName = firstName;
-
+    
 }
 
 - (void)requestSignIn {
-
+    
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:self.userID forKey:@"username"];
     [bodyParams setObject:self.password forKey:@"password"];
@@ -93,7 +93,7 @@
                               NSLog(@"로그인 성공");
                               
                               NSString *token = [responseObject objectForKey:@"token"];
-//                              NSLog(@"token : %@", token);
+                              //                              NSLog(@"token : %@", token);
                               [self saveSessionValue:token];
                               
                               [[NSNotificationCenter defaultCenter] postNotificationName:LoginSuccessNotifiaction object:nil];
@@ -153,9 +153,9 @@
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:token forKey:@"access_token"];
-
+    
     //json 으로 변경 필요
-
+    
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:FacebookLoginUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } error:nil];
@@ -176,12 +176,12 @@
                   completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
                       if (error) {
                           NSLog(@"Facebook Error: %@", error);
-                        
+                          
                           [[NSNotificationCenter defaultCenter] postNotificationName:LoginFailNotification object:nil];
                           
                       } else {
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
-
+                          
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
                           
                           [[NSNotificationCenter defaultCenter] postNotificationName:LoginSuccessNotifiaction object:nil];
@@ -284,21 +284,21 @@
 
 - (void)saveSessionValue:(NSString *)session {
     
-//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-//    keychain[@"session"] = session;
+    //    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+    //    keychain[@"session"] = session;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:session forKey:@"session"];
     
-   
+    
 }
 
 - (NSString *)loadSessionValue {
     
     // 불러올 때
-//    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
-//    NSString *token = [keychain stringForKey:@"session"];
-
+    //    UICKeyChainStore *keychain = [UICKeyChainStore keyChainStoreWithService:@"com.zzzbag.Hoomi"];
+    //    NSString *token = [keychain stringForKey:@"session"];
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSString *token = [userDefaults objectForKey:@"session"];
     
@@ -306,55 +306,54 @@
     
 }
 
-   /************************************/
-  /*    contents 받아오기 / 업로드 관련    */
- /************************************/
+/************************************/
+/*    contents 받아오기 / 업로드 관련    */
+/************************************/
+
 
 // 이미지 리스트 받아오기 cheesing
--(void)requestImageList {
+-(void)requestjobHistory {
+    NSLog(@"requestjobHistory");
     
-    NSLog(@"request Detail");
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-    /* Header에 Authorization 값에 JWT Token */
-    NSString *tokenParam = @"JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IiIsImV4cCI6MTQ2ODQ5NTA5MywidXNlcm5hbWUiOiJoamg1NDg4QGdtYWlsLmNvbSIsIm9yaWdfaWF0IjoxNDY4NDkxNDkzLCJ1c2VyX2lkIjoxNn0.L1RY0Eq_aktAGRxwuF4T1sL3EXLBQkgb0Pf2Eyyy0a0";
-    NSLog(@"%@", tokenParam)
-    ;
-//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-//    [bodyParams setObject:tokenParam forKey:@"Authorization"];
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    /* requestURL -> request */
-    NSString *URLString = JobHistoryURL;
-    NSURL *requestURL = [NSURL URLWithString:URLString];
+    /* URLRquest로 요청서 작성 (어떤 contents 타입 원하는지 설정) */
+    //    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    //    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc]init];
+    /* Http Method */
     [request setHTTPMethod:@"GET"];
-    [request setURL:requestURL];
-    [request addValue:tokenParam forHTTPHeaderField: @"Authorization"];
-
     
-    NSURLSessionDataTask *dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        NSLog(@"response : %@", response);
-        NSLog(@"error : %@", error);
-        
-        if (data) {
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    [request setURL:[NSURL URLWithString:JobHistoryURL]];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (responseObject) {
             
-            if ([dict[@"code"] isEqualToNumber:@200]) {
-                NSLog(@"success");
-                
-                // 노티피게이션 보내기
-                [[NSNotificationCenter defaultCenter] postNotificationName:ImageListUpdataNotification object:nil];
-                
-            } else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:ImageListFailNotification object:nil];
-            }
-            NSLog(@"받아온 정보 %@", dict);
+    
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListUpdataNotification object:nil];
+            
+            NSArray *contentsArray = responseObject[@"jobHistory"];
+            self.jobHistoryInforJSONArray = contentsArray;
         }
+        
+        else {
+            NSLog(@"%@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
+        }
+        
+        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+        NSLog(@"dic : %@", responseObject);
     }];
     
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataTask resume];
-    
+    [downloadTask resume];
 }
 
 
