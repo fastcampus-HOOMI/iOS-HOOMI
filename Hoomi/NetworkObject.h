@@ -10,7 +10,7 @@
 
 @interface NetworkObject : NSObject
 
-@property (nonatomic) NSDictionary *hitContentDic;
+@property (nonatomic) NSArray *hitContentDic;
 
 + (instancetype) requestInstance;
 
@@ -36,7 +36,7 @@
 
 /* contents Load 관련 */
 @property (nonatomic, strong) NSArray *jobHistoryInforJSONArray;
-
+@property (nonatomic, strong) NSArray *hitContentInforJSONArray;
 -(void)requestjobHistory;
 
 @end

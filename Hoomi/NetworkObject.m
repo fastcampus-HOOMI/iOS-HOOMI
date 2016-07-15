@@ -12,6 +12,7 @@
 #import "UICKeyChainStore.h"
 
 
+
 @interface NetworkObject()
 
 @property (nonatomic) NSString *userID;
@@ -234,9 +235,6 @@
 }
 
 
-- (void)requestHitContent {
-    [self requestData:LoadHitContentUrl];
-}
 
 
 
@@ -268,14 +266,48 @@
 /*    contents 받아오기 / 업로드 관련    */
 /************************************/
 
-
--(void)requestjobHistory {
+- (void)requestHitContent {
     
-    [self requestData:JobHistoryURL];
+    NSLog(@"requestHitContent");
+    self.hitContentInforJSONArray = nil;
     
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:LoadHitContentUrl]];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (responseObject) {
+            NSArray *contentsArray = [responseObject objectForKey:@"results"];
+            self.hitContentInforJSONArray = contentsArray;
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+            
+        }
+        else {
+            
+            NSLog(@"%@", error);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
+            
+        }
+        //        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+        //        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+    }];
+    
+    [downloadTask resume];
 }
 
--(void)requestData:(NSString *)URL {
+-(void)requestjobHistory {
     
     NSLog(@"requestjobHistory");
     
@@ -292,18 +324,18 @@
     
     /* Http Method */
     [request setHTTPMethod:@"GET"];
-    [request setURL:[NSURL URLWithString:URL]];
+    [request setURL:[NSURL URLWithString:JobHistoryURL]];
     
     NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
-            
+            NSArray *contentsArray = [responseObject objectForKey:@"results"];
+            self.jobHistoryInforJSONArray = contentsArray;
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListUpdataNotification object:nil];
-            NSArray *contentsArray = responseObject[@"jobHistory"];
-            self.jobHistoryInforJSONArray = contentsArray;
+            
         }
         else {
             
@@ -312,11 +344,18 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
             
         }
-        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
-        NSLog(@"dic : %@", responseObject);
+        //        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+        //        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
     
 }
+
+-(void)requestData:(NSString *)URL {
+    
+    
+    
+}
+
 @end

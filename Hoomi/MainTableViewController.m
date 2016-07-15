@@ -13,6 +13,7 @@
 #import "MyPageTableViewController.h"
 #import "WritePageViewController.h"
 #import "DetailResumeViewController.h"
+#import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
@@ -20,7 +21,7 @@
 /*
  셀에 데이터를 표시하기 위한 임시데이터
  */
-@property (nonatomic) NSMutableDictionary *imageData;
+
 @property (nonatomic) NSArray *jobList;
 
 @property (nonatomic, weak) UIPickerView *jobPicker; // 직군선택 Picker
@@ -40,6 +41,10 @@
 
 @property (nonatomic) IBOutlet UIBarButtonItem *writeCareer;
 @property (nonatomic) IBOutlet UIBarButtonItem *myPage;
+
+@property (nonatomic) NSMutableArray *contentDataArray;
+@property (nonatomic) NSMutableArray *imageDataArray;
+@property (nonatomic) NSMutableArray *hashIDArray;
 
 @end
 
@@ -67,11 +72,7 @@
     /**********************/
     // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
-    
-    self.imageData = [[NSMutableDictionary alloc] initWithCapacity:1];
-    [self.imageData setObject:@"nature.jpg" forKey:@"image_01"];
-    [self.imageData setObject:@"nature1.jpg" forKey:@"image_02"];
-    
+
     self.defaults = [NSUserDefaults standardUserDefaults];
     
     /* 유저가 선택한 직군의 데이터가 없으면 직군 선택화면을 띄움 */
@@ -120,8 +121,35 @@
 
 - (void)LoadHitContentSuccess {
     
-    NSLog(@"load hit content : %@", self.networkObject.hitContentDic);
+    self.contentDataArray = [[NSMutableArray alloc] init];
+    self.imageDataArray = [[NSMutableArray alloc] init];
+    self.hashIDArray = [[NSMutableArray alloc] init];
     
+    NSArray *result = [self.networkObject hitContentInforJSONArray];
+    
+    for (NSInteger i = 0; i < [result count]; i++) {
+        NSDictionary *dic = [result objectAtIndex:i];
+        NSArray *experiences = [dic objectForKey:@"experiences"];
+        
+        [self.hashIDArray addObject:[dic objectForKey:@"hash_id"]];
+        
+        NSString *content = [[experiences objectAtIndex:0] objectForKey:@"content"];
+        NSString *imageUrl = [[experiences objectAtIndex:0] objectForKey:@"image"];
+//        NSLog(@"data : %@, %@", content, imageUrl);
+        
+        [self.contentDataArray addObject:content];
+        [self.imageDataArray addObject:imageUrl];
+        
+    }
+    
+    NSLog(@"contentData : %@", self.contentDataArray);
+    NSLog(@"imageData : %@", self.imageDataArray);
+    NSLog(@"hash_id : %@", self.hashIDArray);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [self.tableView reloadData];
+    });
 }
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {
@@ -164,7 +192,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.imageData count];
+    return [self.contentDataArray count];
 }
 
 #pragma mark - Table view delegate
@@ -175,13 +203,10 @@
     
     ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
     
-    NSArray *allKey = [self.imageData allKeys];
-    NSString *key = [allKey objectAtIndex:indexPath.row];
-    
-    cell.image.image = [UIImage imageNamed:[self.imageData objectForKey:key]];
-    cell.label.text = key;
+    cell.label.text = [self.contentDataArray objectAtIndex:indexPath.row];
     [cell.label setTextColor:[UIColor whiteColor]];
-    [cell setBackgroundColor:[UIColor blackColor]];
+    
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:nil];
     
     return cell;
 }
@@ -192,7 +217,9 @@
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
     
-    [self presentViewController:detailResume animated:YES completion:nil];
+    NSLog(@"hash id : %@", [self.hashIDArray objectAtIndex:indexPath.row]);
+    
+//    [self presentViewController:detailResume animated:YES completion:nil];
     
     
 }
