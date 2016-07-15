@@ -18,7 +18,7 @@ static NSString *LoadHitContentFailNotification = @"LoadHitContentFail";
 static NSString *LoginUrl = @"https://hoomi.work/api/login/";
 static NSString *FacebookLoginUrl = @"https://hoomi.work/api/oauth/facebook/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
-static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/";
+static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/?per=4";
 
 
 /* 컨텐츠 관련 */

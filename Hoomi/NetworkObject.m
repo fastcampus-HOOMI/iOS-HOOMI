@@ -233,52 +233,10 @@
     
 }
 
-- (void)requestHitContent {
-    
-    NSLog(@"requestHitcontent");
-    
-    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
-    
-    NSLog(@"%@", tokenParam)
-    ;
-    
-    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:tokenParam forKey:@"Authorization"];
-    
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:LoadHitContentUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } error:nil];
-    
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    NSURLSessionUploadTask *uploadTask;
-    uploadTask = [manager
-                  uploadTaskWithStreamedRequest:request
-                  progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
-                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                      if (error) {
-                          NSLog(@"Error: %@", error);
-                          
-                      } else {
-                          NSLog(@"data : %@", responseObject);
-                          
-                          [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
-                          
-                      }
-                  }];
-    
-    [uploadTask resume];
-    
-    
-}
 
+- (void)requestHitContent {
+    [self requestData:LoadHitContentUrl];
+}
 
 
 
@@ -311,11 +269,18 @@
 /************************************/
 
 
-// 이미지 리스트 받아오기 cheesing
 -(void)requestjobHistory {
+    
+    [self requestData:JobHistoryURL];
+    
+}
+
+-(void)requestData:(NSString *)URL {
+    
     NSLog(@"requestjobHistory");
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     // create request
@@ -327,8 +292,7 @@
     
     /* Http Method */
     [request setHTTPMethod:@"GET"];
-    
-    [request setURL:[NSURL URLWithString:JobHistoryURL]];
+    [request setURL:[NSURL URLWithString:URL]];
     
     NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
@@ -336,26 +300,23 @@
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
             
-    
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListUpdataNotification object:nil];
-            
             NSArray *contentsArray = responseObject[@"jobHistory"];
             self.jobHistoryInforJSONArray = contentsArray;
         }
-        
         else {
+            
             NSLog(@"%@", error);
+            
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
+            
         }
-        
         NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
         NSLog(@"dic : %@", responseObject);
     }];
     
     [downloadTask resume];
+    
 }
-
-
-
 @end
