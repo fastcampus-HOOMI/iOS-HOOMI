@@ -26,6 +26,13 @@ static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history/";
 static NSString *ContentsListUpdataNotification = @"ImageListUpdataed";
 static NSString *ContentsListFailNotification = @"ImageListFail";
 
+/* 마이페이지 관련 */
+static NSString *MyPageUrl = @"https://hoomi.work/api/mypage/";
+static NSString *UserInfoListNotification = @"InfoListSuccess";
+static NSString *UserInfoListFailNotification = @"InfoListFail";
+static NSString *MyWritingListNotification = @"WritingListSuccess";
+static NSString *MyWritingListFailNotification = @"WritingListFail";
+
 
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이

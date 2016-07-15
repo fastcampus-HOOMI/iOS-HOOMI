@@ -8,6 +8,7 @@
 
 #import "MyPageTableViewController.h"
 #import "MyPageListTableViewCell.h"
+#import "NetworkObject.h"
 
 @interface MyPageTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource>
@@ -31,6 +32,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    /* 네트워크 테스트 */
+    NetworkObject *network = [NetworkObject requestInstance];
+    [network requestMypage];
+    ////
     
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.view addSubview:self.refreshControl];

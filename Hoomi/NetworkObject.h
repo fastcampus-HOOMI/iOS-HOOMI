@@ -39,4 +39,10 @@
 @property (nonatomic, strong) NSArray *hitContentInforJSONArray;
 -(void)requestjobHistory;
 
+//User Info
+@property (nonatomic, strong) NSArray *userInfoJSONArray;
+@property (nonatomic, strong) NSArray *myWritingListJSONArray;
+
+-(void)requestMypage;
+
 @end
