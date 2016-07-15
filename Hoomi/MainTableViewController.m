@@ -112,7 +112,7 @@
     /**********************/
     /* 네비게이션바 데이터 변경 */
     /**********************/
-    self.title = @"HOOMI";
+    self.title = @"Hoomi";
     [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
@@ -154,7 +154,7 @@
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {
     
-    NSLog(@"load server data");
+    [self.networkObject requestHitContent];
     [refreshControl endRefreshing];
 }
 
@@ -205,8 +205,9 @@
     
     cell.label.text = [self.contentDataArray objectAtIndex:indexPath.row];
     [cell.label setTextColor:[UIColor whiteColor]];
+//    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
     
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:nil];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
     
     return cell;
 }
@@ -214,12 +215,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
     
+    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
-    
-    NSLog(@"hash id : %@", [self.hashIDArray objectAtIndex:indexPath.row]);
-    
-//    [self presentViewController:detailResume animated:YES completion:nil];
+    [self presentViewController:detailResume animated:YES completion:nil];
     
     
 }

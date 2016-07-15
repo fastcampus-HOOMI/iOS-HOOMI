@@ -9,6 +9,7 @@
 #import "DetailResumeViewController.h"
 #import "SheetOfThemeOne.h"
 #import "NetworkObject.h"
+#import "Singletone.h"
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
@@ -20,6 +21,8 @@
 /* 페이지 변화 인지 */
 @property (nonatomic) NSInteger beforePage;
 @property (nonatomic) NSInteger currentPage;
+
+@property (nonatomic) Singletone *singleTone;
 
 @end
 
@@ -33,6 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Hash ID
+    self.singleTone = [Singletone requestInstance];
+    NSLog(@"hashID : %@",[self.singleTone hashID]);
     
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
@@ -58,6 +64,9 @@
     /* hiddenIndicator - 2 */
     [self showIndicatorView:YES];//추후 수정
     
+    /* 네비게이션 바 버튼 색깔 */
+    Singletone *singletone = [Singletone requestInstance];
+    self.navigationController.navigationBar.barTintColor = [singletone colorName:Tuna];
 }
 
    /********************************/

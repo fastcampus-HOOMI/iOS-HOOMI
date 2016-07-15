@@ -33,6 +33,7 @@ static NSString *UserInfoListFailNotification = @"InfoListFail";
 static NSString *MyWritingListNotification = @"WritingListSuccess";
 static NSString *MyWritingListFailNotification = @"WritingListFail";
 
+
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
 
@@ -59,6 +60,8 @@ typedef NS_ENUM(NSInteger, Color) {
 };
 
 @interface Singletone : NSObject
+
+@property (nonatomic, strong) NSString *hashID;
 
 + (instancetype) requestInstance;
 

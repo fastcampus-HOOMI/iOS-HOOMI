@@ -182,7 +182,7 @@
 
 - (void)successLogin {
     NSLog(@"login success");
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
         [self endEditingTextField];
         [self finishLogin];
@@ -191,7 +191,7 @@
 
 - (void)failLogin {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
 //        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
         /*
