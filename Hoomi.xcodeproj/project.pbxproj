@@ -19,6 +19,8 @@
 		FF0756771D2FDC1400690662 /* career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0756761D2FDC1400690662 /* career@2x.png */; };
 		FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF07569B1D333E0F00690662 /* SignUpViewController.m */; };
 		FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF084D6D1D36357800A7F51A /* HitContentViewController.m */; };
+		FF084D701D38A23000A7F51A /* HUStarNight120.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF084D6F1D38A22E00A7F51A /* HUStarNight120.ttf */; };
+		FF084D741D38A87D00A7F51A /* default-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = FF084D731D38A87D00A7F51A /* default-placeholder.png */; };
 		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
 		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
 		FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FC1D2E151B00EB409B /* grayColor.jpg */; };
@@ -73,6 +75,10 @@
 		FF07569B1D333E0F00690662 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		FF084D6C1D36357800A7F51A /* HitContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitContentViewController.h; sourceTree = "<group>"; };
 		FF084D6D1D36357800A7F51A /* HitContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitContentViewController.m; sourceTree = "<group>"; };
+		FF084D6F1D38A22E00A7F51A /* HUStarNight120.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HUStarNight120.ttf; sourceTree = "<group>"; };
+		FF084D711D38A2AE00A7F51A /* HUDiary120.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HUDiary120.ttf; sourceTree = "<group>"; };
+		FF084D721D38A47200A7F51A /* HUStarNight140.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HUStarNight140.ttf; sourceTree = "<group>"; };
+		FF084D731D38A87D00A7F51A /* default-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-placeholder.png"; sourceTree = "<group>"; };
 		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
 		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePageViewController.h; path = Hoomi/WritePageViewController.h; sourceTree = "<group>"; };
 		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePageViewController.m; path = Hoomi/WritePageViewController.m; sourceTree = "<group>"; };
@@ -206,6 +212,10 @@
 		FF51D5211D2E1AAE00EB409B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				FF084D721D38A47200A7F51A /* HUStarNight140.ttf */,
+				FF084D6F1D38A22E00A7F51A /* HUStarNight120.ttf */,
+				FF084D711D38A2AE00A7F51A /* HUDiary120.ttf */,
+				FF084D731D38A87D00A7F51A /* default-placeholder.png */,
 				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
 				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
 				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
@@ -386,6 +396,7 @@
 				03B149AF1D33444C00262E65 /* pageAdd.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
+				FF084D741D38A87D00A7F51A /* default-placeholder.png in Resources */,
 				FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */,
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
@@ -394,6 +405,7 @@
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
 				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
+				FF084D701D38A23000A7F51A /* HUStarNight120.ttf in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
 				FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */,
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,

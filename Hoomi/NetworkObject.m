@@ -287,8 +287,10 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
+            NSLog(@"responesObject : %@", responseObject);
             NSArray *contentsArray = [responseObject objectForKey:@"results"];
             self.hitContentInforJSONArray = contentsArray;
+            
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
             
