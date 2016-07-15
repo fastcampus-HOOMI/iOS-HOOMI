@@ -32,13 +32,18 @@
 -(void)viewWillAppear:(BOOL)animated {
     // 네트워크를 통한 데이터 세팅
     [self LoadDetailResumeData];
+    
+    NSLog(@"-------========--------===========");
+    
+   //[[NetworkObject requestInstance] requestjobHistory];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     // Hash ID
-    self.singleTone = [Singletone requestInstance];
-    NSLog(@"hashID : %@",[self.singleTone hashID]);
+//    self.singleTone = [Singletone requestInstance];
+//    NSLog(@"hashID : %@",[self.singleTone hashID]);
     
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
@@ -226,7 +231,10 @@
 /* 한 이력서 전체 페이지 한꺼번에 불러 오기 
   --> 추후 lazy load로 변경 */
 -(void)LoadDetailResumeData {
-    [[NetworkObject requestInstance] requestjobHistory];
+    self.singleTone = [Singletone requestInstance];
+    NSLog(@"hashID : %@",[self.singleTone hashID]);
+    NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
+    [[NetworkObject requestInstance] requestDetailJobHistory:hashID];
 }
 
 

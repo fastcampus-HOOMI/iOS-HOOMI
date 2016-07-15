@@ -37,7 +37,9 @@
 /* contents Load 관련 */
 @property (nonatomic, strong) NSArray *jobHistoryInforJSONArray;
 @property (nonatomic, strong) NSArray *hitContentInforJSONArray;
+@property (nonatomic, strong) NSDictionary *jobHistoryDetailInfoJSONDictionary;
 -(void)requestjobHistory;
+-(void)requestDetailJobHistory:(NSString *)hashID;
 
 //User Info
 @property (nonatomic, strong) NSMutableDictionary *userInfoJSONArray;

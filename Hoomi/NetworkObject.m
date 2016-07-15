@@ -266,6 +266,8 @@
 /*    contents 받아오기 / 업로드 관련    */
 /************************************/
 
+
+/* 인기글 컨텐츠 (메인 4개) */
 - (void)requestHitContent {
     
     NSLog(@"requestHitContent");
@@ -309,6 +311,7 @@
     [downloadTask resume];
 }
 
+/* 인기글 전체 */
 -(void)requestjobHistory {
     
     NSLog(@"requestjobHistory");
@@ -337,17 +340,57 @@
             self.jobHistoryInforJSONArray = contentsArray;
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListUpdataNotification object:nil];
-            
         }
         else {
-            
             NSLog(@"%@", error);
-            
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
-            
         }
-        //        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
-        //        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+                NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+    }];
+    
+    [downloadTask resume];
+    
+}
+
+/* 인기글 상세 */
+
+-(void)requestDetailJobHistory:(NSString *)hashID {
+    
+    NSLog(@"requestDetailJobHistory");
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"GET"];
+    NSString *detailResumeURL = [JobHistoryURL stringByAppendingString:hashID];
+    [request setURL:[NSURL URLWithString:detailResumeURL]];
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        NSLog(@"responseObject : %@", responseObject);
+        NSLog(@"response : %@", response);
+        
+        if (responseObject) {
+            NSDictionary *detailPageAllData = responseObject;
+            self.jobHistoryDetailInfoJSONDictionary = detailPageAllData;
+            
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
+        }
+        else {
+            NSLog(@"%@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
+        }
+        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryDetailInfoJSONDictionary);
+        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
