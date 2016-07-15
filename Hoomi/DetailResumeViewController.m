@@ -22,6 +22,8 @@
 @property (nonatomic) NSInteger beforePage;
 @property (nonatomic) NSInteger currentPage;
 
+@property (nonatomic) Singletone *singleTone;
+
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
@@ -34,6 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Hash ID
+    self.singleTone = [Singletone requestInstance];
+    NSLog(@"hashID : %@",[self.singleTone hashID]);
     
     //처음 페이지 (인덱스로)
     self.beforePage = 0;

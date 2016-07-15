@@ -26,6 +26,7 @@ static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history/";
 static NSString *ContentsListUpdataNotification = @"ImageListUpdataed";
 static NSString *ContentsListFailNotification = @"ImageListFail";
 
+
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
 
@@ -52,6 +53,8 @@ typedef NS_ENUM(NSInteger, Color) {
 };
 
 @interface Singletone : NSObject
+
+@property (nonatomic, strong) NSString *hashID;
 
 + (instancetype) requestInstance;
 

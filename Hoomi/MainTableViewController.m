@@ -215,11 +215,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
     
+    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
-    
-    NSLog(@"hash id : %@", [self.hashIDArray objectAtIndex:indexPath.row]);
-    
     [self presentViewController:detailResume animated:YES completion:nil];
     
     
