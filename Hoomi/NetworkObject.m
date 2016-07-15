@@ -301,7 +301,7 @@
             
         }
         //        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
-        //        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
@@ -352,10 +352,51 @@
     
 }
 
--(void)requestData:(NSString *)URL {
+
+//
+
+-(void)requestMypage {
     
+    NSLog(@"requestMypage");
     
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:MyPageUrl]];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        if (responseObject) {
+            NSArray *userInfoArray = [responseObject objectForKey:@"results"];
+            
+            self.userInfoJSONArray = userInfoArray;
+            NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
+            
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];
+            
+        }else {
+            
+            NSLog(@"%@", error);
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListFailNotification object:nil];
+            
+        }
+        
+        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+    }];
+    
+    [downloadTask resume];
+
 }
+
 
 @end

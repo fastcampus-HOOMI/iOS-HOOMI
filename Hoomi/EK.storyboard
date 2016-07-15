@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7xx-J9-gNd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -16,7 +16,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoCell" textLabel="mm5-v6-Lnd" rowHeight="44" style="IBUITableViewCellStyleDefault" id="Z97-Xk-s5T">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z97-Xk-s5T" id="q5n-I9-hUr">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -33,7 +33,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="140" id="e2e-Ps-75l" customClass="MyPageListTableViewCell">
-                                <rect key="frame" x="0.0" y="157.5" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="93.5" width="600" height="140"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e2e-Ps-75l" id="ev5-96-hgg">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="139.5"/>
@@ -82,24 +82,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8aP-Nn-1Cb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1545" y="1363"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="QCh-l4-B6m">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="7xx-J9-gNd" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6gG-hE-bXE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Lv1-CZ-5O6" kind="relationship" relationship="rootViewController" id="oiH-hj-4kE"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x0N-DM-aKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="891" y="1352"/>
         </scene>
     </scenes>
 </document>
