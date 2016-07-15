@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4183286D1D375B06006B2268 /* RequestUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 4183286C1D375B06006B2268 /* RequestUserInfo.m */; };
+		418328711D37EFCE006B2268 /* NewPost-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286E1D37EFCE006B2268 /* NewPost-1.png */; };
+		418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286F1D37EFCE006B2268 /* NeutralUser-1.png */; };
+		418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 418328701D37EFCE006B2268 /* EmployeeCard-1.png */; };
 		030C2C5E1D374A43001AF242 /* notice.png in Resources */ = {isa = PBXBuildFile; fileRef = 030C2C5D1D374A43001AF242 /* notice.png */; };
 		03B149AF1D33444C00262E65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B149AE1D33444C00262E65 /* pageAdd.png */; };
 		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
@@ -58,6 +62,11 @@
 		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
 		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
 		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4183286B1D375B06006B2268 /* RequestUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RequestUserInfo.h; sourceTree = "<group>"; };
+		4183286C1D375B06006B2268 /* RequestUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestUserInfo.m; sourceTree = "<group>"; };
+		4183286E1D37EFCE006B2268 /* NewPost-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewPost-1.png"; sourceTree = "<group>"; };
+		4183286F1D37EFCE006B2268 /* NeutralUser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NeutralUser-1.png"; sourceTree = "<group>"; };
+		418328701D37EFCE006B2268 /* EmployeeCard-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmployeeCard-1.png"; sourceTree = "<group>"; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0756761D2FDC1400690662 /* career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career@2x.png"; sourceTree = "<group>"; };
 		FF07569A1D333E0F00690662 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -181,6 +190,11 @@
 				FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */,
 				FF51D5151D2E184700EB409B /* MyPageTableViewController.h */,
 				FF51D5161D2E184700EB409B /* MyPageTableViewController.m */,
+				4183286B1D375B06006B2268 /* RequestUserInfo.h */,
+				4183286C1D375B06006B2268 /* RequestUserInfo.m */,
+				4183286E1D37EFCE006B2268 /* NewPost-1.png */,
+				4183286F1D37EFCE006B2268 /* NeutralUser-1.png */,
+				418328701D37EFCE006B2268 /* EmployeeCard-1.png */,
 				FF51D5171D2E184700EB409B /* nature11.jpg */,
 				FF51D5181D2E184700EB409B /* nature22.jpg */,
 				FF51D5191D2E184700EB409B /* nature33.jpg */,
@@ -376,6 +390,7 @@
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
 				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
+				418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */,
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
 				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
 				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
@@ -386,7 +401,9 @@
 				FF51D5201D2E184700EB409B /* nature44.jpg in Resources */,
 				FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */,
 				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
+				418328711D37EFCE006B2268 /* NewPost-1.png in Resources */,
 				FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */,
+				418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */,
 				030C2C5E1D374A43001AF242 /* notice.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -446,6 +463,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4183286D1D375B06006B2268 /* RequestUserInfo.m in Sources */,
 				FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */,
 				FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */,
 				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,

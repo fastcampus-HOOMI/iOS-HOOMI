@@ -10,11 +10,13 @@
 #import "MyPageListTableViewCell.h"
 
 @interface MyPageTableViewController ()
-<UIPickerViewDelegate, UIPickerViewDataSource>
+<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
-@property (nonatomic) NSArray *myData;
 @property (nonatomic) NSArray *formList;
+@property (nonatomic) NSArray *infoImageNames;
+
+@property (nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
@@ -30,7 +32,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.myData = [NSArray arrayWithObjects:@"이름",@"이메일", @"직군",nil];
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.view addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     self.listData = [[NSMutableDictionary alloc] init];
     
@@ -41,14 +45,55 @@
     
     
     
+    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
     
+    
+    /*
+    //my info view가 보여질 부분
+    UIView *headerView = self.tableView.tableHeaderView;
+    self.tableView.tableHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
+    [self.tableView addSubview:headerView];
+    
+    UIImageView *infoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 75, 50, 50)];
+    UIImage *infoImage = [UIImage imageNamed:@"EmployeeCard.png"];
+    infoImageView.image = infoImage;
+    [self.view addSubview:infoImageView];
+    
+    self.infoImages = [[NSMutableDictionary alloc] init];
+    [self.infoImages setValue:@"NewPost.png" forKey:@"email"];
+    [self.infoImages setValue:@"NeutralUser.png" forKey:@"name"];
+    [self.infoImages setValue:@"ContractJob.png" forKey:@"job"];
 
+    //테이블뷰로 user info 정보 받을 화면 구현
+    UITableView *infoTable =[[UITableView alloc] initWithFrame:CGRectMake(70, 10, self.view.frame.size.width-60, 180)];
+    [infoTable setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    [infoTable numberOfRowsInSection:3];
+    [self.view addSubview:infoTable];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    //info cell에 이미지 추가
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.infoImages = [[NSMutableDictionary alloc] init];
+    [self.infoImages setValue:@"NewPost.png" forKey:@"email"];
+    [self.infoImages setValue:@"NeutralUser.png" forKey:@"name"];
+    [self.infoImages setValue:@"ContractJob.png" forKey:@"job"];
+    
+    UITableViewCell *infoCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"infoCell"];
+    NSArray *allImageKey = [self.infoImages allKeys];
+    NSString *imageKey = [allImageKey objectAtIndex:0];
+    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKey]];
+//    NSString *imageKeyTwo = [allImageKey objectAtIndex:1];
+//    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyTwo]];
+//    NSString *imageKeyThree = [allImageKey objectAtIndex:2];
+//    infoCell.imageView.image = [UIImage imageNamed:[self.infoImages objectForKey:imageKeyThree]];
+    [infoTable addSubview:infoCell];
+    */
+}
+
+-(void) refreshTable {
+    //TODO: refresh your data
+    [self.tableView reloadData];
+    [self.refreshControl endRefreshing];
+    
 }
 
 // +버튼 클릭시 커스텀 alert창
@@ -56,7 +101,7 @@
     
     NSInteger cornerRadius = 3;
     BOOL clipsToBounds = YES;
-    CGFloat buttonTitleFont = 15.f;
+    //CGFloat buttonTitleFont = 15.f;
     
     //뒷배경 블러처리
     UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
@@ -66,9 +111,8 @@
     
     //form선택화면을 커스텀alert으로
     NSInteger margin = 60;
-    UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin / 2, - margin * 5, self.view.frame.size.width - margin, margin * 5)];
-//    [formSelectCustomView setCenter:CGPointMake(self.view.frame.size.width  / 2,
-//                                               self.view.frame.size.height / 2 - self.navigationController.navigationBar.frame.size.height)];
+    UIView *formSelectCustomView = [[UIView alloc] initWithFrame:CGRectMake(margin /2, - margin *5, self.view.frame.size.width - margin, margin *5)];
+
     formSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     formSelectCustomView.backgroundColor = [UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1.00];
     formSelectCustomView.layer.borderWidth = 3.0f;
@@ -92,10 +136,11 @@
     [selectButton setBackgroundColor:[UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:1.00]];
     [selectButton setTitle:@"등록" forState:UIControlStateNormal];
     [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
+    //[selectButton setFont:[UIFont boldSystemFontOfSize:buttonTitleFont]];
     
     [formSelectCustomView addSubview:selectButton];
     
+    // form picker
     self.formSelectCustomView = formSelectCustomView;
     self.formPicker = formPicker;
     self.formList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Writer",nil];
@@ -153,16 +198,27 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    if (section == 1) {
+    if (section == 0) {
         return 3;
-    }else{
-    //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
-    return [self.listData count];
     }
+  //서버에서 보내주는 이력서 수 카운트로 변경할것(현재 서버 미완성)
+    return [self.listData count];
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+        
+        NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:imageName];
+        
+        cell.textLabel.text = @"ABC";
+        
+        return cell;
+    }
+    
+    
     MyPageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
     
     NSArray *allKey = [self.listData allKeys];
@@ -171,7 +227,7 @@
     cell.image.image = [UIImage imageNamed:[self.listData objectForKey:key]];
     cell.label.text = key;
     [cell.label setTextColor:[UIColor whiteColor]];
-    [cell setBackgroundColor:[UIColor blackColor]];
+    [cell setBackgroundColor:[UIColor whiteColor]];
     
     return cell;
 }
@@ -184,6 +240,13 @@
     }
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        return 44.f;
+    }
+    return 140.f;
+}
 
 /*
 // Override to support conditional editing of the table view.
