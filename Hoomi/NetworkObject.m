@@ -375,12 +375,16 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
-        NSLog(@"responseObject : %@", responseObject);
-        NSLog(@"response : %@", response);
+        //NSLog(@"responseObject : %@", responseObject);
+        //NSLog(@"response : %@", response);
         
         if (responseObject) {
-            NSDictionary *detailPageAllData = responseObject;
-            self.jobHistoryDetailInfoJSONDictionary = detailPageAllData;
+            NSMutableDictionary *detailPageAllData = responseObject;
+            /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
+            self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
+            self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
+            [self.jobHistoryDetailContentsInfoDictionary setValue:[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"] forKey:@"results"];
+            NSLog(@"result 값 %@", [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"]);
             
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
@@ -389,14 +393,14 @@
             NSLog(@"%@", error);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
         }
-        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryDetailInfoJSONDictionary);
-        NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+        //NSLog(@"results dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
     
 }
-
 
 //
 
