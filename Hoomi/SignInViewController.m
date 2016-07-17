@@ -15,6 +15,7 @@
 #import "Singletone.h"
 #import "AFNetworking.h"
 #import "NetworkObject.h"
+#import "KSToastView.h"
 
 
 
@@ -80,6 +81,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin)
                                                  name:LoginFailNotification object:nil];
+    
+
     
 }
 
@@ -165,11 +168,21 @@
 
     // 아이디 또는 비밀번호가 빈칸일 경우
     if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
-        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+//        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+        [KSToastView ks_showToast:@"빈칸을 입력해주세요." duration:2.0f completion:^{
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else if(!self.isRightEmail) {
-        [self errorAlert:[self.singleTone errorMsg:WrongEmail]];
+//        [self errorAlert:[self.singleTone errorMsg:WrongEmail]];
+        [KSToastView ks_showToast:@"이메일 형식이 맞지않습니다." duration:2.0f completion:^{
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else if(!self.isRightLengthPassword) {
-        [self errorAlert:[self.singleTone errorMsg:ShortPassword]];
+//        [self errorAlert:[self.singleTone errorMsg:ShortPassword]];
+        [KSToastView ks_showToast:@"패스워드를 4글자이상 입력해주세요." duration:2.0f completion:^{
+            [self.currentTextField setText:@""];
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else {
         NSLog(@"request login");
         [self indicatorRunStatus:YES];
@@ -182,6 +195,7 @@
 
 - (void)successLogin {
     NSLog(@"login success");
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
         [self endEditingTextField];
@@ -193,25 +207,11 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
-//        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
-        /*
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"가입요청" message:@"등록되어있지 않은 회원입니다.\n회원가입을 누르시면 가입이 진행됩니다." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *signUp = [UIAlertAction actionWithTitle:@"회원가입" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            [self signUpAction];
-            
-        }];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
         
-        [alertController addAction:ok];
-        [alertController addAction:signUp];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-        */
+        [KSToastView ks_showToast:@"아이디 및 패스워드를 확인해주세요." duration:2.0f completion:nil];
         
     });
 }
-
 
 
 /**

@@ -9,6 +9,7 @@
 #import "SignUpViewController.h"
 #import "Singletone.h"
 #import "NetworkObject.h"
+#import "KSToastView.h"
 
 @interface SignUpViewController ()
 <UITextFieldDelegate>
@@ -68,7 +69,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failSignUp) name:SignUpFailNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -254,7 +254,11 @@
 
 - (void)successSignUp {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        /// show with a completion block.
+        [KSToastView ks_showToast:@"회원가입이 완료되었습니다." duration:2.0f completion:nil];
+    }];
     
 }
 

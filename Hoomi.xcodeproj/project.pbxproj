@@ -54,6 +54,7 @@
 		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
 		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
 		FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE36DC41D2CEDB200E157D0 /* Singletone.m */; };
+		FFF170E31D3BA70300F31C52 /* KSToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = FFF170E21D3BA70300F31C52 /* KSToastView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,6 +127,8 @@
 		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
 		FFE36DC31D2CEDB200E157D0 /* Singletone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletone.h; sourceTree = "<group>"; };
 		FFE36DC41D2CEDB200E157D0 /* Singletone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletone.m; sourceTree = "<group>"; };
+		FFF170E11D3BA70300F31C52 /* KSToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KSToastView.h; sourceTree = "<group>"; };
+		FFF170E21D3BA70300F31C52 /* KSToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSToastView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +267,8 @@
 				FFE36DC41D2CEDB200E157D0 /* Singletone.m */,
 				FF51D5231D2F497F00EB409B /* NetworkObject.h */,
 				FF51D5241D2F497F00EB409B /* NetworkObject.m */,
+				FFF170E11D3BA70300F31C52 /* KSToastView.h */,
+				FFF170E21D3BA70300F31C52 /* KSToastView.m */,
 				FF51D5221D2E1AF300EB409B /* Storyboard */,
 				FF65A0581D24DDE90013C181 /* SignView */,
 				FF51D5211D2E1AAE00EB409B /* Main */,
@@ -489,6 +494,7 @@
 				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
 				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
 				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
+				FFF170E31D3BA70300F31C52 /* KSToastView.m in Sources */,
 				FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */,
 				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
