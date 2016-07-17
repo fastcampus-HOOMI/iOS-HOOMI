@@ -12,11 +12,16 @@
 
 @property (nonatomic, strong) NSString *hashID;
 
+/* 임시데이터 시절 데이터 리스트 */
 @property (nonatomic, strong) NSArray<NSString *> *imageNameList;
 @property (nonatomic, strong) NSArray<NSString *> *textList;
 
-/* 데이터 보관 */
-@property (nonatomic, strong) NSMutableArray *contentsArray;
+/* network 연동 후, 데이터 리스트 */
+@property (nonatomic, strong) NSDictionary *contentsDictionary;
+@property (nonatomic, strong) NSMutableArray *imageURLList;
+@property (nonatomic, strong) NSMutableArray *textDataList;
+
+
 
 /* 총 장수 */
 @property (nonatomic) NSInteger totalPageNumber;

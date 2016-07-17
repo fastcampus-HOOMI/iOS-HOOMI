@@ -26,6 +26,7 @@
 /* 네트워크 관련 */
 @property (nonatomic) Singletone *singleTone;
 @property (nonatomic) NetworkObject *networkCenter;
+@property (nonatomic) BOOL isFristLoad;
 
 @end
 
@@ -33,16 +34,29 @@
 @implementation DetailResumeViewController
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    NSLog(@"🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    
+    // 전체 불러오기를 위한 배열 초기화
+    self.imageURLList = [[NSMutableArray alloc]initWithCapacity:1];
+    self.textDataList = [[NSMutableArray alloc]initWithCapacity:1];
+    
     // 네트워크를 통한 데이터 세팅
-    [self LoadDetailResumeData];
+    [self loadDetailResumeData];
     
-    NSLog(@"-------========--------===========");
-    
-   //[[NetworkObject requestInstance] requestjobHistory];
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    NSLog(@"🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
+    
+    NSLog(@"imageURLList - %@", self.imageURLList);
+    NSLog(@"textDataList - %@", self.textDataList);
+    
+    NSLog(@"=====================================");
     
     
     //처음 페이지 (인덱스로)
@@ -72,6 +86,8 @@
     /* 네비게이션 바 버튼 색깔 */
     Singletone *singletone = [Singletone requestInstance];
     self.navigationController.navigationBar.barTintColor = [singletone colorName:Tuna];
+    
+    NSLog(@"🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
 }
 
    /********************************/
@@ -228,29 +244,57 @@
     
 }
 
-/* 한 이력서 전체 페이지 한꺼번에 불러 오기 
-  --> 추후 lazy load로 변경 */
--(void)LoadDetailResumeData {
-    /* @"hash/" 를 붙인 주소를 통해 전달 */
-    self.singleTone = [Singletone requestInstance];
-    NSLog(@"hashID : %@",[self.singleTone hashID]);
-    NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
+/* 데이터 불러오기
+  1) 한 이력서 전체 페이지 한꺼번에 불러 오기  --> 2) 추후 lazy load로 변경 */
+-(void)loadDetailResumeData {
+    /* 최초 로드 체크 */
+    self.isFristLoad = YES;
     
-    self.networkCenter = [NetworkObject requestInstance];
-    [self.networkCenter requestDetailJobHistory:hashID];
+    /* network 객체 세팅 */
+    [self callNewDetailResumePageWithURL];
     
-    /* 전체 페이지 불러오기 */
+    /* 전체 페이지 불러오기
+       -->  추후 lazy load로 변경*/
     [self settingDataInDetailResumeWithAll];
 }
 
+/* 전체 페이지 불러오기 --> 추후 삭제 예정 */
 -(void)settingDataInDetailResumeWithAll {
-    
     /* 갯수만큼 배열에 넣기 */
-    for (NSInteger page = 0; page <= self.networkCenter.detailPageTotalCount; page++) {
+    for (NSInteger page = 0; page < self.totalPageNumber; page++) {
+        [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
+        [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
+        NSLog(@"imageURLList - %@", self.imageURLList);
+        NSLog(@"textDataList - %@", self.textDataList);
         
+        NSLog(@"=====================================");
     }
-    
 }
+
+/* 해당 페이지 URL로 이동 */
+-(void)callNewDetailResumePageWithURL {
+    /* 최초 로드시, hashID 전달 */
+    if (self.isFristLoad == YES) {
+        self.networkCenter = [NetworkObject requestInstance];
+        self.singleTone = [Singletone requestInstance];
+        NSLog(@"hashID : %@",[self.singleTone hashID]);
+        NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
+        [self.networkCenter requestDetailJobHistory:hashID];
+        NSLog(@"%@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
+        
+        /* page 갯수 */
+        self.totalPageNumber = self.networkCenter.detailPageTotalCount;
+        
+        self.isFristLoad = NO;
+    }
+    /* 그 외에는 URL로 이동 */
+    else {
+        /* 지금은 전체 불러오기라 next URL로만 data 부름*/
+        [self.networkCenter requestDetailPageAfterMovePage:self.networkCenter.nextURL];
+        //NSLog(@"%@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
+    }
+}
+
 
 
 

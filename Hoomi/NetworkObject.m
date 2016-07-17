@@ -374,6 +374,73 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
+        NSLog(@"responseObject : %@", responseObject);
+        NSLog(@"response : %@", response);
+        
+        if (responseObject) {
+            NSMutableDictionary *detailPageAllData = responseObject;
+            /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
+            self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
+            [self pickDetailContent];
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
+        }
+        else {
+            NSLog(@"error - %@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
+        }
+        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+    }];
+    
+    [downloadTask resume];
+    
+}
+
+/* 상세 컨텐츠 정보 프로퍼티로 세팅 */
+-(void)pickDetailContent {
+    
+    /* count */
+    self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
+    NSLog(@"🐈🐈🐈🐈🐈 %ld", self.detailPageTotalCount);
+    
+    /* next/previous PageURL */
+    self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
+    self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
+    
+    /* result - 상세 컨텐츠 */
+    self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    /* contents dic - array 안에 Dictionary가 들어가있어서 두 번 뺌 */
+    NSArray *resultArray = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"];
+    NSDictionary *resultDictionary = [resultArray objectAtIndex:0];
+    
+    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
+    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
+    
+    NSLog(@"jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
+    
+}
+
+/* 페이지 로드 후, 움직일 때 = nextPage 또는 previousPage */
+-(void)requestDetailPageAfterMovePage:(NSString *)movePageURL {
+    
+    NSLog(@"requestDetailPageAfterMovePage");
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"GET"];
+    [request setURL:[NSURL URLWithString:movePageURL]];
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
         //NSLog(@"responseObject : %@", responseObject);
         //NSLog(@"response : %@", response);
         
@@ -394,27 +461,6 @@
     }];
     
     [downloadTask resume];
-    
-}
-
--(void)pickDetailContent {
-    
-    /* count */
-    self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
-    
-    /* next/previous PageURL */
-    self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
-    self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
-    
-    /* result - 상세 컨텐츠 */
-    self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
-    
-    /* contents dic - array 안에 Dictionary가 들어가있어서 두 번 뺌 */
-    NSArray *resultArray = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"];
-    NSDictionary *resultDictionary = [resultArray objectAtIndex:0];
-    
-    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
-    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
     
 }
 

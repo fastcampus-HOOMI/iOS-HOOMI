@@ -44,6 +44,7 @@
 @property (nonatomic, strong) NSString *previousURL;
 -(void)requestjobHistory;
 -(void)requestDetailJobHistory:(NSString *)hashID;
+-(void)requestDetailPageAfterMovePage:(NSString *)movePageURL;
 
 //User Info
 @property (nonatomic, strong) NSMutableDictionary *userInfoJSONArray;
