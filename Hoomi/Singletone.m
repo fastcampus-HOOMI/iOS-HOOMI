@@ -58,29 +58,36 @@
     
 }
 
-- (NSString *) errorMsg:(ErrorMsg) msg {
+- (NSString *) toastMsg:(ToastMsg) msg {
 
-    NSString *returnErrorMsg = @"";
+    NSString *returnToastMsg = @"";
     
     switch (msg) {
         case EmptyLoginData:
-            returnErrorMsg = @"빈칸을 입력해주세요.";
+            returnToastMsg = @"빈칸을 입력해주세요.";
             break;
         case WrongLoginData:
-            returnErrorMsg = @"아이디 또는 패스워드를 확인해주세요.";
+            returnToastMsg = @"아이디 또는 패스워드를 확인해주세요.";
             break;
         case ExistEmailAddress:
-            returnErrorMsg = @"이미 존재하는 Email입니다.";
+            returnToastMsg = @"이미 존재하는 Email입니다.";
             break;
         case WrongEmail:
-            returnErrorMsg = @"Email 형식이 맞지않습니다.";
+            returnToastMsg = @"Email 형식이 맞지않습니다.";
             break;
         case ShortPassword:
-            returnErrorMsg = [NSString stringWithFormat:@"패스워드를 %d글자 이상입력해주세요.", MIN_PASSWORD_LENGTH];
+            returnToastMsg = [NSString stringWithFormat:@"패스워드를 %d글자 이상입력해주세요.", MIN_PASSWORD_LENGTH];
+            break;
+        case SuccessSignUp:
+            returnToastMsg = @"회원가입이 완료되었습니다.";
+            break;
+        case LoginWelcome:
+            returnToastMsg = @"환영합니다.";
+            break;
         default:
             break;
     }
-    return returnErrorMsg;
+    return returnToastMsg;
 }
 
 /**

@@ -37,13 +37,15 @@ static NSString *MyWritingListFailNotification = @"WritingListFail";
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
 
-typedef NS_ENUM(NSInteger, ErrorMsg) {
+typedef NS_ENUM(NSInteger, ToastMsg) {
 
     EmptyLoginData,
     WrongLoginData,
     ExistEmailAddress,
     WrongEmail,
     ShortPassword,
+    SuccessSignUp,
+    LoginWelcome,
 
 };
 
@@ -66,7 +68,7 @@ typedef NS_ENUM(NSInteger, Color) {
 + (instancetype) requestInstance;
 
 - (UIColor *) colorName:(Color) name;
-- (NSString *) errorMsg:(ErrorMsg) msg;
+- (NSString *) toastMsg:(ToastMsg) msg;
 - (BOOL) isCorrectEmail:(NSString *) email;
 
 @end
