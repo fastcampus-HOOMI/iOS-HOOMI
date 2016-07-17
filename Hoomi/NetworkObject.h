@@ -39,6 +39,9 @@
 @property (nonatomic, strong) NSArray *hitContentInforJSONArray;
 @property (nonatomic, strong) NSMutableDictionary *jobHistoryDetailAllInfoJSONDictionary;
 @property (nonatomic, strong) NSMutableDictionary *jobHistoryDetailContentsInfoDictionary;
+@property (nonatomic) NSInteger detailPageTotalCount;
+@property (nonatomic, strong) NSString *nextURL;
+@property (nonatomic, strong) NSString *previousURL;
 -(void)requestjobHistory;
 -(void)requestDetailJobHistory:(NSString *)hashID;
 

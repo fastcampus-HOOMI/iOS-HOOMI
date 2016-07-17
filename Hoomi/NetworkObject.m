@@ -398,14 +398,24 @@
 }
 
 -(void)pickDetailContent {
+    
+    /* count */
+    self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
+    
+    /* next/previous PageURL */
+    self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
+    self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
+    
+    /* result - 상세 컨텐츠 */
     self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
     
-    /* array 안에 Dictionary가 들어가있음 */
+    /* contents dic - array 안에 Dictionary가 들어가있어서 두 번 뺌 */
     NSArray *resultArray = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"];
     NSDictionary *resultDictionary = [resultArray objectAtIndex:0];
     
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
+    
 }
 
 

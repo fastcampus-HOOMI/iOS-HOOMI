@@ -231,14 +231,24 @@
 /* 한 이력서 전체 페이지 한꺼번에 불러 오기 
   --> 추후 lazy load로 변경 */
 -(void)LoadDetailResumeData {
-    /* hash/ 를 붙인 주소를 통해 전달 */
+    /* @"hash/" 를 붙인 주소를 통해 전달 */
     self.singleTone = [Singletone requestInstance];
     NSLog(@"hashID : %@",[self.singleTone hashID]);
     NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
-    [[NetworkObject requestInstance] requestDetailJobHistory:hashID];
     
+    self.networkCenter = [NetworkObject requestInstance];
+    [self.networkCenter requestDetailJobHistory:hashID];
     
+    /* 전체 페이지 불러오기 */
+    [self settingDataInDetailResumeWithAll];
+}
+
+-(void)settingDataInDetailResumeWithAll {
     
+    /* 갯수만큼 배열에 넣기 */
+    for (NSInteger page = 0; page <= self.networkCenter.detailPageTotalCount; page++) {
+        
+    }
     
 }
 
