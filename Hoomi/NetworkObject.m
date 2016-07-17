@@ -360,7 +360,6 @@
     NSLog(@"requestDetailJobHistory");
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     // create request
@@ -382,10 +381,7 @@
             NSMutableDictionary *detailPageAllData = responseObject;
             /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
             self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
-            self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
-            [self.jobHistoryDetailContentsInfoDictionary setValue:[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"] forKey:@"results"];
-            NSLog(@"result 값 %@", [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"]);
-            
+            [self pickDetailContent];
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
         }
@@ -395,12 +391,23 @@
         }
         NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
         NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
-        //NSLog(@"results dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
     
 }
+
+-(void)pickDetailContent {
+    self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
+    
+    /* array 안에 Dictionary가 들어가있음 */
+    NSArray *resultArray = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"results"];
+    NSDictionary *resultDictionary = [resultArray objectAtIndex:0];
+    
+    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
+    [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
+}
+
 
 //
 

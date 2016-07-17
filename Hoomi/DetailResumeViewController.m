@@ -13,6 +13,7 @@
 
 @interface DetailResumeViewController () <UIScrollViewDelegate>
 
+/* 화면 관련 */
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIActivityIndicatorView *activityView;
 
@@ -22,7 +23,9 @@
 @property (nonatomic) NSInteger beforePage;
 @property (nonatomic) NSInteger currentPage;
 
+/* 네트워크 관련 */
 @property (nonatomic) Singletone *singleTone;
+@property (nonatomic) NetworkObject *networkCenter;
 
 @end
 
@@ -41,9 +44,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Hash ID
-//    self.singleTone = [Singletone requestInstance];
-//    NSLog(@"hashID : %@",[self.singleTone hashID]);
     
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
@@ -231,10 +231,15 @@
 /* 한 이력서 전체 페이지 한꺼번에 불러 오기 
   --> 추후 lazy load로 변경 */
 -(void)LoadDetailResumeData {
+    /* hash/ 를 붙인 주소를 통해 전달 */
     self.singleTone = [Singletone requestInstance];
     NSLog(@"hashID : %@",[self.singleTone hashID]);
     NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
     [[NetworkObject requestInstance] requestDetailJobHistory:hashID];
+    
+    
+    
+    
 }
 
 
