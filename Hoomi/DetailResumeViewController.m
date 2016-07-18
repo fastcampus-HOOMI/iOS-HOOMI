@@ -42,6 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    /* 노티 등록 */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
+    
     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
     // 네트워크를 통한 데이터 세팅
@@ -278,8 +281,6 @@
         [self.networkCenter requestDetailPageAfterMovePage:self.networkCenter.nextURL];
     }
     
-    /* 노티 등록 */
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
 }
 
 
