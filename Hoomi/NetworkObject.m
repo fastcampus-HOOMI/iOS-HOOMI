@@ -381,7 +381,7 @@
             self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
             [self pickDetailContent];
             // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
         }
         else {
             NSLog(@"error - %@", error);
@@ -451,7 +451,7 @@
             self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
             [self pickDetailContent];
             // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
         }
         else {
             NSLog(@"%@", error);

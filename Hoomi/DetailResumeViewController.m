@@ -44,10 +44,8 @@
     
     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
-    
     // 네트워크를 통한 데이터 세팅
     [self loadDetailResumeData];
-    
     
     NSLog(@"4🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
@@ -261,46 +259,60 @@
     /* network 객체 세팅 */
     [self callNewDetailResumePageWithURL];
     
-    /* 전체 페이지 불러오기
-       -->  추후 lazy load로 변경*/
-    [self settingDataInDetailResumeWithAll];
 }
 
 /* 해당 페이지 URL로 이동 */
 -(void)callNewDetailResumePageWithURL {
+    
     /* 최초 로드시, hashID 전달 */
     if (self.isFristLoad == YES) {
-        
         NSLog(@"2🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
         NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
         NSLog(@"🌵 hashID %@", hashID);
         [self.networkCenter requestDetailJobHistory:hashID];
-        NSLog(@"🌵 network 객체로 불러온 info %@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
-        
-        /* page 갯수 */
-        self.totalPageNumber = self.networkCenter.detailPageTotalCount;
-        NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", self.totalPageNumber);
-        
-        self.isFristLoad = NO;
     }
     /* 그 외에는 URL로 이동 */
-    else {
+    if (self.isFristLoad == NO) {
         /* 지금은 전체 불러오기라 next URL로만 data 부름*/
         [self.networkCenter requestDetailPageAfterMovePage:self.networkCenter.nextURL];
         //NSLog(@"%@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
     }
+    
+    /* 노티 등록 */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDataInDetailResumeWithAll) name:LoadDetailResumeSuccessNotification object:nil];
 }
 
 
 /* 전체 페이지 불러오기 --> 추후 삭제 예정 */
 -(void)settingDataInDetailResumeWithAll {
     NSLog(@"3🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    /* 갯수만큼 배열에 넣기 */
-    for (NSInteger page = 0; page < self.totalPageNumber; page++) {
+
+    if (self.isFristLoad == YES) {
+        
+        /* page 갯수 */
+        self.totalPageNumber = self.networkCenter.detailPageTotalCount;
+        NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", self.totalPageNumber);
+        
+        /* 첫 번째 장 컨텐츠 */
         [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
         [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
         NSLog(@"imageURLList - %@", self.imageURLList);
         NSLog(@"textDataList - %@", self.textDataList);
+        
+        self.isFristLoad = NO;
+        [self callNewDetailResumePageWithURL];
+    }
+    else if (self.isFristLoad == NO || self.networkCenter.nextURL != nil) {
+        [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
+        [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
+        [self callNewDetailResumePageWithURL];
+    }
+    else {
+        [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
+        [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
+        NSLog(@"imageURLList - %@", self.imageURLList);
+        NSLog(@"textDataList - %@", self.textDataList);
+
     }
 }
 

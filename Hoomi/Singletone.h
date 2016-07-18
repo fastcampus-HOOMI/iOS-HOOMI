@@ -25,7 +25,7 @@ static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/?per=4
 static NSString *JobHistoryURL = @"https://hoomi.work/api/job-history/";
 static NSString *ContentsListUpdataNotification = @"ContentsListUpdataed";
 static NSString *ContentsListFailNotification = @"ContentsListFail";
-static NSString *LoadDetailResumeNotification = @"LoadDetailResumeSuccess";
+static NSString *LoadDetailResumeSuccessNotification = @"LoadDetailResumeSuccess";
 static NSString *LoadDetailResumeFailNotification = @"LoadDetailResumeFail";
 
 
