@@ -311,6 +311,7 @@
     [downloadTask resume];
 }
 
+
 /* 인기글 전체 */
 -(void)requestjobHistory {
     
@@ -354,7 +355,6 @@
 }
 
 /* 인기글 상세 */
-
 -(void)requestDetailJobHistory:(NSString *)hashID {
     
     NSLog(@"requestDetailJobHistory");
