@@ -35,14 +35,6 @@
 
 -(void)viewWillAppear:(BOOL)animated {
     
-    NSLog(@"🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    
-    // 전체 불러오기를 위한 배열 초기화
-    self.imageURLList = [[NSMutableArray alloc]initWithCapacity:1];
-    self.textDataList = [[NSMutableArray alloc]initWithCapacity:1];
-    
-    // 네트워크를 통한 데이터 세팅
-    [self loadDetailResumeData];
     
 }
 
@@ -50,8 +42,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
-    NSLog(@"🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
+    
+    // 네트워크를 통한 데이터 세팅
+    [self loadDetailResumeData];
+    
+    
+    NSLog(@"4🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
     NSLog(@"imageURLList - %@", self.imageURLList);
     NSLog(@"textDataList - %@", self.textDataList);
@@ -87,7 +85,7 @@
     Singletone *singletone = [Singletone requestInstance];
     self.navigationController.navigationBar.barTintColor = [singletone colorName:Tuna];
     
-    NSLog(@"🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
+    NSLog(@"last🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
 }
 
    /********************************/
@@ -250,6 +248,16 @@
     /* 최초 로드 체크 */
     self.isFristLoad = YES;
     
+    NSLog(@"1🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    
+    /* singleTone 초기화 */
+    self.networkCenter = [NetworkObject requestInstance];
+    self.singleTone = [Singletone requestInstance];
+    
+    // 전체 불러오기를 위한 배열 초기화
+    self.imageURLList = [[NSMutableArray alloc]initWithCapacity:1];
+    self.textDataList = [[NSMutableArray alloc]initWithCapacity:1];
+    
     /* network 객체 세팅 */
     [self callNewDetailResumePageWithURL];
     
@@ -258,32 +266,20 @@
     [self settingDataInDetailResumeWithAll];
 }
 
-/* 전체 페이지 불러오기 --> 추후 삭제 예정 */
--(void)settingDataInDetailResumeWithAll {
-    /* 갯수만큼 배열에 넣기 */
-    for (NSInteger page = 0; page < self.totalPageNumber; page++) {
-        [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
-        [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
-        NSLog(@"imageURLList - %@", self.imageURLList);
-        NSLog(@"textDataList - %@", self.textDataList);
-        
-        NSLog(@"=====================================");
-    }
-}
-
 /* 해당 페이지 URL로 이동 */
 -(void)callNewDetailResumePageWithURL {
     /* 최초 로드시, hashID 전달 */
     if (self.isFristLoad == YES) {
-        self.networkCenter = [NetworkObject requestInstance];
-        self.singleTone = [Singletone requestInstance];
-        NSLog(@"hashID : %@",[self.singleTone hashID]);
+        
+        NSLog(@"2🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
         NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
+        NSLog(@"🌵 hashID %@", hashID);
         [self.networkCenter requestDetailJobHistory:hashID];
-        NSLog(@"%@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
+        NSLog(@"🌵 network 객체로 불러온 info %@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
         
         /* page 갯수 */
         self.totalPageNumber = self.networkCenter.detailPageTotalCount;
+        NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", self.totalPageNumber);
         
         self.isFristLoad = NO;
     }
@@ -294,6 +290,20 @@
         //NSLog(@"%@", self.networkCenter.jobHistoryDetailAllInfoJSONDictionary);
     }
 }
+
+
+/* 전체 페이지 불러오기 --> 추후 삭제 예정 */
+-(void)settingDataInDetailResumeWithAll {
+    NSLog(@"3🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    /* 갯수만큼 배열에 넣기 */
+    for (NSInteger page = 0; page < self.totalPageNumber; page++) {
+        [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
+        [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
+        NSLog(@"imageURLList - %@", self.imageURLList);
+        NSLog(@"textDataList - %@", self.textDataList);
+    }
+}
+
 
 
 

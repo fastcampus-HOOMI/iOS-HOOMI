@@ -373,10 +373,8 @@
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        
-        NSLog(@"responseObject : %@", responseObject);
-        NSLog(@"response : %@", response);
-        
+//        NSLog(@"responseObject : %@", responseObject);
+//        NSLog(@"response : %@", response);        
         if (responseObject) {
             NSMutableDictionary *detailPageAllData = responseObject;
             /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
@@ -402,11 +400,14 @@
     
     /* count */
     self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
-    NSLog(@"🐈🐈🐈🐈🐈 %ld", self.detailPageTotalCount);
+    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %ld", self.detailPageTotalCount);
     
     /* next/previous PageURL */
     self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
     self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
+    
+    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %@", self.nextURL);
+    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %@", self.previousURL);
     
     /* result - 상세 컨텐츠 */
     self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
@@ -418,7 +419,7 @@
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
     
-    NSLog(@"jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
+    NSLog(@"🐈🐈🐈🐈 jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
     
 }
 
