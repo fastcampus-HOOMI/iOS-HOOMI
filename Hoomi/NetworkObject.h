@@ -40,8 +40,8 @@
 -(void)requestjobHistory;
 
 //User Info
-@property (nonatomic, strong) NSMutableDictionary *userInfoJSONArray;
-@property (nonatomic, strong) NSArray *myWritingListJSONArray;
+@property (nonatomic, strong) NSArray *userInfoJSONArray;
+@property (nonatomic, strong) NSArray *myContentListJSONArray;
 
 -(void)requestMypage;
 
