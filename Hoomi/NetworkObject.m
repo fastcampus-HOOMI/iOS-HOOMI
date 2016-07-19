@@ -375,13 +375,33 @@
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
         NSLog(@"resault: %@", responseObject); //api (mypage한정) 전체를 받아옴
+        
         if (responseObject) {
+           // @[responseObject objectForKey:@"first_name"],
             
-            NSArray *userInfoArray = [responseObject objectForKey:@"hash_id"];
-    
+//            NSMutableDictionary *userInfoArray = @{@"name1": @[[responseObject objectForKey:@"first_name"]]
+//                                            , @"name2": @[[responseObject objectForKey:@"last_name"]]
+//                                            , @"email":@[[responseObject objectForKey:@"username"]]
+//                                            , @"joob":@[[responseObject objectForKey:@"job"]]};
+
+            //NSArray *userInfoArray = [responseObject objectForKey:@"first_name"];
+            
+            NSArray *userInfoArray = @[@[[[responseObject objectAtIndex:0] objectForKey:@"first_name"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"last_name"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"username"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"job"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]]
+                                       ];
+
             self.userInfoJSONArray = userInfoArray;
+            
+            NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
+            self.myContentListJSONArray = myListArray;
+            
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
+            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];

@@ -36,6 +36,9 @@
 @property (nonatomic) NSMutableArray *imageDataArray;
 @property (nonatomic) NSMutableArray *hashIDArray;
 
+@property (nonatomic, strong) NSString *userInfoName;
+
+
 @end
 
 @implementation MyPageTableViewController
@@ -43,9 +46,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //비동기통신으로 인한 옵져버등록
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successLoad) name:UserInfoListNotification object:nil];
+    
+    
     /* 네트워크 테스트 */
     self.singleTone = [Singletone requestInstance];
     self.networkObject = [NetworkObject requestInstance];
+    [self.networkObject requestMypage];
+    
     /*임포트 네트워크오브젝트를 객체로 만든것*/
     
     self.refreshControl = [[UIRefreshControl alloc]init];
@@ -53,8 +62,6 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     //마이페이지 로드(내글목록)
-    [self.networkObject requestMypage];
-    
     
 //    self.listData = [[NSMutableDictionary alloc] init];
 //    
@@ -63,13 +70,21 @@
 //    [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
 //    [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
     
-    
-    
     self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
     
 }
 
-- (void)loadMyContentDataList {
+-(void)successLoad {
+
+    NSLog(@"😬 %@", self.networkObject.userInfoJSONArray);
+    NSLog(@"😬 %@", self.networkObject.myContentListJSONArray);
+    NSArray *userinfoList = self.networkObject.userInfoJSONArray;
+    NSString *firstName = [[userinfoList objectAtIndex:0] objectAtIndex:0];
+    NSString *lastName = [[userinfoList objectAtIndex:1] objectAtIndex:0];
+    NSString *name = [firstName stringByAppendingString:lastName];
+    NSLog(@"😇name - %@", name);
+    self.userInfoName = name;
+    NSLog(@"😇userInfoName - %@", self.userInfoName);
     
     self.myContentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
@@ -77,27 +92,47 @@
     
     NSArray *myList = [self.networkObject myContentListJSONArray];
     
+    NSLog(@"😍---- %@", myList);
+    
+    NSLog(@"hash_id : %@", self.hashIDArray);
+    
+    
     for (NSInteger i = 0; i < [myList count]; i++) {
+        NSLog(@"😇index - %@", [myList objectAtIndex:i]);
         NSDictionary *dic = [myList objectAtIndex:i];
-        NSArray *experiences = [dic objectForKey:@"experiences"];
+//        NSArray *experiences = [dic objectForKey:@"experiences"];
         
         [self.hashIDArray addObject:[dic objectForKey:@"hash_id"]];
         
-        NSString *content = [[experiences objectAtIndex:0] objectForKey:@"content"];
-        NSString *imageUrl = [[experiences objectAtIndex:0] objectForKey:@"image"];
-        
+        NSString *content = [[myList objectAtIndex:i] objectForKey:@"content"];
+        NSLog(@"😇content - %@", content);
+        NSString *imageUrl = [[myList objectAtIndex:i] objectForKey:@"image"];
+
         [self.myContentDataArray addObject:content];
         [self.imageDataArray addObject:imageUrl];
         
     }
     NSLog(@"contentData : %@", self.myContentDataArray);
     NSLog(@"imageData : %@", self.imageDataArray);
-    NSLog(@"hash_id : %@", self.hashIDArray);
+//    NSLog(@"hash_id : %@", self.hashIDArray);
+    
+    
+    
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
     });
+}
+
+- (void)loadMyContentDataList {
+    
+    
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        
+//        [self.tableView reloadData];
+//    });
+
 
 }
 
@@ -158,7 +193,7 @@
         return 3;
     }
   //서버에서 보내주는 이력서 수 카운트
-    return [[self.networkObject myContentListJSONArray] count];
+    return [self.myContentDataArray count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -169,32 +204,40 @@
         NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
         cell.imageView.image = [UIImage imageNamed:imageName];
         
-        
-        if(indexPath.section == 0) {
-            if(indexPath.row ==0) {
-                cell.textLabel.text = @"지호";
-            } else if(indexPath.row == 1) {
-                cell.textLabel.text = @"najanda89@gmail.com";
-            } else if(indexPath.row == 2) {
-                cell.textLabel.text = @"Photographer";
-            }
+        //userinfoview - 이름/이메일/직업 받아온다
+        if(indexPath.row ==0) {
+            cell.textLabel.text = self.userInfoName;
+            
+        } else if(indexPath.row == 1) {
+            cell.textLabel.text = [[self.networkObject.userInfoJSONArray objectAtIndex:2] objectAtIndex:0];
+        } else if(indexPath.row == 2) {
+            cell.textLabel.text = [[self.networkObject.userInfoJSONArray objectAtIndex:3] objectAtIndex:0];
         }
         
         return cell;
+    } else {
+        
+        // 내글 목록을 받아온다
+        static NSString *Cell = @"Cell";
+        
+        MyPageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
+        
+        cell.label.text = [self.myContentDataArray objectAtIndex:indexPath.row];
+        [cell.label setTextColor:[UIColor whiteColor]];
+        //    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
+        
+        [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
+        
+        
+        
+        //    cell.label.text = [[self.myContentDataArray objectAtIndex:1] objectForKey:@"content"];
+        //    [cell.label setTextColor:[UIColor whiteColor]];
+        //
+        //    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:1]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
+        
+        return cell;
     }
-    
-    
-    MyPageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    // null해결후 수정할것
-    NSArray *allKey = [self.listData allKeys];
-    NSString *key = [allKey objectAtIndex:indexPath.row];
-    
-    cell.image.image = [UIImage imageNamed:[self.listData objectForKey:key]];
-    cell.label.text = key;
-    [cell.label setTextColor:[UIColor whiteColor]];
-    [cell setBackgroundColor:[UIColor whiteColor]];
-    
-    return cell;
+    return 0;
 }
 
 // 마이페이지 - 게시물(셀) 삭제
