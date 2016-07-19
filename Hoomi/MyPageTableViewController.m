@@ -94,7 +94,7 @@
     
     NSLog(@"😍---- %@", myList);
     
-    NSLog(@"hash_id : %@", self.hashIDArray);
+   
     
     
     for (NSInteger i = 0; i < [myList count]; i++) {
@@ -102,7 +102,9 @@
         NSDictionary *dic = [myList objectAtIndex:i];
 //        NSArray *experiences = [dic objectForKey:@"experiences"];
         
-        [self.hashIDArray addObject:[dic objectForKey:@"hash_id"]];
+        //[self.hashIDArray addObject:[dic objectForKey:@"hash_id"]];
+        
+         NSLog(@"hash_id : %@", self.hashIDArray);
         
         NSString *content = [[myList objectAtIndex:i] objectForKey:@"content"];
         NSLog(@"😇content - %@", content);
