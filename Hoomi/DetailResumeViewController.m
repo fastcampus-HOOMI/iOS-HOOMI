@@ -43,6 +43,9 @@
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
     
+    // 네트워크를 통한 데이터 세팅
+    [self loadDetailResumeData];
+    
     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
     /* Indicator
@@ -60,16 +63,12 @@
     [self creatScrollView];
     [self creatContentsSheet:self.beforePage];
     
-    // 네트워크를 통한 데이터 세팅
-    [self loadDetailResumeData];
-    
     NSLog(@"4🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
     
     
     /* 네비게이션 바 버튼 색깔 */
-    Singletone *singletone = [Singletone requestInstance];
-    self.navigationController.navigationBar.barTintColor = [singletone colorName:Tuna];
+    self.navigationController.navigationBar.barTintColor = [self.singleTone colorName:Tuna];
     
     NSLog(@"last🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
 }
@@ -230,11 +229,10 @@
     
     /* page, image, text */
     NSInteger totalPage = self.networkCenter.detailPageTotalCount;
-    NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", totalPage);
     NSString *imageURL = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"];
     NSString *textData = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"];
     
-    /* image 변환해서 */
+    NSLog(@"🌵 network 객체로 불러온 totalPage: %ld / imageURL : %@ / textData : %@", totalPage, imageURL, textData);
     
     /* 프로퍼티로 올림 */
     [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
