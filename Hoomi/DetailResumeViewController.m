@@ -28,16 +28,14 @@
 @property (nonatomic) NetworkObject *networkCenter;
 @property (nonatomic) BOOL isFristLoad;
 
+/* 데이터 로드 후, 세팅 관련 */
+@property (nonatomic, strong) UIImage *imageAtCurrentPage;
+@property (nonatomic, strong) NSString *textDataAtCurrentPage;
+
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
 @implementation DetailResumeViewController
-
--(void)viewWillAppear:(BOOL)animated {
-    
-    
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -52,14 +50,9 @@
     
     NSLog(@"4🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
-    NSLog(@"imageURLList - %@", self.imageURLList);
-    NSLog(@"textDataList - %@", self.textDataList);
-    
-    NSLog(@"=====================================");
-    
-    
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
+    self.currentPage = 0;//////////
     
     /* Indicator
        1) 데이터 들어올 때 활성화
@@ -126,12 +119,16 @@
      나중에는 한 페이지 넘길 때마다 세팅 해야한다.
      --> laze load 이슈 - cheesing */
     
+    /*
     for (NSInteger pageNumber = 1; pageNumber <= self.totalPageNumber; pageNumber++) {
         
         [self creatContentsSheet:pageNumber];
         self.offsetX += self.view.frame.size.width;
         
     }
+     */
+    
+    [self creatContentsSheet:self.currentPage];
 }
 
 #pragma mark - setting frame & contents
@@ -151,6 +148,7 @@
 -(void)creatContentsSheet:(NSInteger)pageNumber {
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    
     /* 이미지와 텍스트 세팅
      - 현재는 배열로 세팅을 시켰지만, 나중에는 서버 데이터를 불러오는 걸로 세팅해야함 cheesing ->
      
@@ -158,14 +156,11 @@
     
     /////
     
-    
-    NSString *imageName = [self.imageNameList objectAtIndex:pageNumber-1];
-    NSString *text = [self.textList objectAtIndex:pageNumber-1];
-    [themeOneSheet settingDetailResume:imageName text:text];
-    
-    ////////
-    
+    [themeOneSheet settingDetailResume:self.imageAtCurrentPage text:self.textDataAtCurrentPage];
     [self.scrollView addSubview:themeOneSheet];
+    
+    self.offsetX += self.view.frame.size.width;
+
 }
 
 
@@ -213,13 +208,19 @@
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;//현재페이지 인식
-    
-    NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
-    /* 페이지 변화 감지 */
-    if ([self isChangePage]==YES) {
+    if (self.currentPage < self.beforePage) {
+        NSLog(@"이미 로드한 것 다시 보는 중");
+    }
+    if ([self.networkCenter.nextURL isEqual: @"<null>"]) {
+        NSLog(@"마지막 페이지 입니다.");
+    }
+    /* 페이지 변화 감지 (next만) */
+    else if ([self isChangePage]==YES)
+    {
         [self callNewDetailResumePageWithURL];
+        [self creatContentsSheet:self.currentPage];
     }
 }
 
@@ -255,10 +256,6 @@
     self.networkCenter = [NetworkObject requestInstance];
     self.singleTone = [Singletone requestInstance];
     
-    // 전체 불러오기를 위한 배열 초기화
-    self.imageURLList = [[NSMutableArray alloc]initWithCapacity:1];
-    self.textDataList = [[NSMutableArray alloc]initWithCapacity:1];
-    
     /* network 객체 세팅 */
     [self callNewDetailResumePageWithURL];
     
@@ -280,7 +277,6 @@
         /* 지금은 next URL로만 data 부름*/
         [self.networkCenter requestDetailPageAfterMovePage:self.networkCenter.nextURL];
     }
-    
 }
 
 
@@ -288,34 +284,27 @@
 -(void)downLoadCurrentPageInDetailResume {
     NSLog(@"3🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
-    /* page 갯수 */
-    self.totalPageNumber = self.networkCenter.detailPageTotalCount;
-    NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", self.totalPageNumber);
+    /* page, image, text */
+    NSInteger totalPage = self.networkCenter.detailPageTotalCount;
+    NSLog(@"🌵 network 객체로 불러온 totalPageNumber %ld", totalPage);
+    NSString *imageURL = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"];
+    NSString *textData = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"];
     
-    /* 첫 번째 장 컨텐츠 */
-    [self.imageURLList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"]];
-    [self.textDataList addObject:[self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"]];
-    NSLog(@"imageURLList - %@", self.imageURLList);
-    NSLog(@"textDataList - %@", self.textDataList);
+    /* image 변환해서 */
+    
+    /* 프로퍼티로 올림 */
+    [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
     
     self.isFristLoad = NO;
 }
 
-
-
-
-
-/* 현재 페이지의 컨텐츠를 배열에서 꺼내오기 -> 프로퍼티로 세팅 */
--(void)selectCurrentContents {
-    //self.currentSheet = [self.contentsArray objectAtIndex:self.currentPage];
-}
-
-
-#pragma mark - lazyLoad
-
--(void)lazyLoadDeatilContents {
-    
-    // 페이지마다 로드 되도록 하는 작업
+/* 세팅 가능한 데이터로 가공 후, 프로퍼티로 올림 */
+-(void)addCurrentDataToProtery:(NSInteger)totalPage imageURL:(NSString *)imageURL textData:(NSString *)textData {
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    UIImage *image = [UIImage imageWithData:imageData];
+    self.imageAtCurrentPage = image;
+    self.totalPageNumber = totalPage;
+    self.textDataAtCurrentPage = textData;
     
 }
 

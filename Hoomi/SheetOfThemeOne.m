@@ -69,8 +69,8 @@
 /* 이미지, 텍스트뷰 초기화 함께 */
 /* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
 
--(void)settingDetailResume:(NSString *)imageName text:(NSString *)text {
-    [self creatImageView:imageName];
+-(void)settingDetailResume:(UIImage *)image text:(NSString *)text {
+    [self creatImageView:image];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
     
@@ -96,11 +96,9 @@
 
 
 /* 이미지 뷰 */
--(void)creatImageView:(NSString *)imageName {
-    
+-(void)creatImageView:(UIImage *)image {
     self.imageView = [[UIImageView alloc]initWithFrame:self.imageFrame];
-    /* 이미지 이름 받아서 세팅 -> jpg면 .jpg써줘야함 */
-    [self.imageView setImage:[UIImage imageNamed:imageName]];
+    self.imageView.image = image;
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 10.0;//곡선
