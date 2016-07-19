@@ -39,14 +39,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
+    NSLog(@"🌵🌵addObserver🌵🌵");
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
     
+     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     // 네트워크를 통한 데이터 세팅
     [self loadDetailResumeData];
     
-    NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    NSLog(@"4🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
     /* Indicator
      1) 데이터 들어올 때 활성화
@@ -63,7 +65,7 @@
     [self creatScrollView];
     [self creatContentsSheet:self.beforePage];
     
-    NSLog(@"4🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
+    NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
     
     
@@ -83,9 +85,9 @@
     self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     /* 페이지 갯수 받는 외부 프로퍼티 만든 상태 */
     /* 그림 갯수 따라서 컨텐츠 사이즈 늘리고 sheetOfDetailResume을 반복하여 올려야 한다. */
-    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width*self.totalPageNumber, self.scrollView.frame.size.height);
+    self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.totalPageNumber, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
-    //self.scrollView.backgroundColor = [UIColor redColor];
+    self.scrollView.backgroundColor = [UIColor redColor];
     /* 페이지처럼 넘기게 하는 효과 */
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
@@ -93,7 +95,7 @@
 
 -(void)creatContentsSheet:(NSInteger)pageNumber {
     /* 한 장 세팅 */
-    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX * pageNumber, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
     [themeOneSheet settingDetailResume:self.imageAtCurrentPage text:self.textDataAtCurrentPage];
     [self.scrollView addSubview:themeOneSheet];
@@ -213,6 +215,7 @@
         NSString *hashID = [[self.singleTone hashID] stringByAppendingString:@"/"];
         NSLog(@"🌵 hashID %@", hashID);
         [self.networkCenter requestDetailJobHistory:hashID];
+        NSLog(@"🌵 3으로 가야함");
     }
     /* 그 외에는 URL로 이동 */
     if (self.isFristLoad == NO) {
@@ -247,7 +250,6 @@
     self.imageAtCurrentPage = image;
     self.totalPageNumber = totalPage;
     self.textDataAtCurrentPage = textData;
-    
 }
 
 

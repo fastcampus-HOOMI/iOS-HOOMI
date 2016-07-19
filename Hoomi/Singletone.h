@@ -28,7 +28,6 @@ static NSString *ContentsListFailNotification = @"ContentsListFail";
 static NSString *LoadDetailResumeSuccessNotification = @"LoadDetailResumeSuccess";
 static NSString *LoadDetailResumeFailNotification = @"LoadDetailResumeFail";
 
-
 /* 마이페이지 관련 */
 static NSString *MyPageUrl = @"https://hoomi.work/api/mypage/";
 static NSString *UserInfoListNotification = @"InfoListSuccess";

@@ -40,7 +40,7 @@
     
     /* temp 이미지 세팅 */
     NSString *tempImageName = @"grayColor.jpg";
-    [self creatImageView:tempImageName];
+    [self creatImageView:nil tempImageName:tempImageName haveImage:NO];
     
     /* 업로드 버튼 */
     [self creatUploadButton];
@@ -70,7 +70,7 @@
 /* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
 
 -(void)settingDetailResume:(UIImage *)image text:(NSString *)text {
-    [self creatImageView:image];
+    [self creatImageView:image tempImageName:nil haveImage:YES];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
     
@@ -96,9 +96,14 @@
 
 
 /* 이미지 뷰 */
--(void)creatImageView:(UIImage *)image {
+-(void)creatImageView:(UIImage *)image tempImageName:(NSString *)imageName haveImage:(BOOL)haveImage {
     self.imageView = [[UIImageView alloc]initWithFrame:self.imageFrame];
-    self.imageView.image = image;
+    if (haveImage == YES) {
+        self.imageView.image = image;
+    }
+    if (haveImage == NO) {
+        self.imageView.image = [UIImage imageNamed:imageName];
+    }
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 10.0;//곡선
