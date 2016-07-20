@@ -39,7 +39,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    
+    //처음 페이지 (인덱스로)
+    self.beforePage = 0;
+    self.currentPage = 0;
+    self.offsetX = 0;
+    
     NSLog(@"🌵🌵addObserver🌵🌵");
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
@@ -57,13 +62,10 @@
     
     [self creatIndicatorView];
     
-    //처음 페이지 (인덱스로)
-    self.beforePage = 0;
-    //self.currentPage = 0;
-    self.offsetX = 0;
+    
     
     [self creatScrollView];
-    [self creatContentsSheet:self.beforePage];
+//    [self creatContentsSheet:self.beforePage];
     
     NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
@@ -87,7 +89,7 @@
     /* 그림 갯수 따라서 컨텐츠 사이즈 늘리고 sheetOfDetailResume을 반복하여 올려야 한다. */
     self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.totalPageNumber, self.scrollView.frame.size.height);
     self.scrollView.delegate = self;
-    self.scrollView.backgroundColor = [UIColor redColor];
+    //self.scrollView.backgroundColor = [UIColor redColor];
     /* 페이지처럼 넘기게 하는 효과 */
     self.scrollView.pagingEnabled = YES;
     [self.view addSubview:self.scrollView];
@@ -241,6 +243,7 @@
     [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
     
     self.isFristLoad = NO;
+    [self creatContentsSheet:self.currentPage];
 }
 
 /* 세팅 가능한 데이터로 가공 후, 프로퍼티로 올림 */
