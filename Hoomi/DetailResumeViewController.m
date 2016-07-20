@@ -160,22 +160,12 @@
     /* 페이지 변화 감지 (next만) */
     if ([self isChangePage]==YES)
     {
-        /* 이미 로드했던 것 볼 때 / 넘기는 중일 때 */
-        if ((self.currentPage < self.beforePage) || (self.currentPage == self.beforePage)) {
-            NSLog(@"이미 로드한 것 다시 보는 중");
+        if ([self stopDownloadContents] == YES) {
+            NSLog(@"이미 로드했던 데이터 보는 중");
         }
-        /* 다음 장을 볼 때 */
         else {
-            /* 이미 다운 받은 뒷장 다시 볼 때 */
-            if (self.totalPageNumber == self.downloadCount) {
-                NSLog(@"이미 다운로드한 것 다시 보는 중");
-            }
-            /* 새로운 다음장 받을 때 */
-            else {
-                [self callNewDetailResumePageWithURL];
-                self.beforePage = self.currentPage;
-                //[self creatContentsSheet:self.currentPage];
-            }
+            [self callNewDetailResumePageWithURL];
+            self.beforePage = self.currentPage;
         }
     }
 }
@@ -197,6 +187,17 @@
         return YES;
     }
     
+}
+
+-(BOOL)stopDownloadContents {
+    /* 이미 로드했던 것 볼 때 / 페이지 넘기는 중일 때 */
+    if ((self.currentPage < self.beforePage) || (self.currentPage == self.beforePage) || (self.totalPageNumber == self.downloadCount)) {
+        return YES;
+    }
+    /* 새로운 다음장 받을 때 */
+    else {
+        return NO;
+    }
 }
 
 /* 데이터 불러오기
