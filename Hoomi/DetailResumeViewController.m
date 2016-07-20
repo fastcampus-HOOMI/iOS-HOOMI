@@ -45,16 +45,6 @@
     self.currentPage = 0;
     self.offsetX = 0;
     
-    NSLog(@"🌵🌵addObserver🌵🌵");
-    /* 노티 등록 */
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
-    
-     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    // 네트워크를 통한 데이터 세팅
-    [self loadDetailResumeData];
-    
-    NSLog(@"4🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    
     /* Indicator
      1) 데이터 들어올 때 활성화
      2) 데이터 세팅 완료 된 후, hidden
@@ -62,14 +52,23 @@
     
     [self creatIndicatorView];
     
+    NSLog(@"🌵🌵addObserver🌵🌵");
+    /* 노티 등록 */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadNextDetailResumeSuccessNotification object:nil];
+    
+     NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    
+    // 네트워크를 통한 데이터 세팅
+    [self loadDetailResumeData];
+    
+    NSLog(@"4🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
     
 //    [self creatScrollView];
 //    [self creatContentsSheet:self.beforePage];
     
     NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
-    
-    
     
     /* 네비게이션 바 버튼 색깔 */
     self.navigationController.navigationBar.barTintColor = [self.singleTone colorName:Tuna];
@@ -165,7 +164,7 @@
     else if ([self isChangePage]==YES)
     {
         [self callNewDetailResumePageWithURL];
-        [self creatContentsSheet:self.currentPage];
+        //[self creatContentsSheet:self.currentPage];
     }
 }
 
@@ -245,7 +244,6 @@
     if (self.isFristLoad == YES) {
         [self creatScrollView];
         NSLog(@"🍞 총 쪽수 %ld", self.totalPageNumber);
-        
     }
     
     [self creatContentsSheet:self.currentPage];
@@ -259,6 +257,8 @@
     self.imageAtCurrentPage = image;
     self.totalPageNumber = totalPage;
     self.textDataAtCurrentPage = textData;
+    
+    NSLog(@"🤖 totalPageNumber - %ld, 🤖 imageAtCurrentPage - %@, 🤖textDataAtCurrentPage - %@", self.totalPageNumber, self.imageAtCurrentPage, self.textDataAtCurrentPage);
 }
 
 

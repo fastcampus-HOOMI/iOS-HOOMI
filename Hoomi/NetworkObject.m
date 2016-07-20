@@ -451,11 +451,11 @@
             self.jobHistoryDetailAllInfoJSONDictionary = detailPageAllData;
             [self pickDetailContent];
             // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadNextDetailResumeSuccessNotification object:nil];
         }
         else {
             NSLog(@"%@", error);
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadNextDetailResumeFailNotification object:nil];
         }
         NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
         NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
@@ -464,6 +464,91 @@
     [downloadTask resume];
     
 }
+
+    /*************************/
+   /*  upload image & text  */
+  /*************************/
+
+/* -------- cheeseing */
+
+/* 최초 업로드 */
+
+-(void)uploadTaskForMutipartWithAFNetwork:(UIImage *)image title:(NSString *)title {
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:self.userID forKey:@"user_id"];
+    [bodyParams setObject:title forKey:@"title"];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+        
+        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
+        
+    } error:nil];
+    
+    /* 해더 */
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            
+            //
+            //노티 안만들어도 되낭
+            NSLog(@"%@ %@", response, responseObject);
+        }
+    }];
+    [dataTask resume];
+    
+    NSLog(@"네트워크로 업로드");
+}
+
+/* 나머지 업로드 */
+//title 을 contents로 바꿔야할듯
+// 계속 응답받고, 다시 또 부를 부분 -> 루프를 어떻게 돌릴지
+-(void)uploadTaskForMutipartWithAFNetwork2:(UIImage *)image title:(NSString *)title {
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:self.userID forKey:@"user_id"];
+    [bodyParams setObject:title forKey:@"title"];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+        
+        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
+        
+    } error:nil];
+    
+    /* 해더 */
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+        } else {
+            
+            //
+            //노티 안만들어도 되낭
+            NSLog(@"%@ %@", response, responseObject);
+        }
+    }];
+    [dataTask resume];
+    
+    NSLog(@"네트워크로 업로드");
+}
+
+
+
+
 
 
 //
