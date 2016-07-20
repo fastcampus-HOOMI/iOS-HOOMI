@@ -288,6 +288,7 @@
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
             NSLog(@"responesObject : %@", responseObject);
+         
             NSArray *contentsArray = [responseObject objectForKey:@"results"];
             self.hitContentInforJSONArray = contentsArray;
             
@@ -302,7 +303,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
             
         }
-        //        NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
                 NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
