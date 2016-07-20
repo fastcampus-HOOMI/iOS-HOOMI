@@ -64,7 +64,7 @@
     
     
     
-    [self creatScrollView];
+//    [self creatScrollView];
 //    [self creatContentsSheet:self.beforePage];
     
     NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
@@ -242,8 +242,14 @@
     /* 프로퍼티로 올림 */
     [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
     
-    self.isFristLoad = NO;
+    if (self.isFristLoad == YES) {
+        [self creatScrollView];
+        NSLog(@"🍞 총 쪽수 %ld", self.totalPageNumber);
+        
+    }
+    
     [self creatContentsSheet:self.currentPage];
+    self.isFristLoad = NO;
 }
 
 /* 세팅 가능한 데이터로 가공 후, 프로퍼티로 올림 */
