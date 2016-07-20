@@ -32,6 +32,9 @@
 @property (nonatomic, strong) UIImage *imageAtCurrentPage;
 @property (nonatomic, strong) NSString *textDataAtCurrentPage;
 
+/* data download count */
+@property (nonatomic) NSInteger downloadCount;
+
 @end
 
 /* 이곳은 이력서 목록을 누른 후, Detail 페이지가 나오는 곳 */
@@ -154,17 +157,26 @@
     self.currentPage = currentX / scrollView.frame.size.width;//현재페이지 인식
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
-    if (self.currentPage < self.beforePage) {
-        NSLog(@"이미 로드한 것 다시 보는 중");
-    }
-    if ([self.networkCenter.nextURL isEqual: @"<null>"]) {
-        NSLog(@"마지막 페이지 입니다.");
-    }
     /* 페이지 변화 감지 (next만) */
-    else if ([self isChangePage]==YES)
+    if ([self isChangePage]==YES)
     {
-        [self callNewDetailResumePageWithURL];
-        //[self creatContentsSheet:self.currentPage];
+        /* 이미 로드했던 것 볼 때 / 넘기는 중일 때 */
+        if ((self.currentPage < self.beforePage) || (self.currentPage == self.beforePage)) {
+            NSLog(@"이미 로드한 것 다시 보는 중");
+        }
+        /* 다음 장을 볼 때 */
+        else {
+            /* 이미 다운 받은 뒷장 다시 볼 때 */
+            if (self.totalPageNumber == self.downloadCount) {
+                NSLog(@"이미 다운로드한 것 다시 보는 중");
+            }
+            /* 새로운 다음장 받을 때 */
+            else {
+                [self callNewDetailResumePageWithURL];
+                self.beforePage = self.currentPage;
+                //[self creatContentsSheet:self.currentPage];
+            }
+        }
     }
 }
 
@@ -176,12 +188,11 @@
 
 -(BOOL)isChangePage {
     if (self.beforePage == self.currentPage) {
-        NSLog(@"beforePage %ld // currentPage %ld", self.beforePage, self.currentPage);
+        //NSLog(@"beforePage %ld // currentPage %ld", self.beforePage, self.currentPage);
         return NO;
     }
     else {
         // 변화했으니 비교할 페이지 변수 변경
-        self.beforePage = self.currentPage;
         NSLog(@"beforePage %ld // currentPage %ld", self.beforePage, self.currentPage);
         return YES;
     }
@@ -209,6 +220,7 @@
 -(void)callNewDetailResumePageWithURL {
     
     [self showIndicatorView:YES];
+    self.downloadCount += 1;
     
     /* 최초 로드시, hashID 전달 */
     if (self.isFristLoad == YES) {
