@@ -190,7 +190,9 @@
 }
 
 -(BOOL)stopDownloadContents {
-    /* 이미 로드했던 것 볼 때 / 페이지 넘기는 중일 때 */
+    /* 1. 이미 로드했던 이전 페이지 볼 때 (이전 페이지로 갈 때)
+       2. 넘기는 중일 때
+       3. 모든 페이지 로드했을 때 (다음 페이지로 넘어가도 다운로드 안되게) */
     if ((self.currentPage < self.beforePage) || (self.currentPage == self.beforePage) || (self.totalPageNumber == self.downloadCount)) {
         return YES;
     }
