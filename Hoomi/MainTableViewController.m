@@ -119,9 +119,18 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    NSLog(@"ViewDidLoad Finish");
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    
+    
 }
 
 - (void)CreateNavigationTitle {
+    
+    NSLog(@"CreateNavigationTitle Start");
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 90, 30)];
     [titleView setBackgroundColor:[UIColor clearColor]];
@@ -143,6 +152,8 @@
     
     self.navigationItem.titleView = titleView;
     
+    NSLog(@"CreateNavigationTitle Finish");
+    
 }
 
 - (void)LoadHitContentSuccess {
@@ -158,10 +169,16 @@
         NSDictionary *dic = [result objectAtIndex:i];
         
         NSArray *experiences = [dic objectForKey:@"experiences"];
-        NSString *content = [[experiences objectAtIndex:0] objectForKey:@"content"];
-        NSString *imageUrl = [[experiences objectAtIndex:0] objectForKey:@"image"];
-        [self.contentDataArray addObject:content];
-        [self.imageDataArray addObject:imageUrl];
+        
+        for (NSInteger j = 0; j < [experiences count]; j++) {
+            NSString *content = [[experiences objectAtIndex:j] objectForKey:@"content"];
+            NSString *imageUrl = [[experiences objectAtIndex:j] objectForKey:@"image"];
+            NSNumber *page = [[experiences objectAtIndex:j] objectForKey:@"page"];
+            if([page  isEqual: @1]) {
+                [self.contentDataArray addObject:content];
+                [self.imageDataArray addObject:imageUrl];
+            }
+        }
         
         NSString *hashID = [dic objectForKey:@"hash_id"];
         [self.hashIDArray addObject:hashID];
@@ -174,6 +191,9 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
+        for (NSInteger k = 0; k < [self.contentDataArray count]; k++) {
+            NSLog(@"contentData : %@", self.contentDataArray[k]);
+        }
         
     });
 }

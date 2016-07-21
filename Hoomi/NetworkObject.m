@@ -181,6 +181,8 @@
                           [[NSNotificationCenter defaultCenter] postNotificationName:LoginFailNotification object:nil];
                           
                       } else {
+                          
+                          NSLog(@"session : %@", responseObject);
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
                           
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
@@ -303,7 +305,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
             
         }
-                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];

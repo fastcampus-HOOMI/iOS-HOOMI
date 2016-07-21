@@ -281,10 +281,10 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="U3f-f6-0EY">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="252"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMf-ZZ-Phc">
-                                            <rect key="frame" x="20" y="212" width="560" height="30"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sMf-ZZ-Phc">
+                                            <rect key="frame" x="15" y="202" width="570" height="40"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="8Q8-bs-4iF"/>
+                                                <constraint firstAttribute="height" constant="40" id="8Q8-bs-4iF"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -292,12 +292,12 @@
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="sMf-ZZ-Phc" firstAttribute="leading" secondItem="akl-yI-1d5" secondAttribute="leading" constant="20" id="0p4-j6-6wU"/>
+                                        <constraint firstItem="sMf-ZZ-Phc" firstAttribute="leading" secondItem="akl-yI-1d5" secondAttribute="leading" constant="15" id="0p4-j6-6wU"/>
                                         <constraint firstAttribute="bottom" secondItem="sMf-ZZ-Phc" secondAttribute="bottom" constant="10" id="GQ9-1e-m6J"/>
                                         <constraint firstItem="U3f-f6-0EY" firstAttribute="top" secondItem="akl-yI-1d5" secondAttribute="top" id="Tmu-W5-1qg"/>
                                         <constraint firstAttribute="bottom" secondItem="U3f-f6-0EY" secondAttribute="bottom" id="XQB-ma-ReQ"/>
                                         <constraint firstItem="U3f-f6-0EY" firstAttribute="centerX" secondItem="akl-yI-1d5" secondAttribute="centerX" id="bxt-IN-MbK"/>
-                                        <constraint firstAttribute="trailing" secondItem="sMf-ZZ-Phc" secondAttribute="trailing" constant="20" id="gDI-Dn-pve"/>
+                                        <constraint firstAttribute="trailing" secondItem="sMf-ZZ-Phc" secondAttribute="trailing" constant="15" id="gDI-Dn-pve"/>
                                         <constraint firstAttribute="trailing" secondItem="U3f-f6-0EY" secondAttribute="trailing" id="kVW-0e-3aG"/>
                                         <constraint firstItem="U3f-f6-0EY" firstAttribute="leading" secondItem="akl-yI-1d5" secondAttribute="leading" id="wdC-mh-3OR"/>
                                     </constraints>
