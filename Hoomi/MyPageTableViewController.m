@@ -10,6 +10,7 @@
 #import "MyPageListTableViewCell.h"
 #import "NetworkObject.h"
 #import "Singletone.h"
+#import "DetailResumeViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MyPageTableViewController ()
@@ -78,10 +79,12 @@
 
     NSLog(@"😬 %@", self.networkObject.userInfoJSONArray);
     NSLog(@"😬 %@", self.networkObject.myContentListJSONArray);
+    
     NSArray *userinfoList = self.networkObject.userInfoJSONArray;
     NSString *firstName = [[userinfoList objectAtIndex:0] objectAtIndex:0];
     NSString *lastName = [[userinfoList objectAtIndex:1] objectAtIndex:0];
     NSString *name = [firstName stringByAppendingString:lastName];
+   
     NSLog(@"😇name - %@", name);
     self.userInfoName = name;
     NSLog(@"😇userInfoName - %@", self.userInfoName);
@@ -94,17 +97,8 @@
     
     NSLog(@"😍---- %@", myList);
     
-   
-    
-    
     for (NSInteger i = 0; i < [myList count]; i++) {
         NSLog(@"😇index - %@", [myList objectAtIndex:i]);
-        NSDictionary *dic = [myList objectAtIndex:i];
-//        NSArray *experiences = [dic objectForKey:@"experiences"];
-        
-        //[self.hashIDArray addObject:[dic objectForKey:@"hash_id"]];
-        
-         NSLog(@"hash_id : %@", self.hashIDArray);
         
         NSString *content = [[myList objectAtIndex:i] objectForKey:@"content"];
         NSLog(@"😇content - %@", content);
@@ -114,12 +108,10 @@
         [self.imageDataArray addObject:imageUrl];
         
     }
+    
     NSLog(@"contentData : %@", self.myContentDataArray);
     NSLog(@"imageData : %@", self.imageDataArray);
-//    NSLog(@"hash_id : %@", self.hashIDArray);
-    
-    
-    
+
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
@@ -229,23 +221,30 @@
         //    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
         
         [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
-        
-        
-        
-        //    cell.label.text = [[self.myContentDataArray objectAtIndex:1] objectForKey:@"content"];
-        //    [cell.label setTextColor:[UIColor whiteColor]];
-        //
-        //    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:1]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
-        
+    
         return cell;
     }
     return 0;
 }
 
+//내글목록 셀 터치시 디테일뷰 이동
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"select cell");
+    
+    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
+    [self presentViewController:detailResume animated:YES completion:nil];
+    
+}
+
+
+
 // 마이페이지 - 게시물(셀) 삭제
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.listData removeObjectForKey:(@"image_01")];
+        [self.myContentDataArray removeObject:@"experiences"];
         [tableView reloadData];
     }
 }
