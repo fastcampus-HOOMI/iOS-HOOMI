@@ -61,9 +61,6 @@
     
     self.defaults = [NSUserDefaults standardUserDefaults];
     
-    // Load session
-    self.token = [self.networkObject loadSessionValue];
-    
     self.animationDuration = 0.7;
     self.margin = 60;
     
@@ -78,16 +75,22 @@
     // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     
-    
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getExpiredMessage) name:ExpiredNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    // Add Notification Observer
+    [self addNotificationCenter];
     
     // NavigationBar Custom title, Setting
     [self CreateNavigationTitle];
 
     NSLog(@"ViewDidLoad Finish");
+}
+
+- (void)addNotificationCenter {
+    
+    // Token Expired Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getExpiredMessage) name:ExpiredNotification object:nil];
+    
+    // Hit Content Load Success Notification
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
 }
 
 - (void)checkUserJob {
@@ -196,10 +199,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
-        for (NSInteger k = 0; k < [self.contentDataArray count]; k++) {
-            NSLog(@"contentData : %@", self.contentDataArray[k]);
-        }
-        
+
     });
 }
 

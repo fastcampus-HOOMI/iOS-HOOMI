@@ -197,12 +197,15 @@
     
 }
 
-- (void)requestSaveJob:(NSString *)job Token:(NSString *)token {
+- (void)requestSaveJob:(NSString *)job {
+    
+    NSString *token = [self loadSessionValue];
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:job forKey:@"job"];
+    [bodyParams setObject:token forKey:@"token"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"Patch" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } error:nil];
     
