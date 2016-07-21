@@ -564,8 +564,7 @@
 
 
 
-//
-
+//Mypage api 받아오기
 -(void)requestMypage {
     
     NSLog(@"requestMypage");
@@ -585,12 +584,26 @@
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        NSLog(@"re : %@", responseObject);
+        
+        NSLog(@"resault(responseObject): %@", responseObject); //api (mypage한정) 전체를 받아옴
+        NSLog(@"response: %@", response); //api (mypage한정) 전체를 받아옴
+        
         if (responseObject) {
-//            NSMutableDictionary *userInfoArray = [[responseObject objectAtIndex:0] objectForKey:@"first_name"];
-//            
-//            self.userInfoJSONArray = userInfoArray;
+
+            NSArray *userInfoArray = @[@[[[responseObject objectAtIndex:0] objectForKey:@"first_name"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"last_name"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"username"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"job"]],
+                                       @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]]
+                                       ];
+
+            self.userInfoJSONArray = userInfoArray;
+            
+            //NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
+            self.myContentListJSONArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
+            
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
+            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];
