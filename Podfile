@@ -7,6 +7,7 @@ target 'Hoomi' do
 	source 'https://github.com/CocoaPods/Specs.git'
 	pod 'AFNetworking', '~> 3.0'
 	pod 'SDWebImage', '~>3.8'
+	pod 'KSToastView', '0.5.7'
   # Pods for Hoomi
 
 end

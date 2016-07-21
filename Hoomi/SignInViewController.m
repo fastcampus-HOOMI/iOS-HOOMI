@@ -15,8 +15,7 @@
 #import "Singletone.h"
 #import "AFNetworking.h"
 #import "NetworkObject.h"
-
-
+#import "KSToastView.h"
 
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
@@ -80,6 +79,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failLogin)
                                                  name:LoginFailNotification object:nil];
+    
+
     
 }
 
@@ -165,11 +166,17 @@
 
     // 아이디 또는 비밀번호가 빈칸일 경우
     if([userID isEqualToString:@""] || [password isEqualToString:@""]) {
-        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+        [KSToastView ks_showToast:[self.singleTone toastMsg:EmptyLoginData] duration:2.0f completion:^{
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else if(!self.isRightEmail) {
-        [self errorAlert:[self.singleTone errorMsg:WrongEmail]];
+        [KSToastView ks_showToast:[self.singleTone toastMsg:WrongEmail] duration:2.0f completion:^{
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else if(!self.isRightLengthPassword) {
-        [self errorAlert:[self.singleTone errorMsg:ShortPassword]];
+        [KSToastView ks_showToast:[self.singleTone toastMsg:ShortPassword] duration:2.0f completion:^{
+            [self.currentTextField becomeFirstResponder];
+        }];
     } else {
         NSLog(@"request login");
         [self indicatorRunStatus:YES];
@@ -182,6 +189,7 @@
 
 - (void)successLogin {
     NSLog(@"login success");
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
         [self endEditingTextField];
@@ -193,25 +201,11 @@
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
-//        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
-        /*
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"가입요청" message:@"등록되어있지 않은 회원입니다.\n회원가입을 누르시면 가입이 진행됩니다." preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *signUp = [UIAlertAction actionWithTitle:@"회원가입" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-            [self signUpAction];
-            
-        }];
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
         
-        [alertController addAction:ok];
-        [alertController addAction:signUp];
-        
-        [self presentViewController:alertController animated:YES completion:nil];
-        */
+        [KSToastView ks_showToast:[self.singleTone toastMsg:WrongLoginData] duration:2.0f completion:nil];
         
     });
 }
-
 
 
 /**
@@ -279,43 +273,6 @@
     
 }
 
-/**
- *  경고메시지를 뷰 상단에 띄워주는 메소드
- *
- *  @param errorMsg 경고메시지
- */
-- (void)errorAlert:(NSString *)errorMsg {
-    
-    NSInteger height = 20;
-    
-    UIView *wrongView=[[UIView alloc] init];
-    [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
-    [wrongView setBackgroundColor:[UIColor clearColor]];
-    
-    UILabel *wrongLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, wrongView.frame.size.width, wrongView.frame.size.height)];
-    [wrongLabel setTextColor:[UIColor whiteColor]];
-    [wrongLabel setFont:[UIFont fontWithName:@"Arial" size:12.0]];
-    [wrongLabel setTextAlignment:NSTextAlignmentCenter];
-    [wrongLabel setText:errorMsg];
-    [wrongView addSubview:wrongLabel];
-    
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [wrongView setFrame:CGRectMake(0, self.navigationController.navigationBar.frame.size.height + 20,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[self.singleTone colorName:Tuna]];
-        [self.view addSubview:wrongView];
-        
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
-            [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
-            [wrongView setBackgroundColor:[UIColor clearColor]];
-        } completion:^(BOOL finished) {
-            [wrongView removeFromSuperview];
-        }];
-        
-    }];
-    
-}
 
 /**
  *  페이스북 로그인
@@ -373,6 +330,8 @@
     MainTableViewController *mainViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"MainTableView"];
     
     [[UIApplication sharedApplication].keyWindow setRootViewController:mainViewController];
+    
+    [KSToastView ks_showToast:[self.singleTone toastMsg:LoginWelcome] duration:2.0f completion:nil];
     
 }
 

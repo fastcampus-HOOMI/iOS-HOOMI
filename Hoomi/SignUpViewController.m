@@ -9,6 +9,7 @@
 #import "SignUpViewController.h"
 #import "Singletone.h"
 #import "NetworkObject.h"
+#import "KSToastView.h"
 
 @interface SignUpViewController ()
 <UITextFieldDelegate>
@@ -68,7 +69,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successSignUp) name:SignUpSuccessNotification object:nil];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failSignUp) name:SignUpFailNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,7 +229,8 @@
      */
     if([userID isEqualToString:@""] || [lastName isEqualToString:@""] || [firstName isEqualToString:@""] || [firstPassword isEqualToString:@""] || [secondPassword isEqualToString:@""]){
         
-        [self errorAlert:[self.singleTone errorMsg:EmptyLoginData]];
+        [KSToastView ks_showToast:[self.singleTone toastMsg:EmptyLoginData] duration:2.0f];
+        
         return;
     }
     
@@ -246,7 +247,8 @@
         
     } else { // 불일치
         
-        [self errorAlert:[self.singleTone errorMsg:WrongLoginData]];
+        [KSToastView ks_showToast:[self.singleTone toastMsg:WrongLoginData] duration:2.0f completion:nil];
+        
         return;
         
     }
@@ -254,13 +256,17 @@
 
 - (void)successSignUp {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+        /// show with a completion block.
+        [KSToastView ks_showToast:[self.singleTone toastMsg:SuccessSignUp] duration:2.0f completion:nil];
+    }];
     
 }
 
 - (void)failSignUp {
     
-    [self errorAlert:[self.singleTone errorMsg:ExistEmailAddress]];
+    [KSToastView ks_showToast:[self.singleTone toastMsg:ExistEmailAddress] duration:2.0f completion:nil];
     
 }
 
@@ -273,44 +279,6 @@
         [self dismissViewControllerAnimated:YES completion:nil];
     });
     
-    
-}
-
-/**
- *  경고메시지를 뷰 상단에 띄워주는 메소드
- *
- *  @param errorMsg 경고메시지
- */
-- (void)errorAlert:(NSString *)errorMsg {
-    
-    NSInteger height = 20;
-    
-    UIView *wrongView=[[UIView alloc] init];
-    [wrongView setFrame:CGRectMake(0, -height, [UIScreen mainScreen].bounds.size.width, height)];
-    [wrongView setBackgroundColor:[UIColor clearColor]];
-    
-    UILabel *wrongLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, wrongView.frame.size.width, wrongView.frame.size.height)];
-    [wrongLabel setTextColor:[UIColor whiteColor]];
-    [wrongLabel setFont:[UIFont fontWithName:@"Arial" size:12.0]];
-    [wrongLabel setTextAlignment:NSTextAlignmentCenter];
-    [wrongLabel setText:errorMsg];
-    [wrongView addSubview:wrongLabel];
-    
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionLayoutSubviews animations:^{
-        [wrongView setFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, height)];
-        [wrongView setBackgroundColor:[UIColor clearColor]];
-        [self.view addSubview:wrongView];
-    } completion:^(BOOL finished) {
-        
-        [UIView animateWithDuration:0.5 delay:0.7 options:UIViewAnimationOptionLayoutSubviews animations:^{
-            [wrongView setFrame:CGRectMake(0, -height,[UIScreen mainScreen].bounds.size.width, height)];
-            [wrongView setBackgroundColor:[UIColor clearColor]];
-        } completion:^(BOOL finished) {
-            [wrongView removeFromSuperview];
-            [self.currentTextField becomeFirstResponder];
-        }];
-        
-    }];
     
 }
 
