@@ -11,16 +11,13 @@
 #import "Singletone.h"
 #import "NetworkObject.h"
 #import "MyPageTableViewController.h"
+#import "SignInViewController.h"
 #import "WritePageViewController.h"
 #import "DetailResumeViewController.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MainTableViewController ()
 <UIPickerViewDelegate, UIPickerViewDataSource>
-
-/*
- 셀에 데이터를 표시하기 위한 임시데이터
- */
 
 @property (nonatomic) NSArray *jobList;
 
@@ -56,16 +53,20 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    // Create networkObject class
     self.networkObject = [NetworkObject requestInstance];
+    
+    // Create singletone class
+    self.singleTone = [Singletone requestInstance];
+    
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    
     // Load session
     self.token = [self.networkObject loadSessionValue];
     
     self.animationDuration = 0.7;
     self.margin = 60;
     
-    // Create singletone class
-    self.singleTone = [Singletone requestInstance];
     self.selectedJob = @"Photograper"; // Default Job
     
     // Load hitcontent
@@ -77,7 +78,19 @@
     // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
     self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     
-    self.defaults = [NSUserDefaults standardUserDefaults];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(getExpiredMessage) name:ExpiredNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
+    // NavigationBar Custom title, Setting
+    [self CreateNavigationTitle];
+
+    NSLog(@"ViewDidLoad Finish");
+}
+
+- (void)checkUserJob {
     
     /* 유저가 선택한 직군의 데이터가 없으면 직군 선택화면을 띄움 */
     if([self.defaults objectForKey:@"userJob"] == nil) {
@@ -111,21 +124,6 @@
         
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
-   
-    [self CreateNavigationTitle];
-    
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
-    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    
-    NSLog(@"ViewDidLoad Finish");
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    
-    
 }
 
 - (void)CreateNavigationTitle {
@@ -152,11 +150,18 @@
     
     self.navigationItem.titleView = titleView;
     
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     NSLog(@"CreateNavigationTitle Finish");
     
 }
 
 - (void)LoadHitContentSuccess {
+    
+    // 사용자가 직군을 선택했는지 여부 확인
+    [self checkUserJob];
     
     self.contentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
@@ -196,6 +201,29 @@
         }
         
     });
+}
+
+- (void)getExpiredMessage {
+    
+    NSLog(@"세션이 만료되었습니다.");
+    
+    UIAlertController *sessionExpiredAlert = [UIAlertController alertControllerWithTitle:@"Exipred" message:@"Signature has expired." preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+        // 기존 저장되어 있는 Session 초기화
+        [self.networkObject saveSessionValue:nil];
+        
+        // 루트뷰를 로그인화면으로 전환
+        SignInViewController *signInViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SignInView"];
+        
+        [[UIApplication sharedApplication].keyWindow setRootViewController:signInViewController];
+        
+    }];
+    
+    [sessionExpiredAlert addAction:logoutAction];
+    [self presentViewController:sessionExpiredAlert animated:YES completion:nil];
+    
 }
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {

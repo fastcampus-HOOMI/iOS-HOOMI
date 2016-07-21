@@ -293,12 +293,24 @@
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
             NSLog(@"responesObject : %@", responseObject);
-         
-            NSArray *contentsArray = [responseObject objectForKey:@"results"];
-            self.hitContentInforJSONArray = contentsArray;
+        
+            // expired message를 받은 경우
+            NSString *detail = [responseObject objectForKey:@"detail"];
+            if([detail isEqualToString:ExpiredMessage]) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:ExpiredNotification object:nil];
+                
+                
+            } else {
+                
+                NSArray *contentsArray = [responseObject objectForKey:@"results"];
+                self.hitContentInforJSONArray = contentsArray;
+                
+                // 노티피게이션 보내기
+                [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+            }
             
-            // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+            
             
         }
         else {
@@ -308,7 +320,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
             
         }
-                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
+//                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
