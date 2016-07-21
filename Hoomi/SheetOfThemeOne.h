@@ -26,7 +26,7 @@
 /* 업로드, 수정, 보기 모드 불러오기 */
 -(void)settingUploadResume;
 -(void)settingEditResume;
--(void)settingDetailResume:(NSString *)imageName text:(NSString *)text;
+-(void)settingDetailResume:(UIImage *)image text:(NSString *)text;
 
 /* delegate */
 @property (weak, nonatomic) id<SheetOfThemeOneDelegate> delegate;

@@ -18,7 +18,6 @@
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
 
-
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
 @property (nonatomic) NSInteger totalPage;//총 페이지
