@@ -19,6 +19,7 @@
 @property (nonatomic) NSString *password;
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *firstName;
+@property (nonatomic) NSInteger errorCount;
 
 @end
 
@@ -384,9 +385,19 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
         }
         else {
+            self.errorCount ++;
             NSLog(@"error - %@", error);
+            /* 재시도 */
+            //            if (self.errorCount > 5) {
+            //                [self requestDetailJobHistory:hashID];
+            //            }
+            //            else {
+            //                            
+            //        }
+            NSLog(@"errorCount - %ld", self.errorCount);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
         }
+
         NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
         NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
@@ -406,8 +417,8 @@
     self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
     self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
     
-    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %@", self.nextURL);
-    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %@", self.previousURL);
+    NSLog(@"🐈nextURL %@", self.nextURL);
+    NSLog(@"🐈previousURL %@", self.previousURL);
     
     /* result - 상세 컨텐츠 */
     self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];

@@ -58,7 +58,8 @@
     NSLog(@"🌵🌵addObserver🌵🌵");
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadNextDetailResumeSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailCurrentPageInDetailResume) name:LoadDetailResumeFailNotification object:nil];
     
      NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
     
@@ -97,14 +98,19 @@
     [self.view addSubview:self.scrollView];
 }
 
--(void)creatContentsSheet:(NSInteger)pageNumber {
+-(void)creatContentsSheet:(NSInteger)pageNumber image:(UIImage *)image text:(NSString *)text {
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX * pageNumber, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
-    [themeOneSheet settingDetailResume:self.imageAtCurrentPage text:self.textDataAtCurrentPage];
+    themeOneSheet.backgroundColor = [UIColor blueColor];
+    themeOneSheet.alpha = 0.8;
+    
+    [themeOneSheet settingDetailResume:image text:text];
     [self.scrollView addSubview:themeOneSheet];
     
     [self showIndicatorView:NO];
+    
+    NSLog(@"🐙 %ld 번째 시트 생성 완료 : 글자 - %@ 그림 -%@", pageNumber ,themeOneSheet.textView.text, themeOneSheet.imageView.image);
     
     self.offsetX += self.view.frame.size.width;
 }
@@ -242,18 +248,20 @@
 }
 
 
-/* 컨텐츠 다운로드 */
+/* 컨텐츠 다운로드 성공시 */
 -(void)downLoadCurrentPageInDetailResume {
-    NSLog(@"3🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
+    NSLog(@"3🌵🌵🌵downLoadCurrentPageInDetailResume🌵🌵🌵");
     
     /* page, image, text */
     NSInteger totalPage = self.networkCenter.detailPageTotalCount;
-    NSString *imageURL = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"];
     NSString *textData = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"content"];
+    NSString *imageURL = [self.networkCenter.jobHistoryDetailContentsInfoDictionary objectForKey:@"image"];
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
+    UIImage *image = [UIImage imageWithData:imageData];
     
     NSLog(@"🌵 network 객체로 불러온 totalPage: %ld / imageURL : %@ / textData : %@", totalPage, imageURL, textData);
     
-    /* 프로퍼티로 올림 */
+    /* 프로퍼티로 올림 -----  */
     [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
     
     if (self.isFristLoad == YES) {
@@ -261,7 +269,7 @@
         NSLog(@"🍞 총 쪽수 %ld", self.totalPageNumber);
     }
     
-    [self creatContentsSheet:self.currentPage];
+    [self creatContentsSheet:self.currentPage image:image text:textData];
     self.isFristLoad = NO;
 }
 
@@ -276,6 +284,9 @@
     NSLog(@"🤖 totalPageNumber - %ld, 🤖 imageAtCurrentPage - %@, 🤖textDataAtCurrentPage - %@", self.totalPageNumber, self.imageAtCurrentPage, self.textDataAtCurrentPage);
 }
 
+-(void)downloadFailCurrentPageInDetailResume {
+    [[self navigationController] popViewControllerAnimated:YES];
+}
 
 
 - (void)didReceiveMemoryWarning {
