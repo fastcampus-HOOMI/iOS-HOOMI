@@ -484,57 +484,75 @@
 
 /* -------- cheeseing */
 
-/* 최초 업로드 */
+/* 최초 업로드
+ 
+ https://hoomi.work/api/job-history/로 Header에 Authorization 값에 JWT Token을 실어야 한다.
+ theme를 Post 로 보낸다.
+
+ */
 
 -(void)uploadTaskForMutipartWithAFNetwork:(UIImage *)image title:(NSString *)title {
     
-    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"user_id"];
-    [bodyParams setObject:title forKey:@"title"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-        
-        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
-        
-    } error:nil];
+    // 일반 제이슨, 폼으로 보내도 된다. themeNumber만 넘겨주기 때문에 -> 알아볼 것 (cheese)
     
-    /* 해더 */
-    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
-    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
-    
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-    
-    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-        } else {
-            
-            //
-            //노티 안만들어도 되낭
-            NSLog(@"%@ %@", response, responseObject);
-        }
-    }];
-    [dataTask resume];
+//    
+//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+//    [bodyParams setObject:self.userID forKey:@"user_id"];
+//    [bodyParams setObject:title forKey:@"title"];
+//    
+//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+//        
+//        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+//        
+//        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
+//        
+//    } error:nil];
+//    
+//    /* 해더 */
+//    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+//    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+//    
+//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+//    
+//    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+//        if (error) {
+//            NSLog(@"Error: %@", error);
+//        } else {
+//            
+//            //
+//            //노티 안만들어도 되낭
+//            NSLog(@"%@ %@", response, responseObject);
+//        }
+//    }];
+//    [dataTask resume];
     
     NSLog(@"네트워크로 업로드");
 }
 
-/* 나머지 업로드 */
+/* 나머지 업로드 
+ 
+ parent job-history의 child experience를 추가하고자 할때 사용
+ https://hoomi.work/api/job-history/<hash_id>/로 Header에 Authorization 값에 JWT Token을 실어야 한다.
+ image, content, page 를 Post 로 보낸다.
+ 
+ */
 //title 을 contents로 바꿔야할듯
 // 계속 응답받고, 다시 또 부를 부분 -> 루프를 어떻게 돌릴지
--(void)uploadTaskForMutipartWithAFNetwork2:(UIImage *)image title:(NSString *)title {
+-(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"user_id"];
-    [bodyParams setObject:title forKey:@"title"];
+    [bodyParams setObject:content forKey:@"content"];
+    [bodyParams setObject:page forKey:@"page"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSString *creatExperienceURL = [JobHistoryURL stringByAppendingString:hashID];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:creatExperienceURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
         
-        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
+        //---- 근데 왜 jpeg지? cheeseing
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         
     } error:nil];
     
@@ -547,16 +565,16 @@
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
         } else {
-            
-            //
-            //노티 안만들어도 되낭
+            // 노티피게이션 보내기  --> write에 옵저버 등록
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceFailNotification object:nil];
             NSLog(@"%@ %@", response, responseObject);
         }
     }];
-    [dataTask resume];
     
-    NSLog(@"네트워크로 업로드");
+    [dataTask resume];
 }
 
 

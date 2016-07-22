@@ -46,7 +46,7 @@
     [self creatUploadButton];
     
     /* 텍스트 뷰 - 에디팅 가능 */
-    NSString *comment = @"자신을 자유롭게 표현해주세요.";
+    NSString *comment = @"무엇을 표현하고 싶으신가요?";
     [self creatTextView:comment canEdit:YES];
     
     

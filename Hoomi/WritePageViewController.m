@@ -37,6 +37,7 @@
     [super viewDidLoad];
     
     self.totalPage = 0;
+    self.formThemeNumber = 1;// ------------ 추후form테마 번호 받는걸로 변경
     
     /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
@@ -54,8 +55,7 @@
     /* 임시 form 데이터
      ->     네트워크 연결 후에는 헤더 파일에 있는
      외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
-    [self creatWriteSheetByTheme:1];
-    //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
+    [self selectWriteSheetByTheme:self.formThemeNumber];
 }
 
 -(void)viewDidLayoutSubviews {
@@ -73,7 +73,7 @@
     [self settingTapGestureRecognizerOnScrollView];
 }
 
--(void)creatWriteSheetByTheme:(NSInteger)formNumber {
+-(void)selectWriteSheetByTheme:(NSInteger)formNumber {
     
     self.totalPage += 1;
     NSLog(@"총 페이지 ------ %ld", self.totalPage);
@@ -109,6 +109,7 @@
     CGFloat writeSheetOriginY = 0;
     CGFloat writeSheetOriginHeight = cardOriginHeight;
     CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
+    
     /* 내부 시트 생성 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
     //self.themeOneSheet.backgroundColor = [UIColor blueColor];
@@ -204,17 +205,10 @@
 -(IBAction)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
-    // 삭제 기능 추가 (추후)
-    
-    // -------- 테마 임시데이터 cheesing
-    [self creatWriteSheetByTheme:1];
-    //[self selectTheme:self.formNumber];
-    
-    NSLog(@"총 페이지 %ld", self.totalPage);
+    [self selectWriteSheetByTheme:self.formThemeNumber];
     
     /* 스크롤뷰 컨텐츠 사이즈 증가 */
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * (self.totalPage), self.scrollView.frame.size.height)];
-    
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
     
