@@ -46,7 +46,6 @@
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
     self.currentPage = 0;
-    self.offsetX = 0;
     
     /* Indicator
      1) 데이터 들어올 때 활성화
@@ -58,7 +57,7 @@
     NSLog(@"🌵🌵addObserver🌵🌵");
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadNextDetailResumeSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailCurrentPageInDetailResume) name:LoadDetailResumeFailNotification object:nil];
     
      NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
@@ -67,12 +66,6 @@
     [self loadDetailResumeData];
     
     NSLog(@"4🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    
-    
-//    [self creatScrollView];
-//    [self creatContentsSheet:self.beforePage];
-    
-    NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
     /* 네비게이션 바 버튼 색깔 */
     self.navigationController.navigationBar.barTintColor = [self.singleTone colorName:Tuna];
@@ -99,10 +92,13 @@
 }
 
 -(void)creatContentsSheet:(NSInteger)pageNumber image:(UIImage *)image text:(NSString *)text {
+    
+    self.offsetX = self.view.frame.size.width;
+    
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX * pageNumber, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
-    themeOneSheet.backgroundColor = [UIColor blueColor];
+    //themeOneSheet.backgroundColor = [UIColor blueColor];
     themeOneSheet.alpha = 0.8;
     
     [themeOneSheet settingDetailResume:image text:text];
@@ -110,7 +106,7 @@
     
     [self showIndicatorView:NO];
     
-    NSLog(@"🐙 %ld 번째 시트 생성 완료 : 글자 - %@ 그림 -%@", pageNumber ,themeOneSheet.textView.text, themeOneSheet.imageView.image);
+    NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf 글자 - %@ 그림 -%@", pageNumber , self.offsetX * pageNumber, themeOneSheet.textView.text, themeOneSheet.imageView.image);
     
     self.offsetX += self.view.frame.size.width;
 }
