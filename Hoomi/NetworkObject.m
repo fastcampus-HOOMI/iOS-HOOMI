@@ -357,7 +357,7 @@
     
 }
 
-/* 인기글 상세 */
+/* 상세 화면 보기 */
 -(void)requestDetailJobHistory:(NSString *)hashID {
     
     NSLog(@"requestDetailJobHistory");
@@ -400,8 +400,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
         }
 
-        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
-        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+        //NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        //NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
     
     [downloadTask resume];
@@ -413,14 +413,14 @@
     
     /* count */
     self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
-    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %ld", self.detailPageTotalCount);
+    //NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %ld", self.detailPageTotalCount);
     
     /* next/previous PageURL */
     self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
     self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
     
-    NSLog(@"🐈nextURL %@", self.nextURL);
-    NSLog(@"🐈previousURL %@", self.previousURL);
+    //NSLog(@"🐈nextURL %@", self.nextURL);
+    //NSLog(@"🐈previousURL %@", self.previousURL);
     
     /* result - 상세 컨텐츠 */
     self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
@@ -432,7 +432,7 @@
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
     
-    NSLog(@"🐈🐈🐈🐈 jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
+    //NSLog(@"🐈🐈🐈🐈 jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
     
 }
 
@@ -470,8 +470,8 @@
             NSLog(@"%@", error);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadNextDetailResumeFailNotification object:nil];
         }
-        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
-        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+        //NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        //NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
     
     [downloadTask resume];

@@ -103,7 +103,8 @@
     
     [self showIndicatorView:NO];
     
-    NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf 글자 - %@ 그림 -%@", pageNumber , self.offsetX * pageNumber, themeOneSheet.textView.text, themeOneSheet.imageView.image);
+    NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf",pageNumber , self.offsetX * pageNumber);
+    //NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf / 글자 - %@ / 그림 - %@", pageNumber , self.offsetX * pageNumber, themeOneSheet.textView.text, themeOneSheet.imageView.image);
     
     self.offsetX += self.view.frame.size.width;
 }
@@ -154,13 +155,13 @@
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;//현재페이지 인식
-    NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
+    //NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 페이지 변화 감지 (next만) */
     if ([self isChangePage]==YES)
     {
         if ([self stopDownloadContents] == YES) {
-            NSLog(@"이미 로드했던 데이터 보는 중");
+            //NSLog(@"이미 로드했던 데이터 보는 중");
         }
         else {
             [self callNewDetailResumePageWithURL];
@@ -254,27 +255,14 @@
     
     NSLog(@"🌵 network 객체로 불러온 totalPage: %ld / imageURL : %@ / textData : %@", totalPage, imageURL, textData);
     
-    /* 프로퍼티로 올림 -----  */
-    [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
-    
     if (self.isFristLoad == YES) {
+        self.totalPageNumber = totalPage;
         [self creatScrollView];
         NSLog(@"🍞 총 쪽수 %ld", self.totalPageNumber);
     }
     
     [self creatContentsSheet:self.currentPage image:image text:textData];
     self.isFristLoad = NO;
-}
-
-/* 세팅 가능한 데이터로 가공 후, 프로퍼티로 올림 */
--(void)addCurrentDataToProtery:(NSInteger)totalPage imageURL:(NSString *)imageURL textData:(NSString *)textData {
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
-    UIImage *image = [UIImage imageWithData:imageData];
-    self.imageAtCurrentPage = image;
-    self.totalPageNumber = totalPage;
-    self.textDataAtCurrentPage = textData;
-    
-    NSLog(@"🤖 totalPageNumber - %ld, 🤖 imageAtCurrentPage - %@, 🤖textDataAtCurrentPage - %@", self.totalPageNumber, self.imageAtCurrentPage, self.textDataAtCurrentPage);
 }
 
 -(void)downloadFailCurrentPageInDetailResume {
