@@ -7,7 +7,6 @@
 //
 
 #import "UMAlertView.h"
-#import "ViewController.h"
 
 #define UM_ALERT_VIEW_CORNER_RADIUS 3.0f // AlertView Corner Radius
 #define UM_ALERT_VIEW_MARGIN_ZERO 0.0f
