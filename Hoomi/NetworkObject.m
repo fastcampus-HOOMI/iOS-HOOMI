@@ -595,20 +595,13 @@
                                        [[responseObject objectAtIndex:0] objectForKey:@"username"],
                                        [[responseObject objectAtIndex:0] objectForKey:@"job"]];
             
-           // NSDictionary *userContentArray =[NSDictionary dictionaryWithObjectsAndKeys:[[responseObject objectAtIndex:0] objectForKey:@"hash_id"], @"hash_id" , [[responseObject objectAtIndex:0] objectForKey:@"experiences"],@"experiences",
-                                          
-                                          
-                                          //nil];
-            //@[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
+            NSArray *userHashArray = @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
             
-            //self.userHashJSONArray = userHashArray;
-
+            self.userHashJSONArray = userHashArray;
             self.userInfoJSONArray = userInfoArray;
-            
-            //NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
             self.myContentListJSONArray = responseObject;
             
-            //NSLog(@"userHashJSONArray : %@", self.userHashJSONArray);
+            NSLog(@"userHashJSONArray : %@", self.userHashJSONArray);
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
             NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             
