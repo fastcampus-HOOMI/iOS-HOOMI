@@ -71,6 +71,7 @@ typedef NS_ENUM(NSInteger, Color) {
 @interface Singletone : NSObject
 
 @property (nonatomic, strong) NSString *hashID;
+@property (nonatomic) NSInteger formThemeNumber;
 
 + (instancetype) requestInstance;
 

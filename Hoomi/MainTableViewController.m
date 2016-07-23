@@ -14,12 +14,11 @@
 #import "SignInViewController.h"
 #import "WritePageViewController.h"
 #import "DetailResumeViewController.h"
+#import "UMAlertView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MainTableViewController ()
-<UIPickerViewDelegate, UIPickerViewDataSource>
-
-@property (nonatomic) NSArray *jobList;
+<UMAlertViewDelegate>
 
 @property (nonatomic, weak) UIPickerView *jobPicker; // 직군선택 Picker
 @property (nonatomic, weak) NSString *selectedJob; // 선택된 직군
@@ -46,6 +45,9 @@
 
 @property (nonatomic) UIView *overlay;
 
+@property (nonatomic) UMAlertView *umAlertView;
+@property (nonatomic) NSInteger umAlertViewMenu; // 0은 직군 저장, 1은 글쓰기 테마
+
 @end
 
 @implementation MainTableViewController
@@ -65,6 +67,8 @@
     self.margin = 60;
     
     self.selectedJob = @"Photograper"; // Default Job
+    self.umAlertView = [[UMAlertView alloc] init];
+    self.umAlertView.delegate = self;
     
     // Load hitcontent
     [self.networkObject requestHitContent];
@@ -73,7 +77,6 @@
     /* 테스트를 위한 임시데이터 */
     /**********************/
     // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
-    self.jobList = [NSArray arrayWithObjects:@"Photograper",@"Programmer", @"Editor", @"Writer",nil];
     
     // Add Notification Observer
     [self addNotificationCenter];
@@ -106,14 +109,15 @@
         [self.view addSubview:effectView];
         self.effectView = effectView;
         
-        [self selectJobList];
+        NSArray *jobList = @[@"Photograper", @"Programmer", @"Editor", @"Writer"];
         
-        // pickerView delegate, datasource
-        self.jobPicker.delegate = self;
-        self.jobPicker.dataSource = self;
+        [self.umAlertView um_showAlertViewTitle:@"Select your job" pickerData:jobList completion:^{
+            // 직군을 선택하는 뷰가 나오면 테이블뷰 스크롤 불가능
+            [self.tableView setScrollEnabled:NO];
+            
+            self.umAlertViewMenu = 0;
+        }];
         
-        // 직군을 선택하는 뷰가 나오면 테이블뷰 스크롤 불가능
-        [self.tableView setScrollEnabled:NO];
         
     } else {
         
@@ -227,7 +231,7 @@
 }
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {
-    [self.overlay removeFromSuperview];
+    
     [self.networkObject requestHitContent];
     
     [refreshControl endRefreshing];
@@ -252,10 +256,12 @@
     
     NSLog(@"Move Write Career Page");
     
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
-    WritePageViewController *myPage = [storyBoard instantiateViewControllerWithIdentifier:@"WritePage"];
-    
-    [self presentViewController:myPage animated:YES completion:nil];
+    NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
+    [self.umAlertView um_showAlertViewTitle:@"Select Write Theme" pickerData:themeData completion:^{
+        [self scrollAndButtonEnable:NO];
+        self.umAlertViewMenu = 1;
+        
+    }];
     
 }
 
@@ -305,108 +311,55 @@
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
     [self presentViewController:detailResume animated:YES completion:nil];
     
+
 }
 
-#pragma mark - Select Job List Custom View
-- (void)selectJobList {
+- (void)selectUMAlertButton {
+
+    if(self.umAlertViewMenu == 0) {
     
-    // 테이블뷰 스크롤 및 버튼 활성화
-    [self scrollAndButtonEnable:NO];
-    
-    // 버튼 모서리
-    NSInteger cornerRadius = 3;
-    BOOL clipsToBounds = YES;
-    
-    // 직군선택화면을 현재뷰에서 커스텀뷰로 만들어서 표시
-    UIView *jobSelectCustomView =[[UIView alloc] initWithFrame:CGRectMake(self.margin / 2, - self.margin * 5, self.view.frame.size.width - self.margin, self.margin * 5)];
-    jobSelectCustomView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-    jobSelectCustomView.backgroundColor = [self.singleTone colorName:Concrete];
-    jobSelectCustomView.layer.borderWidth = 2.0f;
-    jobSelectCustomView.layer.cornerRadius = 3 * cornerRadius;
-    
-    UILabel *jobSelectLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, jobSelectCustomView.frame.size.width, 10)];
-    [jobSelectLabel setText:@"직업을 선택해주세요."];
-    [jobSelectLabel setTextColor:[UIColor blackColor]];
-    [jobSelectLabel setTextAlignment:NSTextAlignmentCenter];
-    [jobSelectCustomView addSubview:jobSelectLabel];
-    
-    // jobSelectCustomView에 PickerView 추가
-    UIPickerView *jobPicker = [[UIPickerView alloc] init];
-    [jobPicker setFrame:CGRectMake(0, 40, jobSelectCustomView.frame.size.width, jobSelectCustomView.frame.size.height - self.margin * 2)];
-    [jobSelectCustomView addSubview:jobPicker];
-    
-    // 직군 선택 버튼
-    UIButton *selectButton = [[UIButton alloc] init];
-    [selectButton setFrame:CGRectMake(30, jobPicker.frame.size.height + 60, jobSelectCustomView.frame.size.width - 60, 45)];
-    [selectButton addTarget:self action:@selector(selectUserJob) forControlEvents:UIControlEventTouchUpInside];
-    selectButton.layer.cornerRadius = cornerRadius;
-    selectButton.clipsToBounds = clipsToBounds;
-    [selectButton setBackgroundColor:[self.singleTone colorName:Tuna]];
-    [selectButton setTitle:@"등록" forState:UIControlStateNormal];
-    [selectButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [jobSelectCustomView addSubview:selectButton];
-    
-    self.jobSelectCustomView = jobSelectCustomView;
-    self.jobPicker = jobPicker;
-    
-    // 커스텀뷰 나오는 애니메이션
-    [UIView animateWithDuration:self.animationDuration animations:^{
-        [self.jobSelectCustomView setCenter:CGPointMake(self.view.frame.size.width / 2,
-                                                        self.view.frame.size.height / 2)];
+        [self.umAlertView um_dismissAlertViewCompletion:^{
+            [self scrollAndButtonEnable:YES];
+            [self.defaults setObject:self.selectedJob forKey:@"userJob"];
+            //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
+            [self.effectView removeFromSuperview];
+        }];
         
-        [[UIApplication sharedApplication].keyWindow addSubview:self.jobSelectCustomView];
-    } completion:^(BOOL finished) {
+    } else if(self.umAlertViewMenu == 1) {
         
-    }];
-    
-}
-
-- (void)selectUserJob {
-    
-    [self.defaults setObject:self.selectedJob forKey:@"userJob"];
-    NSLog(@"userJob : %@", self.selectedJob);
-    //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
-    
-    // 커스텀뷰 사라지는 애니메이션
-    [UIView animateWithDuration:self.animationDuration animations:^{
-        self.jobSelectCustomView.frame = CGRectMake(self.margin / 2, self.view.frame.size.height, self.view.frame.size.width - self.margin, self.margin * 5);
-        [self.view addSubview:self.jobSelectCustomView];
-    } completion:^(BOOL finished) {
-        
-        // 커스텀뷰가 사리지고 뷰에서 커스텀뷰 및 블러처리 효과 삭제
-        [self.effectView removeFromSuperview];
-        [self.jobSelectCustomView removeFromSuperview];
-        
-        // 테이블뷰 스크롤 및 버튼 활성화
-        [self scrollAndButtonEnable:YES];
-        
-    }];
-    
-}
-
-#pragma mark - Picker view data source
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return [self.jobList count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    return [self.jobList objectAtIndex:row];
-}
-
-- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
-    
-    
-    self.selectedJob = [self.jobList objectAtIndex:row];
-    NSLog(@"selectedJob : %@", self.selectedJob);
-    
+        [self.umAlertView um_dismissAlertViewCompletion:^{
+            [self scrollAndButtonEnable:YES];
+            
+            NSLog(@"select data : %@", [self.umAlertView selectData]);
+            NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
+            NSInteger themeNumber = 0;
+            for (NSInteger num = 0; num < [themeData count]; num++) {
+                if(![[themeData objectAtIndex:num] isEqualToString:[self.umAlertView selectData]]) {
+                    themeNumber += 1;
+                } else {
+                    break;
+                }
+            }
+            
+            if(themeNumber == 0) {
+                
+                [self.singleTone setFormThemeNumber:themeNumber];
+                
+                UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+                WritePageViewController *writePage = [storyBoard instantiateViewControllerWithIdentifier:@"WritePage"];
+                [self presentViewController:writePage animated:YES completion:nil];
+                
+            } else {
+                
+                UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"알림!" message:@"이성 개발자 테마는 현재 웹에서만 \n이용가능합니다." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:nil];
+                [controller addAction:okAction];
+                
+                [self presentViewController:controller animated:YES completion:nil];
+                
+            }
+        }];
+    }
 }
 
 /**
@@ -417,6 +370,7 @@
 - (void)scrollAndButtonEnable:(BOOL) enable {
     
     [self.tableView setScrollEnabled:enable];
+    [self.tableView setAllowsSelection:enable];
     [self.writeCareer setEnabled:enable];
     [self.myPage setEnabled:enable];
     
