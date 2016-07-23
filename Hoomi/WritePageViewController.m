@@ -378,7 +378,9 @@
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //선언하면서 정의한 블럭함수로 실행
-        handler();
+        if (handler != nil) {
+            handler();
+        }
     }];
     [alert addAction:okButton];
     
@@ -386,7 +388,6 @@
         UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:cancelButton];
     }
-    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
