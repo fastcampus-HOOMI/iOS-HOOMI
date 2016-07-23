@@ -590,18 +590,25 @@
         
         if (responseObject) {
 
-            NSArray *userInfoArray = @[@[[[responseObject objectAtIndex:0] objectForKey:@"first_name"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"last_name"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"username"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"job"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]]
-                                       ];
+            NSArray *userInfoArray = @[[[responseObject objectAtIndex:0] objectForKey:@"first_name"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"last_name"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"username"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"job"]];
+            
+           // NSDictionary *userContentArray =[NSDictionary dictionaryWithObjectsAndKeys:[[responseObject objectAtIndex:0] objectForKey:@"hash_id"], @"hash_id" , [[responseObject objectAtIndex:0] objectForKey:@"experiences"],@"experiences",
+                                          
+                                          
+                                          //nil];
+            //@[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
+            
+            //self.userHashJSONArray = userHashArray;
 
             self.userInfoJSONArray = userInfoArray;
             
             //NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
-            self.myContentListJSONArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
+            self.myContentListJSONArray = responseObject;
             
+            //NSLog(@"userHashJSONArray : %@", self.userHashJSONArray);
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
             NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             

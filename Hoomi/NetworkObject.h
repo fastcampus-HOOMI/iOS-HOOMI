@@ -49,6 +49,7 @@
 //User Info
 @property (nonatomic, strong) NSArray *userInfoJSONArray;
 @property (nonatomic, strong) NSArray *myContentListJSONArray;
+@property (nonatomic, strong) NSArray *userHashJSONArray;
 -(void)requestMypage;
 
 @end

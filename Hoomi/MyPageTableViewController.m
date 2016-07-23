@@ -35,7 +35,9 @@
 
 @property (nonatomic) NSMutableArray *myContentDataArray;
 @property (nonatomic) NSMutableArray *imageDataArray;
-@property (nonatomic) NSMutableArray *hashIDArray;
+//@property (nonatomic) NSMutableArray *hashIDArray;
+//@property (nonatomic) NSMutableArray *pageArray;
+
 
 @property (nonatomic, strong) NSString *userInfoName;
 
@@ -78,11 +80,11 @@
 -(void)successLoad {
 
     NSLog(@"😬 %@", self.networkObject.userInfoJSONArray);
-    NSLog(@"😬 %@", self.networkObject.myContentListJSONArray);
+    NSLog(@"😬contentlistarray %@", self.networkObject.myContentListJSONArray);
     
     NSArray *userinfoList = self.networkObject.userInfoJSONArray;
-    NSString *firstName = [[userinfoList objectAtIndex:0] objectAtIndex:0];
-    NSString *lastName = [[userinfoList objectAtIndex:1] objectAtIndex:0];
+    NSString *firstName = [userinfoList objectAtIndex:0];
+    NSString *lastName = [userinfoList objectAtIndex:1];
     NSString *name = [firstName stringByAppendingString:lastName];
    
     NSLog(@"😇name - %@", name);
@@ -91,43 +93,40 @@
     
     self.myContentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
-    self.hashIDArray = [[NSMutableArray alloc] init];
+    //self.hashIDArray = [[NSMutableArray alloc] init];
+    //self.pageArray = [[NSMutableArray alloc] init];
     
     NSArray *myList = [self.networkObject myContentListJSONArray];
+    //NSArray *myHash = [self.networkObject userHashJSONArray];
+    //NSLog(@"😇myhash - %@", myHash);
     
     NSLog(@"😍---- %@", myList);
     
     for (NSInteger i = 0; i < [myList count]; i++) {
-        NSLog(@"😇index - %@", [myList objectAtIndex:i]);
+       
+        NSLog(@"😡 : %@", [[[[myList objectAtIndex:0] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"content"]);
+        NSLog(@"😡 : %@", [[[[myList objectAtIndex:1] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"content"]);
+        NSLog(@"😡😡😡 : %@", [[[[myList objectAtIndex:0] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"page"]);
         
-        NSString *content = [[myList objectAtIndex:i] objectForKey:@"content"];
-        NSLog(@"😇content - %@", content);
-        NSString *imageUrl = [[myList objectAtIndex:i] objectForKey:@"image"];
-
-        [self.myContentDataArray addObject:content];
-        [self.imageDataArray addObject:imageUrl];
+        if ([[[[[myList objectAtIndex:i] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"page"] integerValue] == 1) {
+//
+            NSString *content = [[[[myList objectAtIndex:i] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"content"];
+            NSLog(@"😇content - %@", content);
+            NSString *imageUrl = [[[[myList objectAtIndex:i] objectForKey:@"experiences"] objectAtIndex:0] objectForKey:@"image"];
         
+            [self.myContentDataArray addObject:content];
+            [self.imageDataArray addObject:imageUrl];
+            
+        }
+        
+        NSLog(@"contentData : %@", self.myContentDataArray);
+        NSLog(@"imageData : %@", self.imageDataArray);
     }
-    
-    NSLog(@"contentData : %@", self.myContentDataArray);
-    NSLog(@"imageData : %@", self.imageDataArray);
-
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
     });
-}
-
-- (void)loadMyContentDataList {
-    
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//        [self.tableView reloadData];
-//    });
-
-
 }
 
 
@@ -231,7 +230,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
     
-    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    //[self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
@@ -243,6 +242,7 @@
 
 // 마이페이지 - 게시물(셀) 삭제
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.myContentDataArray removeObject:@"experiences"];
         [tableView reloadData];
