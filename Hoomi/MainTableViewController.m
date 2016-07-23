@@ -17,6 +17,9 @@
 #import "UMAlertView.h"
 #import <SDWebImage/UIImageView+WebCache.h>
 
+#define ANIMATION_DURATION 0.7
+#define MARGIN 60
+
 @interface MainTableViewController ()
 <UMAlertViewDelegate>
 
@@ -27,9 +30,6 @@
 @property (nonatomic, strong) UIVisualEffectView *effectView;
 
 @property (nonatomic) NSUserDefaults *defaults;
-
-@property (nonatomic) CGFloat animationDuration; // 애니메이션 지속 시간
-@property (nonatomic) NSInteger margin; // 커스텀 뷰 margin
 
 @property (nonatomic) Singletone *singleTone; // 싱글톤 객체
 @property (nonatomic) NetworkObject *networkObject;
@@ -42,8 +42,7 @@
 @property (nonatomic) NSMutableArray *imageDataArray;
 @property (nonatomic) NSMutableArray *hashIDArray;
 @property (nonatomic) NSMutableArray *usernameArray;
-
-@property (nonatomic) UIView *overlay;
+@property (nonatomic) UIActivityIndicatorView *indicator;
 
 @property (nonatomic) UMAlertView *umAlertView;
 @property (nonatomic) NSInteger umAlertViewMenu; // 0은 직군 저장, 1은 글쓰기 테마
@@ -52,39 +51,88 @@
 
 @implementation MainTableViewController
 
+#pragma mark View life cycle
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self initClass];
+
+    // NavigationBar Custom title, Setting
+    [self CreateNavigationTitle];
+    
+    // Internet connect
+    if([self checkConnectInternet]) {
+        // Add Notification Observer
+        [self addNotificationCenter];
+        [self createIndicator];
+        // Load hitcontent
+        [self.networkObject requestHitContent];
+
+    } else {
+        
+        [self createEmptyData];
+    }
+    
+    // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)initClass {
+    
     // Create networkObject class
     self.networkObject = [NetworkObject requestInstance];
-    
     // Create singletone class
     self.singleTone = [Singletone requestInstance];
-    
     self.defaults = [NSUserDefaults standardUserDefaults];
-    
-    self.animationDuration = 0.7;
-    self.margin = 60;
-    
-    self.selectedJob = @"Photograper"; // Default Job
     self.umAlertView = [[UMAlertView alloc] init];
     self.umAlertView.delegate = self;
     
-    // Load hitcontent
-    [self.networkObject requestHitContent];
-    
-    /**********************/
-    /* 테스트를 위한 임시데이터 */
-    /**********************/
-    // Photographer - 2, Programmer - 3, Editor - 4, Writer - 5
-    
-    // Add Notification Observer
-    [self addNotificationCenter];
-    
-    // NavigationBar Custom title, Setting
-    [self CreateNavigationTitle];
+}
 
-    NSLog(@"ViewDidLoad Finish");
+- (void)createEmptyData {
+    
+    NSLog(@"인터넷에 연결할 수 없습니다.");
+    UILabel *emptyDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    [emptyDataLabel setCenter:self.view.center];
+    [emptyDataLabel setFont:[UIFont systemFontOfSize:20.f]];
+    [emptyDataLabel setTextAlignment:NSTextAlignmentCenter];
+    [emptyDataLabel setText:@"데이터 없음"];
+    [emptyDataLabel setTextColor:[UIColor blackColor]];
+    
+    [self.view addSubview:emptyDataLabel];
+}
+
+- (BOOL)checkConnectInternet {
+    
+    BOOL isConnect = NO;
+    NSURL *scriptUrl = [NSURL URLWithString:@"http://www.google.com/"];
+    NSData *data = [NSData dataWithContentsOfURL:scriptUrl];
+    if (data) {
+        NSLog(@"Device is connected to the Internet");
+        isConnect = YES;
+    } else {
+        NSLog(@"Device is not connected to the Internet");
+    }
+    
+    return isConnect;
+  
+}
+
+- (void)createIndicator {
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] init];
+    [indicator setCenter:self.view.center];
+    [indicator setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    [indicator setHidden:YES];
+    [indicator stopAnimating];
+    self.indicator = indicator;
+    [self.view addSubview:indicator];
+    
 }
 
 - (void)addNotificationCenter {
@@ -100,9 +148,7 @@
     
     /* 유저가 선택한 직군의 데이터가 없으면 직군 선택화면을 띄움 */
     if([self.defaults objectForKey:@"userJob"] == nil) {
-        
-        NSLog(@"직군선택 안함");
-        
+
         // 뷰컨트롤러 뒷배경 블러처리
         UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:[UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight]];
         effectView.frame = self.view.frame;
@@ -110,18 +156,15 @@
         self.effectView = effectView;
         
         NSArray *jobList = @[@"Photograper", @"Programmer", @"Editor", @"Writer"];
-        
         [self.umAlertView um_showAlertViewTitle:@"Select your job" pickerData:jobList completion:^{
+            self.umAlertViewMenu = 0;
             // 직군을 선택하는 뷰가 나오면 테이블뷰 스크롤 불가능
             [self.tableView setScrollEnabled:NO];
-            
-            self.umAlertViewMenu = 0;
         }];
         
         
     } else {
         
-        NSLog(@"직군선택 완료");
         UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
         [refreshControl addTarget:self action:@selector(loadServerData:) forControlEvents:UIControlEventValueChanged];
         [self.tableView addSubview:refreshControl];
@@ -167,9 +210,10 @@
 
 - (void)LoadHitContentSuccess {
     
-    // 사용자가 직군을 선택했는지 여부 확인
-    [self checkUserJob];
+    NSLog(@"userJob : %@", [self.defaults objectForKey:@"userJob"]);
     
+    [self checkUserJob];
+
     self.contentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
     self.hashIDArray = [[NSMutableArray alloc] init];
@@ -203,6 +247,10 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
+        
+        [self.indicator stopAnimating];
+        [self.indicator setHidden:YES];
+        [self.indicator removeFromSuperview];
 
     });
 }
@@ -231,17 +279,13 @@
 }
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {
-    
+    NSLog(@"refresh server data");
     [self.networkObject requestHitContent];
     
     [refreshControl endRefreshing];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+#pragma mark - Move another view
 
 - (IBAction)showMyPage:(id)sender {
     
@@ -265,62 +309,16 @@
     
 }
 
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.contentDataArray count];
-}
-
-#pragma mark - Table view delegate
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    static NSString *Cell = @"Cell";
-    
-    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
-    
-    NSString *fullUsername = [self.usernameArray objectAtIndex:indexPath.row];
-    NSRange range = [fullUsername rangeOfString:@"@" options:NSBackwardsSearch];
-    NSString *username = [fullUsername substringToIndex:range.location];
-    
-    NSString *byUsername = [@" by " stringByAppendingString:username];
-    
-    cell.label.text = [[self.contentDataArray objectAtIndex:indexPath.row] stringByAppendingString:byUsername];
-    [cell.label setTextColor:[UIColor whiteColor]];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
-
-    
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"select cell");
-    
-    // Singletone에 hashID값 저장
-    // DetailResume 화면에서 hashID값 로드할 것
-    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
-    
-    // 다른 스토리보드(Cheese)의 세부화면으로 Modal 띄워줌
-    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
-    DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
-    [self presentViewController:detailResume animated:YES completion:nil];
-    
-
-}
-
 - (void)selectUMAlertButton {
-
-    if(self.umAlertViewMenu == 0) {
     
+    if(self.umAlertViewMenu == 0) {
+        
+        NSLog(@"select job data : %@", [self.umAlertView selectData]);
+        
         [self.umAlertView um_dismissAlertViewCompletion:^{
+            [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
+            NSLog(@"default data check : %@", [self.defaults objectForKey:@"userJob"]);
             [self scrollAndButtonEnable:YES];
-            [self.defaults setObject:self.selectedJob forKey:@"userJob"];
             //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
             [self.effectView removeFromSuperview];
         }];
@@ -330,7 +328,7 @@
         [self.umAlertView um_dismissAlertViewCompletion:^{
             [self scrollAndButtonEnable:YES];
             
-            NSLog(@"select data : %@", [self.umAlertView selectData]);
+            NSLog(@"select write theme data : %@", [self.umAlertView selectData]);
             NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
             NSInteger themeNumber = 0;
             for (NSInteger num = 0; num < [themeData count]; num++) {
@@ -374,6 +372,52 @@
     [self.writeCareer setEnabled:enable];
     [self.myPage setEnabled:enable];
     
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [self.contentDataArray count];
+}
+
+#pragma mark - Table view delegate
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    static NSString *Cell = @"Cell";
+    
+    ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
+    
+    NSString *fullUsername = [self.usernameArray objectAtIndex:indexPath.row];
+    NSRange range = [fullUsername rangeOfString:@"@" options:NSBackwardsSearch];
+    NSString *username = [fullUsername substringToIndex:range.location];
+    NSString *byUsername = [@" by " stringByAppendingString:username];
+    
+    cell.label.text = [[self.contentDataArray objectAtIndex:indexPath.row] stringByAppendingString:byUsername];
+    [cell.label setTextColor:[UIColor whiteColor]];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
+
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"select cell");
+    
+    // Singletone에 hashID값 저장
+    // DetailResume 화면에서 hashID값 로드할 것
+    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    
+    // 다른 스토리보드(Cheese)의 세부화면으로 Modal 띄워줌
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
+    DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
+    [self presentViewController:detailResume animated:YES completion:nil];
+    
+
 }
 
 @end
