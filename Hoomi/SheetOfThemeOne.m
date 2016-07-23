@@ -11,8 +11,12 @@
 
 @interface SheetOfThemeOne ()
 
+/* frame size */
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
+
+/* backgroundView under imageView */
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
 
@@ -39,8 +43,7 @@
 -(void)settingUploadResume {
     
     /* temp 이미지 세팅 */
-    NSString *tempImageName = @"grayColor.jpg";
-    [self creatImageView:nil tempImageName:tempImageName haveImage:NO];
+    [self creatImageSectionInSheet:nil haveImage:NO];
     
     /* 업로드 버튼 */
     [self creatUploadButton];
@@ -53,24 +56,13 @@
     
 }
 
-   /****************/
-  /*   수정 화면    */
- /****************/
-
--(void)settingEditResume {
-    
-}
-
 
    /***********/
   /* 상세 화면 */
  /***********/
 
-/* 이미지, 텍스트뷰 초기화 함께 */
-/* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
-
 -(void)settingDetailResume:(UIImage *)image text:(NSString *)text {
-    [self creatImageView:image tempImageName:nil haveImage:YES];
+    [self creatImageSectionInSheet:image haveImage:YES];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
     
@@ -81,8 +73,9 @@
    /* Contents Object */
   /*******************/
 
+#pragma mark - contents frame size
 
-/* 사이즈 세팅 */
+/* 테마1 사이즈 세팅 */
 -(void)settingObjectFrameOfThemeOne {
     
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
@@ -94,24 +87,38 @@
     
 }
 
+#pragma mark - creat image section
+
+-(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage {
+    [self creatBackgroundView];
+    [self creatImageView:image haveImage:haveImage];
+}
+
+/* 이미지뷰 아래 view */
+-(void)creatBackgroundView {
+    self.backgroundView = [[UIView alloc]initWithFrame:self.imageFrame];
+    self.backgroundView.backgroundColor = [UIColor lightGrayColor];
+    [self addSubview:self.backgroundView];
+}
 
 /* 이미지 뷰 */
--(void)creatImageView:(UIImage *)image tempImageName:(NSString *)imageName haveImage:(BOOL)haveImage {
-    self.imageView = [[UIImageView alloc]initWithFrame:self.imageFrame];
+-(void)creatImageView:(UIImage *)image haveImage:(BOOL)haveImage {
+    self.imageView = [[UIImageView alloc]initWithFrame:self.backgroundView.bounds];
     if (haveImage == YES) {
         self.imageView.image = image;
     }
     if (haveImage == NO) {
-        self.imageView.image = [UIImage imageNamed:imageName];
+        self.imageView.image = nil;
     }
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
     self.imageView.layer.cornerRadius = 10.0;//곡선
     // 이미지뷰 터치 가능하도록 설정
     [self.imageView setUserInteractionEnabled:YES];
-    [self addSubview:self.imageView];
+    [self.backgroundView addSubview:self.imageView];
 }
 
+#pragma mark - creat textView
 
 /* 텍스트 뷰 */
 -(void)creatTextView:(NSString *)text canEdit:(BOOL)canEdit {

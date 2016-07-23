@@ -34,6 +34,7 @@
 @property (nonatomic) Singletone *singleTone;
 @property (nonatomic) NetworkObject *networkCenter;
 @property (nonatomic) NSInteger uploadSuccessCount;
+@property (nonatomic) NSInteger failUploadCount;
 
 @end
 
@@ -43,7 +44,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCreatJobHistory) name:CreatJobHistorySuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successExperienceSuccess) name:CreatExperienceSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successUploadExperience) name:CreatExperienceSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUploadExperience) name:CreatExperienceFailNotification object:nil];
     
     self.formThemeNumber = 1;// ------------ 추후form테마 번호 받는걸로 변경
     
@@ -270,7 +272,6 @@
     /* 소스타입 사용 가능한 상황인지 ex 시뮬레이터는 카메라 안됨 */
     if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO) {
         [self creatAlert:@"알림" message:@"이용할 수 없는 파일 형식입니다." haveCancelButton:NO defaultHandler:nil];
-        NSLog(@"이 소스는 못쓰낟");
     }
     else {
         UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
@@ -395,7 +396,30 @@
    /*     network & upload 관련      */
   /*********************************/
 
+// -- 애니메이션 넣어야 할듯? 로딩 되게
 -(void)creatloadingAlert {
+
+    /* testCode */
+    /* 데이터 잘 세팅 되나 */
+
+    NSMutableArray *sheetArray = [[NSMutableArray alloc]initWithCapacity:1];
+    
+    for (NSInteger count = 0; count < self.totalPage; count++) {
+        
+        NSMutableDictionary *sheetData = [NSMutableDictionary new];
+        
+        SheetOfThemeOne *sheet = [self.contentsArray objectAtIndex:count];
+        [sheetData setObject:sheet.imageView.image forKey:@"image"];
+        [sheetData setObject:sheet.textView.text forKey:@"text"];
+        
+        [sheetArray addObject:sheetData];
+    }
+    
+    NSLog(@"%@", sheetArray);
+    
+    NSLog(@"로딩 중입니다 안내 페이지 + startJobHistoryForUpload");
+    
+    
     // 로딩 중입니다 안내 페이지 - 네트워크 상황마다 바뀔 수 있도록
     
     //    if (// 카운트 == 토탈 갯수 까지) {
@@ -410,10 +434,11 @@
     
     
 }
--(void)creatJobHistoryForUpload{
+
+-(void)creatJobHistoryForUpload {
     self.networkCenter = [[NetworkObject alloc]init];
     NSLog(@"🌞 생성되어야할 formNumber는 %@입니다.", [NSString stringWithFormat:@"%ld",self.formThemeNumber]);
-    /* 완료 후, successCreatJobHistory */
+    /* 완료 후, successCreatJobHistory 불려짐 */
     [self.networkCenter creatJobHistoryForContentsUpload:[NSString stringWithFormat:@"%ld",self.formThemeNumber]];
 }
 
@@ -431,19 +456,39 @@
         // 각각 이미지 빼고 text 빼고
         //[self.contentsArray ]
         
-        // 여기에 넣기 -------
-        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+        // 여기에 넣기 ------- (되면 successUploadExperience불려짐)
+        //[self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
         
     }
 }
 
--(void)successExperienceSuccess {
+-(void)successUploadExperience {
     
     // 업로드 성공시 , 카운트 +
     self.uploadSuccessCount += 1;
+    
+    // 모두 성공 시, 안내 후, 창 닫기
+    if (self.uploadSuccessCount == self.totalPage) {
+        [self creatAlert:@"알림" message:@"모든 업로드가 완료되었습니다!" haveCancelButton:NO defaultHandler:^{
+            //close 기능
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
 
 }
 
+-(void)failUploadExperience {
+    
+    self.failUploadCount += 1;
+    
+    if (self.failUploadCount < 20) {
+        // 실패시, 다시 신청
+        //[self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+    }
+    else {
+        NSLog(@"업로드 실패 넘나 많이 함. 강제 종료.");
+    }
+}
 
 
 - (void)didReceiveMemoryWarning {

@@ -23,9 +23,8 @@
 
 - (instancetype)initWithFrame:(CGRect)frame;
 
-/* 업로드, 수정, 보기 모드 불러오기 */
+/* 업로드, 보기 모드 불러오기 */
 -(void)settingUploadResume;
--(void)settingEditResume;
 -(void)settingDetailResume:(UIImage *)image text:(NSString *)text;
 
 /* delegate */
