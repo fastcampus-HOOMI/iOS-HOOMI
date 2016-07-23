@@ -9,6 +9,7 @@
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
 #import "NetworkObject.h"
+#import "Singletone.h"
 
 @interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
@@ -29,6 +30,11 @@
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
 
+/* NetworkObject 관련 */
+@property (nonatomic) Singletone *singleTone;
+@property (nonatomic) NetworkObject *networkCenter;
+@property (nonatomic) NSInteger uploadSuccessCount;
+
 @end
 
 @implementation WritePageViewController
@@ -36,7 +42,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.totalPage = 0;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCreatJobHistory) name:CreatJobHistorySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successExperienceSuccess) name:CreatExperienceSuccessNotification object:nil];
+    
     self.formThemeNumber = 1;// ------------ 추후form테마 번호 받는걸로 변경
     
     /* contentsArray 세팅 */
@@ -56,6 +64,8 @@
      ->     네트워크 연결 후에는 헤더 파일에 있는
      외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
     [self selectWriteSheetByTheme:self.formThemeNumber];
+    
+    NSLog(@"첫 생성 total page count - %ld", self.totalPage);
 }
 
 -(void)viewDidLayoutSubviews {
@@ -190,14 +200,8 @@
     else {
         [self creatAlert:@"확인" message:@"저장하시겠습니까?" haveCancelButton:YES defaultHandler:^ {
             
-            // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함)
-            NetworkObject *userToken = [[NetworkObject alloc]init];
-            NSString *userTokenString = userToken.loadSessionValue;
-            NSLog(@"--- 토큰 테스트 userTokenString %@", userTokenString);
-            NSLog(@"네트워킹 코드 짜야함");
+            [self creatloadingAlert];
             
-            //close 기능
-            [self dismissViewControllerAnimated:YES completion:nil];
         }];
     }
 }
@@ -228,10 +232,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-    /************************/
-   /*     사진 업로드 기능     */
-  /*  - 액션시트, 이미지피커   */
- /************************/
+    /****************************/
+   /*    화면에 사진 업로드 기능     */
+  /*     - 액션시트, 이미지피커    */
+ /****************************/
 
 #pragma mark - ActionSheet, UIImagePickerController
 
@@ -372,10 +376,8 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        //블럭함수
+        //선언하면서 정의한 블럭함수로 실행
         handler();
-        
     }];
     [alert addAction:okButton];
     
@@ -387,6 +389,60 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+
+
+    /*********************************/
+   /*     network & upload 관련      */
+  /*********************************/
+
+-(void)creatloadingAlert {
+    // 로딩 중입니다 안내 페이지 - 네트워크 상황마다 바뀔 수 있도록
+    
+    //    if (// 카운트 == 토탈 갯수 까지) {
+    //        // 완료시
+    //        //close 기능
+    //        [self dismissViewControllerAnimated:YES completion:nil];
+    //
+    //    }
+    //    else {
+    //
+    //    }
+    
+    
+}
+-(void)creatJobHistoryForUpload{
+    self.networkCenter = [[NetworkObject alloc]init];
+    NSLog(@"🌞 생성되어야할 formNumber는 %@입니다.", [NSString stringWithFormat:@"%ld",self.formThemeNumber]);
+    /* 완료 후, successCreatJobHistory */
+    [self.networkCenter creatJobHistoryForContentsUpload:[NSString stringWithFormat:@"%ld",self.formThemeNumber]];
+}
+
+/* JobHistory에서 hash값을 받아오면 */
+-(void)successCreatJobHistory {
+    
+    NSString *hashID = [self.networkCenter hashID];
+    
+    for (NSInteger index = 1; index <= (self.uploadSuccessCount-1); index++) {
+        
+        // page는 index+1
+        NSInteger page = index+1;
+        NSString *integerAsString = [@(page) stringValue];
+        
+        // 각각 이미지 빼고 text 빼고
+        //[self.contentsArray ]
+        
+        // 여기에 넣기 -------
+        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+        
+    }
+}
+
+-(void)successExperienceSuccess {
+    
+    // 업로드 성공시 , 카운트 +
+    self.uploadSuccessCount += 1;
+
+}
 
 
 

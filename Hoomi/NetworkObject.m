@@ -11,8 +11,6 @@
 #import "Singletone.h"
 #import "UICKeyChainStore.h"
 
-
-
 @interface NetworkObject()
 
 @property (nonatomic) NSString *userID;
@@ -396,7 +394,7 @@
             //            else {
             //                            
             //        }
-            NSLog(@"errorCount - %ld", self.errorCount);
+//            NSLog(@"errorCount - %ld", self.errorCount);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
         }
 
@@ -491,43 +489,36 @@
 
  */
 
--(void)uploadTaskForMutipartWithAFNetwork:(UIImage *)image title:(NSString *)title {
+-(void)creatJobHistoryForContentsUpload:(NSString *)theme {
+
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:theme forKey:@"theme"];
     
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:JobHistoryURL parameters:bodyParams error:nil];
     
-    // 일반 제이슨, 폼으로 보내도 된다. themeNumber만 넘겨주기 때문에 -> 알아볼 것 (cheese)
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-//    
-//    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-//    [bodyParams setObject:self.userID forKey:@"user_id"];
-//    [bodyParams setObject:title forKey:@"title"];
-//    
-//    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-//        
-//        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-//        
-//        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
-//        
-//    } error:nil];
-//    
-//    /* 해더 */
-//    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
-//    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
-//    
-//    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-//    
-//    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
-//        if (error) {
-//            NSLog(@"Error: %@", error);
-//        } else {
-//            
-//            //
-//            //노티 안만들어도 되낭
-//            NSLog(@"%@ %@", response, responseObject);
-//        }
-//    }];
-//    [dataTask resume];
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistoryFailNotification object:nil];
+        } else {
+            NSLog(@"🌝creatJobHistory response %@ // sresponseObject %@", response, responseObject);
+            // hashID setting
+            NSMutableDictionary *detailPageAllData = responseObject;
+            NSLog(@"🌼 hash_id - %@", [detailPageAllData objectForKey:@"hash_id"]);
+            self.hashID = [detailPageAllData objectForKey:@"hash_id"];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistorySuccessNotification object:nil];
+        }
+    }];
     
-    NSLog(@"네트워크로 업로드");
+    [dataTask resume];
+
 }
 
 /* 나머지 업로드 
@@ -550,8 +541,6 @@
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:creatExperienceURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
         NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-        
-        //---- 근데 왜 jpeg지? cheeseing
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         
     } error:nil];
@@ -566,11 +555,10 @@
         if (error) {
             NSLog(@"Error: %@", error);
             // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
-        } else {
-            // 노티피게이션 보내기  --> write에 옵저버 등록
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceFailNotification object:nil];
-            NSLog(@"%@ %@", response, responseObject);
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
+            NSLog(@"🍞 uploadExperience response %@ // responseObject %@", response, responseObject);
         }
     }];
     

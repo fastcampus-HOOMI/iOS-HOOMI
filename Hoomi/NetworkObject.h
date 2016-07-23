@@ -6,7 +6,7 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NetworkObject : NSObject
 
@@ -42,9 +42,12 @@
 @property (nonatomic) NSInteger detailPageTotalCount;
 @property (nonatomic, strong) NSString *nextURL;
 @property (nonatomic, strong) NSString *previousURL;
+@property (nonatomic, strong) NSString *hashID;
 -(void)requestjobHistory;
 -(void)requestDetailJobHistory:(NSString *)hashID;
 -(void)requestDetailPageAfterMovePage:(NSString *)movePageURL;
+-(void)creatJobHistoryForContentsUpload:(NSString *)theme;
+-(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page;
 
 //User Info
 @property (nonatomic, strong) NSArray *userInfoJSONArray;
