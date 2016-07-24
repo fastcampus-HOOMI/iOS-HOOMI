@@ -631,7 +631,7 @@
     [bodyParams setObject:self.hashID forKey:@"hash_id"];
     
         // create request
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"DELETE" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"DELETE" URLString:JobHistoryURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
     } error:nil];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];

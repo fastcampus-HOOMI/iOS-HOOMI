@@ -250,7 +250,7 @@
 
 
 
-// 마이페이지 - 게시물(셀) 삭제
+// 마이페이지 - 내글목록 게시물(셀) 삭제
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
@@ -262,12 +262,23 @@
     }
 }
 
-
+//내글 목록 ui들
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 44.f;
+        
+        return 50.0f;
+        
+    }else{
+    
+        return 112.f;
     }
-    return 140.f;
+}
+
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1f;
+}
+-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section{
+    return 10.0f;
 }
 
 /*
