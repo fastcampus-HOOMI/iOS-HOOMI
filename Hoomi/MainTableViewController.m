@@ -330,7 +330,7 @@
             
             NSLog(@"select write theme data : %@", [self.umAlertView selectData]);
             NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
-            NSInteger themeNumber = 0;
+            NSInteger themeNumber = 1;
             for (NSInteger num = 0; num < [themeData count]; num++) {
                 if(![[themeData objectAtIndex:num] isEqualToString:[self.umAlertView selectData]]) {
                     themeNumber += 1;
