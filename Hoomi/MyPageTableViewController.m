@@ -255,8 +255,11 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //[self.myContentDataArray removeObjectAtIndex:indexPath.row];
-        [self.myContentDataArray removeObjectAtIndex:indexPath.row];
-        [self.imageDataArray removeObjectAtIndex:indexPath.row];
+//        [self.myContentDataArray removeObjectAtIndex:indexPath.row];
+//        [self.imageDataArray removeObjectAtIndex:indexPath.row];
+//        [self.tableView deleteRowsAtIndexPaths:@[indexPath.row] withRowAnimation:UITableViewRowAnimationFade];
+        
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
         [tableView reloadData];
     }

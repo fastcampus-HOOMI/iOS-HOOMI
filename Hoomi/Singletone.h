@@ -34,8 +34,6 @@ static NSString *LoadNextDetailResumeFailNotification = @"LoadNextDetailResumeFa
 static NSString *MyPageUrl = @"https://hoomi.work/api/mypage/";
 static NSString *UserInfoListNotification = @"InfoListSuccess";
 static NSString *UserInfoListFailNotification = @"InfoListFail";
-static NSString *MyWritingListNotification = @"WritingListSuccess";
-static NSString *MyWritingListFailNotification = @"WritingListFail";
 
 
 #define colorAlpha 1.00 // 색상 투명도
