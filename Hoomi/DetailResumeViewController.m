@@ -98,7 +98,7 @@
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX * pageNumber, 0, self.view.frame.size.width, self.view.frame.size.height)];
     //themeOneSheet.backgroundColor = [UIColor blueColor];
-    [themeOneSheet settingDetailResume:image text:text];
+    [themeOneSheet settingDetailResume:image text:text isWriteSheet:NO];
     [self.scrollView addSubview:themeOneSheet];
     
     [self showIndicatorView:NO];

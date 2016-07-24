@@ -424,30 +424,35 @@
     NSLog(@"%@", self.dataArrayInStateOfArrangement);
 }
 
-// -- 애니메이션 넣어야 할듯? 로딩 되게
+/* loading animation */
 -(void)creatloadingAlert {
     
-    /* 뒤에 터치 못하게 막기 ----------- cheesing */
     UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height)];
     backgroundView.backgroundColor = [UIColor blackColor];
-    backgroundView.alpha = 0.6;
+    backgroundView.alpha = 0.3;
     [self.scrollView addSubview:backgroundView];
+    self.view.userInteractionEnabled = NO;
     
+    /* frame */
     CGFloat loadingViewWidth = 200;
     CGFloat centerInCurrentPageX = (self.scrollView.frame.size.width * (self.currentPage + 1)) - (self.scrollView.frame.size.width / 2) - 200/2;
     CGFloat centerInCurrentPageY = (self.scrollView.frame.size.height / 2) - 170/2;
     
     /* indecator */
     self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(centerInCurrentPageX, centerInCurrentPageY, loadingViewWidth, 170)];
-    self.loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    self.loadingView.backgroundColor = [UIColor blackColor];
+    //self.loadingView.backgroundColor = [UIColor redColor];
+    self.loadingView.alpha = 1;
     self.loadingView.clipsToBounds = YES;
     self.loadingView.layer.cornerRadius = 10.0;
     
     self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    self.activityView.frame = CGRectMake(65, 40, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
+    CGFloat activityViewCenterX = loadingViewWidth/2 - self.activityView.bounds.size.width/2;//style선언 후 조정 가능
+    self.activityView.frame = CGRectMake(activityViewCenterX , 40, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
     [self.loadingView addSubview:self.activityView];
     
-    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 115, 130, 22)];
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 115, loadingViewWidth, 22)];
+    //self.loadingLabel.backgroundColor = [UIColor blueColor];
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.adjustsFontSizeToFitWidth = YES;
@@ -456,6 +461,7 @@
     [self.loadingView addSubview:self.loadingLabel];
     
     [backgroundView addSubview:self.loadingView];
+    
     [self.activityView startAnimating];
     
 }
@@ -466,15 +472,13 @@
     
     /* 완료 후, successCreatJobHistory 불려짐 */
     [self.networkCenter creatJobHistoryForContentsUpload:[NSString stringWithFormat:@"%ld",self.formThemeNumber]];
-    NSLog(@"2 🌞 creatJobHistoryForUpload");
 }
 
 /* JobHistory에서 hash값을 받아오면 */
 -(void)successCreatJobHistory {
     
-    NSLog(@"3 🌞 successCreatJobHistory");
     NSString *hashID = [self.networkCenter hashID];
-    NSLog(@"4 🌞 hashID - %@", hashID);
+    //NSLog(@"4 🌞 hashID - %@", hashID);
     
     for (NSInteger count = 0; count <= self.totalPage - 1; count++) {
         
@@ -482,8 +486,6 @@
         UIImage *image = [sheetData objectForKey:@"image"];
         NSString *text = [sheetData objectForKey:@"text"];
         NSString *page = [sheetData objectForKey:@"page"];
-        
-        NSLog(@"4 🌞 image - %@, text - %@, page - %@", image, text, page);
         
         // call successUploadExperience
         [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:image content:text page:page];
@@ -502,6 +504,7 @@
     
     // 모두 성공 시, 안내 후, 창 닫기
     if (self.uploadSuccessCount == self.totalPage) {
+        [self.activityView stopAnimating];
         [self creatAlert:@"알림" message:@"모든 업로드가 완료되었습니다!" haveCancelButton:NO defaultHandler:^{
             //close 기능
             [self dismissViewControllerAnimated:YES completion:nil];

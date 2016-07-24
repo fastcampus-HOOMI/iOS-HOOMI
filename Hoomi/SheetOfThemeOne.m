@@ -43,7 +43,7 @@
 -(void)settingUploadResume {
     
     /* temp 이미지 세팅 */
-    [self creatImageSectionInSheet:nil haveImage:NO];
+    [self creatImageSectionInSheet:nil haveImage:NO isWriteSheet:YES];
     
     /* 업로드 버튼 */
     [self creatUploadButton];
@@ -61,8 +61,8 @@
   /* 상세 화면 */
  /***********/
 
--(void)settingDetailResume:(UIImage *)image text:(NSString *)text {
-    [self creatImageSectionInSheet:image haveImage:YES];
+-(void)settingDetailResume:(UIImage *)image text:(NSString *)text isWriteSheet:(BOOL)isWriteSheet {
+    [self creatImageSectionInSheet:image haveImage:YES isWriteSheet:(BOOL)isWriteSheet];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
     
@@ -89,20 +89,23 @@
 
 #pragma mark - creat image section
 
--(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage {
-    [self creatBackgroundView];
-    [self creatImageView:image haveImage:haveImage];
+-(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
+    [self creatBackgroundView:isWriteSheet];
+    [self creatImageView:image haveImage:haveImage isWriteSheet:isWriteSheet];
 }
 
 /* 이미지뷰 아래 view */
--(void)creatBackgroundView {
+-(void)creatBackgroundView:(BOOL)isWriteSheet {
     self.backgroundView = [[UIView alloc]initWithFrame:self.imageFrame];
     self.backgroundView.backgroundColor = [UIColor lightGrayColor];
+    if (isWriteSheet) {
+        self.backgroundView.layer.cornerRadius = 10.0;//곡선
+    }
     [self addSubview:self.backgroundView];
 }
 
 /* 이미지 뷰 */
--(void)creatImageView:(UIImage *)image haveImage:(BOOL)haveImage {
+-(void)creatImageView:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
     self.imageView = [[UIImageView alloc]initWithFrame:self.backgroundView.bounds];
     if (haveImage == YES) {
         self.imageView.image = image;
@@ -112,7 +115,9 @@
     }
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
-    self.imageView.layer.cornerRadius = 10.0;//곡선
+    if (isWriteSheet) {
+        self.imageView.layer.cornerRadius = 10.0;//곡선
+    }
     // 이미지뷰 터치 가능하도록 설정
     [self.imageView setUserInteractionEnabled:YES];
     [self.backgroundView addSubview:self.imageView];
@@ -137,7 +142,7 @@
     NSDictionary *dict = @{NSParagraphStyleAttributeName : paragraphStyle};
     [attributedString addAttributes:dict range:NSMakeRange(0, [textViewText length])];
     self.textView.attributedText = attributedString;
-    self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
+    self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     
     /* 편집 불가 모드 */
     if (canEdit == NO) {
