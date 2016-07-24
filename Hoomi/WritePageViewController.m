@@ -53,8 +53,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successUploadExperience) name:CreatExperienceSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUploadExperience) name:CreatExperienceFailNotification object:nil];
     
-    self.formThemeNumber = 1;// ------------ 추후form테마 번호 받는걸로 변경
-    
     /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
     
@@ -68,9 +66,10 @@
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
     
-    /* 임시 form 데이터
-     ->     네트워크 연결 후에는 헤더 파일에 있는
-     외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
+    /* form theme number*/
+    self.singleTone = [Singletone requestInstance];
+    self.formThemeNumber = [self.singleTone formThemeNumber];
+    NSLog(@"%ld", self.formThemeNumber);
     [self selectWriteSheetByTheme:self.formThemeNumber];
     
     NSLog(@"첫 생성 total page count - %ld", self.totalPage);
