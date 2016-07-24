@@ -58,7 +58,7 @@ static NSInteger pickerRow = 0;
     
     UIView *keyWindow = [self keyWindow];
     
-    UIView *umAlertView =[[UIView alloc] initWithFrame:CGRectMake(UM_ALERT_VIEW_MARGIN_ZERO, UM_ALERT_VIEW_MARGIN_ZERO, keyWindow.frame.size.width - UM_ALERT_VIEW_MARGIN, UM_ALERT_VIEW_MARGIN * 5)];
+    UIView *umAlertView =[[UIView alloc] initWithFrame:CGRectMake(UM_ALERT_VIEW_MARGIN_ZERO, UM_ALERT_VIEW_MARGIN_ZERO, UM_ALERT_VIEW_MARGIN * 5, UM_ALERT_VIEW_MARGIN * 5)];
     [umAlertView setCenter:keyWindow.center];
     umAlertView.layer.borderColor = [UIColor darkGrayColor].CGColor;
     umAlertView.backgroundColor = UM_ALERT_VIEW_ALL_BACKGROUND_COLOR;
