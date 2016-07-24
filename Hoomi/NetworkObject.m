@@ -510,8 +510,8 @@
             NSLog(@"🌝creatJobHistory response %@ // sresponseObject %@", response, responseObject);
             // hashID setting
             NSMutableDictionary *detailPageAllData = responseObject;
-            NSLog(@"🌼 hash_id - %@", [detailPageAllData objectForKey:@"hash_id"]);
             self.hashID = [detailPageAllData objectForKey:@"hash_id"];
+            NSLog(@"🌼 hash_id - %@", [detailPageAllData objectForKey:@"hash_id"]);
             
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistorySuccessNotification object:nil];
         }

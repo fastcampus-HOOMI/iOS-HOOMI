@@ -25,6 +25,7 @@
 
 /* 데이터 보관 */
 @property (nonatomic, strong) NSMutableArray *contentsArray;
+@property (nonatomic, strong) NSMutableArray *dataArrayInStateOfArrangement;
 
 /* toolbar 페이지 알림 설정 */
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
@@ -35,6 +36,11 @@
 @property (nonatomic) NetworkObject *networkCenter;
 @property (nonatomic) NSInteger uploadSuccessCount;
 @property (nonatomic) NSInteger failUploadCount;
+
+/* loading indicator 관련 */
+@property (nonatomic, retain) UIActivityIndicatorView * activityView;
+@property (nonatomic, retain) UIView *loadingView;
+@property (nonatomic, retain) UILabel *loadingLabel;
 
 @end
 
@@ -81,6 +87,7 @@
  /**************************************/
 
 -(void)creatScrollView {
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     self.scrollView.delegate = self;
     [self settingTapGestureRecognizerOnScrollView];
 }
@@ -203,6 +210,8 @@
         [self creatAlert:@"확인" message:@"저장하시겠습니까?" haveCancelButton:YES defaultHandler:^ {
             
             [self creatloadingAlert];
+            [self dataArrangement];
+            //[self creatJobHistoryForUpload]; ---------- 추후 주석 제거
             
         }];
     }
@@ -317,13 +326,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     /* 현재 위치 */
-    NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
+    //NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
     
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;
     
-    NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
+    //NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 현재 위치 컨텐츠 프로퍼티 세팅 */
@@ -397,13 +406,9 @@
    /*     network & upload 관련      */
   /*********************************/
 
-// -- 애니메이션 넣어야 할듯? 로딩 되게
--(void)creatloadingAlert {
 
-    /* testCode */
-    /* 데이터 잘 세팅 되나 */
-
-    NSMutableArray *sheetArray = [[NSMutableArray alloc]initWithCapacity:1];
+-(void)dataArrangement {
+    self.dataArrayInStateOfArrangement = [[NSMutableArray alloc]initWithCapacity:1];
     
     for (NSInteger count = 0; count < self.totalPage; count++) {
         
@@ -412,18 +417,55 @@
         SheetOfThemeOne *sheet = [self.contentsArray objectAtIndex:count];
         [sheetData setObject:sheet.imageView.image forKey:@"image"];
         [sheetData setObject:sheet.textView.text forKey:@"text"];
+        [sheetData setObject:[@(count+1) stringValue] forKey:@"page"];
         
-        [sheetArray addObject:sheetData];
+        [self.dataArrayInStateOfArrangement addObject:sheetData];
     }
     
-    NSLog(@"%@", sheetArray);
+    NSLog(@"%@", self.dataArrayInStateOfArrangement);
+}
+
+// -- 애니메이션 넣어야 할듯? 로딩 되게
+-(void)creatloadingAlert {
     
-    NSLog(@"로딩 중입니다 안내 페이지 + startJobHistoryForUpload");
+    /* 뒤에 터치 못하게 막기 ----------- cheesing */
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height)];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.alpha = 0.6;
+    [self.scrollView addSubview:backgroundView];
+    
+    CGFloat loadingViewWidth = 200;
+    CGFloat centerInCurrentPageX = (self.scrollView.frame.size.width * (self.currentPage + 1)) - (self.scrollView.frame.size.width / 2) - 200/2;
+    CGFloat centerInCurrentPageY = (self.scrollView.frame.size.height / 2) - 170/2;
+    
+    /* indecator */
+    self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(centerInCurrentPageX, centerInCurrentPageY, loadingViewWidth, 170)];
+    self.loadingView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    self.loadingView.clipsToBounds = YES;
+    self.loadingView.layer.cornerRadius = 10.0;
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    self.activityView.frame = CGRectMake(65, 40, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
+    [self.loadingView addSubview:self.activityView];
+    
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 115, 130, 22)];
+    self.loadingLabel.backgroundColor = [UIColor clearColor];
+    self.loadingLabel.textColor = [UIColor whiteColor];
+    self.loadingLabel.adjustsFontSizeToFitWidth = YES;
+    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.text = @"Loading...";//바뀔 부분
+    [self.loadingView addSubview:self.loadingLabel];
+    
+    [backgroundView addSubview:self.loadingView];
+    [self.activityView startAnimating];
+    
+    
+    
     
     
     // 로딩 중입니다 안내 페이지 - 네트워크 상황마다 바뀔 수 있도록
     
-    //    if (// 카운트 == 토탈 갯수 까지) {
+    //    if (// 카운트 == 토탈 갯수 까지´) {
     //        // 완료시
     //        //close 기능
     //        [self dismissViewControllerAnimated:YES completion:nil];
@@ -438,15 +480,19 @@
 
 -(void)creatJobHistoryForUpload {
     self.networkCenter = [[NetworkObject alloc]init];
-    NSLog(@"🌞 생성되어야할 formNumber는 %@입니다.", [NSString stringWithFormat:@"%ld",self.formThemeNumber]);
+    NSLog(@"1 🌞 생성되어야할 formNumber는 %@입니다.", [NSString stringWithFormat:@"%ld",self.formThemeNumber]);
+    
     /* 완료 후, successCreatJobHistory 불려짐 */
     [self.networkCenter creatJobHistoryForContentsUpload:[NSString stringWithFormat:@"%ld",self.formThemeNumber]];
+    NSLog(@"2 🌞 creatJobHistoryForUpload");
 }
 
 /* JobHistory에서 hash값을 받아오면 */
 -(void)successCreatJobHistory {
     
+    NSLog(@"3 🌞 successCreatJobHistory");
     NSString *hashID = [self.networkCenter hashID];
+    NSLog(@"4 🌞 hashID - %@", hashID);
     
     for (NSInteger index = 1; index <= (self.uploadSuccessCount-1); index++) {
         
@@ -457,8 +503,8 @@
         // 각각 이미지 빼고 text 빼고
         //[self.contentsArray ]
         
-        // 여기에 넣기 ------- (되면 successUploadExperience불려짐)
-        //[self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+         여기에 넣기 ------- (되면 successUploadExperience불려짐)
+        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
         
     }
 }
