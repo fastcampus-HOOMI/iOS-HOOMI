@@ -42,21 +42,21 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="Cell" translatesAutoresizingMaskIntoConstraints="NO" id="yld-1P-HWw">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="139.5"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7f-4L-7Jz">
-                                            <rect key="frame" x="16" y="71" width="548" height="53"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c7f-4L-7Jz">
+                                            <rect key="frame" x="8" y="89" width="584" height="42"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="yld-1P-HWw" secondAttribute="bottom" id="6UW-X4-iXz"/>
-                                        <constraint firstItem="c7f-4L-7Jz" firstAttribute="top" secondItem="ev5-96-hgg" secondAttribute="topMargin" constant="63" id="KYP-zR-mOT"/>
+                                        <constraint firstItem="c7f-4L-7Jz" firstAttribute="top" secondItem="ev5-96-hgg" secondAttribute="topMargin" constant="81" id="KYP-zR-mOT"/>
                                         <constraint firstItem="yld-1P-HWw" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leading" id="KkF-hy-AOD"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="c7f-4L-7Jz" secondAttribute="bottom" constant="7.5" id="Ujz-um-DIp"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="c7f-4L-7Jz" secondAttribute="trailing" constant="28" id="e3N-zk-7WO"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="c7f-4L-7Jz" secondAttribute="bottom" constant="0.5" id="Ujz-um-DIp"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="c7f-4L-7Jz" secondAttribute="trailing" id="e3N-zk-7WO"/>
                                         <constraint firstAttribute="trailing" secondItem="yld-1P-HWw" secondAttribute="trailing" id="lTc-7q-Xz4"/>
-                                        <constraint firstItem="c7f-4L-7Jz" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leadingMargin" constant="8" id="ogp-2s-zLE"/>
+                                        <constraint firstItem="c7f-4L-7Jz" firstAttribute="leading" secondItem="ev5-96-hgg" secondAttribute="leadingMargin" id="ogp-2s-zLE"/>
                                         <constraint firstItem="yld-1P-HWw" firstAttribute="top" secondItem="ev5-96-hgg" secondAttribute="top" id="teZ-Va-F5d"/>
                                     </constraints>
                                 </tableViewCellContentView>

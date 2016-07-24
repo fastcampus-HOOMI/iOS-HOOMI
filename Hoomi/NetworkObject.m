@@ -20,6 +20,7 @@
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSInteger errorCount;
+@property (nonatomic) NSString *hashID;
 
 @end
 
@@ -623,5 +624,63 @@
 
 }
 
+//마이페이지 글 삭제
+-(void) deleteMypage:(NSString *)hashID {
+    
+    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
+    [bodyParams setObject:self.hashID forKey:@"hash_id"];
+    
+        // create request
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"DELETE" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        
+    } error:nil];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
 
+    
+    /* Http Method */
+    [request setHTTPMethod:@"DELETE"];
+    NSString *deleteMypageUrl = [JobHistoryURL stringByAppendingString:hashID];
+    [request setURL:[NSURL URLWithString:deleteMypageUrl]];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *deleteTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        //        NSLog(@"responseObject : %@", responseObject);
+        //        NSLog(@"response : %@", response);
+        if (responseObject) {
+            NSMutableDictionary *myPageAllData = responseObject;
+            /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
+            self.jobHistoryDetailAllInfoJSONDictionary = myPageAllData;
+            [self pickDetailContent];
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
+        }
+        else {
+            self.errorCount ++;
+            NSLog(@"error - %@", error);
+            /* 재시도 */
+            //            if (self.errorCount > 5) {
+            //                [self requestDetailJobHistory:hashID];
+            //            }
+            //            else {
+            //
+            //        }
+            NSLog(@"errorCount - %ld", self.errorCount);
+            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
+        }
+        
+        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+    }];
+
+
+        
+    [deleteTask resume];
+
+        
+}
+
+
+                                          
 @end

@@ -232,11 +232,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
     
+    //userinfo section은 셀 터치시 이동이 되지 않게함.
+    if (indexPath.section == 0) {
+        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        
+    }else{
+    
     [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
-    [self presentViewController:detailResume animated:YES completion:nil];
+        [self presentViewController:detailResume animated:YES completion:nil];
+    
+    }
     
 }
 
