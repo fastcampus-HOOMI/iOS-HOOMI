@@ -17,19 +17,20 @@
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
 - (void)initSignUpUserID:(NSString *)userID lastName:(NSString *)lastName firstName:(NSString *)firstName password:(NSString *)password;
 
-// Default
+// Email Sign up, Login
 - (void)requestSignIn;
 - (void)requestSignUp;
 
-// Social
+// Social Login
 - (void)requestFacebookSignUpToken:(NSString *)token;
 
-// Save Job
-- (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
+// User job Save
+- (void)requestSaveJob:(NSString *)job;
 
-// Load Main
+// Hit Content Load
 - (void)requestHitContent;
 
+// Login Token Save, Load
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;
 

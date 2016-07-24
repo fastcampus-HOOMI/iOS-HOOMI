@@ -26,6 +26,7 @@
         self.layer.borderColor = [UIColor whiteColor].CGColor;
         self.layer.borderWidth = 2.0f;
     } else {
+        self.layer.borderColor = [UIColor clearColor].CGColor;
         self.layer.borderWidth = 0.0f;
     }
 }

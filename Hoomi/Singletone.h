@@ -37,6 +37,9 @@ static NSString *UserInfoListFailNotification = @"InfoListFail";
 static NSString *MyWritingListNotification = @"WritingListSuccess";
 static NSString *MyWritingListFailNotification = @"WritingListFail";
 
+/* 로그아웃 관련 */
+static NSString *ExpiredMessage = @"Signature has expired.";
+static NSString *ExpiredNotification = @"Expired";
 
 #define colorAlpha 1.00 // 색상 투명도
 #define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
@@ -68,6 +71,7 @@ typedef NS_ENUM(NSInteger, Color) {
 @interface Singletone : NSObject
 
 @property (nonatomic, strong) NSString *hashID;
+@property (nonatomic) NSInteger formThemeNumber;
 
 + (instancetype) requestInstance;
 
