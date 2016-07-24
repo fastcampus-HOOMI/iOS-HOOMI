@@ -211,8 +211,7 @@
             
             [self creatloadingAlert];
             [self dataArrangement];
-            //[self creatJobHistoryForUpload]; ---------- 추후 주석 제거
-            
+            [self creatJobHistoryForUpload];
         }];
     }
 }
@@ -459,23 +458,6 @@
     [backgroundView addSubview:self.loadingView];
     [self.activityView startAnimating];
     
-    
-    
-    
-    
-    // 로딩 중입니다 안내 페이지 - 네트워크 상황마다 바뀔 수 있도록
-    
-    //    if (// 카운트 == 토탈 갯수 까지´) {
-    //        // 완료시
-    //        //close 기능
-    //        [self dismissViewControllerAnimated:YES completion:nil];
-    //
-    //    }
-    //    else {
-    //
-    //    }
-    
-    
 }
 
 -(void)creatJobHistoryForUpload {
@@ -494,17 +476,17 @@
     NSString *hashID = [self.networkCenter hashID];
     NSLog(@"4 🌞 hashID - %@", hashID);
     
-    for (NSInteger index = 1; index <= (self.uploadSuccessCount-1); index++) {
+    for (NSInteger count = 0; count <= self.totalPage - 1; count++) {
         
-        // page는 index+1
-        NSInteger page = index+1;
-        NSString *integerAsString = [@(page) stringValue];
+        NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
+        UIImage *image = [sheetData objectForKey:@"image"];
+        NSString *text = [sheetData objectForKey:@"text"];
+        NSString *page = [sheetData objectForKey:@"page"];
         
-        // 각각 이미지 빼고 text 빼고
-        //[self.contentsArray ]
+        NSLog(@"4 🌞 image - %@, text - %@, page - %@", image, text, page);
         
-         여기에 넣기 ------- (되면 successUploadExperience불려짐)
-        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+        // call successUploadExperience
+        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:image content:text page:page];
         
     }
 }
@@ -513,6 +495,10 @@
     
     // 업로드 성공시 , 카운트 +
     self.uploadSuccessCount += 1;
+    NSLog(@"🌞 %ld개 파일 업로드 성공", self.uploadSuccessCount);
+    
+    NSString *loadingText = [[@(self.uploadSuccessCount / self.totalPage) stringValue] stringByAppendingString:@"%..."];
+    self.loadingLabel.text = loadingText;
     
     // 모두 성공 시, 안내 후, 창 닫기
     if (self.uploadSuccessCount == self.totalPage) {
@@ -525,16 +511,24 @@
 }
 
 -(void)failUploadExperience {
+
+    NSLog(@"👼🏻 failUploadExperience");
     
-    self.failUploadCount += 1;
-    
-    if (self.failUploadCount < 20) {
-        // 실패시, 다시 신청
-        //[self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
-    }
-    else {
-        NSLog(@"업로드 실패 넘나 많이 함. 강제 종료.");
-    }
+//    self.failUploadCount += 1;
+//    
+//    NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
+//    UIImage *image = [sheetData objectForKey:@"image"];
+//    NSString *text = [sheetData objectForKey:@"text"];
+//    NSString *page = [sheetData objectForKey:@"page"];
+//    
+//    if (self.failUploadCount < 20) {
+//        
+//        
+//        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+//    }
+//    else {
+//        NSLog(@"업로드 실패 넘나 많이 함. 강제 종료.");
+//    }
 }
 
 

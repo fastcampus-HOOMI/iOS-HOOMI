@@ -511,7 +511,7 @@
             // hashID setting
             NSMutableDictionary *detailPageAllData = responseObject;
             self.hashID = [detailPageAllData objectForKey:@"hash_id"];
-            NSLog(@"🌼 hash_id - %@", [detailPageAllData objectForKey:@"hash_id"]);
+            NSLog(@"🌼 hash_id - %@", self.hashID);
             
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistorySuccessNotification object:nil];
         }
@@ -532,15 +532,19 @@
 // 계속 응답받고, 다시 또 부를 부분 -> 루프를 어떻게 돌릴지
 -(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page {
     
+    NSLog(@"🐙 network object 들어옴. hashID %@ 전달 완료", hashID);
+    
+    
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
     [bodyParams setObject:content forKey:@"content"];
     [bodyParams setObject:page forKey:@"page"];
     
-    NSString *creatExperienceURL = [JobHistoryURL stringByAppendingString:hashID];
+    NSString *hashId = [hashID stringByAppendingString:@"/"];
+    NSString *creatExperienceURL = [JobHistoryURL stringByAppendingString:hashId];
     
     NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:creatExperienceURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
         [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         
     } error:nil];
@@ -556,6 +560,10 @@
             NSLog(@"Error: %@", error);
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceFailNotification object:nil];
+            
+            // 재시도
+            //[self uploadExperienceForMutipartWithAFNetwork:hashID image:image content:content page:page];
+            
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
             NSLog(@"🍞 uploadExperience response %@ // responseObject %@", response, responseObject);
