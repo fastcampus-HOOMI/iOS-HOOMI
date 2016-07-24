@@ -339,7 +339,7 @@
                 }
             }
             
-            if(themeNumber == 0) {
+            if(themeNumber == 1) {
                 
                 [self.singleTone setFormThemeNumber:themeNumber];
                 
