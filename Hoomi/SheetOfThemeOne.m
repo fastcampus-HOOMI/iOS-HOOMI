@@ -15,6 +15,7 @@
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
 @property (nonatomic) CGRect coverImageFrame;
+@property (nonatomic) CGRect coverTextLabelFrame;
 
 /* backgroundView under imageView */
 @property (nonatomic, strong) UIView *backgroundView;
@@ -188,11 +189,17 @@
 
 -(void)creatCoverTextLabel:(NSString *)text {
     
+    /* 글자 길이에 따라 label 사이즈 가변 */
     NSUInteger length = [text length];
+    NSInteger textWidth = 20;
+    CGFloat centerX = self.frame.size.width/2 - textWidth*length/2;
+    self.coverTextLabelFrame = CGRectMake(centerX, self.frame.size.height * 4/7, textWidth*length, 50);
     
-    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.frame.size.height * 5/3, 100, 40)];
+    /* label */
+    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:self.coverTextLabelFrame];
     coverTextLabel.backgroundColor = [UIColor blackColor];
-    NSString *titleText = [@"  " stringByAppendingString:text];
+    NSString *texts = [@" " stringByAppendingString:text];
+    NSString *titleText = [texts stringByAppendingString:@" "];
     coverTextLabel.text = titleText;
     coverTextLabel.textColor = [UIColor whiteColor];
     coverTextLabel.alpha = 0.6;
