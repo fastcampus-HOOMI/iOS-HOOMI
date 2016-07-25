@@ -99,7 +99,7 @@
 #pragma mark - creat image section
 
 -(void)creatCoverImageSheetOfThemeOne {
-    self.coverImageFrame
+//    self.coverImageFrame
 }
 
 -(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
