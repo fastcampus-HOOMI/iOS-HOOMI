@@ -141,6 +141,10 @@
     
     // Hit Content Load Success Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SaveUserJobSuccess) name:SaveUserJobSuccessNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SaveUserJobFail) name:SaveUserJobFailNotification object:nil];
 }
 
 - (void)checkUserJob {
@@ -155,9 +159,9 @@
         self.effectView = effectView;
         
         NSArray *jobList = @[@"Photograper", @"Programmer", @"Editor", @"Writer"];
-        [self.umAlertView um_showAlertViewTitle:@"Select your job" pickerData:jobList completion:^{
+        
+        [self.umAlertView um_showAlertViewTitle:@"직군 선택" pickerData:jobList haveCancelButton:NO completion:^{
             self.umAlertViewMenu = 0;
-            // 직군을 선택하는 뷰가 나오면 테이블뷰 스크롤 불가능
             [self.tableView setScrollEnabled:NO];
         }];
         
@@ -294,10 +298,10 @@
 - (IBAction)writeCareerPage:(id)sender {
     
     NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
-    [self.umAlertView um_showAlertViewTitle:@"Select Write Theme" pickerData:themeData completion:^{
+    
+    [self.umAlertView um_showAlertViewTitle:@"테마선택" pickerData:themeData haveCancelButton:YES completion:^{
         [self scrollAndButtonEnable:NO];
         self.umAlertViewMenu = 1;
-        
     }];
     
 }
@@ -307,10 +311,10 @@
     if(self.umAlertViewMenu == 0) {
         
         [self.umAlertView um_dismissAlertViewCompletion:^{
-            [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
-            [self scrollAndButtonEnable:YES];
-            //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
-            [self.effectView removeFromSuperview];
+            
+            NSInteger jobNumber = [self.umAlertView pickerRow];
+            NSString *jobNumberStr = [NSString stringWithFormat:@"%ld", jobNumber + 2];
+            [self.networkObject requestSaveJob:jobNumberStr];
         }];
         
     } else if(self.umAlertViewMenu == 1) {
@@ -349,6 +353,11 @@
     }
 }
 
+- (void)selectUMAlertCancelButton {
+    
+    [self.umAlertView um_dismissAlertView];
+}
+
 /**
  *  직군선택하는 커스텀뷰가 실행되면 테이블뷰 스크롤과 버튼을 비활성화시키는 메소드
  *
@@ -383,6 +392,7 @@
     ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
     
     NSString *fullUsername = [self.usernameArray objectAtIndex:indexPath.row];
+    NSLog(@"fullname : %@", fullUsername);
     NSRange range = [fullUsername rangeOfString:@"@" options:NSBackwardsSearch];
     NSString *username = [fullUsername substringToIndex:range.location];
     NSString *byUsername = [@" by " stringByAppendingString:username];
@@ -406,6 +416,21 @@
     [self presentViewController:detailResume animated:YES completion:nil];
     
 
+}
+
+- (void)SaveUserJobSuccess {
+    
+    [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
+    [self scrollAndButtonEnable:YES];
+    [self.effectView removeFromSuperview];
+
+    
+}
+
+- (void)SaveUserJobFail {
+    
+    NSLog(@"Save Fail");
+    
 }
 
 @end

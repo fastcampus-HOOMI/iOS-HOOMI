@@ -195,47 +195,30 @@
     
 }
 
-- (void)requestSaveJob:(NSString *)job {
-    
-    NSString *token = [self loadSessionValue];
+- (void)requestSaveJob:(NSString *)jobNumber {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:job forKey:@"job"];
-    [bodyParams setObject:token forKey:@"token"];
+    [bodyParams setObject:jobNumber forKey:@"job"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"Patch" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PATCH" URLString:SaveJobUrl parameters:bodyParams error:nil];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    NSURLSessionUploadTask *uploadTask;
-    uploadTask = [manager
-                  uploadTaskWithStreamedRequest:request
-                  progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
-                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                      if (error) {
-                          NSLog(@"Error: %@", error);
-                          
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
-                          
-                      } else {
-//                          NSLog(@"token : %@", responseObject);
-                          [self saveSessionValue:responseObject];
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
-                          
-                      }
-                  }];
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+           [[NSNotificationCenter defaultCenter] postNotificationName:SaveUserJobFailNotification object:nil];
+        } else {
+            NSLog(@"responeObject : %@", responseObject);
+            [[NSNotificationCenter defaultCenter] postNotificationName:SaveUserJobSuccessNotification object:nil];
+            
+        }
+    }];
     
-    [uploadTask resume];
-    
+    [dataTask resume];
 }
 
 
