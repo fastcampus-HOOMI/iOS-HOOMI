@@ -50,9 +50,11 @@
 -(void)creatJobHistoryForContentsUpload:(NSString *)theme;
 -(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page;
 
-//User Info
+//User Info, my page
 @property (nonatomic, strong) NSArray *userInfoJSONArray;
 @property (nonatomic, strong) NSArray *myContentListJSONArray;
+@property (nonatomic, strong) NSArray *userHashJSONArray;
 -(void)requestMypage;
+-(void)deleteMypage:(NSString *)hashID;
 
 @end

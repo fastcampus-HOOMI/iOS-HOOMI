@@ -37,6 +37,7 @@
 @property (nonatomic) NSMutableArray *imageDataArray;
 @property (nonatomic) NSMutableArray *hashIDArray;
 
+
 @property (nonatomic, strong) NSString *userInfoName;
 
 
@@ -56,78 +57,79 @@
     self.networkObject = [NetworkObject requestInstance];
     [self.networkObject requestMypage];
     
-    /*임포트 네트워크오브젝트를 객체로 만든것*/
     
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.view addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
-    //마이페이지 로드(내글목록)
-    
-//    self.listData = [[NSMutableDictionary alloc] init];
-//    
-//    [self.listData setObject:@"nature11.jpg" forKey:@"image_01"];
-//    [self.listData setObject:@"nature22.jpg" forKey:@"image_02"];
-//    [self.listData setObject:@"nature33.jpg" forKey:@"image_03"];
-//    [self.listData setObject:@"nature44.jpg" forKey:@"image_04"];
-    
+    //상단 user info 테이블에 보여질 이미지
     self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
     
 }
 
 -(void)successLoad {
-
+    
     NSLog(@"😬 %@", self.networkObject.userInfoJSONArray);
-    NSLog(@"😬 %@", self.networkObject.myContentListJSONArray);
+    NSLog(@"😬contentlistarray %@", self.networkObject.myContentListJSONArray);
     
     NSArray *userinfoList = self.networkObject.userInfoJSONArray;
-    NSString *firstName = [[userinfoList objectAtIndex:0] objectAtIndex:0];
-    NSString *lastName = [[userinfoList objectAtIndex:1] objectAtIndex:0];
-    NSString *name = [firstName stringByAppendingString:lastName];
-   
-    NSLog(@"😇name - %@", name);
+    NSString *firstName = [userinfoList objectAtIndex:0];
+    NSString *lastName = [userinfoList objectAtIndex:1];
+    
+    //lastName + firstName 합쳐서 보여주기 위해. 성과 이름은 띄어쓴다
+    NSString *name = [lastName stringByAppendingString:[@" " stringByAppendingString:firstName]];
     self.userInfoName = name;
-    NSLog(@"😇userInfoName - %@", self.userInfoName);
+    //NSLog(@"😇userInfoName - %@", self.userInfoName);
     
     self.myContentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
     self.hashIDArray = [[NSMutableArray alloc] init];
     
-    NSArray *myList = [self.networkObject myContentListJSONArray];
     
+    NSArray *myList = [self.networkObject myContentListJSONArray];
     NSLog(@"😍---- %@", myList);
     
-    for (NSInteger i = 0; i < [myList count]; i++) {
-        NSLog(@"😇index - %@", [myList objectAtIndex:i]);
-        
-        NSString *content = [[myList objectAtIndex:i] objectForKey:@"content"];
-        NSLog(@"😇content - %@", content);
-        NSString *imageUrl = [[myList objectAtIndex:i] objectForKey:@"image"];
-
-        [self.myContentDataArray addObject:content];
-        [self.imageDataArray addObject:imageUrl];
-        
-    }
+    NSInteger myListCount = [myList count];
     
-    NSLog(@"contentData : %@", self.myContentDataArray);
-    NSLog(@"imageData : %@", self.imageDataArray);
+    for (NSInteger i = 0; i < myListCount; i++) {
+        
+        //목록에서 detail view로 넘어가려면 글마다 있는 hash_id 필요
+        NSString *hashID = [[myList objectAtIndex:i] objectForKey:@"hash_id"];
+        [self.hashIDArray addObject:[hashID stringByAppendingString:@"/"]];
+        ////        NSLog(@"😇hashID --- %@", hashID);
+        
+        NSArray *experiences = [[myList objectAtIndex:i] objectForKey:@"experiences"];
+        NSInteger experiencesCount = [experiences count];
+        NSLog(@"😍experiences---- %@", experiences);
+        for (NSInteger j = 0; j < experiencesCount; j++) {
+            
+            NSInteger pageNum = [[[experiences objectAtIndex:j] objectForKey:@"page"] integerValue];
+            
+            //내가 쓴 글중 첫번쨰 페이지(page=1)만 노출되게한다.
+            if (pageNum == 1) {
+                
+                NSString *content = [[experiences objectAtIndex:j] objectForKey:@"content"];
+                NSLog(@"😇content - %@", content);
+                NSString *imageUrl = [[experiences objectAtIndex:j] objectForKey:@"image"];
+                NSLog(@"😇content - %@", imageUrl);
+                
+                [self.myContentDataArray addObject:content];
+                [self.imageDataArray addObject:imageUrl];
 
+            }
+            
+        }
+        
+        NSLog(@"contentDataCheck : %@", self.myContentDataArray);
+        NSLog(@"imageDataCheck : %@", self.imageDataArray);
+        NSLog(@"hashIDCheck : %@", self.hashIDArray);
+
+    }
     
     dispatch_async(dispatch_get_main_queue(), ^{
         
         [self.tableView reloadData];
     });
-}
-
-- (void)loadMyContentDataList {
-    
-    
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        
-//        [self.tableView reloadData];
-//    });
-
-
 }
 
 
@@ -186,7 +188,7 @@
     if (section == 0) {
         return 3;
     }
-  //서버에서 보내주는 이력서 수 카운트
+    //서버에서 보내주는 이력서 수 카운트
     return [self.myContentDataArray count];
 }
 
@@ -203,9 +205,9 @@
             cell.textLabel.text = self.userInfoName;
             
         } else if(indexPath.row == 1) {
-            cell.textLabel.text = [[self.networkObject.userInfoJSONArray objectAtIndex:2] objectAtIndex:0];
+            cell.textLabel.text = [self.networkObject.userInfoJSONArray objectAtIndex:2];
         } else if(indexPath.row == 2) {
-            cell.textLabel.text = [[self.networkObject.userInfoJSONArray objectAtIndex:3] objectAtIndex:0];
+            cell.textLabel.text = [self.networkObject.userInfoJSONArray objectAtIndex:3];
         }
         
         return cell;
@@ -221,73 +223,101 @@
         //    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
         
         [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
-    
+        
         return cell;
     }
-    return 0;
+    
 }
 
 //내글목록 셀 터치시 디테일뷰 이동
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"select cell");
     
+    //userinfo section은 셀 터치시 이동이 되지 않게함.
+    if (indexPath.section == 0) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+        tableView.allowsSelection = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+    }else{
+    
     [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
-    [self presentViewController:detailResume animated:YES completion:nil];
+        [self presentViewController:detailResume animated:YES completion:nil];
+    
+    }
     
 }
 
 
 
-// 마이페이지 - 게시물(셀) 삭제
+// 마이페이지 - 내글목록 게시물(셀) 삭제
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.myContentDataArray removeObject:@"experiences"];
+    
+    if (indexPath.section == 1) {
+        
+        [self.myContentDataArray removeObjectAtIndex:indexPath.row];
+        [self.imageDataArray removeObjectAtIndex:indexPath.row];
+       [self.networkObject deleteMypage:[self.hashIDArray objectAtIndex:indexPath.row]];
+        
         [tableView reloadData];
     }
+
 }
 
-
+//내글 목록 ui들
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 44.f;
+        
+        return 50.0f;
+        
+    }else{
+    
+        return 112.f;
     }
-    return 140.f;
+}
+
+-(CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section{
+    return 0.1f;
+}
+-(CGFloat)tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section{
+    return 10.0f;
 }
 
 /*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
 
-                                            
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
 /*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+ }
+ */
 
 /*
-#pragma mark - Navigation
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

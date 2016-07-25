@@ -42,8 +42,8 @@ static NSString *SaveUserJobFailNotification = @"SaveUserJobFail";
 static NSString *MyPageUrl = @"https://hoomi.work/api/mypage/";
 static NSString *UserInfoListNotification = @"InfoListSuccess";
 static NSString *UserInfoListFailNotification = @"InfoListFail";
-static NSString *MyWritingListNotification = @"WritingListSuccess";
-static NSString *MyWritingListFailNotification = @"WritingListFail";
+static NSString *myListDeleteSuccessNotification = @"myListDeleteSuccess";
+static NSString *myListDeleteFailNotification = @"myListDeleteSuccess";
 
 /* 로그아웃 관련 */
 static NSString *ExpiredMessage = @"Signature has expired.";

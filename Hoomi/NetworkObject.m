@@ -18,6 +18,7 @@
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSInteger errorCount;
+@property (nonatomic) NSString *hashID;
 
 @end
 
@@ -383,7 +384,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
         }
         else {
-            self.errorCount ++;
             NSLog(@"error - %@", error);
             /* 재시도 */
             //            if (self.errorCount > 5) {
@@ -573,9 +573,6 @@
 
 
 
-
-
-
 //Mypage api 받아오기
 -(void)requestMypage {
     
@@ -602,22 +599,24 @@
         
         if (responseObject) {
 
-            NSArray *userInfoArray = @[@[[[responseObject objectAtIndex:0] objectForKey:@"first_name"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"last_name"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"username"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"job"]],
-                                       @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]]
-                                       ];
-
+            NSArray *userInfoArray = @[[[responseObject objectAtIndex:0] objectForKey:@"first_name"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"last_name"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"username"],
+                                       [[responseObject objectAtIndex:0] objectForKey:@"job"]];
+            
+            NSArray *userHashArray = @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
+        
+            
+            self.userHashJSONArray = userHashArray;
             self.userInfoJSONArray = userInfoArray;
+            self.myContentListJSONArray = responseObject;
             
-            //NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
-            self.myContentListJSONArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
+            NSLog(@"userHashJSONArray : %@", self.userHashJSONArray);
+            NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
+            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
+
             
-//            NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
-//            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
-            
-            // 노티피게이션 보내기
+            // 노티피게이션 보내
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];
             
         }else {
@@ -635,5 +634,48 @@
 
 }
 
+//마이페이지 글 삭제
+-(void)deleteMypage:(NSString *)hashID {
+//
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    /* Http Method */
+    [request setHTTPMethod:@"DELETE"];
+    NSString * myPageListUrl= [JobHistoryURL stringByAppendingString:hashID];
+    [request setURL:[NSURL URLWithString:myPageListUrl]];
 
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
+    
+    NSURLSessionDataTask *deleteTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        if (error) {
+            NSLog(@"Error: %@", error);
+            
+            //노티피케이션
+            [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteFailNotification object:nil];
+            
+        } else {
+            
+            //노티피케이션
+            NSLog(@"%@ %@", response, responseObject);
+            [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteSuccessNotification object:nil];
+        }
+        
+    }];
+
+
+        
+    [deleteTask resume];
+
+        
+}
+
+
+                                          
 @end
