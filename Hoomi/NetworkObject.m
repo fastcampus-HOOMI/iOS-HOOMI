@@ -88,7 +88,7 @@
                           
                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                           NSInteger statusCode = (long)httpResponse.statusCode;
-                          NSLog(@"%ld", (long)statusCode);
+//                          NSLog(@"%ld", (long)statusCode);
                           if (statusCode == 200) {
                               NSLog(@"로그인 성공");
                               
@@ -181,7 +181,7 @@
                           
                       } else {
                           
-                          NSLog(@"session : %@", responseObject);
+//                          NSLog(@"session : %@", responseObject);
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
                           
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
@@ -227,7 +227,7 @@
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
                           
                       } else {
-                          NSLog(@"token : %@", responseObject);
+//                          NSLog(@"token : %@", responseObject);
                           [self saveSessionValue:responseObject];
                           [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
                           
@@ -293,7 +293,7 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
-            NSLog(@"responesObject : %@", responseObject);
+//            NSLog(@"responesObject : %@", responseObject);
         
             // expired message를 받은 경우
             NSString *detail = [responseObject objectForKey:@"detail"];
@@ -362,8 +362,8 @@
             NSLog(@"%@", error);
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
         }
-                NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
-                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+//                NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+//                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
@@ -522,11 +522,11 @@
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistoryFailNotification object:nil];
         } else {
-            NSLog(@"🌝creatJobHistory response %@ // sresponseObject %@", response, responseObject);
+//            NSLog(@"🌝creatJobHistory response %@ // sresponseObject %@", response, responseObject);
             // hashID setting
             NSMutableDictionary *detailPageAllData = responseObject;
             self.hashID = [detailPageAllData objectForKey:@"hash_id"];
-            NSLog(@"🌼 hash_id - %@", self.hashID);
+//            NSLog(@"🌼 hash_id - %@", self.hashID);
             
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistorySuccessNotification object:nil];
         }
@@ -581,7 +581,7 @@
             
         } else {
             [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
-            NSLog(@"🍞 uploadExperience response %@ // responseObject %@", response, responseObject);
+//            NSLog(@"🍞 uploadExperience response %@ // responseObject %@", response, responseObject);
         }
     }];
     
@@ -614,8 +614,8 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
-        NSLog(@"resault(responseObject): %@", responseObject); //api (mypage한정) 전체를 받아옴
-        NSLog(@"response: %@", response); //api (mypage한정) 전체를 받아옴
+//        NSLog(@"resault(responseObject): %@", responseObject); //api (mypage한정) 전체를 받아옴
+//        NSLog(@"response: %@", response); //api (mypage한정) 전체를 받아옴
         
         if (responseObject) {
 
@@ -631,8 +631,8 @@
             //NSArray *myListArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
             self.myContentListJSONArray = [[responseObject objectAtIndex:0] objectForKey:@"experiences"];
             
-            NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
-            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
+//            NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
+//            NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             
             // 노티피게이션 보내기
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];

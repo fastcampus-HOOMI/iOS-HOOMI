@@ -96,7 +96,6 @@
 
 - (void)createEmptyData {
     
-    NSLog(@"인터넷에 연결할 수 없습니다.");
     UILabel *emptyDataLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
     [emptyDataLabel setCenter:self.view.center];
     [emptyDataLabel setFont:[UIFont systemFontOfSize:20.f]];
@@ -204,8 +203,6 @@
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
-    NSLog(@"CreateNavigationTitle Finish");
-    
 }
 
 - (void)LoadHitContentSuccess {
@@ -257,8 +254,6 @@
 
 - (void)getExpiredMessage {
     
-    NSLog(@"세션이 만료되었습니다.");
-    
     UIAlertController *sessionExpiredAlert = [UIAlertController alertControllerWithTitle:@"Exipred" message:@"Signature has expired." preferredStyle:UIAlertControllerStyleAlert];
     
     UIAlertAction *logoutAction = [UIAlertAction actionWithTitle:@"Logout" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -279,7 +274,7 @@
 }
 
 - (void)loadServerData:(UIRefreshControl *)refreshControl {
-    NSLog(@"refresh server data");
+    
     [self.networkObject requestHitContent];
     
     [refreshControl endRefreshing];
@@ -298,8 +293,6 @@
 
 - (IBAction)writeCareerPage:(id)sender {
     
-    NSLog(@"Move Write Career Page");
-    
     NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
     [self.umAlertView um_showAlertViewTitle:@"Select Write Theme" pickerData:themeData completion:^{
         [self scrollAndButtonEnable:NO];
@@ -313,11 +306,8 @@
     
     if(self.umAlertViewMenu == 0) {
         
-        NSLog(@"select job data : %@", [self.umAlertView selectData]);
-        
         [self.umAlertView um_dismissAlertViewCompletion:^{
             [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
-            NSLog(@"default data check : %@", [self.defaults objectForKey:@"userJob"]);
             [self scrollAndButtonEnable:YES];
             //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
             [self.effectView removeFromSuperview];
@@ -328,7 +318,6 @@
         [self.umAlertView um_dismissAlertViewCompletion:^{
             [self scrollAndButtonEnable:YES];
             
-            NSLog(@"select write theme data : %@", [self.umAlertView selectData]);
             NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
             NSInteger themeNumber = 1;
             for (NSInteger num = 0; num < [themeData count]; num++) {
@@ -406,7 +395,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"select cell");
     
     // Singletone에 hashID값 저장
     // DetailResume 화면에서 hashID값 로드할 것
