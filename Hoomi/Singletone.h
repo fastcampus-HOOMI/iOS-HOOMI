@@ -19,6 +19,7 @@ static NSString *LoginUrl = @"https://hoomi.work/api/login/";
 static NSString *FacebookLoginUrl = @"https://hoomi.work/api/oauth/facebook/";
 static NSString *SignUpUrl = @"https://hoomi.work/api/signup/";
 static NSString *LoadHitContentUrl = @"https://hoomi.work/api/job-history/?per=4";
+static NSString *SaveJobUrl = @"https://hoomi.work/api/mypage/";
 
 
 /* 컨텐츠 관련 */
@@ -33,6 +34,9 @@ static NSString *CreatJobHistorySuccessNotification = @"creatJobHistorySuccess";
 static NSString *CreatJobHistoryFailNotification = @"creatJobHistoryFail";
 static NSString *CreatExperienceSuccessNotification = @"creatExperienceSuccess";
 static NSString *CreatExperienceFailNotification = @"creatExperienceFail";
+static NSString *SaveUserJobSuccessNotification = @"SaveUserJobSuccess";
+static NSString *SaveUserJobFailNotification = @"SaveUserJobFail";
+
 
 /* 마이페이지 관련 */
 static NSString *MyPageUrl = @"https://hoomi.work/api/mypage/";

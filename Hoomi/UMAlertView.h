@@ -18,6 +18,7 @@
 <UIPickerViewDataSource, UIPickerViewDelegate>
 
 @property NSString *selectData;
+@property (nonatomic) NSInteger pickerRow;
 
 - (void)um_showAlertViewTitle:(NSString *)title pickerData:(NSArray *)data;
 - (void)um_showAlertViewTitle:(NSString *)title pickerData:(NSArray *)data duration:(CGFloat)time;

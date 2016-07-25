@@ -25,7 +25,7 @@
 - (void)requestFacebookSignUpToken:(NSString *)token;
 
 // User job Save
-- (void)requestSaveJob:(NSString *)job;
+- (void)requestSaveJob:(NSString *)jobNumber;
 
 // Hit Content Load
 - (void)requestHitContent;

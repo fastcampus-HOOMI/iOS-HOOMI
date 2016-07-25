@@ -20,7 +20,6 @@
 static CGFloat duration = 1.0f;
 static NSArray *pickerListData = nil;
 static BOOL isScrollPickerView = NO;
-static NSInteger pickerRow = 0;
 
 @interface UMAlertView()
 
@@ -136,7 +135,7 @@ static NSInteger pickerRow = 0;
     if(!isScrollPickerView) {
         self.selectData = [pickerListData objectAtIndex:0];
     } else {
-        self.selectData = [pickerListData objectAtIndex:pickerRow];
+        self.selectData = [pickerListData objectAtIndex:self.pickerRow];
     }
     
     if ([self.delegate respondsToSelector:@selector(selectUMAlertButton)]) {
@@ -164,7 +163,7 @@ static NSInteger pickerRow = 0;
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     isScrollPickerView = YES;
-    pickerRow = row;
+    self.pickerRow = row;
     
 }
 

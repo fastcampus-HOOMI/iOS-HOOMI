@@ -141,6 +141,10 @@
     
     // Hit Content Load Success Notification
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(LoadHitContentSuccess) name:LoadHitContentSuccessNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SaveUserJobSuccess) name:SaveUserJobSuccessNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(SaveUserJobFail) name:SaveUserJobFailNotification object:nil];
 }
 
 - (void)checkUserJob {
@@ -307,10 +311,10 @@
     if(self.umAlertViewMenu == 0) {
         
         [self.umAlertView um_dismissAlertViewCompletion:^{
-            [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
-            [self scrollAndButtonEnable:YES];
-            //    [self.networkObject requestSaveJob:self.selectedJob Token:self.token];
-            [self.effectView removeFromSuperview];
+            
+            NSInteger jobNumber = [self.umAlertView pickerRow];
+            NSString *jobNumberStr = [NSString stringWithFormat:@"%ld", jobNumber + 2];
+            [self.networkObject requestSaveJob:jobNumberStr];
         }];
         
     } else if(self.umAlertViewMenu == 1) {
@@ -383,6 +387,7 @@
     ImageListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Cell];
     
     NSString *fullUsername = [self.usernameArray objectAtIndex:indexPath.row];
+    NSLog(@"fullname : %@", fullUsername);
     NSRange range = [fullUsername rangeOfString:@"@" options:NSBackwardsSearch];
     NSString *username = [fullUsername substringToIndex:range.location];
     NSString *byUsername = [@" by " stringByAppendingString:username];
@@ -406,6 +411,21 @@
     [self presentViewController:detailResume animated:YES completion:nil];
     
 
+}
+
+- (void)SaveUserJobSuccess {
+    
+    [self.defaults setObject:[self.umAlertView selectData] forKey:@"userJob"];
+    [self scrollAndButtonEnable:YES];
+    [self.effectView removeFromSuperview];
+
+    
+}
+
+- (void)SaveUserJobFail {
+    
+    NSLog(@"Save Fail");
+    
 }
 
 @end
