@@ -15,7 +15,6 @@
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
 @property (nonatomic) CGRect coverImageFrame;
-@property (nonatomic) CGRect coverTextViewFrame;
 
 /* backgroundView under imageView */
 @property (nonatomic, strong) UIView *backgroundView;
@@ -82,10 +81,6 @@
     
     /* cover image frame */
     self.coverImageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    
-    /* cover textView frame */
-    CGFloat coverMargin = 10;
-    self.coverTextViewFrame = CGRectMake(coverMargin, self.frame.size.height * 3/5, self.frame.size.width - coverMargin*2, 50);
     
     /* contets image frame */
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
@@ -180,7 +175,7 @@
 
 -(void)creatCoverImageSheetOfThemeOne:(UIImage *)image text:(NSString *)text {
     [self creatCoverImage:image];
-    [self creatCoverTextView:text];
+    [self creatCoverTextLabel:text];
 }
 
 -(void)creatCoverImage:(UIImage *)image {
@@ -191,14 +186,18 @@
     [self addSubview:self.imageView];
 }
 
--(void)creatCoverTextView:(NSString *)text {
-    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:self.coverTextViewFrame];
+-(void)creatCoverTextLabel:(NSString *)text {
+    
+    NSUInteger length = [text length];
+    
+    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, self.frame.size.height * 5/3, 100, 40)];
     coverTextLabel.backgroundColor = [UIColor blackColor];
     NSString *titleText = [@"  " stringByAppendingString:text];
     coverTextLabel.text = titleText;
     coverTextLabel.textColor = [UIColor whiteColor];
     coverTextLabel.alpha = 0.6;
     coverTextLabel.font = [UIFont boldSystemFontOfSize:20];
+    coverTextLabel.textAlignment = NSTextAlignmentCenter;
     [self.imageView addSubview:coverTextLabel];
     
 }
