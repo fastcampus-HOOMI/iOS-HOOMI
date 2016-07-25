@@ -325,7 +325,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="2zv-6r-jv8">
-                        <barButtonItem key="leftBarButtonItem" systemItem="search" id="Kxl-2N-OeG">
+                        <barButtonItem key="leftBarButtonItem" image="user.png" id="Kxl-2N-OeG">
                             <connections>
                                 <action selector="showMyPage:" destination="Pu6-W3-64P" id="5Ob-Sf-rKf"/>
                             </connections>
@@ -421,4 +421,7 @@
             <point key="canvasLocation" x="4821" y="-221"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="user.png" width="24" height="24"/>
+    </resources>
 </document>
