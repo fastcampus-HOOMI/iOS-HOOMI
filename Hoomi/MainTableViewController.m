@@ -159,9 +159,9 @@
         self.effectView = effectView;
         
         NSArray *jobList = @[@"Photograper", @"Programmer", @"Editor", @"Writer"];
-        [self.umAlertView um_showAlertViewTitle:@"Select your job" pickerData:jobList completion:^{
+        
+        [self.umAlertView um_showAlertViewTitle:@"직군 선택" pickerData:jobList haveCancelButton:NO completion:^{
             self.umAlertViewMenu = 0;
-            // 직군을 선택하는 뷰가 나오면 테이블뷰 스크롤 불가능
             [self.tableView setScrollEnabled:NO];
         }];
         
@@ -298,10 +298,10 @@
 - (IBAction)writeCareerPage:(id)sender {
     
     NSArray *themeData = @[@"감성 이미지 테마", @"이성 개발자 테마"];
-    [self.umAlertView um_showAlertViewTitle:@"Select Write Theme" pickerData:themeData completion:^{
+    
+    [self.umAlertView um_showAlertViewTitle:@"테마선택" pickerData:themeData haveCancelButton:YES completion:^{
         [self scrollAndButtonEnable:NO];
         self.umAlertViewMenu = 1;
-        
     }];
     
 }
@@ -351,6 +351,11 @@
             }
         }];
     }
+}
+
+- (void)selectUMAlertCancelButton {
+    
+    [self.umAlertView um_dismissAlertView];
 }
 
 /**
