@@ -15,7 +15,7 @@
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
 @property (nonatomic) CGRect coverImageFrame;
-@property (nonatomic) CGRect coverTextViewFrame;
+@property (nonatomic) CGRect coverTextLabelFrame;
 
 /* backgroundView under imageView */
 @property (nonatomic, strong) UIView *backgroundView;
@@ -82,10 +82,6 @@
     
     /* cover image frame */
     self.coverImageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    
-    /* cover textView frame */
-    CGFloat coverMargin = 10;
-    self.coverTextViewFrame = CGRectMake(coverMargin, self.frame.size.height * 3/5, self.frame.size.width - coverMargin*2, 50);
     
     /* contets image frame */
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
@@ -180,7 +176,7 @@
 
 -(void)creatCoverImageSheetOfThemeOne:(UIImage *)image text:(NSString *)text {
     [self creatCoverImage:image];
-    [self creatCoverTextView:text];
+    [self creatCoverTextLabel:text];
 }
 
 -(void)creatCoverImage:(UIImage *)image {
@@ -191,14 +187,24 @@
     [self addSubview:self.imageView];
 }
 
--(void)creatCoverTextView:(NSString *)text {
-    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:self.coverTextViewFrame];
+-(void)creatCoverTextLabel:(NSString *)text {
+    
+    /* 글자 길이에 따라 label 사이즈 가변 */
+    NSUInteger length = [text length];
+    NSInteger textWidth = 20;
+    CGFloat centerX = self.frame.size.width/2 - textWidth*length/2;
+    self.coverTextLabelFrame = CGRectMake(centerX, self.frame.size.height * 4/7, textWidth*length, 50);
+    
+    /* label */
+    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:self.coverTextLabelFrame];
     coverTextLabel.backgroundColor = [UIColor blackColor];
-    NSString *titleText = [@"  " stringByAppendingString:text];
+    NSString *texts = [@" " stringByAppendingString:text];
+    NSString *titleText = [texts stringByAppendingString:@" "];
     coverTextLabel.text = titleText;
     coverTextLabel.textColor = [UIColor whiteColor];
     coverTextLabel.alpha = 0.6;
     coverTextLabel.font = [UIFont boldSystemFontOfSize:20];
+    coverTextLabel.textAlignment = NSTextAlignmentCenter;
     [self.imageView addSubview:coverTextLabel];
     
 }
