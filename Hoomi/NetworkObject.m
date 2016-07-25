@@ -293,7 +293,7 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
-//            NSLog(@"responesObject : %@", responseObject);
+            NSLog(@"responesObject : %@", responseObject);
         
             // expired message를 받은 경우
             NSString *detail = [responseObject objectForKey:@"detail"];
@@ -321,7 +321,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
             
         }
-//                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
+                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];

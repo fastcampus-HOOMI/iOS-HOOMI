@@ -70,14 +70,17 @@
     self.singleTone = [Singletone requestInstance];
     self.formThemeNumber = [self.singleTone formThemeNumber];
     NSLog(@"%ld", self.formThemeNumber);
+    
+    /* sheet 생성 */
     [self selectWriteSheetByTheme:self.formThemeNumber];
     
     NSLog(@"첫 생성 total page count - %ld", self.totalPage);
-}
-
--(void)viewDidLayoutSubviews {
-    /* 안내 애니메이션 */
-//    [self startNoticeAnimation];
+    
+    // Notice animation (cheesing)
+//    if (self.totalPage == 1) {
+//        [self startNoticeAnimation];
+//    }
+    
 }
 
 
@@ -92,10 +95,8 @@
 }
 
 -(void)selectWriteSheetByTheme:(NSInteger)formNumber {
-    
     self.totalPage += 1;
-    NSLog(@"총 페이지 ------ %ld", self.totalPage);
-    
+    NSLog(@"총 생성된 페이지 - %ld", self.totalPage);
     if (formNumber == 1) {
         NSLog(@"테마1 입니다.");
         [self creatThemeOneSheet:self.totalPage];
@@ -143,6 +144,7 @@
     
     /* 스크롤뷰 위에 card addSubView */
     [self.scrollView addSubview:card];
+    
 }
 
    /************************/
@@ -168,7 +170,7 @@
     [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:noticeImage];
     
-    [UIView animateWithDuration:3.0// 3.0초 동안
+    [UIView animateWithDuration:5.0// 3.0초 동안
                      animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
                      completion:^(BOOL finished){
                          [noticeImage removeFromSuperview];}];
@@ -513,24 +515,11 @@
 }
 
 -(void)failUploadExperience {
-
     NSLog(@"👼🏻 failUploadExperience");
-    
-//    self.failUploadCount += 1;
-//    
-//    NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
-//    UIImage *image = [sheetData objectForKey:@"image"];
-//    NSString *text = [sheetData objectForKey:@"text"];
-//    NSString *page = [sheetData objectForKey:@"page"];
-//    
-//    if (self.failUploadCount < 20) {
-//        
-//        
-//        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
-//    }
-//    else {
-//        NSLog(@"업로드 실패 넘나 많이 함. 강제 종료.");
-//    }
+    [self creatAlert:@"업로드 실패!" message:@"다시 시도해주십시오!" haveCancelButton:NO defaultHandler:^{
+        //close 기능
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 
