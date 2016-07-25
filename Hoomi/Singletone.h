@@ -50,7 +50,7 @@ static NSString *ExpiredMessage = @"Signature has expired.";
 static NSString *ExpiredNotification = @"Expired";
 
 #define colorAlpha 1.00 // 색상 투명도
-#define MIN_PASSWORD_LENGTH 4 // 최소 패스워드 길이
+#define MIN_PASSWORD_LENGTH 6 // 최소 패스워드 길이
 
 typedef NS_ENUM(NSInteger, ToastMsg) {
 
