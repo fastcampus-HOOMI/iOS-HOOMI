@@ -14,6 +14,8 @@
 /* frame size */
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
+@property (nonatomic) CGRect coverImageFrame;
+@property (nonatomic) CGRect coverTextViewFrame;
 
 /* backgroundView under imageView */
 @property (nonatomic, strong) UIView *backgroundView;
@@ -78,9 +80,16 @@
 /* 테마1 사이즈 세팅 */
 -(void)settingObjectFrameOfThemeOne {
     
+    /* cover image frame */
+    self.coverImageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    
+    /* cover textView frame */
+//    self.coverTextViewFrame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    
+    /* contets image frame */
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
     
-    /* 텍스트뷰 프레임 */
+    /* contents textView frame */
     //CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
     CGFloat margin = 20;
     self.textViewFrame = CGRectMake(margin, self.imageFrame.size.height + 10, self.frame.size.width - margin*2, self.frame.size.height - self.imageFrame.size.height - 20);
@@ -88,6 +97,10 @@
 }
 
 #pragma mark - creat image section
+
+-(void)creatCoverImageSheetOfThemeOne {
+    self.coverImageFrame
+}
 
 -(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
     [self creatBackgroundView:isWriteSheet];
@@ -156,7 +169,7 @@
 /* 업로드 버튼 */
 -(void)creatUploadButton {
     
-    CGFloat buttonSize = 30;
+    CGFloat buttonSize = 120;
     
     self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
     [self.uploadButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];
