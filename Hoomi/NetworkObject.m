@@ -11,8 +11,6 @@
 #import "Singletone.h"
 #import "UICKeyChainStore.h"
 
-
-
 @interface NetworkObject()
 
 @property (nonatomic) NSString *userID;
@@ -91,7 +89,7 @@
                           
                           NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
                           NSInteger statusCode = (long)httpResponse.statusCode;
-                          NSLog(@"%ld", (long)statusCode);
+//                          NSLog(@"%ld", (long)statusCode);
                           if (statusCode == 200) {
                               NSLog(@"로그인 성공");
                               
@@ -184,7 +182,7 @@
                           
                       } else {
                           
-                          NSLog(@"session : %@", responseObject);
+//                          NSLog(@"session : %@", responseObject);
                           NSLog(@"jwt token : %@", [responseObject objectForKey:@"token"]);
                           
                           [self saveSessionValue:[responseObject objectForKey:@"token"]];
@@ -198,44 +196,30 @@
     
 }
 
-- (void)requestSaveJob:(NSString *)job Token:(NSString *)token {
+- (void)requestSaveJob:(NSString *)jobNumber {
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:job forKey:@"job"];
+    [bodyParams setObject:jobNumber forKey:@"job"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:SignUpUrl parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"PATCH" URLString:SaveJobUrl parameters:bodyParams error:nil];
+    
+    NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
+    [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
-    NSURLSessionUploadTask *uploadTask;
-    uploadTask = [manager
-                  uploadTaskWithStreamedRequest:request
-                  progress:^(NSProgress * _Nonnull uploadProgress) {
-                      // This is not called back on the main queue.
-                      // You are responsible for dispatching to the main queue for UI updates
-                      dispatch_async(dispatch_get_main_queue(), ^{
-                          //Update the progress view
-                          
-                      });
-                  }
-                  completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-                      if (error) {
-                          NSLog(@"Error: %@", error);
-                          
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpFailNotification object:nil];
-                          
-                      } else {
-                          NSLog(@"token : %@", responseObject);
-                          [self saveSessionValue:responseObject];
-                          [[NSNotificationCenter defaultCenter] postNotificationName:SignUpSuccessNotification object:nil];
-                          
-                      }
-                  }];
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
+        if (error) {
+            NSLog(@"Error: %@", error);
+           [[NSNotificationCenter defaultCenter] postNotificationName:SaveUserJobFailNotification object:nil];
+        } else {
+            NSLog(@"responeObject : %@", responseObject);
+            [[NSNotificationCenter defaultCenter] postNotificationName:SaveUserJobSuccessNotification object:nil];
+            
+        }
+    }];
     
-    [uploadTask resume];
-    
+    [dataTask resume];
 }
 
 
@@ -293,13 +277,25 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         if (responseObject) {
-            NSLog(@"responesObject : %@", responseObject);
-         
-            NSArray *contentsArray = [responseObject objectForKey:@"results"];
-            self.hitContentInforJSONArray = contentsArray;
+//            NSLog(@"responesObject : %@", responseObject);
+        
+            // expired message를 받은 경우
+            NSString *detail = [responseObject objectForKey:@"detail"];
+            if([detail isEqualToString:ExpiredMessage]) {
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:ExpiredNotification object:nil];
+                
+                
+            } else {
+                
+                NSArray *contentsArray = [responseObject objectForKey:@"results"];
+                self.hitContentInforJSONArray = contentsArray;
+                
+                // 노티피게이션 보내기
+                [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+            }
             
-            // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentSuccessNotification object:nil];
+            
             
         }
         else {
@@ -309,7 +305,7 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadHitContentFailNotification object:nil];
             
         }
-                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
+//                NSLog(@"NetworkObjectDic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
@@ -350,15 +346,15 @@
             NSLog(@"%@", error);
             [[NSNotificationCenter defaultCenter] postNotificationName:ContentsListFailNotification object:nil];
         }
-                NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
-                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
+//                NSLog(@"jobHistoryInforJSONArray : %@", self.jobHistoryInforJSONArray);
+//                NSLog(@"dic : %@", [responseObject objectForKey:@"results"]);
     }];
     
     [downloadTask resume];
     
 }
 
-/* 인기글 상세 */
+/* 상세 화면 보기 */
 -(void)requestDetailJobHistory:(NSString *)hashID {
     
     NSLog(@"requestDetailJobHistory");
@@ -396,12 +392,12 @@
             //            else {
             //                            
             //        }
-            NSLog(@"errorCount - %ld", self.errorCount);
+//            NSLog(@"errorCount - %ld", self.errorCount);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
         }
 
-        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
-        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+        //NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        //NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
     
     [downloadTask resume];
@@ -413,14 +409,14 @@
     
     /* count */
     self.detailPageTotalCount = [[self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"count"] integerValue];
-    NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %ld", self.detailPageTotalCount);
+    //NSLog(@"🐈🐈🐈🐈🐈pick Detail Contents %ld", self.detailPageTotalCount);
     
     /* next/previous PageURL */
     self.nextURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"next"];
     self.previousURL = [self.jobHistoryDetailAllInfoJSONDictionary objectForKey:@"previous"];
     
-    NSLog(@"🐈nextURL %@", self.nextURL);
-    NSLog(@"🐈previousURL %@", self.previousURL);
+    //NSLog(@"🐈nextURL %@", self.nextURL);
+    //NSLog(@"🐈previousURL %@", self.previousURL);
     
     /* result - 상세 컨텐츠 */
     self.jobHistoryDetailContentsInfoDictionary = [[NSMutableDictionary alloc]initWithCapacity:1];
@@ -432,7 +428,7 @@
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"content"] forKey:@"content"];
     [self.jobHistoryDetailContentsInfoDictionary setValue:[resultDictionary objectForKey:@"image"] forKey:@"image"];
     
-    NSLog(@"🐈🐈🐈🐈 jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
+    //NSLog(@"🐈🐈🐈🐈 jobHistoryDetailContentsInfoDictionary - %@", self.jobHistoryDetailContentsInfoDictionary);
     
 }
 
@@ -470,8 +466,8 @@
             NSLog(@"%@", error);
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadNextDetailResumeFailNotification object:nil];
         }
-        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
-        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
+        //NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
+        //NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
     
     [downloadTask resume];
@@ -484,57 +480,70 @@
 
 /* -------- cheeseing */
 
-/* 최초 업로드 */
+/* 최초 업로드
+ 
+ https://hoomi.work/api/job-history/로 Header에 Authorization 값에 JWT Token을 실어야 한다.
+ theme를 Post 로 보낸다.
 
--(void)uploadTaskForMutipartWithAFNetwork:(UIImage *)image title:(NSString *)title {
-    
+ */
+
+-(void)creatJobHistoryForContentsUpload:(NSString *)theme {
+
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"user_id"];
-    [bodyParams setObject:title forKey:@"title"];
+    [bodyParams setObject:theme forKey:@"theme"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-        
-        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
-        
-    } error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"POST" URLString:JobHistoryURL parameters:bodyParams error:nil];
     
-    /* 해더 */
     NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
-    
+
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
     
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistoryFailNotification object:nil];
         } else {
+//            NSLog(@"🌝creatJobHistory response %@ // sresponseObject %@", response, responseObject);
+            // hashID setting
+            NSMutableDictionary *detailPageAllData = responseObject;
+            self.hashID = [detailPageAllData objectForKey:@"hash_id"];
+//            NSLog(@"🌼 hash_id - %@", self.hashID);
             
-            //
-            //노티 안만들어도 되낭
-            NSLog(@"%@ %@", response, responseObject);
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatJobHistorySuccessNotification object:nil];
         }
     }];
-    [dataTask resume];
     
-    NSLog(@"네트워크로 업로드");
+    [dataTask resume];
+
 }
 
-/* 나머지 업로드 */
+/* 나머지 업로드 
+ 
+ parent job-history의 child experience를 추가하고자 할때 사용
+ https://hoomi.work/api/job-history/<hash_id>/로 Header에 Authorization 값에 JWT Token을 실어야 한다.
+ image, content, page 를 Post 로 보낸다.
+ 
+ */
 //title 을 contents로 바꿔야할듯
 // 계속 응답받고, 다시 또 부를 부분 -> 루프를 어떻게 돌릴지
--(void)uploadTaskForMutipartWithAFNetwork2:(UIImage *)image title:(NSString *)title {
+-(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page {
+    
+    NSLog(@"🐙 network object 들어옴. hashID %@ 전달 완료", hashID);
+    
     
     NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.userID forKey:@"user_id"];
-    [bodyParams setObject:title forKey:@"title"];
+    [bodyParams setObject:content forKey:@"content"];
+    [bodyParams setObject:page forKey:@"page"];
     
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:@"http://ios.yevgnenll.me/api/images/" parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSString *hashId = [hashID stringByAppendingString:@"/"];
+    NSString *creatExperienceURL = [JobHistoryURL stringByAppendingString:hashId];
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:creatExperienceURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.1);
-        
-        [formData appendPartWithFileData:imageData name:@"image_data" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpeg" mimeType:@"image/jpeg"];
         
     } error:nil];
     
@@ -547,16 +556,19 @@
     NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse *response, id responseObject, NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
-        } else {
+            // 노티피게이션 보내기
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceFailNotification object:nil];
             
-            //
-            //노티 안만들어도 되낭
-            NSLog(@"%@ %@", response, responseObject);
+            // 재시도
+            //[self uploadExperienceForMutipartWithAFNetwork:hashID image:image content:content page:page];
+            
+        } else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:CreatExperienceSuccessNotification object:nil];
+//            NSLog(@"🍞 uploadExperience response %@ // responseObject %@", response, responseObject);
         }
     }];
-    [dataTask resume];
     
-    NSLog(@"네트워크로 업로드");
+    [dataTask resume];
 }
 
 
@@ -582,8 +594,8 @@
     
     NSURLSessionDataTask *downloadTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         
-        NSLog(@"resault(responseObject): %@", responseObject); //api (mypage한정) 전체를 받아옴
-        NSLog(@"response: %@", response); //api (mypage한정) 전체를 받아옴
+//        NSLog(@"resault(responseObject): %@", responseObject); //api (mypage한정) 전체를 받아옴
+//        NSLog(@"response: %@", response); //api (mypage한정) 전체를 받아옴
         
         if (responseObject) {
 
@@ -602,6 +614,7 @@
             NSLog(@"userHashJSONArray : %@", self.userHashJSONArray);
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
             NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
+
             
             // 노티피게이션 보내
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];

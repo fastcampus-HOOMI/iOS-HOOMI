@@ -6,7 +6,7 @@
 //  Copyright © 2016년 Jyo. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NetworkObject : NSObject
 
@@ -17,19 +17,20 @@
 - (void)initSignInUserID:(NSString *)userID password:(NSString *)password;
 - (void)initSignUpUserID:(NSString *)userID lastName:(NSString *)lastName firstName:(NSString *)firstName password:(NSString *)password;
 
-// Default
+// Email Sign up, Login
 - (void)requestSignIn;
 - (void)requestSignUp;
 
-// Social
+// Social Login
 - (void)requestFacebookSignUpToken:(NSString *)token;
 
-// Save Job
-- (void)requestSaveJob:(NSString *)job Token:(NSString *)token;
+// User job Save
+- (void)requestSaveJob:(NSString *)jobNumber;
 
-// Load Main
+// Hit Content Load
 - (void)requestHitContent;
 
+// Login Token Save, Load
 - (void)saveSessionValue:(NSString *)session;
 - (NSString *)loadSessionValue;
 
@@ -42,9 +43,12 @@
 @property (nonatomic) NSInteger detailPageTotalCount;
 @property (nonatomic, strong) NSString *nextURL;
 @property (nonatomic, strong) NSString *previousURL;
+@property (nonatomic, strong) NSString *hashID;
 -(void)requestjobHistory;
 -(void)requestDetailJobHistory:(NSString *)hashID;
 -(void)requestDetailPageAfterMovePage:(NSString *)movePageURL;
+-(void)creatJobHistoryForContentsUpload:(NSString *)theme;
+-(void)uploadExperienceForMutipartWithAFNetwork:(NSString *)hashID image:(UIImage *)image content:(NSString *)content page:(NSString *)page;
 
 //User Info, my page
 @property (nonatomic, strong) NSArray *userInfoJSONArray;

@@ -11,8 +11,14 @@
 
 @interface SheetOfThemeOne ()
 
+/* frame size */
 @property (nonatomic) CGRect imageFrame;
 @property (nonatomic) CGRect textViewFrame;
+@property (nonatomic) CGRect coverImageFrame;
+@property (nonatomic) CGRect coverTextViewFrame;
+
+/* backgroundView under imageView */
+@property (nonatomic, strong) UIView *backgroundView;
 
 @end
 
@@ -39,25 +45,16 @@
 -(void)settingUploadResume {
     
     /* temp 이미지 세팅 */
-    NSString *tempImageName = @"grayColor.jpg";
-    [self creatImageView:nil tempImageName:tempImageName haveImage:NO];
+    [self creatImageSectionInSheet:nil haveImage:NO isWriteSheet:YES];
     
     /* 업로드 버튼 */
     [self creatUploadButton];
     
     /* 텍스트 뷰 - 에디팅 가능 */
-    NSString *comment = @"자신을 자유롭게 표현해주세요.";
+    NSString *comment = @"무엇을 표현하고 싶으신가요?";
     [self creatTextView:comment canEdit:YES];
     
     
-    
-}
-
-   /****************/
-  /*   수정 화면    */
- /****************/
-
--(void)settingEditResume {
     
 }
 
@@ -66,11 +63,8 @@
   /* 상세 화면 */
  /***********/
 
-/* 이미지, 텍스트뷰 초기화 함께 */
-/* 현재는 이미지 name으로 넣지만, 앞으로는 서버 이미지 받아오는 것으로 할 것 - cheesing */
-
--(void)settingDetailResume:(UIImage *)image text:(NSString *)text {
-    [self creatImageView:image tempImageName:nil haveImage:YES];
+-(void)settingDetailResume:(UIImage *)image text:(NSString *)text isWriteSheet:(BOOL)isWriteSheet {
+    [self creatImageSectionInSheet:image haveImage:YES isWriteSheet:(BOOL)isWriteSheet];
     /* 텍스트 뷰 세팅 -> canNotEdit 보기 모드로 */
     [self creatTextView:text canEdit:NO];
     
@@ -81,37 +75,68 @@
    /* Contents Object */
   /*******************/
 
+#pragma mark - contents frame size
 
-/* 사이즈 세팅 */
+/* 테마1 사이즈 세팅 */
 -(void)settingObjectFrameOfThemeOne {
     
+    /* cover image frame */
+    self.coverImageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+    
+    /* cover textView frame */
+//    self.coverTextViewFrame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    
+    /* contets image frame */
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
     
-    /* 텍스트뷰 프레임 */
+    /* contents textView frame */
     //CGFloat offsetX = self.frame.size.width / 2 - (self.frame.size.width - 40) / 2;
     CGFloat margin = 20;
     self.textViewFrame = CGRectMake(margin, self.imageFrame.size.height + 10, self.frame.size.width - margin*2, self.frame.size.height - self.imageFrame.size.height - 20);
     
 }
 
+#pragma mark - creat image section
+
+-(void)creatCoverImageSheetOfThemeOne {
+//    self.coverImageFrame
+}
+
+-(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
+    [self creatBackgroundView:isWriteSheet];
+    [self creatImageView:image haveImage:haveImage isWriteSheet:isWriteSheet];
+}
+
+/* 이미지뷰 아래 view */
+-(void)creatBackgroundView:(BOOL)isWriteSheet {
+    self.backgroundView = [[UIView alloc]initWithFrame:self.imageFrame];
+    self.backgroundView.backgroundColor = [UIColor lightGrayColor];
+    if (isWriteSheet) {
+        self.backgroundView.layer.cornerRadius = 10.0;//곡선
+    }
+    [self addSubview:self.backgroundView];
+}
 
 /* 이미지 뷰 */
--(void)creatImageView:(UIImage *)image tempImageName:(NSString *)imageName haveImage:(BOOL)haveImage {
-    self.imageView = [[UIImageView alloc]initWithFrame:self.imageFrame];
+-(void)creatImageView:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
+    self.imageView = [[UIImageView alloc]initWithFrame:self.backgroundView.bounds];
     if (haveImage == YES) {
         self.imageView.image = image;
     }
     if (haveImage == NO) {
-        self.imageView.image = [UIImage imageNamed:imageName];
+        self.imageView.image = nil;
     }
     self.imageView.contentMode = UIViewContentModeScaleAspectFill;
     self.imageView.clipsToBounds = YES;
-    self.imageView.layer.cornerRadius = 10.0;//곡선
+    if (isWriteSheet) {
+        self.imageView.layer.cornerRadius = 10.0;//곡선
+    }
     // 이미지뷰 터치 가능하도록 설정
     [self.imageView setUserInteractionEnabled:YES];
-    [self addSubview:self.imageView];
+    [self.backgroundView addSubview:self.imageView];
 }
 
+#pragma mark - creat textView
 
 /* 텍스트 뷰 */
 -(void)creatTextView:(NSString *)text canEdit:(BOOL)canEdit {
@@ -130,7 +155,7 @@
     NSDictionary *dict = @{NSParagraphStyleAttributeName : paragraphStyle};
     [attributedString addAttributes:dict range:NSMakeRange(0, [textViewText length])];
     self.textView.attributedText = attributedString;
-    self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
+    self.textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15];
     
     /* 편집 불가 모드 */
     if (canEdit == NO) {
@@ -144,7 +169,7 @@
 /* 업로드 버튼 */
 -(void)creatUploadButton {
     
-    CGFloat buttonSize = 30;
+    CGFloat buttonSize = 120;
     
     self.uploadButton = [[UIButton alloc]initWithFrame:CGRectMake(self.imageFrame.size.width/2 - buttonSize/2, self.imageFrame.size.height/2 - buttonSize/2, buttonSize, buttonSize)];
     [self.uploadButton addTarget:self action:@selector(buttonAction) forControlEvents:UIControlEventTouchUpInside];

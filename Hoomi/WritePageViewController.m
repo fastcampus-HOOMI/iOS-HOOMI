@@ -9,6 +9,7 @@
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
 #import "NetworkObject.h"
+#import "Singletone.h"
 
 @interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
@@ -24,10 +25,22 @@
 
 /* 데이터 보관 */
 @property (nonatomic, strong) NSMutableArray *contentsArray;
+@property (nonatomic, strong) NSMutableArray *dataArrayInStateOfArrangement;
 
 /* toolbar 페이지 알림 설정 */
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *totalPageNumeberItem;
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *currentPageNumberItem;
+
+/* NetworkObject 관련 */
+@property (nonatomic) Singletone *singleTone;
+@property (nonatomic) NetworkObject *networkCenter;
+@property (nonatomic) NSInteger uploadSuccessCount;
+@property (nonatomic) NSInteger failUploadCount;
+
+/* loading indicator 관련 */
+@property (nonatomic, retain) UIActivityIndicatorView * activityView;
+@property (nonatomic, retain) UIView *loadingView;
+@property (nonatomic, retain) UILabel *loadingLabel;
 
 @end
 
@@ -36,7 +49,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.totalPage = 0;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCreatJobHistory) name:CreatJobHistorySuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successUploadExperience) name:CreatExperienceSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUploadExperience) name:CreatExperienceFailNotification object:nil];
     
     /* contentsArray 세팅 */
     self.contentsArray = [NSMutableArray arrayWithCapacity:1];
@@ -51,11 +66,13 @@
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
     
-    /* 임시 form 데이터
-     ->     네트워크 연결 후에는 헤더 파일에 있는
-     외부 프로퍼티를 통해 form 데이터 받아서 연결 cheesing */
-    [self creatWriteSheetByTheme:1];
-    //[self selectTheme:self.formNumber]; --- 페이지 추가 버튼 액션 메소드에도 이 부분 변경
+    /* form theme number*/
+    self.singleTone = [Singletone requestInstance];
+    self.formThemeNumber = [self.singleTone formThemeNumber];
+    NSLog(@"%ld", self.formThemeNumber);
+    [self selectWriteSheetByTheme:self.formThemeNumber];
+    
+    NSLog(@"첫 생성 total page count - %ld", self.totalPage);
 }
 
 -(void)viewDidLayoutSubviews {
@@ -69,11 +86,12 @@
  /**************************************/
 
 -(void)creatScrollView {
+    self.scrollView.contentSize = CGSizeMake(self.view.frame.size.width, self.view.frame.size.height);
     self.scrollView.delegate = self;
     [self settingTapGestureRecognizerOnScrollView];
 }
 
--(void)creatWriteSheetByTheme:(NSInteger)formNumber {
+-(void)selectWriteSheetByTheme:(NSInteger)formNumber {
     
     self.totalPage += 1;
     NSLog(@"총 페이지 ------ %ld", self.totalPage);
@@ -109,6 +127,7 @@
     CGFloat writeSheetOriginY = 0;
     CGFloat writeSheetOriginHeight = cardOriginHeight;
     CGRect writeSheetFrame = CGRectMake(writeSheetOriginX, writeSheetOriginY, writeSheetOriginWidth, writeSheetOriginHeight);
+    
     /* 내부 시트 생성 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:writeSheetFrame];
     //self.themeOneSheet.backgroundColor = [UIColor blueColor];
@@ -189,14 +208,9 @@
     else {
         [self creatAlert:@"확인" message:@"저장하시겠습니까?" haveCancelButton:YES defaultHandler:^ {
             
-            // --- 네트워크 토큰 테스트 (이후 네트워크 시 활용해야함)
-            NetworkObject *userToken = [[NetworkObject alloc]init];
-            NSString *userTokenString = userToken.loadSessionValue;
-            NSLog(@"--- 토큰 테스트 userTokenString %@", userTokenString);
-            NSLog(@"네트워킹 코드 짜야함");
-            
-            //close 기능
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self creatloadingAlert];
+            [self dataArrangement];
+            [self creatJobHistoryForUpload];
         }];
     }
 }
@@ -204,17 +218,10 @@
 -(IBAction)onTouchUpInsidePageAddButton:(id)sender {
     NSLog(@"page 추가 버튼");
     
-    // 삭제 기능 추가 (추후)
-    
-    // -------- 테마 임시데이터 cheesing
-    [self creatWriteSheetByTheme:1];
-    //[self selectTheme:self.formNumber];
-    
-    NSLog(@"총 페이지 %ld", self.totalPage);
+    [self selectWriteSheetByTheme:self.formThemeNumber];
     
     /* 스크롤뷰 컨텐츠 사이즈 증가 */
     [self.scrollView setContentSize:CGSizeMake(self.view.frame.size.width * (self.totalPage), self.scrollView.frame.size.height)];
-    
     /* 스크롤 위치 이동 */
     [self.scrollView setContentOffset:CGPointMake(self.view.frame.size.width * (self.totalPage - 1), 0) animated:YES];
     
@@ -234,10 +241,10 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-    /************************/
-   /*     사진 업로드 기능     */
-  /*  - 액션시트, 이미지피커   */
- /************************/
+    /****************************/
+   /*    화면에 사진 업로드 기능     */
+  /*     - 액션시트, 이미지피커    */
+ /****************************/
 
 #pragma mark - ActionSheet, UIImagePickerController
 
@@ -272,7 +279,6 @@
     /* 소스타입 사용 가능한 상황인지 ex 시뮬레이터는 카메라 안됨 */
     if ([UIImagePickerController isSourceTypeAvailable:sourceType] == NO) {
         [self creatAlert:@"알림" message:@"이용할 수 없는 파일 형식입니다." haveCancelButton:NO defaultHandler:nil];
-        NSLog(@"이 소스는 못쓰낟");
     }
     else {
         UIImagePickerController *pickerController = [[UIImagePickerController alloc]init];
@@ -318,13 +324,13 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     
     /* 현재 위치 */
-    NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
+    //NSLog(@"현재 위치 %@", NSStringFromCGPoint(scrollView.contentOffset));
     
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;
     
-    NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
+    //NSLog(@"currentX : %f, scrollViewWidth : %f", currentX, scrollView.frame.size.width);
     NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 현재 위치 컨텐츠 프로퍼티 세팅 */
@@ -378,10 +384,10 @@
     
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *okButton = [UIAlertAction actionWithTitle:@"확인" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        //블럭함수
-        handler();
-        
+        //선언하면서 정의한 블럭함수로 실행
+        if (handler != nil) {
+            handler();
+        }
     }];
     [alert addAction:okButton];
     
@@ -389,11 +395,143 @@
         UIAlertAction *cancelButton = [UIAlertAction actionWithTitle:@"취소" style:UIAlertActionStyleDefault handler:nil];
         [alert addAction:cancelButton];
     }
-    
     [self presentViewController:alert animated:YES completion:nil];
 }
 
 
+
+    /*********************************/
+   /*     network & upload 관련      */
+  /*********************************/
+
+
+-(void)dataArrangement {
+    self.dataArrayInStateOfArrangement = [[NSMutableArray alloc]initWithCapacity:1];
+    
+    for (NSInteger count = 0; count < self.totalPage; count++) {
+        
+        NSMutableDictionary *sheetData = [NSMutableDictionary new];
+        
+        SheetOfThemeOne *sheet = [self.contentsArray objectAtIndex:count];
+        [sheetData setObject:sheet.imageView.image forKey:@"image"];
+        [sheetData setObject:sheet.textView.text forKey:@"text"];
+        [sheetData setObject:[@(count+1) stringValue] forKey:@"page"];
+        
+        [self.dataArrayInStateOfArrangement addObject:sheetData];
+    }
+    
+    NSLog(@"%@", self.dataArrayInStateOfArrangement);
+}
+
+/* loading animation */
+-(void)creatloadingAlert {
+    
+    UIView *backgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.scrollView.contentSize.width, self.scrollView.contentSize.height)];
+    backgroundView.backgroundColor = [UIColor blackColor];
+    backgroundView.alpha = 0.3;
+    [self.scrollView addSubview:backgroundView];
+    self.view.userInteractionEnabled = NO;
+    
+    /* frame */
+    CGFloat loadingViewWidth = 200;
+    CGFloat centerInCurrentPageX = (self.scrollView.frame.size.width * (self.currentPage + 1)) - (self.scrollView.frame.size.width / 2) - 200/2;
+    CGFloat centerInCurrentPageY = (self.scrollView.frame.size.height / 2) - 170/2;
+    
+    /* indecator */
+    self.loadingView = [[UIView alloc] initWithFrame:CGRectMake(centerInCurrentPageX, centerInCurrentPageY, loadingViewWidth, 170)];
+    self.loadingView.backgroundColor = [UIColor blackColor];
+    //self.loadingView.backgroundColor = [UIColor redColor];
+    self.loadingView.alpha = 1;
+    self.loadingView.clipsToBounds = YES;
+    self.loadingView.layer.cornerRadius = 10.0;
+    
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    CGFloat activityViewCenterX = loadingViewWidth/2 - self.activityView.bounds.size.width/2;//style선언 후 조정 가능
+    self.activityView.frame = CGRectMake(activityViewCenterX , 40, self.activityView.bounds.size.width, self.activityView.bounds.size.height);
+    [self.loadingView addSubview:self.activityView];
+    
+    self.loadingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 115, loadingViewWidth, 22)];
+    //self.loadingLabel.backgroundColor = [UIColor blueColor];
+    self.loadingLabel.backgroundColor = [UIColor clearColor];
+    self.loadingLabel.textColor = [UIColor whiteColor];
+    self.loadingLabel.adjustsFontSizeToFitWidth = YES;
+    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.text = @"Loading...";//바뀔 부분
+    [self.loadingView addSubview:self.loadingLabel];
+    
+    [backgroundView addSubview:self.loadingView];
+    
+    [self.activityView startAnimating];
+    
+}
+
+-(void)creatJobHistoryForUpload {
+    self.networkCenter = [[NetworkObject alloc]init];
+    NSLog(@"1 🌞 생성되어야할 formNumber는 %@입니다.", [NSString stringWithFormat:@"%ld",self.formThemeNumber]);
+    
+    /* 완료 후, successCreatJobHistory 불려짐 */
+    [self.networkCenter creatJobHistoryForContentsUpload:[NSString stringWithFormat:@"%ld",self.formThemeNumber]];
+}
+
+/* JobHistory에서 hash값을 받아오면 */
+-(void)successCreatJobHistory {
+    
+    NSString *hashID = [self.networkCenter hashID];
+    //NSLog(@"4 🌞 hashID - %@", hashID);
+    
+    for (NSInteger count = 0; count <= self.totalPage - 1; count++) {
+        
+        NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
+        UIImage *image = [sheetData objectForKey:@"image"];
+        NSString *text = [sheetData objectForKey:@"text"];
+        NSString *page = [sheetData objectForKey:@"page"];
+        
+        // call successUploadExperience
+        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:image content:text page:page];
+        
+    }
+}
+
+-(void)successUploadExperience {
+    
+    // 업로드 성공시 , 카운트 +
+    self.uploadSuccessCount += 1;
+    NSLog(@"🌞 %ld개 파일 업로드 성공", self.uploadSuccessCount);
+    
+    NSString *loadingText = [[@(self.uploadSuccessCount / self.totalPage) stringValue] stringByAppendingString:@"%..."];
+    self.loadingLabel.text = loadingText;
+    
+    // 모두 성공 시, 안내 후, 창 닫기
+    if (self.uploadSuccessCount == self.totalPage) {
+        [self.activityView stopAnimating];
+        [self creatAlert:@"알림" message:@"모든 업로드가 완료되었습니다!" haveCancelButton:NO defaultHandler:^{
+            //close 기능
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
+
+}
+
+-(void)failUploadExperience {
+
+    NSLog(@"👼🏻 failUploadExperience");
+    
+//    self.failUploadCount += 1;
+//    
+//    NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
+//    UIImage *image = [sheetData objectForKey:@"image"];
+//    NSString *text = [sheetData objectForKey:@"text"];
+//    NSString *page = [sheetData objectForKey:@"page"];
+//    
+//    if (self.failUploadCount < 20) {
+//        
+//        
+//        [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:<#(UIImage *)#> content:<#(NSString *)#> page:page];
+//    }
+//    else {
+//        NSLog(@"업로드 실패 넘나 많이 함. 강제 종료.");
+//    }
+}
 
 
 - (void)didReceiveMemoryWarning {

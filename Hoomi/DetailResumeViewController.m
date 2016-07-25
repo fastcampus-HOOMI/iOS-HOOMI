@@ -46,7 +46,6 @@
     //처음 페이지 (인덱스로)
     self.beforePage = 0;
     self.currentPage = 0;
-    self.offsetX = 0;
     
     /* Indicator
      1) 데이터 들어올 때 활성화
@@ -58,7 +57,7 @@
     NSLog(@"🌵🌵addObserver🌵🌵");
     /* 노티 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadDetailResumeSuccessNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downLoadCurrentPageInDetailResume) name:LoadNextDetailResumeSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailCurrentPageInDetailResume) name:LoadDetailResumeFailNotification object:nil];
     
      NSLog(@"0🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
@@ -67,12 +66,6 @@
     [self loadDetailResumeData];
     
     NSLog(@"4🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵🌵");
-    
-    
-//    [self creatScrollView];
-//    [self creatContentsSheet:self.beforePage];
-    
-    NSLog(@"5🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒🍒");
     
     /* 네비게이션 바 버튼 색깔 */
     self.navigationController.navigationBar.barTintColor = [self.singleTone colorName:Tuna];
@@ -99,18 +92,19 @@
 }
 
 -(void)creatContentsSheet:(NSInteger)pageNumber image:(UIImage *)image text:(NSString *)text {
+    
+    self.offsetX = self.view.frame.size.width;
+    
     /* 한 장 세팅 */
     SheetOfThemeOne *themeOneSheet = [[SheetOfThemeOne alloc]initWithFrame:CGRectMake(self.offsetX * pageNumber, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    
-    themeOneSheet.backgroundColor = [UIColor blueColor];
-    themeOneSheet.alpha = 0.8;
-    
-    [themeOneSheet settingDetailResume:image text:text];
+    //themeOneSheet.backgroundColor = [UIColor blueColor];
+    [themeOneSheet settingDetailResume:image text:text isWriteSheet:NO];
     [self.scrollView addSubview:themeOneSheet];
     
     [self showIndicatorView:NO];
     
-    NSLog(@"🐙 %ld 번째 시트 생성 완료 : 글자 - %@ 그림 -%@", pageNumber ,themeOneSheet.textView.text, themeOneSheet.imageView.image);
+    NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf",pageNumber , self.offsetX * pageNumber);
+    //NSLog(@"🐙 %ld 번째 시트 생성 완료 : x좌표 - %lf / 글자 - %@ / 그림 - %@", pageNumber , self.offsetX * pageNumber, themeOneSheet.textView.text, themeOneSheet.imageView.image);
     
     self.offsetX += self.view.frame.size.width;
 }
@@ -161,13 +155,13 @@
     /* 현재 페이지 */
     CGFloat currentX = scrollView.contentOffset.x;
     self.currentPage = currentX / scrollView.frame.size.width;//현재페이지 인식
-    NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
+    //NSLog(@"Current page : %ld (인덱스값)", self.currentPage);
     
     /* 페이지 변화 감지 (next만) */
     if ([self isChangePage]==YES)
     {
         if ([self stopDownloadContents] == YES) {
-            NSLog(@"이미 로드했던 데이터 보는 중");
+            //NSLog(@"이미 로드했던 데이터 보는 중");
         }
         else {
             [self callNewDetailResumePageWithURL];
@@ -261,27 +255,14 @@
     
     NSLog(@"🌵 network 객체로 불러온 totalPage: %ld / imageURL : %@ / textData : %@", totalPage, imageURL, textData);
     
-    /* 프로퍼티로 올림 -----  */
-    [self addCurrentDataToProtery:totalPage imageURL:imageURL textData:textData];
-    
     if (self.isFristLoad == YES) {
+        self.totalPageNumber = totalPage;
         [self creatScrollView];
         NSLog(@"🍞 총 쪽수 %ld", self.totalPageNumber);
     }
     
     [self creatContentsSheet:self.currentPage image:image text:textData];
     self.isFristLoad = NO;
-}
-
-/* 세팅 가능한 데이터로 가공 후, 프로퍼티로 올림 */
--(void)addCurrentDataToProtery:(NSInteger)totalPage imageURL:(NSString *)imageURL textData:(NSString *)textData {
-    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageURL]];
-    UIImage *image = [UIImage imageWithData:imageData];
-    self.imageAtCurrentPage = image;
-    self.totalPageNumber = totalPage;
-    self.textDataAtCurrentPage = textData;
-    
-    NSLog(@"🤖 totalPageNumber - %ld, 🤖 imageAtCurrentPage - %@, 🤖textDataAtCurrentPage - %@", self.totalPageNumber, self.imageAtCurrentPage, self.textDataAtCurrentPage);
 }
 
 -(void)downloadFailCurrentPageInDetailResume {

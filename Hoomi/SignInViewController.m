@@ -17,6 +17,7 @@
 #import "NetworkObject.h"
 #import "KSToastView.h"
 
+#define INDICATOR_LOAD_TIME 1
 @interface SignInViewController ()
 <UITextFieldDelegate, UIGestureRecognizerDelegate>
 
@@ -190,7 +191,7 @@
 - (void)successLogin {
     NSLog(@"login success");
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, INDICATOR_LOAD_TIME * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
         [self endEditingTextField];
         [self finishLogin];
@@ -199,7 +200,7 @@
 
 - (void)failLogin {
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, INDICATOR_LOAD_TIME * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self indicatorRunStatus:NO];
         
         [KSToastView ks_showToast:[self.singleTone toastMsg:WrongLoginData] duration:2.0f completion:nil];
