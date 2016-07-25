@@ -598,6 +598,8 @@
             
             NSArray *userHashArray = @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
             
+//            NSArray *userHashArray = @[[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"] stringByAppendingString:@"/"]];
+            
             self.userHashJSONArray = userHashArray;
             self.userInfoJSONArray = userInfoArray;
             self.myContentListJSONArray = responseObject;
@@ -625,53 +627,35 @@
 }
 
 //마이페이지 글 삭제
--(void) deleteMypage:(NSString *)hashID {
+-(void)deleteMypage:(NSString *)hashID {
+//
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
-    NSMutableDictionary *bodyParams = [[NSMutableDictionary alloc] init];
-    [bodyParams setObject:self.hashID forKey:@"hash_id"];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
-        // create request
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"DELETE" URLString:JobHistoryURL parameters:bodyParams constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        
-    } error:nil];
-    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
-
+    // create request
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     /* Http Method */
     [request setHTTPMethod:@"DELETE"];
-    NSString *deleteMypageUrl = [JobHistoryURL stringByAppendingString:hashID];
-    [request setURL:[NSURL URLWithString:deleteMypageUrl]];
-    
+    NSString * myPageListUrl= [JobHistoryURL stringByAppendingString:[hashID stringByAppendingString:@"/"]];
+    [request setURL:[NSURL URLWithString:myPageListUrl]];
+
     NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
     [request setValue:tokenParam forHTTPHeaderField: @"Authorization"];
     
     NSURLSessionDataTask *deleteTask = [manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-        //        NSLog(@"responseObject : %@", responseObject);
-        //        NSLog(@"response : %@", response);
-        if (responseObject) {
-            NSMutableDictionary *myPageAllData = responseObject;
-            /* 전체 정보 / 컨텐트 정보 Dictionary 세팅 */
-            self.jobHistoryDetailAllInfoJSONDictionary = myPageAllData;
-            [self pickDetailContent];
-            // 노티피게이션 보내기
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
-        }
-        else {
-            self.errorCount ++;
-            NSLog(@"error - %@", error);
-            /* 재시도 */
-            //            if (self.errorCount > 5) {
-            //                [self requestDetailJobHistory:hashID];
-            //            }
-            //            else {
-            //
-            //        }
-            NSLog(@"errorCount - %ld", self.errorCount);
-            [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeFailNotification object:nil];
+        
+        if (error) {
+            NSLog(@"Error: %@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteFailNotification object:nil];
+            
+        } else {
+            
+            NSLog(@"%@ %@", response, responseObject);
+            [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteSuccessNotification object:nil];
         }
         
-        NSLog(@"jobHistoryDetail - AllInfoJSONDictionary : %@", self.jobHistoryDetailAllInfoJSONDictionary);
-        NSLog(@"jobHistoryDetail - ContentsInfoDictionary : %@", self.jobHistoryDetailContentsInfoDictionary);
     }];
 
 

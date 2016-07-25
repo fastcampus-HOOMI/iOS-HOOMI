@@ -46,10 +46,11 @@
 -(void)requestDetailJobHistory:(NSString *)hashID;
 -(void)requestDetailPageAfterMovePage:(NSString *)movePageURL;
 
-//User Info
+//User Info, my page
 @property (nonatomic, strong) NSArray *userInfoJSONArray;
 @property (nonatomic, strong) NSArray *myContentListJSONArray;
 @property (nonatomic, strong) NSArray *userHashJSONArray;
 -(void)requestMypage;
+-(void)deleteMypage:(NSString *)hashID;
 
 @end

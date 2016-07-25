@@ -57,6 +57,7 @@
     self.networkObject = [NetworkObject requestInstance];
     [self.networkObject requestMypage];
     
+    
     self.refreshControl = [[UIRefreshControl alloc]init];
     [self.view addSubview:self.refreshControl];
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
@@ -253,16 +254,15 @@
 // 마이페이지 - 내글목록 게시물(셀) 삭제
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //[self.myContentDataArray removeObjectAtIndex:indexPath.row];
-//        [self.myContentDataArray removeObjectAtIndex:indexPath.row];
-//        [self.imageDataArray removeObjectAtIndex:indexPath.row];
-//        [self.tableView deleteRowsAtIndexPaths:@[indexPath.row] withRowAnimation:UITableViewRowAnimationFade];
+    if (indexPath.section == 1) {
         
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [self.myContentDataArray removeObjectAtIndex:indexPath.row];
+        [self.imageDataArray removeObjectAtIndex:indexPath.row];
+       [self.networkObject deleteMypage:[self.hashIDArray objectAtIndex:indexPath.row]];
         
         [tableView reloadData];
     }
+
 }
 
 //내글 목록 ui들
