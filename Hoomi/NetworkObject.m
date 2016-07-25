@@ -18,7 +18,6 @@
 @property (nonatomic) NSString *lastName;
 @property (nonatomic) NSString *firstName;
 @property (nonatomic) NSInteger errorCount;
-@property (nonatomic) NSString *hashID;
 
 @end
 
@@ -636,7 +635,7 @@
 
 //마이페이지 글 삭제
 -(void)deleteMypage:(NSString *)hashID {
-//
+
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];

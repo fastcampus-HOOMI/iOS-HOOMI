@@ -36,6 +36,7 @@
 @property (nonatomic) NSMutableArray *myContentDataArray;
 @property (nonatomic) NSMutableArray *imageDataArray;
 @property (nonatomic) NSMutableArray *hashIDArray;
+@property (nonatomic) NSMutableArray *giveHashIDArray;
 
 
 @property (nonatomic, strong) NSString *userInfoName;
@@ -84,6 +85,7 @@
     self.myContentDataArray = [[NSMutableArray alloc] init];
     self.imageDataArray = [[NSMutableArray alloc] init];
     self.hashIDArray = [[NSMutableArray alloc] init];
+    self.giveHashIDArray = [[NSMutableArray alloc] init];
     
     
     NSArray *myList = [self.networkObject myContentListJSONArray];
@@ -96,6 +98,7 @@
         //목록에서 detail view로 넘어가려면 글마다 있는 hash_id 필요
         NSString *hashID = [[myList objectAtIndex:i] objectForKey:@"hash_id"];
         [self.hashIDArray addObject:[hashID stringByAppendingString:@"/"]];
+        [self.giveHashIDArray addObject:hashID];
         ////        NSLog(@"😇hashID --- %@", hashID);
         
         NSArray *experiences = [[myList objectAtIndex:i] objectForKey:@"experiences"];
@@ -242,7 +245,7 @@
         
     }else{
     
-    [self.singleTone setHashID:[self.hashIDArray objectAtIndex:indexPath.row]];
+    [self.singleTone setHashID:[self.giveHashIDArray objectAtIndex:indexPath.row]];
     
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Cheese" bundle:nil];
     DetailResumeViewController *detailResume = [storyBoard instantiateViewControllerWithIdentifier:@"DetailResume"];
