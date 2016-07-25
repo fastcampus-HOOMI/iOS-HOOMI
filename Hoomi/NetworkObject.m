@@ -388,7 +388,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:LoadDetailResumeSuccessNotification object:nil];
         }
         else {
-            self.errorCount ++;
             NSLog(@"error - %@", error);
             /* 재시도 */
             //            if (self.errorCount > 5) {
@@ -562,9 +561,6 @@
 
 
 
-
-
-
 //Mypage api 받아오기
 -(void)requestMypage {
     
@@ -597,8 +593,7 @@
                                        [[responseObject objectAtIndex:0] objectForKey:@"job"]];
             
             NSArray *userHashArray = @[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"]];
-            
-//            NSArray *userHashArray = @[[[[responseObject objectAtIndex:0] objectForKey:@"hash_id"] stringByAppendingString:@"/"]];
+        
             
             self.userHashJSONArray = userHashArray;
             self.userInfoJSONArray = userInfoArray;
@@ -608,7 +603,7 @@
             NSLog(@"userInfoJSONArray : %@", self.userInfoJSONArray);
             NSLog(@"myContentListJSONArray : %@", self.myContentListJSONArray);
             
-            // 노티피게이션 보내기
+            // 노티피게이션 보내
             [[NSNotificationCenter defaultCenter] postNotificationName:UserInfoListNotification object:nil];
             
         }else {
@@ -638,7 +633,7 @@
     
     /* Http Method */
     [request setHTTPMethod:@"DELETE"];
-    NSString * myPageListUrl= [JobHistoryURL stringByAppendingString:[hashID stringByAppendingString:@"/"]];
+    NSString * myPageListUrl= [JobHistoryURL stringByAppendingString:hashID];
     [request setURL:[NSURL URLWithString:myPageListUrl]];
 
     NSString *tokenParam = [@"JWT " stringByAppendingString:[self loadSessionValue]];
@@ -648,10 +643,13 @@
         
         if (error) {
             NSLog(@"Error: %@", error);
+            
+            //노티피케이션
             [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteFailNotification object:nil];
             
         } else {
             
+            //노티피케이션
             NSLog(@"%@ %@", response, responseObject);
             [[NSNotificationCenter defaultCenter] postNotificationName:myListDeleteSuccessNotification object:nil];
         }

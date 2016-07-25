@@ -95,7 +95,7 @@
         
         //목록에서 detail view로 넘어가려면 글마다 있는 hash_id 필요
         NSString *hashID = [[myList objectAtIndex:i] objectForKey:@"hash_id"];
-        [self.hashIDArray addObject:hashID];
+        [self.hashIDArray addObject:[hashID stringByAppendingString:@"/"]];
         ////        NSLog(@"😇hashID --- %@", hashID);
         
         NSArray *experiences = [[myList objectAtIndex:i] objectForKey:@"experiences"];
@@ -235,7 +235,10 @@
     
     //userinfo section은 셀 터치시 이동이 되지 않게함.
     if (indexPath.section == 0) {
-        [tableView deselectRowAtIndexPath:indexPath animated:NO];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+        tableView.allowsSelection = NO;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         
     }else{
     
