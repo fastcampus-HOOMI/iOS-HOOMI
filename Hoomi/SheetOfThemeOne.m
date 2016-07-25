@@ -84,7 +84,8 @@
     self.coverImageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
     
     /* cover textView frame */
-//    self.coverTextViewFrame = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    CGFloat coverMargin = 10;
+    self.coverTextViewFrame = CGRectMake(coverMargin, self.frame.size.height * 3/5, self.frame.size.width - coverMargin*2, 50);
     
     /* contets image frame */
     self.imageFrame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height * 2/5);
@@ -97,10 +98,6 @@
 }
 
 #pragma mark - creat image section
-
--(void)creatCoverImageSheetOfThemeOne {
-//    self.coverImageFrame
-}
 
 -(void)creatImageSectionInSheet:(UIImage *)image haveImage:(BOOL)haveImage isWriteSheet:(BOOL)isWriteSheet {
     [self creatBackgroundView:isWriteSheet];
@@ -130,9 +127,10 @@
     self.imageView.clipsToBounds = YES;
     if (isWriteSheet) {
         self.imageView.layer.cornerRadius = 10.0;//곡선
+        // 이미지뷰 터치 가능하도록 설정
+        [self.imageView setUserInteractionEnabled:YES];
     }
-    // 이미지뷰 터치 가능하도록 설정
-    [self.imageView setUserInteractionEnabled:YES];
+    
     [self.backgroundView addSubview:self.imageView];
 }
 
@@ -177,6 +175,34 @@
     [self.imageView addSubview:self.uploadButton];
 
 }
+
+#pragma mark - creat cover sheet
+
+-(void)creatCoverImageSheetOfThemeOne:(UIImage *)image text:(NSString *)text {
+    [self creatCoverImage:image];
+    [self creatCoverTextView:text];
+}
+
+-(void)creatCoverImage:(UIImage *)image {
+    self.imageView = [[UIImageView alloc]initWithFrame:self.coverImageFrame];
+    self.imageView.image = image;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+    [self addSubview:self.imageView];
+}
+
+-(void)creatCoverTextView:(NSString *)text {
+    UILabel *coverTextLabel = [[UILabel alloc] initWithFrame:self.coverTextViewFrame];
+    coverTextLabel.backgroundColor = [UIColor blackColor];
+    NSString *titleText = [@"  " stringByAppendingString:text];
+    coverTextLabel.text = titleText;
+    coverTextLabel.textColor = [UIColor whiteColor];
+    coverTextLabel.alpha = 0.6;
+    coverTextLabel.font = [UIFont boldSystemFontOfSize:20];
+    [self.imageView addSubview:coverTextLabel];
+    
+}
+
 
 
     /*******************/
