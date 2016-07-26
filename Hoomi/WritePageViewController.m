@@ -17,7 +17,8 @@
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
+@property (nonatomic) BOOL isFristLoad;
 
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
@@ -65,6 +66,7 @@
     /* 초기 페이지 세팅 */
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
+    self.isFristLoad = YES;
     
     /* form theme number*/
     self.singleTone = [Singletone requestInstance];
@@ -76,11 +78,14 @@
     
     NSLog(@"첫 생성 total page count - %ld", self.totalPage);
     
+}
+
+-(void)viewDidLayoutSubviews {
     // Notice animation (cheesing)
-//    if (self.totalPage == 1) {
-//        [self startNoticeAnimation];
-//    }
-    
+    if (self.isFristLoad == YES) {
+        [self startNoticeAnimation];
+        self.isFristLoad = NO;
+    }
 }
 
 
@@ -170,7 +175,7 @@
     [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:noticeImage];
     
-    [UIView animateWithDuration:5.0// 3.0초 동안
+    [UIView animateWithDuration:7.0// 3.0초 동안
                      animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
                      completion:^(BOOL finished){
                          [noticeImage removeFromSuperview];}];
