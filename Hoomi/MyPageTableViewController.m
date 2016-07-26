@@ -143,36 +143,6 @@
     
 }
 
-
-
-//추후 들어갈 부분 (내정보 수정시 비어있는 job을 입력할 수 있게 한다) - 현재단계에서는 구현예정에 없음.
-#pragma mark - Picker view data source
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return [self.formList count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    return [self.formList objectAtIndex:row];
-}
-
-
-- (void)selectForm {
-    
-    [self.defaults setObject:self.seletedForm forKey:@"myForm"];
-    
-    [self.formSelectCustomView removeFromSuperview];
-    [self.effectView removeFromSuperview];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
