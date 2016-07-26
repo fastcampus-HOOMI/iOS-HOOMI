@@ -64,7 +64,7 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     //상단 user info 테이블에 보여질 이미지
-    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
+    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"job_1.png"];
     
 }
 
@@ -145,7 +145,7 @@
 
 
 
-
+//추후 들어갈 부분 (내정보 수정시 비어있는 job을 입력할 수 있게 한다) - 현재단계에서는 구현예정에 없음.
 #pragma mark - Picker view data source
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
@@ -191,7 +191,7 @@
     if (section == 0) {
         return 3;
     }
-    //서버에서 보내주는 이력서 수 카운트
+    //section == 1(내글목록) 에서는 서버에서 보내주는 이력서 수 카운트
     return [self.myContentDataArray count];
 }
 
@@ -203,7 +203,7 @@
         NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
         cell.imageView.image = [UIImage imageNamed:imageName];
         
-        //userinfoview - 이름/이메일/직업 받아온다
+        //userinfo view - 이름/이메일/직업 받아온다
         if(indexPath.row ==0) {
             cell.textLabel.text = self.userInfoName;
             
@@ -275,7 +275,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         
-        return 50.0f;
+        return 48.0f;
         
     }else{
     
