@@ -81,7 +81,7 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    // Notice animation (cheesing)
+    // Notice animation
     if (self.isFristLoad == YES) {
         [self startNoticeAnimation];
         self.isFristLoad = NO;
@@ -100,18 +100,17 @@
 }
 
 -(void)selectWriteSheetByTheme:(NSInteger)formNumber {
+    
     self.totalPage += 1;
     NSLog(@"총 생성된 페이지 - %ld", self.totalPage);
+    
     if (formNumber == 1) {
         NSLog(@"테마1 입니다.");
         [self creatThemeOneSheet:self.totalPage];
     }
-    if (formNumber == 2) {
-        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
+    else {
+        NSLog(@"현재 준비 된 테마가 아닙니다.");
     }
-//    else {
-//        NSLog(@"준비된 테마가 아닙니다.");
-//    }
 }
 
 -(void)creatThemeOneSheet:(NSInteger)totalPage {
@@ -175,7 +174,7 @@
     [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
     [self.scrollView addSubview:noticeImage];
     
-    [UIView animateWithDuration:7.0// 3.0초 동안
+    [UIView animateWithDuration:4.0// 3.0초 동안
                      animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
                      completion:^(BOOL finished){
                          [noticeImage removeFromSuperview];}];
@@ -462,7 +461,7 @@
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.adjustsFontSizeToFitWidth = YES;
-    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.textAlignment = NSTextAlignmentCenter;
     self.loadingLabel.text = @"Loading...";//바뀔 부분
     [self.loadingView addSubview:self.loadingLabel];
     
@@ -485,9 +484,7 @@
     
     NSString *hashID = [self.networkCenter hashID];
     //NSLog(@"4 🌞 hashID - %@", hashID);
-    
     for (NSInteger count = 0; count <= self.totalPage - 1; count++) {
-        
         NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
         UIImage *image = [sheetData objectForKey:@"image"];
         NSString *text = [sheetData objectForKey:@"text"];
@@ -495,7 +492,6 @@
         
         // call successUploadExperience
         [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:image content:text page:page];
-        
     }
 }
 
