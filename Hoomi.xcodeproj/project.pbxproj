@@ -11,7 +11,9 @@
 		031572CD1D45D20400CC29ED /* uploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 031572CC1D45D20400CC29ED /* uploadIcon.png */; };
 		031572D51D460DA000CC29ED /* user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 031572D41D460DA000CC29ED /* user@2x.png */; };
 		03B149AF1D33444C00262E65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B149AE1D33444C00262E65 /* pageAdd.png */; };
-		03CD163A1D470C570071B9D2 /* noticeViewInWritePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CD16391D470C570071B9D2 /* noticeViewInWritePage.m */; };
+		03CD163A1D470C570071B9D2 /* NoticeViewInWritePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 03CD16391D470C570071B9D2 /* NoticeViewInWritePage.m */; };
+		03CD163C1D4731070071B9D2 /* pager.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 03CD163B1D4731070071B9D2 /* pager.jpg */; };
+		03CD16421D474F1B0071B9D2 /* notice2.png in Resources */ = {isa = PBXBuildFile; fileRef = 03CD16411D474F1B0071B9D2 /* notice2.png */; };
 		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
 		03DCAC971D325F6E0012CA65 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC951D325F6E0012CA65 /* save.png */; };
 		324777C11D4604BA002D7EE0 /* UMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 324777C01D4604BA002D7EE0 /* UMAlertView.m */; };
@@ -68,8 +70,10 @@
 		031572CC1D45D20400CC29ED /* uploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon.png; sourceTree = "<group>"; };
 		031572D41D460DA000CC29ED /* user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "user@2x.png"; sourceTree = "<group>"; };
 		03B149AE1D33444C00262E65 /* pageAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageAdd.png; sourceTree = "<group>"; };
-		03CD16381D470C570071B9D2 /* noticeViewInWritePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noticeViewInWritePage.h; sourceTree = "<group>"; };
-		03CD16391D470C570071B9D2 /* noticeViewInWritePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = noticeViewInWritePage.m; sourceTree = "<group>"; };
+		03CD16381D470C570071B9D2 /* NoticeViewInWritePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeViewInWritePage.h; sourceTree = "<group>"; };
+		03CD16391D470C570071B9D2 /* NoticeViewInWritePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeViewInWritePage.m; sourceTree = "<group>"; };
+		03CD163B1D4731070071B9D2 /* pager.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pager.jpg; sourceTree = "<group>"; };
+		03CD16411D474F1B0071B9D2 /* notice2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notice2.png; sourceTree = "<group>"; };
 		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
 		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
 		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
@@ -160,8 +164,9 @@
 			children = (
 				03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */,
 				03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */,
-				03CD16381D470C570071B9D2 /* noticeViewInWritePage.h */,
-				03CD16391D470C570071B9D2 /* noticeViewInWritePage.m */,
+				03CD16381D470C570071B9D2 /* NoticeViewInWritePage.h */,
+				03CD16391D470C570071B9D2 /* NoticeViewInWritePage.m */,
+				03CD16411D474F1B0071B9D2 /* notice2.png */,
 				FF51D5061D2E152B00EB409B /* 1.jpg */,
 				FF51D5071D2E152B00EB409B /* 2.jpg */,
 				FF51D5081D2E152B00EB409B /* 3.jpg */,
@@ -169,6 +174,7 @@
 				031572CC1D45D20400CC29ED /* uploadIcon.png */,
 				03B149AE1D33444C00262E65 /* pageAdd.png */,
 				03DCAC951D325F6E0012CA65 /* save.png */,
+				03CD163B1D4731070071B9D2 /* pager.jpg */,
 			);
 			name = Sheet;
 			sourceTree = "<group>";
@@ -412,6 +418,7 @@
 				FF6246F31D3E871B00277036 /* Spotlight40@2x.png in Resources */,
 				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
 				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
+				03CD163C1D4731070071B9D2 /* pager.jpg in Resources */,
 				03B149AF1D33444C00262E65 /* pageAdd.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
 				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
@@ -423,6 +430,7 @@
 				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
 				031572CD1D45D20400CC29ED /* uploadIcon.png in Resources */,
 				418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */,
+				03CD16421D474F1B0071B9D2 /* notice2.png in Resources */,
 				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
 				FF6246F91D3E879600277036 /* App60@3x.png in Resources */,
 				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
@@ -512,7 +520,7 @@
 				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
 				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
 				324777C11D4604BA002D7EE0 /* UMAlertView.m in Sources */,
-				03CD163A1D470C570071B9D2 /* noticeViewInWritePage.m in Sources */,
+				03CD163A1D470C570071B9D2 /* NoticeViewInWritePage.m in Sources */,
 				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

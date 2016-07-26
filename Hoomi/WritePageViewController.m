@@ -8,12 +8,14 @@
 #import "QuartzCore/QuartzCore.h"
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
+#import "NoticeViewInWritePage.h"
 #import "NetworkObject.h"
 #import "Singletone.h"
 
-@interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
+@interface WritePageViewController () <SheetOfThemeOneDelegate, NoticeViewInWritePageDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
 /* 화면 세팅 관련 */
+@property (nonatomic, strong) NoticeViewInWritePage *noticeView;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
@@ -166,18 +168,20 @@
 /* 시작 시 안내 애니메이션 */
 -(void)startNoticeAnimation {
     
-    CGFloat rootViewWith = self.view.frame.size.width;
-    CGFloat rootViewHeight = self.view.frame.size.height;
+    CGFloat noticeViewWidth = 373 * 4/5;
+    CGFloat centerX = self.view.frame.size.width/2 - noticeViewWidth/2;
+    CGFloat noticeViewHight = 228 * 4/5;
+    CGFloat centerY = self.view.frame.size.height/2 - noticeViewHight/2;
     
-    UIImageView *noticeImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rootViewWith, rootViewHeight)];
-    [noticeImage setImage:[UIImage imageNamed:@"notice"]];
-    [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
-    [self.scrollView addSubview:noticeImage];
+    self.noticeView = [[NoticeViewInWritePage alloc]initWithNoticeFrame:CGRectMake(centerX, centerY, noticeViewWidth, noticeViewHight)];
+    [self.noticeView creatNoticeViewObject];
+    self.noticeView.delegate = self;
+    self.noticeView.alpha = 0.0;
+    [self.view addSubview:self.noticeView];
     
-    [UIView animateWithDuration:4.0// 3.0초 동안
-                     animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
-                     completion:^(BOOL finished){
-                         [noticeImage removeFromSuperview];}];
+    [UIView animateWithDuration:2.0// 3.0초 동안
+                     animations:^{self.noticeView.alpha = 1.0;} // 애니메이션 투명도 1.0으로 만들기
+                     completion:nil];
 }
 
 
@@ -242,10 +246,19 @@
     [self showActionSheet];
 }
 
-/* close 기능 */
+/* 화면 close 기능 */
 - (IBAction)onTouchUpInsideCancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+/* notice 새창 close */
+-(void)onTouchUpInsideCloseButton {
+    NSLog(@"notice close");
+    [UIView animateWithDuration:2.0 animations:^{self.noticeView.alpha = 0.0;} completion:^(BOOL finished) {
+        [self.noticeView removeFromSuperview];
+    }];
+}
+
 
     /****************************/
    /*    화면에 사진 업로드 기능     */

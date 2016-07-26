@@ -8,8 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface noticeViewInWritePage : UIView
+@protocol NoticeViewInWritePageDelegate <NSObject>
 
-- (instancetype)initWithFrame:(CGRect)frame;
+-(void)onTouchUpInsideCloseButton;
+
+@end
+
+
+@interface NoticeViewInWritePage : UIView
+
+@property (nonatomic, strong) UIButton *closeButton;
+
+- (instancetype)initWithNoticeFrame:(CGRect)frame;
+-(void)creatNoticeViewObject;
+
+/* delegate */
+@property (nonatomic, weak) id<NoticeViewInWritePageDelegate> delegate;
 
 @end
