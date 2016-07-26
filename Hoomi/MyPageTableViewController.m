@@ -14,13 +14,11 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MyPageTableViewController ()
-<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
 @property (nonatomic) NSArray *infoImageNames;
-
-@property (nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
@@ -193,14 +191,13 @@
         
         cell.label.text = [self.myContentDataArray objectAtIndex:indexPath.row];
         [cell.label setTextColor:[UIColor whiteColor]];
-        //    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
-        
         [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
         
         return cell;
     }
     
 }
+
 
 //내글목록 셀 터치시 디테일뷰 이동
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
