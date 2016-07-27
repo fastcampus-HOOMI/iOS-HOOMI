@@ -9,7 +9,8 @@
 #import "QuartzCore/QuartzCore.h"
 #import "SheetOfThemeOne.h"
 
-@interface SheetOfThemeOne ()
+
+@interface SheetOfThemeOne ()<UITextViewDelegate>
 
 /* frame size */
 @property (nonatomic) CGRect imageFrame;

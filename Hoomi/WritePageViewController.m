@@ -8,16 +8,19 @@
 #import "QuartzCore/QuartzCore.h"
 #import "WritePageViewController.h"
 #import "SheetOfThemeOne.h"
+#import "NoticeViewInWritePage.h"
 #import "NetworkObject.h"
 #import "Singletone.h"
 
-@interface WritePageViewController () <SheetOfThemeOneDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
+@interface WritePageViewController () <SheetOfThemeOneDelegate, NoticeViewInWritePageDelegate, UIScrollViewDelegate, UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UITextViewDelegate>
 
 /* 화면 세팅 관련 */
+@property (nonatomic, strong) NoticeViewInWritePage *noticeView;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SheetOfThemeOne *currentSheet;
 @property (nonatomic) CGFloat offsetWidth;//페이지 추가시 필요
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
+@property (nonatomic, strong) IBOutlet UIBarButtonItem *writeCancelButton;//작성취소버튼 텍스트 설정 때문에 필요
+@property (nonatomic) BOOL isFristLoad;
 
 /* 컨텐츠 세팅 관련 */
 @property (nonatomic) NSInteger currentPage;//현재 페이지
@@ -65,6 +68,7 @@
     /* 초기 페이지 세팅 */
     self.totalPageNumeberItem.title = [NSString stringWithFormat:@"%d", 1];
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%d", 1];
+    self.isFristLoad = YES;
     
     /* form theme number*/
     self.singleTone = [Singletone requestInstance];
@@ -76,11 +80,14 @@
     
     NSLog(@"첫 생성 total page count - %ld", self.totalPage);
     
-    // Notice animation (cheesing)
-//    if (self.totalPage == 1) {
-//        [self startNoticeAnimation];
-//    }
-    
+}
+
+-(void)viewDidLayoutSubviews {
+    // Notice animation
+    if (self.isFristLoad == YES) {
+        [self startNoticeAnimation];
+        self.isFristLoad = NO;
+    }
 }
 
 
@@ -95,18 +102,17 @@
 }
 
 -(void)selectWriteSheetByTheme:(NSInteger)formNumber {
+    
     self.totalPage += 1;
     NSLog(@"총 생성된 페이지 - %ld", self.totalPage);
+    
     if (formNumber == 1) {
         NSLog(@"테마1 입니다.");
         [self creatThemeOneSheet:self.totalPage];
     }
-    if (formNumber == 2) {
-        //추후 테마 별로 프레임 세팅할 수 있도록 메소드 분리 - cheesing
+    else {
+        NSLog(@"현재 준비 된 테마가 아닙니다.");
     }
-//    else {
-//        NSLog(@"준비된 테마가 아닙니다.");
-//    }
 }
 
 -(void)creatThemeOneSheet:(NSInteger)totalPage {
@@ -162,18 +168,20 @@
 /* 시작 시 안내 애니메이션 */
 -(void)startNoticeAnimation {
     
-    CGFloat rootViewWith = self.view.frame.size.width;
-    CGFloat rootViewHeight = self.view.frame.size.height;
+    CGFloat noticeViewWidth = 373 * 4/5;
+    CGFloat centerX = self.view.frame.size.width/2 - noticeViewWidth/2;
+    CGFloat noticeViewHight = 228 * 4/5;
+    CGFloat centerY = self.view.frame.size.height/2 - noticeViewHight/2;
     
-    UIImageView *noticeImage = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, rootViewWith, rootViewHeight)];
-    [noticeImage setImage:[UIImage imageNamed:@"notice"]];
-    [noticeImage setContentMode:UIViewContentModeScaleAspectFill];
-    [self.scrollView addSubview:noticeImage];
+    self.noticeView = [[NoticeViewInWritePage alloc]initWithNoticeFrame:CGRectMake(centerX, centerY - 20, noticeViewWidth, noticeViewHight)];
+    [self.noticeView creatNoticeViewObject];
+    self.noticeView.delegate = self;
+    self.noticeView.alpha = 0.0;
+    [self.view addSubview:self.noticeView];
     
-    [UIView animateWithDuration:5.0// 3.0초 동안
-                     animations:^{noticeImage.alpha = 0.0;} // 애니메이션 투명도 0.0으로 만들기
-                     completion:^(BOOL finished){
-                         [noticeImage removeFromSuperview];}];
+    [UIView animateWithDuration:2.0// 3.0초 동안
+                     animations:^{self.noticeView.alpha = 1.0;} // 애니메이션 투명도 1.0으로 만들기
+                     completion:nil];
 }
 
 
@@ -238,10 +246,19 @@
     [self showActionSheet];
 }
 
-/* close 기능 */
+/* 화면 close 기능 */
 - (IBAction)onTouchUpInsideCancelButton:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+/* notice 새창 close */
+-(void)onTouchUpInsideCloseButton {
+    NSLog(@"notice close");
+    [UIView animateWithDuration:2.0 animations:^{self.noticeView.alpha = 0.0;} completion:^(BOOL finished) {
+        [self.noticeView removeFromSuperview];
+    }];
+}
+
 
     /****************************/
    /*    화면에 사진 업로드 기능     */
@@ -342,6 +359,32 @@
     [self changePageNotice];
     
 }
+
+#pragma mark - textViewDelegate
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    if(textView.tag == 0) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+        textView.tag = 1;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if([textView.text length] == 0)
+    {
+        textView.text = @"1234";
+        textView.textColor = [UIColor lightGrayColor];
+        textView.tag = 0;
+    }
+}
+
+
+
+
 
 -(void)changePageNotice {
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage+1];
@@ -457,7 +500,7 @@
     self.loadingLabel.backgroundColor = [UIColor clearColor];
     self.loadingLabel.textColor = [UIColor whiteColor];
     self.loadingLabel.adjustsFontSizeToFitWidth = YES;
-    self.loadingLabel.textAlignment = UITextAlignmentCenter;
+    self.loadingLabel.textAlignment = NSTextAlignmentCenter;
     self.loadingLabel.text = @"Loading...";//바뀔 부분
     [self.loadingView addSubview:self.loadingLabel];
     
@@ -480,9 +523,7 @@
     
     NSString *hashID = [self.networkCenter hashID];
     //NSLog(@"4 🌞 hashID - %@", hashID);
-    
     for (NSInteger count = 0; count <= self.totalPage - 1; count++) {
-        
         NSMutableDictionary *sheetData = [self.dataArrayInStateOfArrangement objectAtIndex:count];
         UIImage *image = [sheetData objectForKey:@"image"];
         NSString *text = [sheetData objectForKey:@"text"];
@@ -490,7 +531,6 @@
         
         // call successUploadExperience
         [self.networkCenter uploadExperienceForMutipartWithAFNetwork:hashID image:image content:text page:page];
-        
     }
 }
 
