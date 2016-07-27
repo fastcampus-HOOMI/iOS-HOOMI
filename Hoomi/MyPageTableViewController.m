@@ -14,13 +14,11 @@
 #import <SDWebImage/UIImageView+WebCache.h>
 
 @interface MyPageTableViewController ()
-<UIPickerViewDelegate, UIPickerViewDataSource, UITableViewDelegate, UITableViewDataSource>
+<UITableViewDelegate, UITableViewDataSource>
 
 @property (nonatomic) NSMutableDictionary *listData;
 @property (nonatomic) NSArray *formList;
 @property (nonatomic) NSArray *infoImageNames;
-
-@property (nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic, weak) UIPickerView *formPicker;
 @property (nonatomic, weak) NSString *seletedForm;
@@ -64,7 +62,7 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     //상단 user info 테이블에 보여질 이미지
-    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"EmployeeCard-1.png"];
+    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"job_1.png"];
     
 }
 
@@ -143,36 +141,6 @@
     
 }
 
-
-
-
-#pragma mark - Picker view data source
-
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
-    
-    return 1;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
-    return [self.formList count];
-}
-
-- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    
-    return [self.formList objectAtIndex:row];
-}
-
-
-- (void)selectForm {
-    
-    [self.defaults setObject:self.seletedForm forKey:@"myForm"];
-    
-    [self.formSelectCustomView removeFromSuperview];
-    [self.effectView removeFromSuperview];
-}
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -191,7 +159,7 @@
     if (section == 0) {
         return 3;
     }
-    //서버에서 보내주는 이력서 수 카운트
+    //section == 1(내글목록) 에서는 서버에서 보내주는 이력서 수 카운트
     return [self.myContentDataArray count];
 }
 
@@ -203,7 +171,7 @@
         NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
         cell.imageView.image = [UIImage imageNamed:imageName];
         
-        //userinfoview - 이름/이메일/직업 받아온다
+        //userinfo view - 이름/이메일/직업 받아온다
         if(indexPath.row ==0) {
             cell.textLabel.text = self.userInfoName;
             
@@ -223,14 +191,13 @@
         
         cell.label.text = [self.myContentDataArray objectAtIndex:indexPath.row];
         [cell.label setTextColor:[UIColor whiteColor]];
-        //    [cell.label setFont:[UIFont fontWithName:@"HUDStarNight140" size:20.0f]];
-        
         [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
         
         return cell;
     }
     
 }
+
 
 //내글목록 셀 터치시 디테일뷰 이동
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -275,7 +242,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         
-        return 50.0f;
+        return 48.0f;
         
     }else{
     

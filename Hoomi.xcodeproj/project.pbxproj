@@ -21,6 +21,7 @@
 		418328711D37EFCE006B2268 /* NewPost-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286E1D37EFCE006B2268 /* NewPost-1.png */; };
 		418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286F1D37EFCE006B2268 /* NeutralUser-1.png */; };
 		418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 418328701D37EFCE006B2268 /* EmployeeCard-1.png */; };
+		41E5F8E91D477D55000FE886 /* job_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 41E5F8E81D477D55000FE886 /* job_1.png */; };
 		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
 		FF0756771D2FDC1400690662 /* career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0756761D2FDC1400690662 /* career@2x.png */; };
 		FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF07569B1D333E0F00690662 /* SignUpViewController.m */; };
@@ -36,10 +37,6 @@
 		FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5101D2E175F00EB409B /* EK.storyboard */; };
 		FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */; };
 		FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5161D2E184700EB409B /* MyPageTableViewController.m */; };
-		FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5171D2E184700EB409B /* nature11.jpg */; };
-		FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5181D2E184700EB409B /* nature22.jpg */; };
-		FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5191D2E184700EB409B /* nature33.jpg */; };
-		FF51D5201D2E184700EB409B /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D51A1D2E184700EB409B /* nature44.jpg */; };
 		FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5241D2F497F00EB409B /* NetworkObject.m */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
@@ -86,6 +83,7 @@
 		4183286E1D37EFCE006B2268 /* NewPost-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewPost-1.png"; sourceTree = "<group>"; };
 		4183286F1D37EFCE006B2268 /* NeutralUser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NeutralUser-1.png"; sourceTree = "<group>"; };
 		418328701D37EFCE006B2268 /* EmployeeCard-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmployeeCard-1.png"; sourceTree = "<group>"; };
+		41E5F8E81D477D55000FE886 /* job_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_1.png; sourceTree = "<group>"; };
 		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
 		FF0756761D2FDC1400690662 /* career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career@2x.png"; sourceTree = "<group>"; };
 		FF07569A1D333E0F00690662 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -106,10 +104,6 @@
 		FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageListTableViewCell.m; sourceTree = "<group>"; };
 		FF51D5151D2E184700EB409B /* MyPageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageTableViewController.h; sourceTree = "<group>"; };
 		FF51D5161D2E184700EB409B /* MyPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageTableViewController.m; sourceTree = "<group>"; };
-		FF51D5171D2E184700EB409B /* nature11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature11.jpg; sourceTree = "<group>"; };
-		FF51D5181D2E184700EB409B /* nature22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature22.jpg; sourceTree = "<group>"; };
-		FF51D5191D2E184700EB409B /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
-		FF51D51A1D2E184700EB409B /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
 		FF51D5231D2F497F00EB409B /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkObject.h; sourceTree = "<group>"; };
 		FF51D5241D2F497F00EB409B /* NetworkObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkObject.m; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -222,10 +216,7 @@
 				4183286E1D37EFCE006B2268 /* NewPost-1.png */,
 				4183286F1D37EFCE006B2268 /* NeutralUser-1.png */,
 				418328701D37EFCE006B2268 /* EmployeeCard-1.png */,
-				FF51D5171D2E184700EB409B /* nature11.jpg */,
-				FF51D5181D2E184700EB409B /* nature22.jpg */,
-				FF51D5191D2E184700EB409B /* nature33.jpg */,
-				FF51D51A1D2E184700EB409B /* nature44.jpg */,
+				41E5F8E81D477D55000FE886 /* job_1.png */,
 			);
 			name = MyPage;
 			sourceTree = "<group>";
@@ -416,7 +407,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FF6246EF1D3E85CC00277036 /* launch@2x.png in Resources */,
-				FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */,
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
 				FF6246F31D3E871B00277036 /* Spotlight40@2x.png in Resources */,
 				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
@@ -431,6 +421,7 @@
 				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
 				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
 				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
+				41E5F8E91D477D55000FE886 /* job_1.png in Resources */,
 				031572CD1D45D20400CC29ED /* uploadIcon.png in Resources */,
 				418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */,
 				03CD16421D474F1B0071B9D2 /* notice2.png in Resources */,
@@ -442,9 +433,7 @@
 				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
 				FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */,
 				031572D51D460DA000CC29ED /* user@2x.png in Resources */,
-				FF51D5201D2E184700EB409B /* nature44.jpg in Resources */,
 				FF6246FA1D3E879600277036 /* Spotlight40@3x.png in Resources */,
-				FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */,
 				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
 				418328711D37EFCE006B2268 /* NewPost-1.png in Resources */,
 				FF6246F51D3E872800277036 /* App60@2x.png in Resources */,
