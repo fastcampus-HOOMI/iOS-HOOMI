@@ -173,7 +173,7 @@
     CGFloat noticeViewHight = 228 * 4/5;
     CGFloat centerY = self.view.frame.size.height/2 - noticeViewHight/2;
     
-    self.noticeView = [[NoticeViewInWritePage alloc]initWithNoticeFrame:CGRectMake(centerX, centerY, noticeViewWidth, noticeViewHight)];
+    self.noticeView = [[NoticeViewInWritePage alloc]initWithNoticeFrame:CGRectMake(centerX, centerY - 20, noticeViewWidth, noticeViewHight)];
     [self.noticeView creatNoticeViewObject];
     self.noticeView.delegate = self;
     self.noticeView.alpha = 0.0;
@@ -359,6 +359,32 @@
     [self changePageNotice];
     
 }
+
+#pragma mark - textViewDelegate
+
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    if(textView.tag == 0) {
+        textView.text = @"";
+        textView.textColor = [UIColor blackColor];
+        textView.tag = 1;
+    }
+    return YES;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if([textView.text length] == 0)
+    {
+        textView.text = @"1234";
+        textView.textColor = [UIColor lightGrayColor];
+        textView.tag = 0;
+    }
+}
+
+
+
+
 
 -(void)changePageNotice {
     self.currentPageNumberItem.title = [NSString stringWithFormat:@"%ld", self.currentPage+1];

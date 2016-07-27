@@ -38,7 +38,7 @@
 
 -(void)creatNoticeViewObject {
     
-    self.noticeImage.image = [UIImage imageNamed:@"notice2"];
+    self.noticeImage.image = [UIImage imageNamed:@"notice"];
     self.noticeImage.contentMode = UIViewContentModeScaleAspectFill;
     self.noticeImage.clipsToBounds = YES;
     [self.noticeImage setUserInteractionEnabled:YES];
