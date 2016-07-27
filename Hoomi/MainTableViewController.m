@@ -354,8 +354,10 @@
 }
 
 - (void)selectUMAlertCancelButton {
-    
+    [self scrollAndButtonEnable:YES];
     [self.umAlertView um_dismissAlertView];
+    
+    
 }
 
 /**
