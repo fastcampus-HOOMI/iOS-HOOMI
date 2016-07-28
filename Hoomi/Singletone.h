@@ -65,7 +65,7 @@ typedef NS_ENUM(NSInteger, ToastMsg) {
 };
 
 typedef NS_ENUM(NSInteger, Color) {
-    
+    SignUpIn,
     Salmon,
     Concrete,
     Danube,

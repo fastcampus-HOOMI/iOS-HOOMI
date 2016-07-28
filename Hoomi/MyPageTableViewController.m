@@ -8,6 +8,7 @@
 
 #import "MyPageTableViewController.h"
 #import "MyPageListTableViewCell.h"
+#import "UserInfoTableViewCell.h"
 #import "NetworkObject.h"
 #import "Singletone.h"
 #import "DetailResumeViewController.h"
@@ -62,7 +63,7 @@
     [self.refreshControl addTarget:self action:@selector(refreshTable) forControlEvents:UIControlEventValueChanged];
     
     //상단 user info 테이블에 보여질 이미지
-    self.infoImageNames = @[@"NeutralUser-1.png", @"NewPost-1.png", @"job_1.png"];
+    self.infoImageNames = @[@"Mypage-User", @"Mypage-Mail", @"Mypage-Job"];
     
 }
 
@@ -166,19 +167,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if (indexPath.section == 0) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
+        UserInfoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"InfoCell"];
         
         NSString *imageName = [self.infoImageNames objectAtIndex:indexPath.row];
-        cell.imageView.image = [UIImage imageNamed:imageName];
+        cell.image.image = [UIImage imageNamed:imageName];
         
         //userinfo view - 이름/이메일/직업 받아온다
         if(indexPath.row ==0) {
-            cell.textLabel.text = self.userInfoName;
-            
+            cell.label.text = self.userInfoName;
         } else if(indexPath.row == 1) {
-            cell.textLabel.text = [self.networkObject.userInfoJSONArray objectAtIndex:2];
+            cell.label.text = [self.networkObject.userInfoJSONArray objectAtIndex:2];
         } else if(indexPath.row == 2) {
-            cell.textLabel.text = [self.networkObject.userInfoJSONArray objectAtIndex:3];
+            NSString *localJob = nil;
+            NSString *serverJob = [self.networkObject.userInfoJSONArray objectAtIndex:3];
+            if([serverJob isEqualToString:@"Photographer"]) {
+                localJob = @"포토그래퍼";
+            }
+            
+            cell.label.text = localJob;
         }
         
         return cell;
@@ -238,15 +244,11 @@
 
 }
 
-//내글 목록 ui들
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        
-        return 48.0f;
-        
-    }else{
-    
-        return 112.f;
+    if(indexPath.section == 0){
+        return 50.0f;
+    } else {
+        return 250.f;
     }
 }
 
