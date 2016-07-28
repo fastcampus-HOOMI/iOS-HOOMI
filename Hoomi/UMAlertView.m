@@ -81,7 +81,7 @@ static BOOL isScrollPickerView = NO;
     [cancelButton addTarget:self action:@selector(alertCancelButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *saveButton = [[UIButton alloc] initWithFrame:CGRectMake(self.umAlertView.frame.size.width - 5.f - cancelButton.frame.size.width, UM_ALERT_VIEW_MARGIN_ZERO, 50.f, 44.f)];
-    [saveButton setTitle:@"저장" forState:UIControlStateNormal];
+    [saveButton setTitle:@"선택" forState:UIControlStateNormal];
     [saveButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [saveButton addTarget:self action:@selector(alertButtonAction) forControlEvents:UIControlEventTouchUpInside];
     
