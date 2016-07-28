@@ -52,6 +52,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    /* observer 등록 */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successCreatJobHistory) name:CreatJobHistorySuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(successUploadExperience) name:CreatExperienceSuccessNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(failUploadExperience) name:CreatExperienceFailNotification object:nil];
