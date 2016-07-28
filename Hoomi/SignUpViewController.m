@@ -46,10 +46,10 @@
     });
     
     
-    [self.view setBackgroundColor:[self.singleTone colorName:Tuna]];
+    [self.view setBackgroundColor:[self.singleTone colorName:SignUpIn]];
     
     self.title = @"회원가입";
-    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:Tuna]];
+    [self.navigationController.navigationBar setBarTintColor:[self.singleTone colorName:SignUpIn]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

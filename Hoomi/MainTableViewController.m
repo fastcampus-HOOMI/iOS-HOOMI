@@ -194,7 +194,7 @@
     
     UILabel *subTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, titleView.frame.size.height / 2, titleView.frame.size.width, titleView.frame.size.height / 2)];
     [subTitle setTextColor:[UIColor whiteColor]];
-    [subTitle setText:@"인기글"];
+    [subTitle setText:@"추천글"];
     [subTitle setFont:[UIFont systemFontOfSize:11.0f]];
     [subTitle setTextAlignment:NSTextAlignmentCenter];
     
@@ -401,7 +401,7 @@
     
     cell.label.text = [[self.contentDataArray objectAtIndex:indexPath.row] stringByAppendingString:byUsername];
     [cell.label setTextColor:[UIColor whiteColor]];
-    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"default-placeholder.png"]];
+    [cell.image sd_setImageWithURL:[NSURL URLWithString:[self.imageDataArray objectAtIndex:indexPath.row]] placeholderImage:[UIImage imageNamed:@"Placeholder"]];
 
     return cell;
 }

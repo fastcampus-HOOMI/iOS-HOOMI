@@ -54,7 +54,7 @@
     // 로그인 Indicator 설정
     [self indicatorRunStatus:NO];
     
-    [self.view setBackgroundColor:[self.singleTone colorName:Tuna]];
+    [self.view setBackgroundColor:[self.singleTone colorName:SignUpIn]];
     
     // Set Custom TextField
     NSMutableArray *textfields = [[NSMutableArray alloc] initWithObjects:self.userIDTextfield, self.passwordTextfield, nil];

@@ -29,6 +29,9 @@
     UIColor *returnColorValue = nil;
     
     switch (name) {
+        case Tuna:
+            returnColorValue = [UIColor colorWithRed:26.0/255.0 green:188.0/255.0 blue:156.0/255.0 alpha:colorAlpha];
+            break;
         case Salmon:
             returnColorValue = [UIColor colorWithRed:0.94 green:0.51 blue:0.44 alpha:colorAlpha];
             break;
@@ -38,7 +41,7 @@
         case Danube:
             returnColorValue = [UIColor colorWithRed:0.36 green:0.50 blue:0.89 alpha:colorAlpha];
             break;
-        case Tuna:
+        case SignUpIn:
             returnColorValue = [UIColor colorWithRed:0.20 green:0.21 blue:0.26 alpha:colorAlpha];
             break;
         case OutrageousOrange:
