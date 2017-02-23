@@ -7,25 +7,135 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		030C2C5E1D374A43001AF242 /* notice.png in Resources */ = {isa = PBXBuildFile; fileRef = 030C2C5D1D374A43001AF242 /* notice.png */; };
+		03B149AF1D33444C00262E65 /* pageAdd.png in Resources */ = {isa = PBXBuildFile; fileRef = 03B149AE1D33444C00262E65 /* pageAdd.png */; };
+		03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */ = {isa = PBXBuildFile; fileRef = 03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */; };
+		03DCAC971D325F6E0012CA65 /* save.png in Resources */ = {isa = PBXBuildFile; fileRef = 03DCAC951D325F6E0012CA65 /* save.png */; };
+		418328711D37EFCE006B2268 /* NewPost-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286E1D37EFCE006B2268 /* NewPost-1.png */; };
+		418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4183286F1D37EFCE006B2268 /* NeutralUser-1.png */; };
+		418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 418328701D37EFCE006B2268 /* EmployeeCard-1.png */; };
+		70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */; };
+		FF0756771D2FDC1400690662 /* career@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF0756761D2FDC1400690662 /* career@2x.png */; };
+		FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF07569B1D333E0F00690662 /* SignUpViewController.m */; };
+		FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF084D6D1D36357800A7F51A /* HitContentViewController.m */; };
+		FF084D741D38A87D00A7F51A /* default-placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = FF084D731D38A87D00A7F51A /* default-placeholder.png */; };
+		FF1EC8C91D436B5600070709 /* UMAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = FF1EC8C81D436B5600070709 /* UMAlertView.m */; };
+		FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4F41D2DEE7600EB409B /* Uma.storyboard */; };
+		FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D4F91D2E151B00EB409B /* WritePageViewController.m */; };
+		FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FC1D2E151B00EB409B /* grayColor.jpg */; };
+		FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = FF51D4FD1D2E151B00EB409B /* uploadIcon.png */; };
+		FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */; };
+		FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5061D2E152B00EB409B /* 1.jpg */; };
+		FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5071D2E152B00EB409B /* 2.jpg */; };
+		FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5081D2E152B00EB409B /* 3.jpg */; };
+		FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D50E1D2E15C900EB409B /* Cheese.storyboard */; };
+		FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5101D2E175F00EB409B /* EK.storyboard */; };
+		FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */; };
+		FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5161D2E184700EB409B /* MyPageTableViewController.m */; };
+		FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5171D2E184700EB409B /* nature11.jpg */; };
+		FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5181D2E184700EB409B /* nature22.jpg */; };
+		FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D5191D2E184700EB409B /* nature33.jpg */; };
+		FF51D5201D2E184700EB409B /* nature44.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF51D51A1D2E184700EB409B /* nature44.jpg */; };
+		FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */ = {isa = PBXBuildFile; fileRef = FF51D5241D2F497F00EB409B /* NetworkObject.m */; };
 		FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904D91D20D1ED001FC9A0 /* main.m */; };
 		FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */; };
-		FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF5904DF1D20D1ED001FC9A0 /* ViewController.m */; };
-		FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E11D20D1ED001FC9A0 /* Main.storyboard */; };
 		FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */; };
 		FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */; };
+		FF6246EF1D3E85CC00277036 /* launch@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246EE1D3E85CC00277036 /* launch@2x.png */; };
+		FF6246F11D3E870E00277036 /* iPhone29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F01D3E870E00277036 /* iPhone29@2x.png */; };
+		FF6246F31D3E871B00277036 /* Spotlight40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F21D3E871B00277036 /* Spotlight40@2x.png */; };
+		FF6246F51D3E872800277036 /* App60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F41D3E872800277036 /* App60@2x.png */; };
+		FF6246F91D3E879600277036 /* App60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F61D3E879600277036 /* App60@3x.png */; };
+		FF6246FA1D3E879600277036 /* Spotlight40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F71D3E879600277036 /* Spotlight40@3x.png */; };
+		FF6246FB1D3E879600277036 /* iPhone29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = FF6246F81D3E879600277036 /* iPhone29@3x.png */; };
+		FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF65A0561D24DC470013C181 /* SignInViewController.m */; };
+		FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2161D2B683600D359D0 /* MainTableViewController.m */; };
+		FF82D21C1D2B8A2100D359D0 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21B1D2B8A2100D359D0 /* background.png */; };
+		FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D21D1D2B8E5800D359D0 /* nature.jpg */; };
+		FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */; };
+		FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = FF82D2221D2B917800D359D0 /* nature1.jpg */; };
+		FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */ = {isa = PBXBuildFile; fileRef = FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */; };
+		FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */; };
+		FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */; };
+		FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */; };
+		FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */; };
+		FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */ = {isa = PBXBuildFile; fileRef = FFE36DC41D2CEDB200E157D0 /* Singletone.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		030C2C5D1D374A43001AF242 /* notice.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notice.png; sourceTree = "<group>"; };
+		03B149AE1D33444C00262E65 /* pageAdd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pageAdd.png; sourceTree = "<group>"; };
+		03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SheetOfThemeOne.h; sourceTree = "<group>"; };
+		03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SheetOfThemeOne.m; sourceTree = "<group>"; };
+		03DCAC951D325F6E0012CA65 /* save.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = save.png; sourceTree = "<group>"; };
+		1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.release.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.release.xcconfig"; sourceTree = "<group>"; };
+		32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Hoomi.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4183286E1D37EFCE006B2268 /* NewPost-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NewPost-1.png"; sourceTree = "<group>"; };
+		4183286F1D37EFCE006B2268 /* NeutralUser-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "NeutralUser-1.png"; sourceTree = "<group>"; };
+		418328701D37EFCE006B2268 /* EmployeeCard-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "EmployeeCard-1.png"; sourceTree = "<group>"; };
+		C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hoomi.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi.debug.xcconfig"; sourceTree = "<group>"; };
+		FF0756761D2FDC1400690662 /* career@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "career@2x.png"; sourceTree = "<group>"; };
+		FF07569A1D333E0F00690662 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		FF07569B1D333E0F00690662 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		FF084D6C1D36357800A7F51A /* HitContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HitContentViewController.h; sourceTree = "<group>"; };
+		FF084D6D1D36357800A7F51A /* HitContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HitContentViewController.m; sourceTree = "<group>"; };
+		FF084D731D38A87D00A7F51A /* default-placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default-placeholder.png"; sourceTree = "<group>"; };
+		FF1EC8C71D436B5600070709 /* UMAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMAlertView.h; sourceTree = "<group>"; };
+		FF1EC8C81D436B5600070709 /* UMAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMAlertView.m; sourceTree = "<group>"; };
+		FF51D4F41D2DEE7600EB409B /* Uma.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Uma.storyboard; sourceTree = "<group>"; };
+		FF51D4F81D2E151B00EB409B /* WritePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WritePageViewController.h; path = Hoomi/WritePageViewController.h; sourceTree = "<group>"; };
+		FF51D4F91D2E151B00EB409B /* WritePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WritePageViewController.m; path = Hoomi/WritePageViewController.m; sourceTree = "<group>"; };
+		FF51D4FC1D2E151B00EB409B /* grayColor.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = grayColor.jpg; sourceTree = "<group>"; };
+		FF51D4FD1D2E151B00EB409B /* uploadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = uploadIcon.png; sourceTree = "<group>"; };
+		FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailResumeViewController.h; path = Hoomi/DetailResumeViewController.h; sourceTree = "<group>"; };
+		FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailResumeViewController.m; path = Hoomi/DetailResumeViewController.m; sourceTree = "<group>"; };
+		FF51D5061D2E152B00EB409B /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		FF51D5071D2E152B00EB409B /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		FF51D5081D2E152B00EB409B /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		FF51D50E1D2E15C900EB409B /* Cheese.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Cheese.storyboard; sourceTree = "<group>"; };
+		FF51D5101D2E175F00EB409B /* EK.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = EK.storyboard; sourceTree = "<group>"; };
+		FF51D5131D2E184700EB409B /* MyPageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageListTableViewCell.h; sourceTree = "<group>"; };
+		FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageListTableViewCell.m; sourceTree = "<group>"; };
+		FF51D5151D2E184700EB409B /* MyPageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPageTableViewController.h; sourceTree = "<group>"; };
+		FF51D5161D2E184700EB409B /* MyPageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPageTableViewController.m; sourceTree = "<group>"; };
+		FF51D5171D2E184700EB409B /* nature11.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature11.jpg; sourceTree = "<group>"; };
+		FF51D5181D2E184700EB409B /* nature22.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature22.jpg; sourceTree = "<group>"; };
+		FF51D5191D2E184700EB409B /* nature33.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature33.jpg; sourceTree = "<group>"; };
+		FF51D51A1D2E184700EB409B /* nature44.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature44.jpg; sourceTree = "<group>"; };
+		FF51D5231D2F497F00EB409B /* NetworkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkObject.h; sourceTree = "<group>"; };
+		FF51D5241D2F497F00EB409B /* NetworkObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkObject.m; sourceTree = "<group>"; };
 		FF5904D51D20D1EC001FC9A0 /* Hoomi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hoomi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF5904D91D20D1ED001FC9A0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		FF5904DE1D20D1ED001FC9A0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		FF5904DF1D20D1ED001FC9A0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		FF5904E21D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF5904E71D20D1ED001FC9A0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF5904E91D20D1ED001FC9A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF6246EE1D3E85CC00277036 /* launch@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "launch@2x.png"; sourceTree = "<group>"; };
+		FF6246F01D3E870E00277036 /* iPhone29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone29@2x.png"; sourceTree = "<group>"; };
+		FF6246F21D3E871B00277036 /* Spotlight40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spotlight40@2x.png"; sourceTree = "<group>"; };
+		FF6246F41D3E872800277036 /* App60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App60@2x.png"; sourceTree = "<group>"; };
+		FF6246F61D3E879600277036 /* App60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "App60@3x.png"; sourceTree = "<group>"; };
+		FF6246F71D3E879600277036 /* Spotlight40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Spotlight40@3x.png"; sourceTree = "<group>"; };
+		FF6246F81D3E879600277036 /* iPhone29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPhone29@3x.png"; sourceTree = "<group>"; };
+		FF65A0551D24DC470013C181 /* SignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignInViewController.h; sourceTree = "<group>"; };
+		FF65A0561D24DC470013C181 /* SignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignInViewController.m; sourceTree = "<group>"; };
+		FF82D2151D2B683600D359D0 /* MainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainTableViewController.h; sourceTree = "<group>"; };
+		FF82D2161D2B683600D359D0 /* MainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
+		FF82D21B1D2B8A2100D359D0 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		FF82D21D1D2B8E5800D359D0 /* nature.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature.jpg; sourceTree = "<group>"; };
+		FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageListTableViewCell.h; sourceTree = "<group>"; };
+		FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageListTableViewCell.m; sourceTree = "<group>"; };
+		FF82D2221D2B917800D359D0 /* nature1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = nature1.jpg; sourceTree = "<group>"; };
+		FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HOOMI@2X.png"; sourceTree = "<group>"; };
+		FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
+		FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Hoomi.entitlements; sourceTree = "<group>"; };
+		FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICKeyChainStore.h; sourceTree = "<group>"; };
+		FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICKeyChainStore.m; sourceTree = "<group>"; };
+		FFE36DC31D2CEDB200E157D0 /* Singletone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Singletone.h; sourceTree = "<group>"; };
+		FFE36DC41D2CEDB200E157D0 /* Singletone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Singletone.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +143,119 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFA4D35E1D2791D10029FDB1 /* FBSDKLoginKit.framework in Frameworks */,
+				FFA4D35C1D278ED10029FDB1 /* FBSDKCoreKit.framework in Frameworks */,
+				FFA4D3651D27C42B0029FDB1 /* KakaoOpenSDK.framework in Frameworks */,
+				70D6D198F2D064899A5C13CD /* libPods-Hoomi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0378EDEC1D2E33A800F14DAA /* Sheet */ = {
+			isa = PBXGroup;
+			children = (
+				03DCAC521D2F566A0012CA65 /* SheetOfThemeOne.h */,
+				03DCAC531D2F566A0012CA65 /* SheetOfThemeOne.m */,
+				FF51D5061D2E152B00EB409B /* 1.jpg */,
+				FF51D5071D2E152B00EB409B /* 2.jpg */,
+				FF51D5081D2E152B00EB409B /* 3.jpg */,
+				FF51D4FC1D2E151B00EB409B /* grayColor.jpg */,
+				FF51D4FD1D2E151B00EB409B /* uploadIcon.png */,
+				03B149AE1D33444C00262E65 /* pageAdd.png */,
+				03DCAC951D325F6E0012CA65 /* save.png */,
+			);
+			name = Sheet;
+			sourceTree = "<group>";
+		};
+		03DCAC551D2F7B700012CA65 /* ContentsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FF51D5021D2E152B00EB409B /* DetailResumeViewController.h */,
+				FF51D5031D2E152B00EB409B /* DetailResumeViewController.m */,
+				FF51D4F81D2E151B00EB409B /* WritePageViewController.h */,
+				FF51D4F91D2E151B00EB409B /* WritePageViewController.m */,
+				030C2C5D1D374A43001AF242 /* notice.png */,
+			);
+			name = ContentsViewController;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		805B089F0550420D326CFC19 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */,
+				1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DE75E256C16A907D50A9F6B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32CB01700DD2079FA54722A2 /* libPods-Hoomi.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FF51D5121D2E183000EB409B /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				FF51D5131D2E184700EB409B /* MyPageListTableViewCell.h */,
+				FF51D5141D2E184700EB409B /* MyPageListTableViewCell.m */,
+				FF51D5151D2E184700EB409B /* MyPageTableViewController.h */,
+				FF51D5161D2E184700EB409B /* MyPageTableViewController.m */,
+				4183286E1D37EFCE006B2268 /* NewPost-1.png */,
+				4183286F1D37EFCE006B2268 /* NeutralUser-1.png */,
+				418328701D37EFCE006B2268 /* EmployeeCard-1.png */,
+				FF51D5171D2E184700EB409B /* nature11.jpg */,
+				FF51D5181D2E184700EB409B /* nature22.jpg */,
+				FF51D5191D2E184700EB409B /* nature33.jpg */,
+				FF51D51A1D2E184700EB409B /* nature44.jpg */,
+			);
+			name = MyPage;
+			sourceTree = "<group>";
+		};
+		FF51D5211D2E1AAE00EB409B /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				FF084D731D38A87D00A7F51A /* default-placeholder.png */,
+				FF82D2151D2B683600D359D0 /* MainTableViewController.h */,
+				FF82D2161D2B683600D359D0 /* MainTableViewController.m */,
+				FF82D21F1D2B8ED800D359D0 /* ImageListTableViewCell.h */,
+				FF82D2201D2B8ED800D359D0 /* ImageListTableViewCell.m */,
+				FF084D6C1D36357800A7F51A /* HitContentViewController.h */,
+				FF084D6D1D36357800A7F51A /* HitContentViewController.m */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		FF51D5221D2E1AF300EB409B /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				FF6246F01D3E870E00277036 /* iPhone29@2x.png */,
+				FF6246F21D3E871B00277036 /* Spotlight40@2x.png */,
+				FF6246F41D3E872800277036 /* App60@2x.png */,
+				FF6246F61D3E879600277036 /* App60@3x.png */,
+				FF6246F71D3E879600277036 /* Spotlight40@3x.png */,
+				FF6246F81D3E879600277036 /* iPhone29@3x.png */,
+				FF6246EE1D3E85CC00277036 /* launch@2x.png */,
+				FF51D4F41D2DEE7600EB409B /* Uma.storyboard */,
+				FF51D50E1D2E15C900EB409B /* Cheese.storyboard */,
+				FF51D5101D2E175F00EB409B /* EK.storyboard */,
+				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboard;
+			sourceTree = "<group>";
+		};
 		FF5904CC1D20D1EC001FC9A0 = {
 			isa = PBXGroup;
 			children = (
 				FF5904D71D20D1EC001FC9A0 /* Hoomi */,
 				FF5904D61D20D1EC001FC9A0 /* Products */,
+				805B089F0550420D326CFC19 /* Pods */,
+				DE75E256C16A907D50A9F6B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,12 +272,23 @@
 			children = (
 				FF5904DB1D20D1ED001FC9A0 /* AppDelegate.h */,
 				FF5904DC1D20D1ED001FC9A0 /* AppDelegate.m */,
-				FF5904DE1D20D1ED001FC9A0 /* ViewController.h */,
-				FF5904DF1D20D1ED001FC9A0 /* ViewController.m */,
-				FF5904E11D20D1ED001FC9A0 /* Main.storyboard */,
+				FFE36DC31D2CEDB200E157D0 /* Singletone.h */,
+				FFE36DC41D2CEDB200E157D0 /* Singletone.m */,
+				FF51D5231D2F497F00EB409B /* NetworkObject.h */,
+				FF51D5241D2F497F00EB409B /* NetworkObject.m */,
+				FF1EC8C71D436B5600070709 /* UMAlertView.h */,
+				FF1EC8C81D436B5600070709 /* UMAlertView.m */,
+				FF51D5221D2E1AF300EB409B /* Storyboard */,
+				FF65A0581D24DDE90013C181 /* SignView */,
+				FF51D5211D2E1AAE00EB409B /* Main */,
+				0378EDEC1D2E33A800F14DAA /* Sheet */,
+				03DCAC551D2F7B700012CA65 /* ContentsViewController */,
+				FF51D5121D2E183000EB409B /* MyPage */,
+				FFA4D3711D27D8360029FDB1 /* Keychain */,
+				FFA4D3701D27D7DC0029FDB1 /* Hoomi.entitlements */,
 				FF5904E41D20D1ED001FC9A0 /* Assets.xcassets */,
-				FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */,
 				FF5904E91D20D1ED001FC9A0 /* Info.plist */,
+				FFA4D35A1D278EA80029FDB1 /* Frameworks */,
 				FF5904D81D20D1EC001FC9A0 /* Supporting Files */,
 			);
 			path = Hoomi;
@@ -79,6 +302,41 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		FF65A0581D24DDE90013C181 /* SignView */ = {
+			isa = PBXGroup;
+			children = (
+				FF82D21D1D2B8E5800D359D0 /* nature.jpg */,
+				FF82D2221D2B917800D359D0 /* nature1.jpg */,
+				FF82D21B1D2B8A2100D359D0 /* background.png */,
+				FFA4D3581D26D1220029FDB1 /* HOOMI@2X.png */,
+				FF0756761D2FDC1400690662 /* career@2x.png */,
+				FF65A0551D24DC470013C181 /* SignInViewController.h */,
+				FF65A0561D24DC470013C181 /* SignInViewController.m */,
+				FF07569A1D333E0F00690662 /* SignUpViewController.h */,
+				FF07569B1D333E0F00690662 /* SignUpViewController.m */,
+			);
+			name = SignView;
+			sourceTree = "<group>";
+		};
+		FFA4D35A1D278EA80029FDB1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D3641D27C42B0029FDB1 /* KakaoOpenSDK.framework */,
+				FFA4D35D1D2791D10029FDB1 /* FBSDKLoginKit.framework */,
+				FFA4D35B1D278ED10029FDB1 /* FBSDKCoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FFA4D3711D27D8360029FDB1 /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4D3781D27DE190029FDB1 /* UICKeyChainStore.h */,
+				FFA4D3791D27DE190029FDB1 /* UICKeyChainStore.m */,
+			);
+			name = Keychain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +344,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF5904EC1D20D1ED001FC9A0 /* Build configuration list for PBXNativeTarget "Hoomi" */;
 			buildPhases = (
+				377918E6DD66E4C3CF9D45E0 /* [CP] Check Pods Manifest.lock */,
 				FF5904D11D20D1EC001FC9A0 /* Sources */,
 				FF5904D21D20D1EC001FC9A0 /* Frameworks */,
 				FF5904D31D20D1EC001FC9A0 /* Resources */,
+				9031D90A7B4C93C2A230A49B /* [CP] Embed Pods Frameworks */,
+				8BD00301774700F65827E3F2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -110,6 +371,12 @@
 				TargetAttributes = {
 					FF5904D41D20D1EC001FC9A0 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = PAFK4RNFW2;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -136,36 +403,120 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF6246EF1D3E85CC00277036 /* launch@2x.png in Resources */,
+				FF51D51F1D2E184700EB409B /* nature33.jpg in Resources */,
 				FF5904E81D20D1ED001FC9A0 /* LaunchScreen.storyboard in Resources */,
+				FF6246F31D3E871B00277036 /* Spotlight40@2x.png in Resources */,
+				FF82D21C1D2B8A2100D359D0 /* background.png in Resources */,
+				FFA4D3591D26D1220029FDB1 /* HOOMI@2X.png in Resources */,
+				03B149AF1D33444C00262E65 /* pageAdd.png in Resources */,
 				FF5904E51D20D1ED001FC9A0 /* Assets.xcassets in Resources */,
-				FF5904E31D20D1ED001FC9A0 /* Main.storyboard in Resources */,
+				03DCAC971D325F6E0012CA65 /* save.png in Resources */,
+				FF084D741D38A87D00A7F51A /* default-placeholder.png in Resources */,
+				FF6246F11D3E870E00277036 /* iPhone29@2x.png in Resources */,
+				FF51D50C1D2E152B00EB409B /* 2.jpg in Resources */,
+				FF51D50F1D2E15C900EB409B /* Cheese.storyboard in Resources */,
+				FF51D50B1D2E152B00EB409B /* 1.jpg in Resources */,
+				FF51D4F51D2DEE7600EB409B /* Uma.storyboard in Resources */,
+				418328721D37EFCE006B2268 /* NeutralUser-1.png in Resources */,
+				FF51D51D1D2E184700EB409B /* nature11.jpg in Resources */,
+				FF6246F91D3E879600277036 /* App60@3x.png in Resources */,
+				FF0756771D2FDC1400690662 /* career@2x.png in Resources */,
+				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
+				FF51D5011D2E151B00EB409B /* uploadIcon.png in Resources */,
+				FF51D50D1D2E152B00EB409B /* 3.jpg in Resources */,
+				FF82D21E1D2B8E5800D359D0 /* nature.jpg in Resources */,
+				FF51D5111D2E175F00EB409B /* EK.storyboard in Resources */,
+				FF51D5201D2E184700EB409B /* nature44.jpg in Resources */,
+				FF6246FA1D3E879600277036 /* Spotlight40@3x.png in Resources */,
+				FF51D51E1D2E184700EB409B /* nature22.jpg in Resources */,
+				FF82D2231D2B917800D359D0 /* nature1.jpg in Resources */,
+				418328711D37EFCE006B2268 /* NewPost-1.png in Resources */,
+				FF6246F51D3E872800277036 /* App60@2x.png in Resources */,
+				FF51D5001D2E151B00EB409B /* grayColor.jpg in Resources */,
+				418328731D37EFCE006B2268 /* EmployeeCard-1.png in Resources */,
+				030C2C5E1D374A43001AF242 /* notice.png in Resources */,
+				FF6246FB1D3E879600277036 /* iPhone29@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		377918E6DD66E4C3CF9D45E0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8BD00301774700F65827E3F2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9031D90A7B4C93C2A230A49B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Hoomi/Pods-Hoomi-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FF5904D11D20D1EC001FC9A0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF5904E01D20D1ED001FC9A0 /* ViewController.m in Sources */,
+				FF51D51C1D2E184700EB409B /* MyPageTableViewController.m in Sources */,
+				FF51D5251D2F497F00EB409B /* NetworkObject.m in Sources */,
+				FF65A0571D24DC470013C181 /* SignInViewController.m in Sources */,
+				FF51D51B1D2E184700EB409B /* MyPageListTableViewCell.m in Sources */,
 				FF5904DD1D20D1ED001FC9A0 /* AppDelegate.m in Sources */,
+				FF07569C1D333E0F00690662 /* SignUpViewController.m in Sources */,
+				FF82D2171D2B683600D359D0 /* MainTableViewController.m in Sources */,
 				FF5904DA1D20D1ED001FC9A0 /* main.m in Sources */,
+				FF51D4FE1D2E151B00EB409B /* WritePageViewController.m in Sources */,
+				FF82D2211D2B8ED800D359D0 /* ImageListTableViewCell.m in Sources */,
+				FFA4D37A1D27DE190029FDB1 /* UICKeyChainStore.m in Sources */,
+				FF51D5091D2E152B00EB409B /* DetailResumeViewController.m in Sources */,
+				FFE36DC51D2CEDB200E157D0 /* Singletone.m in Sources */,
+				FF1EC8C91D436B5600070709 /* UMAlertView.m in Sources */,
+				FF084D6E1D36357800A7F51A /* HitContentViewController.m in Sources */,
+				03DCAC541D2F566A0012CA65 /* SheetOfThemeOne.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		FF5904E11D20D1ED001FC9A0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FF5904E21D20D1ED001FC9A0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		FF5904E61D20D1ED001FC9A0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -200,6 +551,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/najanda/Desktop/iOS-HOOMI/Hoomi/FBSDKCoreKit.framework";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -217,6 +569,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -244,6 +597,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Users/najanda/Desktop/iOS-HOOMI/Hoomi/FBSDKCoreKit.framework";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -254,6 +608,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-all_load";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -261,23 +616,41 @@
 		};
 		FF5904ED1D20D1ED001FC9A0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C419A2427DD9F78C45EB169A /* Pods-Hoomi.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Hoomi",
+				);
 				INFOPLIST_FILE = Hoomi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
 		FF5904EE1D20D1ED001FC9A0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A445F88C0C211D1B5C745A5 /* Pods-Hoomi.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Hoomi/Hoomi.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Hoomi",
+				);
 				INFOPLIST_FILE = Hoomi/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zzzbag.Hoomi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -300,6 +673,7 @@
 				FF5904EE1D20D1ED001FC9A0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
